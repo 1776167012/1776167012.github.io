@@ -6,8 +6,8 @@
   --color-text-secondary: #4e4e4e;
   --color-text-third: #999;
   --color-border: #eee;
-  --background-image: url("/images/theme/welcome-image.jpg");
-  --loading-image: url("/images/theme/loading.gif");
+  --background-image: url("");
+  --loading-image: url("/muzhi-blog.github.io/images/theme/loading.gif");
   --lazyload-image: url("/images/theme/loading.gif");
 }
 @media (prefers-color-scheme: dark) {
@@ -22,8 +22,8 @@
     --color-text-secondary: #9899ab;
     --color-text-third: #7d8594;
     --color-border: #2b3038;
-    --background-image: url("/images/theme/welcome-image.jpg");
-    --loading-image: url("/images/theme/loading.gif");
+    --background-image: url("");
+    --loading-image: url("/muzhi-blog.github.io/images/theme/loading.gif");
     --lazyload-image: url("/images/theme/loading.gif");
   }
 }
@@ -35,8 +35,8 @@
   --color-text-secondary: #9899ab;
   --color-text-third: #7d8594;
   --color-border: #2b3038;
-  --background-image: url("/images/theme/welcome-image.jpg");
-  --loading-image: url("/images/theme/loading.gif");
+  --background-image: url("");
+  --loading-image: url("/muzhi-blog.github.io/images/theme/loading.gif");
   --lazyload-image: url("/images/theme/loading.gif");
 }
 [color-mode='dark'] .tags a {
@@ -1124,7 +1124,7 @@ body input {
   width: 100%;
   background-image: var(--background-image);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100% 100%;
   background-position: center;
   background-attachment: fixed;
   position: relative;
@@ -1192,7 +1192,7 @@ body input {
   font-size: 3.5em;
   font-family: 'Quicksand', 'Vollkorn', serif;
   font-weight: 300;
-  color: #000;
+  color: #fff;
   margin: 0;
 }
 .preview .preview-motto-wrapper .preview-cursor {

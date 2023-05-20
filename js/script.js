@@ -161,8 +161,8 @@ console.log("%c Github %c", "background:#333333; color:#ffffff", "", "https://gi
       }
     },
     background: function () {
-      if (!CONFIG.preview.background.api) return;
-      $(".preview-image").css("background-image", "url(" + CONFIG.preview.background.api + ")");
+      if (!CONFIG.preview.background.api)  $(".preview-image").css("background-image", "url(" + CONFIG.preview.background.default + ")");
+      else $(".preview-image").css("background-image", "url(" + CONFIG.preview.background.api + ")");
     },
     doSearch: function (path, search_id, content_id) {
       // https://segmentfault.com/a/1190000011917419
