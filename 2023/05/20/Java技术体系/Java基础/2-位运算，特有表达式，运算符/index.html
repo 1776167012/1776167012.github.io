@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>牧之的博客空间</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="@[TOC] 1.基础内容运算符与表达式和C的基本一样 这里要补充的是以前没弄懂的 1.1 位运算符1.1.1 按位&amp;运算（按位与运算）按位与运算符&amp;是双目运算符，对两个整型数据进行二进制按位&amp;进行运算，运算的结果也是一个整型数据,其运算法则是：如果两个数据对应位都是1，则结果的该位是1，否则是0 例子： 123m:   00000111n:   10101011n&amp;amp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="牧之的博客空间">
+<meta property="og:url" content="http://example.com/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/2-%E4%BD%8D%E8%BF%90%E7%AE%97%EF%BC%8C%E7%89%B9%E6%9C%89%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%8C%E8%BF%90%E7%AE%97%E7%AC%A6/index.html">
+<meta property="og:site_name" content="牧之的博客空间">
+<meta property="og:description" content="@[TOC] 1.基础内容运算符与表达式和C的基本一样 这里要补充的是以前没弄懂的 1.1 位运算符1.1.1 按位&amp;运算（按位与运算）按位与运算符&amp;是双目运算符，对两个整型数据进行二进制按位&amp;进行运算，运算的结果也是一个整型数据,其运算法则是：如果两个数据对应位都是1，则结果的该位是1，否则是0 例子： 123m:   00000111n:   10101011n&amp;amp">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-20T02:52:21.027Z">
+<meta property="article:modified_time" content="2023-05-20T02:52:21.027Z">
+<meta property="article:author" content="MuZhi">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="牧之的博客空间" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">牧之的博客空间</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Java技术体系/Java基础/2-位运算，特有表达式，运算符" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/2-%E4%BD%8D%E8%BF%90%E7%AE%97%EF%BC%8C%E7%89%B9%E6%9C%89%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%8C%E8%BF%90%E7%AE%97%E7%AC%A6/" class="article-date">
+  <time class="dt-published" datetime="2023-05-20T02:52:21.027Z" itemprop="datePublished">2023-05-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>@[TOC]</p>
+<h1 id="1-基础内容"><a href="#1-基础内容" class="headerlink" title="1.基础内容"></a>1.基础内容</h1><p>运算符与表达式和C的基本一样</p>
+<p>这里要补充的是以前没弄懂的</p>
+<h2 id="1-1-位运算符"><a href="#1-1-位运算符" class="headerlink" title="1.1 位运算符"></a>1.1 位运算符</h2><h3 id="1-1-1-按位-amp-运算（按位与运算）"><a href="#1-1-1-按位-amp-运算（按位与运算）" class="headerlink" title="1.1.1 按位&amp;运算（按位与运算）"></a>1.1.1 按位&amp;运算（按位与运算）</h3><p>按位与运算符&amp;是双目运算符，对两个整型数据进行二进制按位&amp;进行运算，运算的结果也是一个整型数据,<br>其运算法则是：<br><strong>如果两个数据对应位都是1，则结果的该位是1，否则是0</strong></p>
+<p>例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">m:   <span class="number">00000111</span></span><br><span class="line">n:   <span class="number">10101011</span></span><br><span class="line">n&amp;m: <span class="number">00000011</span> </span><br></pre></td></tr></table></figure>
+
+<p>编写程序验证：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BitAndStudy</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//这里使用的api可以将二进制转为10进制</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> Integer.parseInt(<span class="string">&quot;00000111&quot;</span>,<span class="number">2</span>);</span><br><span class="line">        <span class="type">int</span> <span class="variable">num1</span> <span class="operator">=</span>Integer.parseInt(<span class="string">&quot;10101011&quot;</span>,<span class="number">2</span>);</span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> num&amp;num1;</span><br><span class="line">        System.out.println(Integer.toBinaryString(result));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">00000111&amp;10101011= 11</span><br></pre></td></tr></table></figure>
+
+<p><strong>它也可以做判断符来用，但与&amp;&amp;有差别：</strong></p>
+<ul>
+<li>&amp;　不管前面的条件是否正确，后面都执行</li>
+<li>&amp;&amp;　前面条件正确时，才执行后面，不正确时，就不执行，就效率而言，这个更好</li>
+</ul>
+<h3 id="1-2-按位-运算（按位或运算）"><a href="#1-2-按位-运算（按位或运算）" class="headerlink" title="1.2 按位|运算（按位或运算）"></a>1.2 按位|运算（按位或运算）</h3><p>按位或运算符|是二目运算符，运算法则和&amp;类似</p>
+<p><strong>只要两个数据对应位有一个是1，则结果的该位是1，否则是0</strong></p>
+<p>例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">orStudy</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//这里使用的api可以将二进制转为10进制</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> Integer.parseInt(<span class="string">&quot;00000111&quot;</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="type">int</span> <span class="variable">num1</span> <span class="operator">=</span>Integer.parseInt(<span class="string">&quot;10101011&quot;</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> num|num1;</span><br><span class="line">    System.out.println(<span class="string">&quot;00000111 | 10101011= &quot;</span>+Integer.toBinaryString(result));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">00000111 | 10101011= 10101111</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-按位-运算（按位非运算）"><a href="#1-3-按位-运算（按位非运算）" class="headerlink" title="1.3  按位~运算（按位非运算）"></a>1.3  按位~运算（按位非运算）</h3><p>按位非运算符~是单目运算符，对一个整型数据a按位进行运算</p>
+<p>例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">nonStudy</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//这里使用的api可以将二进制转为10进制</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> Integer.parseInt(<span class="string">&quot;00000111&quot;</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> ~num;</span><br><span class="line">    System.out.println(<span class="string">&quot;~00000111 = &quot;</span>+Integer.toBinaryString(result));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~00000111 = 11111111111111111111111111111000</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="1-4-按位异或运算-（按位异或运算）"><a href="#1-4-按位异或运算-（按位异或运算）" class="headerlink" title="1.4 按位异或运算^（按位异或运算）"></a>1.4 按位异或运算^（按位异或运算）</h3><p>按位异或运算符^是二目运算符，运算法则：</p>
+<p><strong>如果两个数据对应位相同，则结果的该位是0，否则是1</strong></p>
+<p>例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 异或运算: 相同为0，不同为1</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">nonOrStudy</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//这里使用的api可以将二进制转为10进制</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> Integer.parseInt(<span class="string">&quot;00000111&quot;</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="type">int</span> <span class="variable">num1</span> <span class="operator">=</span>Integer.parseInt(<span class="string">&quot;10101011&quot;</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> num^num1;</span><br><span class="line">    System.out.println(<span class="string">&quot;00000111 ^ 10101011= &quot;</span>+Integer.toBinaryString(result));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">00000111 ^ 10101011= 10101100</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-5-按位右移-gt-gt-gt-gt-gt"><a href="#1-5-按位右移-gt-gt-gt-gt-gt" class="headerlink" title="1.5 按位右移&gt;&gt;,&gt;&gt;&gt;"></a>1.5 按位右移&gt;&gt;,&gt;&gt;&gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;按位右移（相当于将数右移） &gt;&gt;&gt;按位右移，但它会用<span class="number">0</span>填充高位（变小）</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 按位右移： 数会变小</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">rightMoveStudy</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> Integer.parseInt(<span class="string">&quot;00000111&quot;</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> num&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    System.out.println(<span class="string">&quot;00000111&gt;&gt;1 = &quot;</span>+Integer.toBinaryString(result));</span><br><span class="line">    <span class="type">int</span> <span class="variable">result2</span> <span class="operator">=</span> num&gt;&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    System.out.println(<span class="string">&quot;00000111&gt;&gt;&gt;1 = &quot;</span>+Integer.toBinaryString(result2));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">00000111&gt;</span><span class="language-bash">&gt;1 = 11</span></span><br><span class="line"><span class="meta prompt_">00000111&gt;</span><span class="language-bash">&gt;&gt;1 = 11</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-6-按位左移-lt-lt"><a href="#1-6-按位左移-lt-lt" class="headerlink" title="1.6  按位左移&lt;&lt;"></a>1.6  按位左移&lt;&lt;</h3><p>&lt;&lt;按位左移（相当于将数左移，变小）<strong>注意：不存在&lt;&lt;&lt;</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 按位左移： 数字变大</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">leftMoveStudy</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> Integer.parseInt(<span class="string">&quot;00000111&quot;</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> num&lt;&lt;<span class="number">1</span>;</span><br><span class="line">    System.out.println(<span class="string">&quot;00000111&lt;&lt;1 = &quot;</span>+Integer.toBinaryString(result));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">00000111&lt;&lt;1 = 1110</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-新增运算符：instanceof-关键字-运算符"><a href="#2-新增运算符：instanceof-关键字-运算符" class="headerlink" title="2.新增运算符：instanceof(关键字) 运算符"></a>2.新增运算符：instanceof(关键字) 运算符</h2><p>该运算符是二目运算符，左面的操作元是一个对象，右面的是一个类。此运算符先做了解，<br>由于目前可能没有类的概念，所以说现在不太好理解。<br><strong>当左面的对象是右面的类或子类创建的对象时，该运算符的结果是ture，否则是false</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    System.out.println(list <span class="keyword">instanceof</span> List);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">true</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-for基本语句"><a href="#3-for基本语句" class="headerlink" title="3.for基本语句"></a>3.for基本语句</h2><p>这里和C完全相同。<br>不同的是Java提供了遍历数组循环语句：for（声明循环变量：数组的名字）{…}</p>
+<p>例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ForStudy</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] num = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> n:num)&#123;</span><br><span class="line">            System.out.println(n);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="2-实践经验积累"><a href="#2-实践经验积累" class="headerlink" title="2.实践经验积累"></a>2.实践经验积累</h1><p>本人认为本章的重点其实是为了给我们学习和设计算法打下一个基础，<br>我们要学会将学到的算法转移到这里来，或者利用java的特性设计出新的算法，<br>其实，程序设计，算法是最关键的地方，也是最难突破的地方。</p>
+<h2 id="2-1-例子：编写一个应用程序求100以内的全部素数"><a href="#2-1-例子：编写一个应用程序求100以内的全部素数" class="headerlink" title="2.1 例子：编写一个应用程序求100以内的全部素数"></a>2.1 例子：编写一个应用程序求100以内的全部素数</h2><p>要编写出这样一个程序，我们要知道什么是素数：</p>
+<p><strong>素数一般指质数，质数是指在大于1的自然数中，除了1和它本身以外不再有其他因数的自然数。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 计算1-n范围内的素数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">QuestStudy</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span> &#123;</span><br><span class="line">        <span class="type">int</span> start , end ;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">reader</span>  <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入数字上限： &quot;</span>);</span><br><span class="line">        end = reader.nextInt();</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//根据end计算1到end之间所有素数</span></span><br><span class="line">        <span class="keyword">for</span> (start = <span class="number">1</span>; start &lt; end; start += <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> (<span class="type">int</span>) Math.sqrt(start);</span><br><span class="line">            <span class="keyword">for</span> (i = <span class="number">2</span>; i &lt;= k; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (start % i == <span class="number">0</span>)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= k + <span class="number">1</span>) &#123;</span><br><span class="line">                System.out.println(start);</span><br><span class="line">                n++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">请输入数字上限： </span><br><span class="line">10</span><br><span class="line">1</span><br><span class="line">3</span><br><span class="line">5</span><br><span class="line">7</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>代码地址：<br><a target="_blank" rel="noopener" href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa03">https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa03</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/2-%E4%BD%8D%E8%BF%90%E7%AE%97%EF%BC%8C%E7%89%B9%E6%9C%89%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%8C%E8%BF%90%E7%AE%97%E7%AC%A6/" data-id="clhvecypa00088sut3ysidrsz" data-title="" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/4-%E7%B1%BB%E7%9A%84%E5%AE%9A%E4%B9%89%EF%BC%8C%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%EF%BC%8C%E6%96%B9%E6%B3%95%E7%B1%BB%E5%9E%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/2-Java%E4%B8%AD%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BB%A5%E5%8F%8A%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E5%8A%A8%E6%89%8B%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" rel="tag">Java动手实战学习目录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" rel="tag">Java基础学习目录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="tag">Java网络编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E8%BF%9B%E9%98%B6%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" rel="tag">Java进阶学习目录</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Java%E5%8A%A8%E6%89%8B%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" style="font-size: 10px;">Java动手实战学习目录</a> <a href="/tags/Java%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">Java基础</a> <a href="/tags/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" style="font-size: 10px;">Java基础学习目录</a> <a href="/tags/Java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">Java网络编程</a> <a href="/tags/Java%E8%BF%9B%E9%98%B6%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" style="font-size: 10px;">Java进阶学习目录</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E8%BF%9B%E9%98%B6/Java%E8%BF%9B%E9%98%B6%E4%B9%8B%E5%8A%A8%E6%80%81%E7%BC%96%E8%AF%91/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/8-%E5%8C%85%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%8Cimport%E5%85%B3%E9%94%AE%E5%AD%97/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/6-%E5%8F%82%E6%95%B0%E4%BC%A0%E5%80%BC%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%84%E5%90%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/7-%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD%EF%BC%8C%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99%EF%BC%8Cthis%E5%85%B3%E9%94%AE%E5%AD%97%EF%BC%8Csuper%E5%85%B3%E9%94%AE%E5%AD%97/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/5-%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%EF%BC%8C%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%EF%BC%8C%E7%B1%BB%E6%96%B9%E6%B3%95%EF%BC%8Cstatic/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 MuZhi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

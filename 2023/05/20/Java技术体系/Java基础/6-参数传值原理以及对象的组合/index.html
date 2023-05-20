@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>牧之的博客空间</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="@[toc] 1.参数传值参数传值是什么意思？ 顾明思意，就是把一个变量的数值传给另一个变量。 比如： 123int x &#x3D; 10;int y &#x3D; x;y &#x3D; 20;  上面的操作是，首先给x赋值，然后将x的值赋给变量y。最后x&#x3D;10,y&#x3D;20;那其中到底是怎么回事呢？其实在这里的传值（即赋值）所用的值不是x的本值，而是它的拷贝(copy)。所以不会影响x本来的值。参数y得到的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="牧之的博客空间">
+<meta property="og:url" content="http://example.com/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/6-%E5%8F%82%E6%95%B0%E4%BC%A0%E5%80%BC%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%84%E5%90%88/index.html">
+<meta property="og:site_name" content="牧之的博客空间">
+<meta property="og:description" content="@[toc] 1.参数传值参数传值是什么意思？ 顾明思意，就是把一个变量的数值传给另一个变量。 比如： 123int x &#x3D; 10;int y &#x3D; x;y &#x3D; 20;  上面的操作是，首先给x赋值，然后将x的值赋给变量y。最后x&#x3D;10,y&#x3D;20;那其中到底是怎么回事呢？其实在这里的传值（即赋值）所用的值不是x的本值，而是它的拷贝(copy)。所以不会影响x本来的值。参数y得到的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-20T02:52:21.030Z">
+<meta property="article:modified_time" content="2023-05-20T02:52:21.030Z">
+<meta property="article:author" content="MuZhi">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="牧之的博客空间" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">牧之的博客空间</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Java技术体系/Java基础/6-参数传值原理以及对象的组合" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/6-%E5%8F%82%E6%95%B0%E4%BC%A0%E5%80%BC%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%84%E5%90%88/" class="article-date">
+  <time class="dt-published" datetime="2023-05-20T02:52:21.030Z" itemprop="datePublished">2023-05-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>@[toc]</p>
+<h1 id="1-参数传值"><a href="#1-参数传值" class="headerlink" title="1.参数传值"></a>1.参数传值</h1><p>参数传值是什么意思？ 顾明思意，就是把一个变量的数值传给另一个变量。</p>
+<p>比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> x;</span><br><span class="line">y = <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>上面的操作是，首先给x赋值，然后将x的值赋给变量y。最后x&#x3D;10,y&#x3D;20;</strong><br>那其中到底是怎么回事呢？<br>其实在这里的传值（即赋值）所用的值不是x的本值，而是它的拷贝(copy)。<br>所以不会影响x本来的值。参数y得到的值相当于生活中的”原件“”的“复印件“。<br><strong>上面的操作其实就是给y开辟了新的内存空间然后将x的值复制到y的内存空间里，所以对y的操作不会对x有影响，<br>这就是参数的传值原理。</strong><br>同理，引用类型的参数的传的值是地址,地址的数值也是拷贝来的。但是对地址指向的内存空间并没有拷贝。<br>所以对这个引用类型进行操作会改变其属性，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Person</span> <span class="variable">p</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br><span class="line">        p.age = <span class="number">10</span>;</span><br><span class="line">        System.out.println(p.age);</span><br><span class="line">        <span class="type">Person</span> <span class="variable">m</span> <span class="operator">=</span> p;</span><br><span class="line">        m.age = <span class="number">100</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;m.age: &quot;</span>+m.age);</span><br><span class="line">        System.out.println(<span class="string">&quot;p.age: &quot;</span>+p.age);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">p.age: 10</span><br><span class="line">m.age: 100</span><br><span class="line">p.age: 100</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>因为引用类型的值是一个地址，它指向的是同一个内存空间,所以在对它的字段进行修改时，<br>实际上是修改了一处位置。</strong></p>
+<h1 id="2-对象的组合"><a href="#2-对象的组合" class="headerlink" title="2.对象的组合"></a>2.对象的组合</h1><p>首先我们知道一个类可以把某个对象引用变量作为自己的一个成员变量，若用这样的类创建一个对象，<br>那么这个对象中就会包含其他的对象，也就是说这个的对象将其他的对象作为自己的组成部分。<br>这就是类与类的 <strong>Has-A.</strong><br>如果对象a组合了对象b，就相当于，对象a包含了对象b，对象b是对象a的有一个属性，<br>那么对象a就可以委托对象b调用其方法，就是对象a以组合的方式复用对象b的方法。</p>
+<p>虽然听起来有些云山雾绕的感觉，但是，<br>简单来说：就是通过组合的方式来复用其他类的定义达到复用其他对象的功能的方法。</p>
+<h2 id="2-1-对象组合的示例"><a href="#2-1-对象组合的示例" class="headerlink" title="2.1 对象组合的示例"></a>2.1 对象组合的示例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ObjectCombination</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">TV</span> <span class="variable">haierTV</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TV</span>();</span><br><span class="line">        haierTV.setChannel(<span class="number">5</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;haierTV的频道是： 频道&quot;</span>+haierTV.getChannel());</span><br><span class="line">        <span class="comment">//新建一个Family对象</span></span><br><span class="line">        <span class="type">Family</span> <span class="variable">zhangSanFamily</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Family</span>();</span><br><span class="line">        <span class="comment">//将之前新建的TV对象组合进Family</span></span><br><span class="line">        zhangSanFamily.buyTV(haierTV);</span><br><span class="line">        System.out.println(<span class="string">&quot;张三Family开始看电视节目:&quot;</span>);</span><br><span class="line">        zhangSanFamily.seeTV();<span class="comment">//通过Family对象使用TV对象的方法</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;张三Family将电视更换到&quot;</span>+m+<span class="string">&quot;频道&quot;</span>);</span><br><span class="line">        zhangSanFamily.remoteControl(m);</span><br><span class="line">        System.out.println(<span class="string">&quot;haierTV的频道是: 频道&quot;</span>+haierTV.getChannel());</span><br><span class="line">        System.out.println(<span class="string">&quot;张三Family在看电视节目&quot;</span>);</span><br><span class="line">        zhangSanFamily.seeTV();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Family类，其中属性是引用类型TV</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Family</span> &#123;</span><br><span class="line">    TV homeTV;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">buyTV</span><span class="params">(TV tv)</span> &#123;</span><br><span class="line">        homeTV = tv;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">remoteControl</span><span class="params">(<span class="type">int</span> m)</span> &#123;</span><br><span class="line">        homeTV.setChannel(m);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">seeTV</span><span class="params">()</span> &#123;</span><br><span class="line">        homeTV.showProgram();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * TV类，里面的属性是基本类型</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TV</span> &#123;</span><br><span class="line">    <span class="type">int</span> channel;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">setChannel</span><span class="params">(<span class="type">int</span> m)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(m&gt;=<span class="number">1</span>) &#123;</span><br><span class="line">            channel = m;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">getChannel</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> channel;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">showProgram</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span>(channel) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span> : System.out.println(<span class="string">&quot;综合频道&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span> : System.out.println(<span class="string">&quot;经济频道&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span> : System.out.println(<span class="string">&quot;文艺频道&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">4</span> : System.out.println(<span class="string">&quot;国际频道&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">5</span> : System.out.println(<span class="string">&quot;体育频道&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span> : System.out.println(<span class="string">&quot;不能收看&quot;</span>+channel+<span class="string">&quot;频道&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">haierTV的频道是： 频道5</span><br><span class="line">张三Family开始看电视节目:</span><br><span class="line">体育频道</span><br><span class="line">张三Family将电视更换到2频道</span><br><span class="line">haierTV的频道是: 频道2</span><br><span class="line">张三Family在看电视节目</span><br><span class="line">经济频道</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+
+<p>这个例子很好的说明了对象的组合复用。</p>
+<p>代码地址：<br><a target="_blank" rel="noopener" href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa06">https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa06</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/6-%E5%8F%82%E6%95%B0%E4%BC%A0%E5%80%BC%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%84%E5%90%88/" data-id="clhvecypd000d8sut8xqx8ayy" data-title="" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/8-%E5%8C%85%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%8Cimport%E5%85%B3%E9%94%AE%E5%AD%97/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/7-%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD%EF%BC%8C%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99%EF%BC%8Cthis%E5%85%B3%E9%94%AE%E5%AD%97%EF%BC%8Csuper%E5%85%B3%E9%94%AE%E5%AD%97/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E5%8A%A8%E6%89%8B%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" rel="tag">Java动手实战学习目录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" rel="tag">Java基础学习目录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="tag">Java网络编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E8%BF%9B%E9%98%B6%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" rel="tag">Java进阶学习目录</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Java%E5%8A%A8%E6%89%8B%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" style="font-size: 10px;">Java动手实战学习目录</a> <a href="/tags/Java%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">Java基础</a> <a href="/tags/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" style="font-size: 10px;">Java基础学习目录</a> <a href="/tags/Java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">Java网络编程</a> <a href="/tags/Java%E8%BF%9B%E9%98%B6%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" style="font-size: 10px;">Java进阶学习目录</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E8%BF%9B%E9%98%B6/Java%E8%BF%9B%E9%98%B6%E4%B9%8B%E5%8A%A8%E6%80%81%E7%BC%96%E8%AF%91/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/8-%E5%8C%85%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%8Cimport%E5%85%B3%E9%94%AE%E5%AD%97/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/6-%E5%8F%82%E6%95%B0%E4%BC%A0%E5%80%BC%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%84%E5%90%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/7-%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD%EF%BC%8C%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99%EF%BC%8Cthis%E5%85%B3%E9%94%AE%E5%AD%97%EF%BC%8Csuper%E5%85%B3%E9%94%AE%E5%AD%97/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/5-%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%EF%BC%8C%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%EF%BC%8C%E7%B1%BB%E6%96%B9%E6%B3%95%EF%BC%8Cstatic/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 MuZhi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

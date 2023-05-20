@@ -1,0 +1,20 @@
+<hr>
+<h2 id="title-1-Java小白入门date-2023-05-15-10-55-59tags-Java基础"><a href="#title-1-Java小白入门date-2023-05-15-10-55-59tags-Java基础" class="headerlink" title="title: 1.Java小白入门date: 2023-05-15 10:55:59tags: Java基础"></a>title: 1.Java小白入门<br>date: 2023-05-15 10:55:59<br>tags: Java基础</h2><h2 id="牧之Java学习日记"><a href="#牧之Java学习日记" class="headerlink" title="牧之Java学习日记"></a>牧之Java学习日记</h2><p>之前其实已经稍微学了一点点java。<br><br>那么作为自己的第一篇博客，我希望还是从头开始，用博客记录自己的java学习历程，通过写博客来记录一些在学习过程中遇到的问题与积累，希望在以后回头能在这里看看自己的一些东西，想起自己曾经的努力和梦想。</p>
+<h3 id="1-安装java环境"><a href="#1-安装java环境" class="headerlink" title="1.安装java环境"></a>1.安装java环境</h3><p>一般按照网上的教程安装很简单<br><a href="https://jingyan.baidu.com/article/95c9d20d0d6ae1ec4e756104.html">百度经验新手搭建Java开发环境</a></p>
+<h3 id="2-了解java原理"><a href="#2-了解java原理" class="headerlink" title="2.了解java原理"></a>2.了解java原理</h3><p>按照我的理解，java的工作原理其实是将我们写的代码先编译一遍形成一个class文件，然后通过安装在各种机器上的虚拟机进行运行，从而消除了平台差别性。</p>
+<p>过程如下：<br><br><img src="https://img-blog.csdnimg.cn/20210220201156331.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MxNzc2MTY3MDEy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="3-第一个java程序"><a href="#3-第一个java程序" class="headerlink" title="3.第一个java程序"></a>3.第一个java程序</h3><p>首先，我在D目录的一个叫JAVA程序设计里的day01文件夹里建立了一个HelloWorld.java文件，然后在cmd里输入d:回车，然后输入cd D:\JAVA程序设计\day01来到day01文件夹。然后输入javac  HelloWorld.java（使用java编译器将java文件编程成class字节码文件）。之后用java虚拟机运行，输入java HelloWorld（使用java虚拟机运行class字节码文件）。得到答案</p>
+<p>大概就是这么个过程。这只是用记事本来开发的，真正的开发一般用各大厂商发布的官方集成开发工具，它能将上述过程自动完成，所以我们只需要写代码就可以了。</p>
+<h3 id="4-JDK和JRE"><a href="#4-JDK和JRE" class="headerlink" title="4.JDK和JRE"></a>4.JDK和JRE</h3><p>JDK是java开发工具包，它是编写java程序的程序员使用的软件，它包含了JRE。<br>JRE是允许java程序的用户使用的软件,是java运行环境，它包含JVM。</p>
+<h3 id="5-在进行下一步学习之前，我们可以了解下java关键特性"><a href="#5-在进行下一步学习之前，我们可以了解下java关键特性" class="headerlink" title="5.在进行下一步学习之前，我们可以了解下java关键特性"></a>5.在进行下一步学习之前，我们可以了解下java关键特性</h3><p>简单性（java简单易学（相对于C++））<br>面向对象（Java的面向对象特性与C++旗鼓相当甚至更胜一筹）<br>分布式，健壮性，安全性，体系结构中立，可移植性，解释型，高性能，多线程，动态性</p>
+<h3 id="6-学习最简单的java程序"><a href="#6-学习最简单的java程序" class="headerlink" title="6.学习最简单的java程序"></a>6.学习最简单的java程序</h3><pre><code class="java">public class FirstSample{
+  public static void main(String[] args){
+    System.out.println(&quot;Hello World&quot;);
+ }
+}
+</code></pre>
+<p><strong>通过编写上面的代码我们能学到什么？</strong><br>1.Java区分大小写<br>2.java中的主方法写法<br>3.java中的输出打印语句写法</p>
+<h3 id="7-可能遇到的问题"><a href="#7-可能遇到的问题" class="headerlink" title="7.可能遇到的问题"></a>7.可能遇到的问题</h3><p>当我们得到了上面的运行结果的时候，我们就已经具备一个完备的学习Java的环境了。<br>对于初学者来说，想要获得上面的运行结果可能并不简单，下面是可能出现的问题：</p>
+<p>1.如何安装Jdk： 安装Jdk的步骤很简单，首先下载Jdk的安装包，<a href="https://jdk.java.net/java-se-ri/8-MR4">Java Platform, Standard Edition 8 Reference Implementations</a>  。 下载完成后，进行傻瓜式安装，然后需要配置环境变量，就是将jdk中的一些java组件的执行命令导入到全局系统变量中，让我们在cmd命令行下能使用jdk。</p>
+<p>2.如何安装IDEA,这个我们直接去IDEA官网下载社区版的就好了。<a href="https://www.jetbrains.com/idea/download/#section=windows">Download IntelliJ IDEA: The Capable &amp; Ergonomic Java IDE by JetBrains</a><br>下载完成后进行傻瓜式安装就好了。</p>
+<p>3.如何在IDEA中创建一个项目并运行，这个自行百度即可。<a href="https://blog.csdn.net/promsing/article/details/111225674">例如IntelliJ IDEA 如何创建一个 Java 项目_小小张自由—&gt;张有博的博客-CSDN博客_idea怎么创建java项目</a></p>

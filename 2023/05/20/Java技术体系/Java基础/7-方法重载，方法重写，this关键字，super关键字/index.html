@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>牧之的博客空间</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="@[TOC] 1.方法重载1.1. 什么是方法重载？在Java程序中，当一个类的定义中，两个方法具有相同的名称且参数不同，我们就称这两个方法重载了。 1234567891011public class Person &amp;#123;        int add(int x,int y)&amp;#123;        return x+y;    &amp;#125;        int add(int x)&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="牧之的博客空间">
+<meta property="og:url" content="http://example.com/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/7-%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD%EF%BC%8C%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99%EF%BC%8Cthis%E5%85%B3%E9%94%AE%E5%AD%97%EF%BC%8Csuper%E5%85%B3%E9%94%AE%E5%AD%97/index.html">
+<meta property="og:site_name" content="牧之的博客空间">
+<meta property="og:description" content="@[TOC] 1.方法重载1.1. 什么是方法重载？在Java程序中，当一个类的定义中，两个方法具有相同的名称且参数不同，我们就称这两个方法重载了。 1234567891011public class Person &amp;#123;        int add(int x,int y)&amp;#123;        return x+y;    &amp;#125;        int add(int x)&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-20T02:52:21.030Z">
+<meta property="article:modified_time" content="2023-05-20T02:52:21.031Z">
+<meta property="article:author" content="MuZhi">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="牧之的博客空间" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">牧之的博客空间</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Java技术体系/Java基础/7-方法重载，方法重写，this关键字，super关键字" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/7-%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD%EF%BC%8C%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99%EF%BC%8Cthis%E5%85%B3%E9%94%AE%E5%AD%97%EF%BC%8Csuper%E5%85%B3%E9%94%AE%E5%AD%97/" class="article-date">
+  <time class="dt-published" datetime="2023-05-20T02:52:21.030Z" itemprop="datePublished">2023-05-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>@[TOC]</p>
+<h1 id="1-方法重载"><a href="#1-方法重载" class="headerlink" title="1.方法重载"></a>1.方法重载</h1><h2 id="1-1-什么是方法重载？"><a href="#1-1-什么是方法重载？" class="headerlink" title="1.1. 什么是方法重载？"></a>1.1. 什么是方法重载？</h2><p>在Java程序中，当一个类的定义中，两个方法具有相同的名称且参数不同，我们就称这两个方法重载了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x+y;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> x)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我会加法&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> x+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上所示，在Person类中，有两个名为add的方法， 这两个方法就重载了。</p>
+<h2 id="1-2-为什么会出现这样的情况？"><a href="#1-2-为什么会出现这样的情况？" class="headerlink" title="1.2. 为什么会出现这样的情况？"></a>1.2. 为什么会出现这样的情况？</h2><p>在java中我们允许多个方法有相同的名字，是因为：<br><strong>为了增强我们项目代码的稳定性，我们可能对一种业务有多种不同入参的组合，<br>当我们需要对这一种情况进行应对，这时方法重载起到了作用，<br>方法重载让我们在不改变业务含义的情况下进行不同的处理。</strong><br>注意：重载方法的参数必须不同（就像我们人一样，名字可以相同，但长相一定不同），<br>参数不同是指：参数的个数不同，参数的个数相同的情况下，这些参数至少有一个的参数类型不同。</p>
+<p><strong>注意：方法的返回类型和参数的名称不参与比较。（不影响重载）</strong></p>
+<h1 id="2-方法重写"><a href="#2-方法重写" class="headerlink" title="2.方法重写"></a>2.方法重写</h1><h2 id="2-1-什么是方法重写"><a href="#2-1-什么是方法重写" class="headerlink" title="2.1.什么是方法重写"></a>2.1.什么是方法重写</h2><p>在Java程序中，有两个类Person,Student，其中Student是Person的子类，<br>如果这两个类有一个相同的方法，我们就认为Student重写了Person的这个方法。<br>这就是方法重写。（也称方法覆盖）</p>
+<p>总结：方法重写出现在父类和子类之间，子类可以覆盖父类的方法，这就叫重写。 </p>
+<p>例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x+y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">extends</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 子类Student重写父类Person的方法：</span></span><br><span class="line"><span class="comment">     * int add(int x,int y)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> x</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> y</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x+y+y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-为什么会出现这样的情况？"><a href="#2-2-为什么会出现这样的情况？" class="headerlink" title="2.2.为什么会出现这样的情况？"></a>2.2.为什么会出现这样的情况？</h2><p>在编写代码的过程种，如果一个子类继承了父类的方法后，父类的方法不能应对子类的所有需求，<br>子类也可以对这个方法进行重写，使之满足自己的业务需求。</p>
+<h1 id="3-重载和重写的差别"><a href="#3-重载和重写的差别" class="headerlink" title="3.重载和重写的差别"></a>3.重载和重写的差别</h1><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>位置不同</th>
+<th>作用不同</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>重载</td>
+<td>同一个类中</td>
+<td>在一个类中提供一种业务处理的多种实现实现多态</td>
+</tr>
+<tr>
+<td>重写</td>
+<td>父子类之间</td>
+<td>子类可以选择覆盖父类的同一个方法的实现来达到自己的目的</td>
+</tr>
+</tbody></table>
+<h1 id="4-this关键字"><a href="#4-this关键字" class="headerlink" title="4.this关键字"></a>4.this关键字</h1><p>我们知道类中有局部变量和成员变量两个类型的变量，<br>如果在一个类的一个方法中有着一个和方法外完全相同的变量。</p>
+<p>比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">A</span>&#123;</span><br><span class="line">  <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">void</span> <span class="title function_">f</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">5</span>;</span><br><span class="line">    x = x+<span class="number">5</span>;</span><br><span class="line">    System.out.println(x);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我们知道它输出的是10（局部优先），但我们是不是就不能在f方法中用外面的x？</span><br><span class="line">当然不是，this在这里的作用就出来了</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">A</span>&#123;</span><br><span class="line">  <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">void</span> <span class="title function_">f</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">5</span>;</span><br><span class="line">    x = <span class="built_in">this</span>.x+<span class="number">5</span>;</span><br><span class="line">    System.out.println(x);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这样我们输出的x就是15了</span><br></pre></td></tr></table></figure>
+
+<p>方法的调用也是如此</p>
+<p>其实<strong>this是实例对象内部指代自身的引用</strong>，它可以解决成员变量和局部变量的同名问题，<br>this可以调用成员变量&#x2F;方法，无法调用局部变量，在普通方法中可以省略this。<br>但一般不建议省略，因为this相当于成员变量的标志，有助于代码的可读性。</p>
+<p><strong>注意：静态方法中不允许使用this,this引用的是这个对象本身</strong></p>
+<h1 id="5-super关键字"><a href="#5-super关键字" class="headerlink" title="5.super关键字"></a>5.super关键字</h1><p><strong>super关键字代表对当前实例对象的父类的实例对象的引用</strong>,<br>super可以直接调用父类的成员变量（非private的）super也可以调用父类的成员方法（非private的），<br><strong>super可以调用直接父类的构造方法，但只限在子类的构造方法中使用且必须是第一条语句。</strong></p>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person1</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x+y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student1</span> <span class="keyword">extends</span> <span class="title class_">Person1</span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 子类Student重写父类Person的方法：</span></span><br><span class="line"><span class="comment">     * int add(int x,int y)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> x</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> y</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span>&#123;</span><br><span class="line">        <span class="comment">//通过super调用父类的add方法</span></span><br><span class="line">        <span class="built_in">super</span>.add(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">return</span> x+y+y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码地址：<br><a target="_blank" rel="noopener" href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa07">https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa07</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/7-%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD%EF%BC%8C%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99%EF%BC%8Cthis%E5%85%B3%E9%94%AE%E5%AD%97%EF%BC%8Csuper%E5%85%B3%E9%94%AE%E5%AD%97/" data-id="clhvecyph000f8sutfsi25ck2" data-title="" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/6-%E5%8F%82%E6%95%B0%E4%BC%A0%E5%80%BC%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%84%E5%90%88/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/5-%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%EF%BC%8C%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%EF%BC%8C%E7%B1%BB%E6%96%B9%E6%B3%95%EF%BC%8Cstatic/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E5%8A%A8%E6%89%8B%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" rel="tag">Java动手实战学习目录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" rel="tag">Java基础学习目录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="tag">Java网络编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E8%BF%9B%E9%98%B6%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" rel="tag">Java进阶学习目录</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Java%E5%8A%A8%E6%89%8B%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" style="font-size: 10px;">Java动手实战学习目录</a> <a href="/tags/Java%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">Java基础</a> <a href="/tags/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" style="font-size: 10px;">Java基础学习目录</a> <a href="/tags/Java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">Java网络编程</a> <a href="/tags/Java%E8%BF%9B%E9%98%B6%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/" style="font-size: 10px;">Java进阶学习目录</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E8%BF%9B%E9%98%B6/Java%E8%BF%9B%E9%98%B6%E4%B9%8B%E5%8A%A8%E6%80%81%E7%BC%96%E8%AF%91/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/8-%E5%8C%85%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%8Cimport%E5%85%B3%E9%94%AE%E5%AD%97/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/6-%E5%8F%82%E6%95%B0%E4%BC%A0%E5%80%BC%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%84%E5%90%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/7-%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD%EF%BC%8C%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99%EF%BC%8Cthis%E5%85%B3%E9%94%AE%E5%AD%97%EF%BC%8Csuper%E5%85%B3%E9%94%AE%E5%AD%97/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/5-%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%EF%BC%8C%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%EF%BC%8C%E7%B1%BB%E6%96%B9%E6%B3%95%EF%BC%8Cstatic/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 MuZhi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

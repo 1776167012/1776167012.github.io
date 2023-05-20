@@ -1,0 +1,100 @@
+<p>@[TOC]</p>
+<h1 id="1-Java中的方法"><a href="#1-Java中的方法" class="headerlink" title="1.Java中的方法"></a>1.Java中的方法</h1><p>在Java中有三种类型的方法：构造方法，实例方法和类方法</p>
+<h2 id="1-2-构造方法"><a href="#1-2-构造方法" class="headerlink" title="1.2.构造方法"></a>1.2.构造方法</h2><p>如果我们要搞清楚构造方法为什么存在？那么首先我们得搞清楚构造方法的一切，不是吗？<br>如果你要打败一个人，首先不是锻炼自己，而是了解对手，知己知彼，百战不殆。</p>
+<pre><code class="java">class Computer{
+    /**
+     * 构造方法
+     */
+    public Computer(){
+    }
+}
+</code></pre>
+<p>首先我们来看一下构造方法的特点：</p>
+<ul>
+<li>构造方法没有类型，这就意味着它不能返回值</li>
+<li>构造方法的名字必须与它所在的类的名字完全相同，这间接说明它和它的类是绑定的关系</li>
+<li>一个类中必须存在构造方法，如果没声明，编译器会自动的添加一个空的构造方法，<br>这更加说明了它和类的绑定关系</li>
+<li>构造方法只能通过new调用</li>
+</ul>
+<p><strong>可以总结出：构造方法是类中一种特殊的方法，当创建实例化一个对象时需要用它的构造方法，<br>可以间接的得出构造方法是创建一个实例对象时一定要用的用来获取内存空间的方法。</strong></p>
+<h2 id="1-2-实例方法"><a href="#1-2-实例方法" class="headerlink" title="1.2.实例方法"></a>1.2.实例方法</h2><pre><code class="java">class Computer{
+    int add(int x,int y) {
+        return x+y;
+    }
+}
+</code></pre>
+<p><strong>有返回类型，可以通过实例对象引用，它可以操作类变量，简单来说实例方法在类实例化为对象后才能使用。</strong></p>
+<p>示例：</p>
+<pre><code class="java">public class ObjectStudy {
+    public static void main(String args[]){
+        //通过调用构造方法将类Computer实例化
+        Computer com = new Computer();
+        int m = 100;
+        int n = 200;
+        //通过对象调用实例方法
+        int result = com.add(m,n);
+        result = com.add(120+m,n*10+8);
+        System.out.println(result);
+    }
+}
+class Computer{
+    /**
+     * 构造方法
+     */
+    public Computer(){
+    }
+
+    int add(int x,int y) {
+        return x+y;
+    }
+}
+</code></pre>
+<h2 id="1-3-类方法-x2F-静态方法"><a href="#1-3-类方法-x2F-静态方法" class="headerlink" title="1.3.类方法&#x2F;静态方法"></a>1.3.类方法&#x2F;静态方法</h2><p>类方法是用static修饰的实例方法，也叫静态方法。</p>
+<pre><code class="java">class Computer {
+    /**
+     * 类方法
+     * @param x
+     * @param y
+     * @return
+     */
+    public static int mul(int x,int y){
+        return x*y;
+    }
+}
+</code></pre>
+<p><strong>静态方法只初始化一次，它的作用是可以直接通过类名直接引用类方法，类方法只能操作类变量，<br>类方法可以通过类名直接使用。</strong></p>
+<p>示例：</p>
+<pre><code class="java">public class ObjectStudy {
+    public static void main(String args[]){
+        int mulRes = Computer.mul(3,4);
+    }
+}
+class Computer{
+     /**
+     * 类方法
+     * @param x
+     * @param y
+     * @return
+     */
+    public static int mul(int x,int y){
+        return x*y;
+    }
+}
+</code></pre>
+<h2 id="1-4-static关键字"><a href="#1-4-static关键字" class="headerlink" title="1.4.static关键字"></a>1.4.static关键字</h2><p>由关键字static修饰的变量，方法，代码块，<br>类称之为<strong>静态变量</strong>，<strong>静态方法</strong>，<strong>静态代码块</strong>，<strong>静态类</strong>。</p>
+<p>static属性属于类级别的，即由该类创建的所有实例对象共享同一个static属性。<br>对于静态属性， 我们可以通过两种方式访问：</p>
+<ul>
+<li>直接通过类名.属性来使用</li>
+<li>通过对象名.属性来使用<br>static方法只能访问static变量，非static方法可以访问static变量。</li>
+</ul>
+<p>static变量和普通成员变量的区别：</p>
+<ul>
+<li><p>不管有多少对象，static变量只有一份。对于每个对象操作的static变量都是同一个，<br>但是普通的成员变量随着对象的建立，它也会被建立。<br>static变量在对象建立之前就被分配内存空间并被初始化了（第一次使用类的时候）</p>
+</li>
+<li><p>static变量是属于整个类的，也称之为类变量，而非静态变量是属于实例对象的，因此也称之为实例变量。</p>
+</li>
+<li><p><strong>静态代码块无法通过类名调用，所以static代码块当类被第一次使用时(首次被加载)会被执行且只被执行一次，<br>主要作用是实现static属性的初始化。</strong></p>
+</li>
+<li><p>static内部类：属于整个外部类，而不是属于外部类的每个对象，<br>它不能访问外部类的非static成员但可以访问外部类的static成员。</p>
+</li>
+</ul>
