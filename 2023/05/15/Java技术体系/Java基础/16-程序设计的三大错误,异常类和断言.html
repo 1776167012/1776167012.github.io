@@ -2,7 +2,7 @@
 <p>title: 16.程序设计的三大错误,异常类和断言<br>date: 2023-05-15 10:03:59<br>tags: Java基础<br>—# 1.程序设计的三大错误</p>
 <h2 id="1-1-语法错误"><a href="#1-1-语法错误" class="headerlink" title="1.1.语法错误"></a>1.1.语法错误</h2><p>最低级错误，由编译器发现。这个错误就是你错误使用Java语法导致的编译失败，<br>这类错误一般在集成开发工具中编写代码的时候会有工具警告。</p>
 <p>例如：</p>
-<p><img src="/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%801.png" alt="IDEA自动报错"></p>
+<p><img src="/muzhi-blog.github.io/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%801.png" alt="IDEA自动报错"></p>
 <p>在编程中将String类型的数据赋值给int类型的变量，这明显是语法错误，所有开发工具给出了警告。<br>在使用集成开发工具进行编程的过程中，语法错误基本不会发生。</p>
 <h2 id="1-2-逻辑错误"><a href="#1-2-逻辑错误" class="headerlink" title="1.2.逻辑错误"></a>1.2.逻辑错误</h2><p>程序没有按照预期的方案执行。逻辑错误也称为小虫子（bugs）其查找和改正错误的过程称为调试（debugging）。<br>处理方法一般为缩小范围法。<br>根据具体的业务场景来定位具体的业务组件，然后一步一步的进行断点调试，最后定位问题所在。<br>这类错误的发生条件基于没有语法错误的情况下，程序运行过程中出现了与预期结果不符的情况，<br>这时这个情况的错误我们就称之为逻辑错误，这类错误是比较难处理的，它需要我们对业务有一定的熟悉度才能进行正确的解决。</p>
 <p>例如：我们需要写一个程序用来两数之和，我们采用这种实现</p>
@@ -121,7 +121,7 @@ assert condition;
 assert condition:message;
 </code></pre>
 <p>要想断言生效，需要开启断言，需要添加运行配置的VM options: -ea</p>
-<p><img src="/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB,%E6%96%AD%E8%A8%803.png" alt="IDEA 添加VM"></p>
+<p><img src="/muzhi-blog.github.io/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB,%E6%96%AD%E8%A8%803.png" alt="IDEA 添加VM"></p>
 <pre><code class="java">public class TryCatchStudy {
     public static void main(String[] args) {
         //使用断言进行判断，如果不符合判断，则抛出异常AssertError
