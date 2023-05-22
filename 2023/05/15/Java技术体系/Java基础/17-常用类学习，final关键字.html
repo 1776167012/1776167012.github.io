@@ -1,0 +1,348 @@
+<hr>
+<p>title: 17.常用类学习,final关键字<br>date: 2023-05-15 10:02:59<br>tags: Java基础<br>—# 1.String类学习</p>
+<h2 id="1-1-什么是String类"><a href="#1-1-什么是String类" class="headerlink" title="1.1.什么是String类"></a>1.1.什么是String类</h2><p>由于程序设计中经常涉及处理和字符序列有关的算法，所以Java专门提供了用来处理字符序列的String类<br>来让我们的编程变得的更简单。<br>此类在java.lang包中，而此包在Java程序中被默认引用(无需import)，因此程序可以直接使用String类。<br>但Java将String类定义为final类，标记为不可变类,即此类不能被继承改写。</p>
+<h2 id="1-2-String类中常用的方法"><a href="#1-2-String类中常用的方法" class="headerlink" title="1.2.String类中常用的方法"></a>1.2.String类中常用的方法</h2><h3 id="1-2-1-构造方法"><a href="#1-2-1-构造方法" class="headerlink" title="1.2.1. 构造方法"></a>1.2.1. 构造方法</h3><p><strong>String(char value[])</strong></p>
+<p>这是String里的一个构造方法，它的作用是将一个char数组转为一个String对象进行使用</p>
+<p>其用法为：</p>
+<pre><code class="java">char a[]={&#39;j&#39;,&#39;a&#39;,&#39;v&#39;,&#39;a&#39;};
+String s=new String(a);
+</code></pre>
+<p>相当于：</p>
+<pre><code class="java">String s=new String(&quot;java&quot;);
+</code></pre>
+<p><strong>String(char value[],int offset,int count)</strong></p>
+<p>也是String类的一个构造方法，它的作用是将一个char数组中的指定范围的char序列转为一个String对象并进行使用。<br>其用法为：</p>
+<pre><code class="java">char a[]={&#39;0&#39;,&#39;1&#39;,&#39;2&#39;,&#39;3&#39;,&#39;4&#39;,&#39;5&#39;,&#39;6&#39;,&#39;7&#39;,&#39;8&#39;,&#39;9&#39;};
+String s=new String(a,2,4);
+</code></pre>
+<p>相当于</p>
+<pre><code class="java">String s=new String(&quot;2345&quot;);
+</code></pre>
+<p>虽然String提供了一些构造方法给我们进行构造，但是，String的最常用的构造方式是：</p>
+<p>String str &#x3D; “你好”;  &#x2F;&#x2F;直接赋值</p>
+<p><strong>除此之外，String还提供了其他的构造方法，这个自行查阅API或者阅读源码。</strong></p>
+<h3 id="1-2-2-public-int-length"><a href="#1-2-2-public-int-length" class="headerlink" title="1.2.2.public int length()"></a>1.2.2.public int length()</h3><p>此方法是获取一个String对象的字符序列长度的一个方法，其用法如下：</p>
+<pre><code class="java">public static void main(String[] args) {
+    String str = &quot;中华人民共和国&quot;;
+    System.out.println(&quot;中华人民共和国 长度： &quot;+str.length());
+}
+</code></pre>
+<p>执行结果：</p>
+<pre><code class="shell">中华人民共和国 长度： 7
+
+Process finished with exit code 0
+</code></pre>
+<h3 id="1-2-3-public-boolean-equals-String-s"><a href="#1-2-3-public-boolean-equals-String-s" class="headerlink" title="1.2.3.public boolean equals(String s)"></a>1.2.3.public boolean equals(String s)</h3><p>此方法是一个比较两个字符串是否相同(比较的是内容)的方法，其用法如下：</p>
+<pre><code class="java">public static void main(String[] args) {
+    boolean a ,b;
+    String tom = new String(&quot;天道酬勤&quot;);
+    String boy = new String(&quot;天道酬勤&quot;);
+    String jerry = new String(&quot;投机取巧&quot;);
+    a=tom.equals(boy);//a的值为true
+    b=tom.equals(jerry);//b的值为false
+    System.out.println(&quot;a: &quot;+a);
+    System.out.println(&quot;b: &quot;+b);
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code class="shell">a: true
+b: false
+
+Process finished with exit code 0
+</code></pre>
+<h3 id="1-2-4-public-boolean-startsWith-String-s"><a href="#1-2-4-public-boolean-startsWith-String-s" class="headerlink" title="1.2.4 .public boolean startsWith(String s)"></a>1.2.4 .public boolean startsWith(String s)</h3><h3 id="public-boolean-endsWith-String-s"><a href="#public-boolean-endsWith-String-s" class="headerlink" title="public boolean endsWith(String s)"></a>public boolean endsWith(String s)</h3><p>它们分别是判断当前String对象的字符序列前缀或后缀是否是参数指定的String</p>
+<p>对象s的字符序列，其用法如下：</p>
+<pre><code class="java">public static void main(String[] args) {
+    boolean a,b,c,d;
+    String tom=&quot;天气预报&quot;;
+    String jerry = &quot;比赛终止&quot;;
+    a=tom.startsWith(&quot;天气&quot;);//a的值为true
+    b=jerry.startsWith(&quot;天气&quot;);//b的值为flase
+    c=tom.endsWith(&quot;终止&quot;);//c的值是false
+    d=jerry.endsWith(&quot;终止&quot;);//d的值是true
+    System.out.println(&quot;a: &quot;+a);
+    System.out.println(&quot;b: &quot;+b);
+    System.out.println(&quot;c: &quot;+c);
+    System.out.println(&quot;d: &quot;+d);
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code class="shell">a: true
+b: false
+c: false
+d: true
+
+Process finished with exit code 0
+</code></pre>
+<h2 id="1-2-5-public-int-compareTo-String-s"><a href="#1-2-5-public-int-compareTo-String-s" class="headerlink" title="1.2.5 public int compareTo(String s)"></a>1.2.5 public int compareTo(String s)</h2><p>此方法为一个按字典排序与参数指定的String对象s的字符序列比较大小。</p>
+<p>用法如下：</p>
+<pre><code class="java">public static void main(String[] args) {
+    String str=&quot;adcde&quot;;
+    int a,b,c;
+    a = str.compareTo(&quot;boy&quot;);//小于0
+    b = str.compareTo(&quot;aba&quot;);//大于0
+    c = str.compareTo(&quot;adcde&quot;);//等于0
+    System.out.println(&quot;a: &quot;+a);
+    System.out.println(&quot;b: &quot;+b);
+    System.out.println(&quot;c: &quot;+c);
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code class="shell">a: -1
+b: 2
+c: 0
+
+Process finished with exit code 0
+</code></pre>
+<p><strong>补充（字符串大小比较规则）：以字符是ASCII值确定，比较规则是，从第一个字符开始，<br>顺次向后比较直到出现不同的字符为止，然后以第一个不同的字符的ASCII值比较大小确定，<br>例如：”abc”和”abadfg”相比较，由于前两个字符相同，且第三个字符不同，一个为’c’，一个为’a’,<br>由于c的ASCII码比a的大，所以这两个字符串的比较结果是：”abc”&gt;”abadfg”。</strong></p>
+<h3 id="1-2-6-public-boolean-contains-String-s"><a href="#1-2-6-public-boolean-contains-String-s" class="headerlink" title="1.2.6.public boolean contains(String s)"></a>1.2.6.public boolean contains(String s)</h3><p>此方法是判断当前String对象的字符序列是否包含参数s的字符序列。</p>
+<p>用法如下：</p>
+<pre><code class="java">public static void main(String[] args) {
+    String tom=&quot;student&quot;;
+    boolean a,b;
+    a = tom.contains(&quot;stu&quot;);//的值是true
+    b = tom.contains(&quot;ol&quot;);//的值是false
+    System.out.println(&quot;a: &quot;+a);
+    System.out.println(&quot;b: &quot;+b);
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code class="shell">a: true
+b: false
+
+Process finished with exit code 0
+</code></pre>
+<p>###1.2.7.int indexOf(String s) | int lastIndexOf(String s)</p>
+<p>indexOf用于检索首次出现s的字符序列的位置。<br>lastIndexOf检索最后出现s的字符序列的位置，若没有检索到则返回-1。<br>若想指定开始检索的位置，则有indexOf(String s,int startpoint）<br>和lastIndexOf(String s,int startpoint),取值后面的int startpoint为开始检索的位置。</p>
+<p>用法如下:</p>
+<pre><code class="java">public static void main(String[] args) {
+    String tom=&quot;I am a good cat&quot;;
+    int a,b,c,d;
+    a=tom.indexOf(&quot;I&quot;);
+    b=tom.indexOf(&quot;a&quot;);
+    c=tom.indexOf(&quot;good&quot;,2);
+    d=tom.indexOf(&quot;good&quot;,8);
+    System.out.println(&quot;a: &quot;+a);
+    System.out.println(&quot;b: &quot;+b);
+    System.out.println(&quot;c: &quot;+c);
+    System.out.println(&quot;d: &quot;+d);
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code class="shell">a: 0
+b: 2
+c: 7
+d: -1
+a lastIndexOf:13
+
+Process finished with exit code 0
+</code></pre>
+<p><strong>注意：String对象的字符序列中的转义字符是一个字符，例如\n代表回行,路径表示的\也是一个字符’&#39;。</strong></p>
+<h3 id="1-2-8-public-String-substring-int-startpoint"><a href="#1-2-8-public-String-substring-int-startpoint" class="headerlink" title="1.2.8.public String substring(int startpoint)"></a>1.2.8.public String substring(int startpoint)</h3><p>此方法用于获取一个新的String对象，新对象的字符序列是复制当前String对象字符序列的startpoint<br>开始到最后位置上的字符所得的字符序列。</p>
+<p>用法如下：</p>
+<pre><code class="java">public static void main(String[] args) {
+    String tom=&quot;I like football&quot;;
+    String str = tom.substring(1);//str的字符序列为&quot; like football&quot;
+    System.out.println(&quot;str: &quot;+str);
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code class="shell">str:  like football
+
+Process finished with exit code 0
+</code></pre>
+<p>还有substring(int start,int end)方法同上，但它是复制从start到end-1区间的字符。</p>
+<p>例如：</p>
+<pre><code class="java">String tom=&quot;I like football&quot;;
+String str = tom.substring(2，6);//str的字符序列为&quot;like&quot;
+</code></pre>
+<h2 id="1-3-String的使用场景"><a href="#1-3-String的使用场景" class="headerlink" title="1.3.String的使用场景"></a>1.3.String的使用场景</h2><h3 id="1-3-1-字符串常量的使用"><a href="#1-3-1-字符串常量的使用" class="headerlink" title="1.3.1.字符串常量的使用"></a>1.3.1.字符串常量的使用</h3><pre><code class="java">public class Exa01 {
+    public static void main(String[] args) {
+        String s1,s2;
+        s1=&quot;你好&quot;;
+        s2=&quot;你好&quot;;
+        // s1==s2的值为true
+        System.out.println(s1==s2);
+    }
+}
+</code></pre>
+<p><strong>也就是说，我们使用上面的方式给字符串进行赋值的时候，当赋的值相同的时候，分配的内存地址也一样。</strong></p>
+<h3 id="1-3-2-字符串的并置"><a href="#1-3-2-字符串的并置" class="headerlink" title="1.3.2.字符串的并置"></a>1.3.2.字符串的并置</h3><p>String对象可以用”+”进行并置运算，即首尾相接得到一个新的String对象。</p>
+<p>例如：</p>
+<pre><code class="java">public class Exa02 {
+    public static void main(String[] args) {
+        String you=&quot;你&quot;;
+        String me=&quot;我&quot;;
+        String testOne;
+        // testOne为一个新的字符串对象
+        testOne=you+me;//testOne为&quot;你我&quot;
+        System.out.println(testOne);
+        System.out.println(you.hashCode());
+        System.out.println(me.hashCode());
+        System.out.println(testOne.hashCode());
+    }
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code class="shell">你我
+20320
+25105
+655025
+
+Process finished with exit code 0
+</code></pre>
+<h3 id="1-3-3-字符串与基本数据的转换"><a href="#1-3-3-字符串与基本数据的转换" class="headerlink" title="1.3.3.字符串与基本数据的转换"></a>1.3.3.字符串与基本数据的转换</h3><ul>
+<li>基本类型数据到字符串的转换</li>
+</ul>
+<p>可以使用以下方法：<br>public static String valueOf(byte n)<br>public static String valueOf(int n)<br>………….依此类推，只需改变后面的数据类型就可以了。</p>
+<p>例如：</p>
+<pre><code class="java">public class Exa03 {
+    public static void main(String[] args) {
+        //浮点型到String
+        String str = String.valueOf(1235434.345);
+        System.out.println(&quot;str: &quot;+str);
+    }
+}
+</code></pre>
+<ul>
+<li>字符串到数据的转换<br>例如：</li>
+</ul>
+<pre><code class="java">public class Exa03 {
+    public static void main(String[] args) {
+        //浮点型到String
+        String str=String.valueOf(1235434.345);
+        System.out.println(&quot;str: &quot;+str);
+        //String 到 基本类型
+        int x;
+        String s=&quot;234&quot;;
+        x=Integer.parseInt(s);//可以根据需要将parseInt中的Int改为其他数据类型
+        System.out.println(x);
+    }
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code class="shell">str: 1235434.345
+234
+
+Process finished with exit code 0
+</code></pre>
+<h3 id="1-3-4-对象的字符串表示"><a href="#1-3-4-对象的字符串表示" class="headerlink" title="1.3.4.对象的字符串表示"></a>1.3.4.对象的字符串表示</h3><p>Object类有一个public String toString()方法，此方法可以使一个对象通过调用该方法获得该对象的字符串表示。<br>此方法的一般返回形式为：创建对象的类的名字@用字符串表示的对象的引用，<br>但是我们可以重写该方法让对象的toString方法输出我们想要它输出的信息。</p>
+<p>例子：</p>
+<pre><code class="java">public class Exa04 {
+    public static void main(String args[]){
+        Date date=new Date();
+        System.out.println(date.toString());
+        TV tv=new TV();
+        tv.setPrice(5345);
+        System.out.println(tv.toString());
+    }
+}
+
+class TV{
+    double price;
+    public void setPrice(double m){
+        price=m;
+    }
+    public String toString(){
+        String oldStr=super.toString();
+        return oldStr+&quot;\n这是电视机，价格是:&quot;+price;
+    }
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code class="shell">Thu May 18 15:10:11 CST 2023
+Base.exa17.TV@135fbaa4
+这是电视机，价格是:5345.0
+
+Process finished with exit code 0
+</code></pre>
+<h3 id="1-3-5-字符串与字符数组，字节数组"><a href="#1-3-5-字符串与字符数组，字节数组" class="headerlink" title="1.3.5.字符串与字符数组，字节数组"></a>1.3.5.字符串与字符数组，字节数组</h3><p><strong>字符串与字符数组</strong></p>
+<p>String类提供了将String对象的字符序列存放到数组中的方法：</p>
+<p>public void getChar(int start,int end,char c[],int offset)</p>
+<p>此方法可将当前String对象的字符序列的一部分字符复制到参数c指定的数组中，</p>
+<p>将字符序列中从位置start到end-1位置上的字符复制到数组c中，并从数组c的offset处开始存放这些字符。</p>
+<p>另外，还有一个简练地将String对象的字符序列的全部字符存放在一个字符数组的方法：</p>
+<p><strong>public char[] toCharArray();</strong></p>
+<p>该方法返回一个字符数组，该数组的长度与String对象的字符序列长度相等（第i个单元中的字符刚好为第i个字符）</p>
+<p>使用实例如下：</p>
+<pre><code class="java">public class Exa05 {
+    public static void main(String args[]){
+        char[] a,c;
+        String s=&quot;1945年8月15日是抗战胜利日&quot;;
+        a = new char[4];
+        s.getChars(11,15,a,0);
+        System.out.println(a);
+        c=&quot;十一长假期间，学校都放假了&quot;.toCharArray();
+        System.out.println(c);
+    }
+}
+</code></pre>
+<p><strong>字符串与字节数组</strong></p>
+<p>String类的一个构造方法String(byte[])用指定的字节数组构造一个String对象。<br>String(byte[],int offset,int length)构造方法用指定的字节数组的一部分，<br>即从数组的起始位置offset开始去length个字节，构造一个String对象。<br><strong>public byte[] getBytes()方法使用平台默认的字符编码，将当前的String对象的字符序列存放到字节数组中，<br>并返回数组的引用。</strong></p>
+<p>例子：</p>
+<pre><code class="java">public class Exa05 {
+    public static void main(String args[]){
+        char[] a,c;
+        String s=&quot;1945年8月15日是抗战胜利日&quot;;
+        a = new char[4];
+        s.getChars(11,15,a,0);
+        System.out.println(a);
+        c=&quot;十一长假期间，学校都放假了&quot;.toCharArray();
+        System.out.println(c);
+
+        //String 与 byte
+        byte d[]=&quot;javaHello&quot;.getBytes();//字符串转为字节数组
+        System.out.println(&quot;数组d的长度：&quot;+ d.length);
+        System.out.println(d);
+        String s1=new String(d,6,2);//字节数组转字符串
+        System.out.println(s1);//输出&quot;好&quot;
+        s1=new String(d,0,6);
+        System.out.println(s1);//输出&quot;java你&quot;
+    }
+}
+</code></pre>
+<h3 id="1-3-6-正则表达式及字符串的替换和分解"><a href="#1-3-6-正则表达式及字符串的替换和分解" class="headerlink" title="1.3.6.正则表达式及字符串的替换和分解"></a>1.3.6.正则表达式及字符串的替换和分解</h3><p><strong>正则表达式</strong></p>
+<p>正则表达式是一个String对象的字符序列，该字符序列中含有具有特殊意义的字符，<br>这些特殊字符称为元字符，如”\dcat”中的\d代表0~9中任意一个数。<br>String对象调用 <strong>public boolean matches(String regex)</strong><br>方法可判断当前String对象的字符序列是否和regex指定的正则表达式匹配。（正则表达式可用来进行高效过滤）</p>
+<pre><code class="java">public class Exa06_1 {
+    public static void main(String[] args) {
+        String str = &quot;0cat&quot;;
+        boolean is = str.matches(&quot;\\dcat&quot;);
+        System.out.println(str+&quot;是否符合正则表达式：\\\\dcat ：&quot;+is);
+    }
+}
+</code></pre>
+<p><strong>字符串的替换</strong></p>
+<p>String对象可调用 <strong>public String replaceAll(String regex,String replacement)</strong><br>方法返回一个新的String对象。<br>这个新对象的字符序列是把当前String对象的字符序列中所有和参数regex匹配的子字符序列，<br>用参数replacement的字符序列替换后得到字符序列。<br>例如：<br>String str&#x3D;”12hello567bird”.replaceAll(“[a-zA-a]+”,”你好”);<br>此操作是将字符序列（即12hello567bird）中所有英文字符替换为”你好”，即str为”12你好567你好”。</p>
+<pre><code class="java">public class Exa06_2 {
+    public static void main(String[] args) {
+        String str=&quot;12hello567bird&quot;.replaceAll(&quot;[a-zA-a]+&quot;,&quot;你好&quot;);
+        System.out.println(str);
+
+        String str1 = &quot;12hello567bird&quot;.replace(&quot;hello&quot;,&quot;你好&quot;);
+        System.out.println(str1);
+    }
+}
+</code></pre>
+<p><strong>字符序列的分隔</strong></p>
+<p>String类提供了一个方法public String[] split(String regex).</p>
+<p>此方法可使用参数指定的正则表达式regex作为分隔标记分解出当前String对象序列中的单词，<br>并将分解出的单词存放在String数组中。</p>
+<p>例如：</p>
+<pre><code class="java">public class Exa06_3 {
+    public static void main(String[] args) {
+        String str=&quot;1949年10月1日,是中华人民共和国成立的日子&quot;;
+        String regex=&quot;,&quot;;
+        String degitWord[] = str.split(regex);
+        for(String str1:degitWord){
+            System.out.println(str1);
+        }
+        String[] strings = str.split(&quot;\\D+&quot;);
+        for(String str1:strings){
+            System.out.println(str1);
+        }
+    }
+}
+</code></pre>
+<p>关于字符串的使用还有很多使用场景，还要学习。</p>
+<p>细心的我们仔细看就会发现String类被final修饰了，String是个不可变类。</p>
+<h3 id="1-3-7-final关键字"><a href="#1-3-7-final关键字" class="headerlink" title="1.3.7.final关键字"></a>1.3.7.final关键字</h3><p>注意：final可以用来修饰类，方法和属性，但不能修饰构造方法。<br>使用final修饰的类不可被继承，使用final修饰的方法不可被重写，使用final修饰的变量不可被修改。<br><strong>final修饰的基本类型变量的值不可被改变，但是由final修饰的引用类型变量虽然不可以改变，<br>但它所指向的内存空间中的变量可以改变。</strong></p>
+<p>代码地址：<br><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Base/exa17">Java基础学习&#x2F;src&#x2F;main&#x2F;java&#x2F;exa17 · 严家豆&#x2F;Study - 码云 - 开源中国 (gitee.com)</a></p>

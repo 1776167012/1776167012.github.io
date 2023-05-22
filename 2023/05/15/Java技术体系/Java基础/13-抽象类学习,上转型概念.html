@@ -1,0 +1,149 @@
+<hr>
+<h2 id="title-13-抽象类学习date-2023-05-15-10-06-59tags-Java基础"><a href="#title-13-抽象类学习date-2023-05-15-10-06-59tags-Java基础" class="headerlink" title="title: 13.抽象类学习date: 2023-05-15 10:06:59tags: Java基础"></a>title: 13.抽象类学习<br>date: 2023-05-15 10:06:59<br>tags: Java基础</h2><h1 id="1-什么是面向抽象编程"><a href="#1-什么是面向抽象编程" class="headerlink" title="1.什么是面向抽象编程"></a>1.什么是面向抽象编程</h1><p>所谓面向抽象编程，是指当设计某种重要的类时，不让该类面向具体的类，而是抽象的类，即所设计的类中的重要数据是抽象类声明的对象，<br>而不是具体类声明的对象。<br><strong>抽象类只关心操作，并不关心这些操作的具体算法</strong>，这样就可以让设计者将更多的精力投入到整体的设计中，而无需关心具体的实现。<br>面向抽象设计将程序设计的层次提高到系统整体设计的层次。 通过这样的设计，我们可以设计出低耦合，高扩展的系统。（现在了解即可）</p>
+<h2 id="1-1-抽象类"><a href="#1-1-抽象类" class="headerlink" title="1.1 抽象类"></a>1.1 抽象类</h2><p>设计出面向抽象的程序，我们需要掌握抽象类和接口的概念。</p>
+<h3 id="1-1-1-如何定义一个抽象类"><a href="#1-1-1-如何定义一个抽象类" class="headerlink" title="1.1.1 如何定义一个抽象类"></a>1.1.1 如何定义一个抽象类</h3><p>使用abstract关键字修饰类和方法即可。<br>在抽象类里，我们除了可以定义不同的变量和方法外，还可以定义抽象方法，这样的方法不能有方法体，它的实现应该交由其子类完成。<br>如下所示：</p>
+<pre><code class="java">abstract class Skills{
+    private int num;
+    protected int age;
+    public int num2;
+    static int num4 = 2200;
+    public Skills(){
+        num = 100;
+        age = 20;
+        num2 = 300;
+    }
+
+    public abstract void eat();
+    public abstract void say();
+    public void sayOne(){
+        System.out.println(&quot;I said: &quot;+num);
+    }
+}
+</code></pre>
+<p>上面代码定义了一个抽象类，我们可以看到抽象类和普通类的差别并不大，就是多个一个修饰符，<br>然后抽象类的能力更强（允许定义抽象方法）而已。</p>
+<h3 id="1-1-2-如何使用抽象类"><a href="#1-1-2-如何使用抽象类" class="headerlink" title="1.1.2 如何使用抽象类"></a>1.1.2 如何使用抽象类</h3><p>因为抽象类可以定义的抽象的概念。<br>所以我们的具体的实现类需要继承它，然后实现它的抽象方法即可。</p>
+<pre><code class="java">class ChinesePeople extends Skills{
+
+    @Override
+    public void eat() {
+        System.out.println(&quot;can eat chili&quot;);
+    }
+
+    @Override
+    public void say() {
+        System.out.println(&quot;can say chinese&quot;);
+
+    }
+}
+</code></pre>
+<h3 id="1-1-3-展示示例"><a href="#1-1-3-展示示例" class="headerlink" title="1.1.3 展示示例"></a>1.1.3 展示示例</h3><pre><code class="java">public class AbstractClassStudy {
+    public static void main(String[] args) {
+        Skills skills = new ChinesePeople();
+        skills.eat();
+        skills.say();
+        Skills skills1 = new EnglishPeople();
+        skills1.eat();
+        skills1.say();
+    }
+}
+abstract class Skills{
+    public abstract void eat();
+    public abstract void say();
+}
+class ChinesePeople extends Skills{
+
+    @Override
+    public void eat() {
+        System.out.println(&quot;can eat chili&quot;);
+    }
+    @Override
+    public void say() {
+        System.out.println(&quot;can say chinese&quot;);
+
+    }
+}
+class EnglishPeople extends Skills{
+    @Override
+    public void eat() {
+        System.out.println(&quot;can eat hamburger&quot;);
+    }
+    @Override
+    public void say() {
+        System.out.println(&quot;can say english&quot;);
+    }
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code class="shell">can eat chili
+can say chinese
+can eat hamburger
+can say english
+
+Process finished with exit code 0
+</code></pre>
+<h1 id="2-对象向上转型"><a href="#2-对象向上转型" class="headerlink" title="2.对象向上转型"></a>2.对象向上转型</h1><p>当用子类创建一个实例对象，并把这个对象的引用赋给父类的声明变量，我们称此时得到的对象是子类对象的<strong>上转型对象</strong>。<br>假设Animal类是Tiger类的父类，有：</p>
+<pre><code class="java">Animal a;
+a = new Tiger();
+</code></pre>
+<p>或</p>
+<pre><code class="java">Animal a;
+Tiger b = new Tiger();
+a = b;
+</code></pre>
+<p><strong>这时称对象a是对象b的上转型对象。上转型对象的存在帮助我们避免使用非抽象类型的方法。</strong></p>
+<p>对象和对象的上转型对象的操作权限如下图：</p>
+<p>ObjectB是ObjectA的上转型对象</p>
+<pre><code class="mermaid">graph LR
+
+ObjectB--&gt;hide_param
+
+ObjectB--&gt;extend_param
+
+ObjectB--&gt;extend_or_override_param
+
+ObjectA--&gt;extend_param
+
+ObjectA--&gt;new_param
+
+ObjectA--&gt;extend_or_override_param
+
+ObjectA--&gt;new_method 
+</code></pre>
+<p>大家自己可以写例子验证一下，通过这个上转型和非上转型对象的权限，我们可以操作我们想要操作的变量或方法，<br>当然，也可以直接使用非上转型(通过super关键字在子类定义可以未被继承的变量)</p>
+<h1 id="2-多态，封装，继承"><a href="#2-多态，封装，继承" class="headerlink" title="2.多态，封装，继承"></a>2.多态，封装，继承</h1><h2 id="2-1-多态"><a href="#2-1-多态" class="headerlink" title="2.1 多态"></a>2.1 多态</h2><p>其实多态性并不难理解,其含义大概就是说同一种概念的事物可以有不同的描述。</p>
+<p>比如：</p>
+<ul>
+<li>重载：同一个类中可以写多个同名的方法。</li>
+<li>重写：子类可以重写从父类继承的方法，一种接口的多个实现，父类引用指向子类对象。</li>
+</ul>
+<h2 id="2-2-封装"><a href="#2-2-封装" class="headerlink" title="2.2 封装"></a>2.2 封装</h2><p>封装也不难理解，就是我的变量只能我来操作，我的方法只有我能调用,其他类操作不了。<br>比如：</p>
+<ul>
+<li>private关键字：private关键字可以将方法或属性封装在类中，避免其他类中对它们进行操作。</li>
+<li>私有静态内部类: 私有静态内部类只能拥有它的类调用</li>
+<li>友好类&#x2F;友好静态内部类：友好类将自己封装在一个包中，只允许同包的类调用</li>
+<li>受保护的静态内部类：受保护的静态内部类将自己封装在一个包中，只允许同包的类调用或子类调用</li>
+</ul>
+<h2 id="2-3-继承"><a href="#2-3-继承" class="headerlink" title="2.3 继承"></a>2.3 继承</h2><p>继承描述的就是子类可以继承父类一些属性而不用重复定义。</p>
+<p>extends关键字：子类继承父类以及祖先类的可继承的属性和方法。</p>
+<h1 id="3-抽象类和抽象方法"><a href="#3-抽象类和抽象方法" class="headerlink" title="3.抽象类和抽象方法"></a>3.抽象类和抽象方法</h1><h2 id="3-1用关键字abstract修饰的类称为抽象类"><a href="#3-1用关键字abstract修饰的类称为抽象类" class="headerlink" title="3.1用关键字abstract修饰的类称为抽象类"></a>3.1用关键字abstract修饰的类称为抽象类</h2><p>例如：</p>
+<pre><code class="java">abstract class A{
+...
+}
+</code></pre>
+<ul>
+<li>抽象类中既可以有抽象方法也可以有非抽象方法，而非抽象类中不能有抽象方法</li>
+<li>抽象类不能用new运算符创建对象。</li>
+<li>抽象类的一个非抽象子类必须重写父类的所有抽象方法，并给出方法体。</li>
+<li>抽象类的抽象子类可以重写父类的抽象方法，也可以继承。</li>
+<li>抽象类声明的对象可以做其子类的上转型对象，调用子类重写的方法。</li>
+</ul>
+<h2 id="3-2-用关键字abstract修饰的方法称为抽象方法"><a href="#3-2-用关键字abstract修饰的方法称为抽象方法" class="headerlink" title="3.2 用关键字abstract修饰的方法称为抽象方法"></a>3.2 用关键字abstract修饰的方法称为抽象方法</h2><p>例如：</p>
+<pre><code class="java">abstract int mi(int x,int y);
+</code></pre>
+<p>并且在抽象类中：</p>
+<ul>
+<li>对于抽象方法，只允许声明，不允许实现。</li>
+<li>不允许用final和abstract同时修饰一个方法或类。</li>
+<li>不允许用static修饰抽象方法</li>
+</ul>
+<p>代码地址：<br><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa13">Java基础学习&#x2F;src&#x2F;main&#x2F;java&#x2F;exa13 · 严家豆&#x2F;Study - 码云 - 开源中国 (gitee.com)</a></p>

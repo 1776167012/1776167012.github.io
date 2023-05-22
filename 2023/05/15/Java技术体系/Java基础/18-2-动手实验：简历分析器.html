@@ -1,0 +1,168 @@
+<hr>
+<h2 id="title-18-2-动手实验：简历分析器date-2023-05-15-10-00-00tags-Java基础"><a href="#title-18-2-动手实验：简历分析器date-2023-05-15-10-00-00tags-Java基础" class="headerlink" title="title: 18-2.动手实验：简历分析器date: 2023-05-15 10:00:00tags: Java基础"></a>title: 18-2.动手实验：简历分析器<br>date: 2023-05-15 10:00:00<br>tags: Java基础</h2><h1 id="1-制作简历分析器"><a href="#1-制作简历分析器" class="headerlink" title="1.制作简历分析器"></a>1.制作简历分析器</h1><p>通过前面的学习，已经具备的基本的编程能力，现在可以通过自己动手做一个简历分析器来进行巩固和进阶。</p>
+<h2 id="1-1-需求分析"><a href="#1-1-需求分析" class="headerlink" title="1.1 需求分析"></a>1.1 需求分析</h2><p>人工读取简历虽然准确，但是也耗费了大量的人力，如果我们能做一个简历分析器，<br>在简历筛选前期自动过滤一些不符合条件的， 将会节省大量人力阅读。<br>所以，需要一个简历分析程序，能快速的对一份简历进行关键信息提取，<br>比如，姓名，年龄，毕业院校，专业信息等。</p>
+<h2 id="1-2-场景描述"><a href="#1-2-场景描述" class="headerlink" title="1.2 场景描述"></a>1.2 场景描述</h2><p>假设现在有一个文件，内容如下</p>
+<pre><code class="bash">姓名: 张麻子
+性别： 男
+年龄: 28
+自我评价： 好好啊好好好哈
+大学成绩：A A A
+毕业院校: 黄埔军校
+获得证书：教师资格证, 教官证
+人生格言: 公平，公平，还是tm的公平
+专业：打劫专业
+</code></pre>
+<p><strong>要求写一个程序，能提取上面的姓名，年龄，毕业院校，专业，并存放在一个对象里，然后打印对象的信息。</strong></p>
+<h2 id="1-3-具体实现"><a href="#1-3-具体实现" class="headerlink" title="1.3 具体实现"></a>1.3 具体实现</h2><p>首先，我们需要定义一个存放信息的对象:</p>
+<pre><code class="java">public class PersonInfo {
+
+    // 姓名
+    private String name;
+    // 学校名称
+    private String school;
+    // 年龄
+    private Integer age;
+    // 专业
+    private String professional;
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;PersonInfo{&quot; +
+                &quot;name=&#39;&quot; + name + &#39;\&#39;&#39; +
+                &quot;, school=&#39;&quot; + school + &#39;\&#39;&#39; +
+                &quot;, age=&quot; + age +
+                &quot;, professional=&#39;&quot; + professional + &#39;\&#39;&#39; +
+                &#39;}&#39;;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getProfessional() {
+        return professional;
+    }
+
+    public void setProfessional(String professional) {
+        this.professional = professional;
+    }
+}
+</code></pre>
+<p>然后就是进行信息提取的程序：</p>
+<pre><code class="java">import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class Demo {
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner scanner = new Scanner(new File(&quot;麻子.txt&quot;));
+        String[] ps = readInfo(scanner);
+        PersonInfo personInfo = getPersonInfo(ps);
+        System.out.println(&quot;简历的基本信息为：&quot;+personInfo.toString());
+    }
+
+
+    /**
+     * 信息提取
+     * @param params
+     * @return
+     */
+    public static PersonInfo getPersonInfo(String[] params){
+        PersonInfo personInfo = new PersonInfo();
+        for(String s:params){
+            if(s!=null){
+                if(s.contains(&quot;姓名&quot;)){
+                    s = s.replace(&quot;姓名&quot;,&quot;&quot;);
+                    s = s.replace(&quot;\r&quot;,&quot;&quot;);
+                    personInfo.setName(s);
+                }
+                if(s.contains(&quot;年龄&quot;)){
+                    String age = &quot;&quot;;
+                    for(int i=0;i&lt;s.length();i++) {
+                        if (s.charAt(i) &gt;= 48 &amp;&amp; s.charAt(i) &lt;= 57) {
+                            age += s.charAt(i);
+                        }
+                    }
+                    personInfo.setAge(Integer.valueOf(age));
+                }
+                if(s.contains(&quot;毕业院校&quot;)){
+                    s = s.replace(&quot;毕业院校&quot;,&quot;&quot;);
+                    s = s.replace(&quot;\r&quot;,&quot;&quot;);
+                    personInfo.setSchool(s);
+                }
+                if(s.contains(&quot;专业&quot;)){
+                    s = s.replace(&quot;专业&quot;,&quot;&quot;);
+                    s = s.replace(&quot;\r&quot;,&quot;&quot;);
+                    personInfo.setProfessional(s);
+                }
+            }
+        }
+        return personInfo;
+    }
+
+
+
+    /**
+     * 信息扫描
+     * @param scanner
+     * @return
+     */
+    public static String[] readInfo(Scanner scanner){
+        String [] params = new String[2];
+        scanner.useDelimiter(&quot;\n&quot;);
+        int i = 0;
+        while (true){
+            if(scanner.hasNext()){
+                if(i==params.length){
+                    params = dilatation(params);
+                }
+                params[i++] = scanner.next();
+            }else break;
+        }
+        return params;
+    }
+
+
+    /**
+     * 字符串数组扩容
+     * @param source
+     * @return
+     */
+   public static String[] dilatation(String[] source){
+        String[] result = new String[2*source.length+5];
+        for (int i=0;i&lt;source.length;i++){
+            result[i] = source[i];
+        }
+        return result;
+    }
+
+}
+</code></pre>
+<p>最后运行它：</p>
+<pre><code class="shell">简历的基本信息为：PersonInfo{name=&#39;: 张麻子&#39;, school=&#39;: 黄埔军校&#39;, age=28, professional=&#39;：打劫&#39;}
+
+Process finished with exit code 0
+</code></pre>
+<p>上面是满足了基本需要，想要做的更好的同学可以在此基础上进行扩展，优化，达到更好的效果。</p>
+<p><strong>注意： 上面的实践仅作为学习巩固练习，真实项目中是不会这么写的哈哈哈哈哈哈。</strong></p>
+<h3 id="代码地址"><a href="#代码地址" class="headerlink" title="代码地址"></a>代码地址</h3><p><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Base/exa18_1">Java基础学习&#x2F;src&#x2F;main&#x2F;java&#x2F;Base&#x2F;exa18_1 · 严家豆&#x2F;Study - 码云 - 开源中国 (gitee.com)</a></p>

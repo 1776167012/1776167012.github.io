@@ -1,0 +1,130 @@
+<hr>
+<h2 id="title-9-四种访问权限date-2023-05-15-10-10-59tags-Java基础"><a href="#title-9-四种访问权限date-2023-05-15-10-10-59tags-Java基础" class="headerlink" title="title: 9.四种访问权限date: 2023-05-15 10:10:59tags: Java基础"></a>title: 9.四种访问权限<br>date: 2023-05-15 10:10:59<br>tags: Java基础</h2><h1 id="1-访问权限从何而来？"><a href="#1-访问权限从何而来？" class="headerlink" title="1.访问权限从何而来？"></a>1.访问权限从何而来？</h1><p>我们已经知道当一个类创建了一个对象后，该对象可以通过  .  操作符访问自己的变量，使用其中的方法。<br>实际上在Java中我们通过对象操作的变量和使用类中的方法是<strong>有限制的</strong>，<br>我们并不是能随心所欲的访问一个对象的所有变量或所有方法的。<br>其限制的主要原因是在声明变量和方法时的修饰符，访问权限修饰符大概分为四个：</p>
+<p><strong>私有（private）,友好（无修饰符）,保护(protected),公有(public)</strong></p>
+<h2 id="1-1-私有-private"><a href="#1-1-私有-private" class="headerlink" title="1.1.私有(private)"></a>1.1.私有(private)</h2><h3 id="1-1-1私有变量和私有方法"><a href="#1-1-1私有变量和私有方法" class="headerlink" title="1.1.1私有变量和私有方法"></a>1.1.1私有变量和私有方法</h3><p>在定义的类的时候在声明变量&#x2F;方法前加上private修饰符，表示声明的是私有变量或方法，<br>其访问权限是<strong>只能在自己类中被访问</strong>。当在另外一个类中用一个类创建了一个该类的对象后，<br>该对象不能访问自己的私有变量，调用类中的私有方法。</p>
+<p><strong>想要对数据的操作只能在本类中处理，就可以使用private这个关键字。</strong></p>
+<h3 id="1-1-2-例子"><a href="#1-1-2-例子" class="headerlink" title="1.1.2 例子"></a>1.1.2 例子</h3><pre><code class="java">public class PersonPrivate {
+    private int x;
+    private int getX() {
+        return x;
+    }
+    private void setX(int x) {
+        this.x = x;
+    }
+}
+</code></pre>
+<p>下面尝试创建PersonPrivate对象并调用它的方法：</p>
+<p><img src="/../../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%901.png" alt="img.png"></p>
+<p><strong>我们可以看到，在另一个类中创建PersonPrivate对象后，无法通过该对象调用其中定义的private变量或方法。</strong></p>
+<h2 id="1-2-公有-public"><a href="#1-2-公有-public" class="headerlink" title="1.2.公有(public)"></a>1.2.公有(public)</h2><h3 id="1-2-1-公有变量和方法"><a href="#1-2-1-公有变量和方法" class="headerlink" title="1.2.1 公有变量和方法"></a>1.2.1 公有变量和方法</h3><p>用public修饰的成员变量和方法我们称之为公有变量和方法。<br>在任何一个类中用另一个类创建了一个对象，可以通过该对象访问其中的共有变量和方法。</p>
+<h3 id="1-2-2-例子"><a href="#1-2-2-例子" class="headerlink" title="1.2.2 例子"></a>1.2.2 例子</h3><pre><code class="java">public class PersonPublic {
+    public int x;
+    public int getX() {
+        return x;
+    }
+    public void setX(int x) {
+        this.x = x;
+    }
+}
+</code></pre>
+<p><img src="/../../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%902.png" alt="img.png"></p>
+<p>我们可以看到，在另一个类中创建该类的对象后，可以直接访问该类定义的public方法和变量。</p>
+<h2 id="1-3-友好-无修饰符"><a href="#1-3-友好-无修饰符" class="headerlink" title="1.3.友好(无修饰符)"></a>1.3.友好(无修饰符)</h2><h3 id="1-3-1-友好变量和方法"><a href="#1-3-1-友好变量和方法" class="headerlink" title="1.3.1 友好变量和方法"></a>1.3.1 友好变量和方法</h3><p>不用private，public，protected修饰符修饰的成员变量和方法被称为友好变量和友好方法。<br>这种变量和方法的可见性只允许同一包的其他类创建对象后可以用对象进行访问。<br><strong>在同一包中的前提下</strong> 在任何一个类中用一个类创建了一个对象，该对象能访问该类中的友好变量和方法，<br>否则不可见。</p>
+<pre><code class="java">public class PersonFriend {
+    
+    int x;
+    void set(int x){
+        this.x = x;
+    }
+    int getX(){
+        return x;
+    }
+    
+}
+</code></pre>
+<p>当在同一个包里的时候，可见</p>
+<p><img src="/../../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%903.png" alt="img.png"></p>
+<p>下面再另一个包中创建PersonFriend对象并试图访问：</p>
+<p><img src="/../../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%904.png" alt="img.png"></p>
+<p>可以发现，无法进行访问。</p>
+<h2 id="1-4-受保护-protected"><a href="#1-4-受保护-protected" class="headerlink" title="1.4.受保护(protected)"></a>1.4.受保护(protected)</h2><h3 id="1-4-1-受保护的变量和方法"><a href="#1-4-1-受保护的变量和方法" class="headerlink" title="1.4.1 受保护的变量和方法"></a>1.4.1 受保护的变量和方法</h3><p>用protected修饰的成员变量和方法被称为受保护的成员变量和方法。<br>当在另外一个类中用一个类创建了一个对象后，如果两个类在同一包中，<br>那么该对象可以访问该类的protected变量和方法，否则不可见。</p>
+<p><strong>大家可能会有一个疑惑：友好和受保护的用法好像相同，其实他们还是有差别的</strong></p>
+<ul>
+<li>子类和父类在同一包中的继承性：除了private成员变量和方法，其他的都继承了。</li>
+</ul>
+<pre><code class="java">public class PersonExtend {
+    public int x;
+    private int y;
+    int z;
+    protected int n;
+}
+public class PersonSon extends PersonExtend{
+    public int name;
+}
+</code></pre>
+<p><img src="/../../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%905.png" alt="img.png"></p>
+<p>可以看到，除了私有变量y，其他的都继承了。</p>
+<ul>
+<li>子类和父类不在同一包中：子类只继承父类的protected和public成员，友好成员不继承了。<br>（这里protected和友好类的差别出现了）</li>
+</ul>
+<p>这里将父类和子类放在不同的包中：</p>
+<pre><code class="java">package exa09;
+public class PersonExtend {
+    public int x;
+    private int y;
+    int z;
+    protected int n;
+}
+</code></pre>
+<pre><code class="java">package exa08;
+
+import exa09.PersonExtend;
+
+public class PersonSon extends PersonExtend {
+    public int name;
+}
+</code></pre>
+<p><img src="/../../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%906.png" alt="img.png"></p>
+<p>这里可以看到，这时只继承了protected和public的变量。</p>
+<h1 id="2-四种修饰符的差异"><a href="#2-四种修饰符的差异" class="headerlink" title="2.四种修饰符的差异"></a>2.四种修饰符的差异</h1><p>类声明时，如果在关键字class前加上public关键字，我们称为public类，不加则是友好类。<br>我们可以在任何另外一个类中使用public类创建对象，但要在另一个类中用友好类创建对象时，<br>必须要保证它们在同一包中。</p>
+<p>下面是访问修饰符修饰的变量或方法在不同范围的权限列表：</p>
+<table>
+<thead>
+<tr>
+<th>关系</th>
+<th>public</th>
+<th>protected</th>
+<th>default</th>
+<th>private</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>同一个类</td>
+<td>允许</td>
+<td>允许</td>
+<td>允许</td>
+<td>允许</td>
+</tr>
+<tr>
+<td>同一个包</td>
+<td>允许</td>
+<td>允许</td>
+<td>允许</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td>父子类</td>
+<td>允许</td>
+<td>允许</td>
+<td>不允许</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td>不同包</td>
+<td>允许</td>
+<td>不允许</td>
+<td>不允许</td>
+<td>不允许</td>
+</tr>
+</tbody></table>
+<p>代码地址：<br><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa09">https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa09</a></p>

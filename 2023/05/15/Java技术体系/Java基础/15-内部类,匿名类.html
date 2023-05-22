@@ -1,0 +1,196 @@
+<hr>
+<h2 id="title-15-内部类-匿名类date-2023-05-15-10-04-59tags-Java基础"><a href="#title-15-内部类-匿名类date-2023-05-15-10-04-59tags-Java基础" class="headerlink" title="title: 15.内部类,匿名类date: 2023-05-15 10:04:59tags: Java基础"></a>title: 15.内部类,匿名类<br>date: 2023-05-15 10:04:59<br>tags: Java基础</h2><h1 id="1-什么是内部类？"><a href="#1-什么是内部类？" class="headerlink" title="1.什么是内部类？"></a>1.什么是内部类？</h1><h2 id="1-1-内部类的定义"><a href="#1-1-内部类的定义" class="headerlink" title="1.1 内部类的定义"></a>1.1 内部类的定义</h2><p>《JAVA programming》里这样定义的：<br>内部类（又叫嵌入类），是一种在其他类的内部定义的类。<br>如下所示：</p>
+<pre><code class="java">public class ShowInnerClass {
+    
+    private int data;
+    public void methodOne(){
+        
+    }
+
+    /**
+     * InnerClass是ShowInnerClass的内部类
+     */
+    class InnerClass{
+        public void method(){
+            data++;
+            methodOne();
+        }
+    }
+    
+}
+</code></pre>
+<p>InnerClass类在ShowInnerClass类的内部定义，所以InnerClass是ShowInnerClass的内部类。</p>
+<h2 id="1-2-内部类的特性"><a href="#1-2-内部类的特性" class="headerlink" title="1.2 内部类的特性"></a>1.2 内部类的特性</h2><p>内部类作为定义在类中的类，有着其一定的特殊性。</p>
+<p>内部类有下列特性：</p>
+<h3 id="1-2-1-内部类有外部变量的直接访问权"><a href="#1-2-1-内部类有外部变量的直接访问权" class="headerlink" title="1.2.1 内部类有外部变量的直接访问权"></a>1.2.1 内部类有外部变量的直接访问权</h3><p>内部类可以引用包含它的外部类中的数据和方法，所以不必把外部类的引用传递给内部类的构造方法，<br>基于这个原因，内部类可以使程序简单明了。</p>
+<p>如下面所示，内部类InnerClass可以直接访问外部类的私有变量和方法。</p>
+<pre><code class="java">public class ShowInnerClass {
+    private int data;
+    private int num;
+    private void methodOne(){
+    }
+    /**
+     * InnerClass是ShowInnerClass的内部类
+     */
+    class InnerClass{
+        public void method(){
+            data++;
+            methodOne();
+        }
+    }
+}
+</code></pre>
+<h3 id="1-2-2-内部类的编译文件"><a href="#1-2-2-内部类的编译文件" class="headerlink" title="1.2.2 内部类的编译文件"></a>1.2.2 内部类的编译文件</h3><p>内部类只是用来支撑外部类的工作。编译后，他的名称形如“外部类名称$内部类名称.class”。<br>例如，showInnerClass中内部类InnerClass,被编译为showInnerClass$$InnerClass.class。</p>
+<p><img src="/../../resource/Java%E5%9F%BA%E7%A1%80/15-%E5%86%85%E9%83%A8%E7%B1%BB,%E5%8C%BF%E5%90%8D%E7%B1%BB1.png" alt="img.png"></p>
+<h3 id="1-2-3-内部类的成员"><a href="#1-2-3-内部类的成员" class="headerlink" title="1.2.3 内部类的成员"></a>1.2.3 内部类的成员</h3><p>内部类可以声明为public,protected,private，其意义与用在类的其他成员上相同。</p>
+<pre><code class="java">public class ShowInnerClass {
+    public ShowInnerClass.InnerClass InnerClass;
+    private int data;
+    private int num;
+    private void methodOne(){
+        System.out.println(&quot;Hello world&quot;);
+    }
+    public ShowInnerClass(){
+        InnerClass = new InnerClass();
+    }
+
+    /**
+     * InnerClass是ShowInnerClass的内部类
+     */
+     class InnerClass{
+         private int num2;
+         protected int age;
+         public void method(){
+            data++;
+            methodOne();
+        }
+    }
+}
+</code></pre>
+<h3 id="1-2-4-静态内部类"><a href="#1-2-4-静态内部类" class="headerlink" title="1.2.4 静态内部类"></a>1.2.4 静态内部类</h3><p>内部类可以声明为static的，可以使用外部类的类名来访问静态的内部类，<br>但静态的内部类不能访问外部类的非静态成员。</p>
+<p>如果内部类是静态的，使用下列语法可以直接创建它的对象:</p>
+<pre><code class="java">外部类.内部类 内部类对象名 = new 外部类.内部类();
+</code></pre>
+<p>示例：</p>
+<pre><code class="java">public class StaticInnerClass {
+
+    public static int data;
+
+    private static void methodOne(){
+        System.out.println(&quot;hello world! &quot;);
+    }
+
+    /**
+     * InnerClass是ShowInnerClass的内部类
+     */
+    static class InnerClass{
+        private int num2;
+        protected int age;
+        public void method(){
+            data++;
+            methodOne();
+        }
+    }
+}
+</code></pre>
+<p>上面的类中定义了一个静态内部类。</p>
+<pre><code class="java">public class StaticInnerTest {
+    public static void main(String[] args) {
+        StaticInnerClass.InnerClass innerClass = new StaticInnerClass.InnerClass();
+        innerClass.method();
+    }
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code class="shell">Hello world
+
+Process finished with exit code 0
+</code></pre>
+<h3 id="1-2-5-内部类的使用"><a href="#1-2-5-内部类的使用" class="headerlink" title="1.2.5 内部类的使用"></a>1.2.5 内部类的使用</h3><p>我们经常在外部类中创建内部类的对象，但也可以从另外的类中创建内部类的对象。如果内部类是非静态的，<br>必须先创建外部类的实例，然后使用下列语法创建内部类的对象：</p>
+<pre><code class="java">外部类.内部类   内部类对象名 = 外部类对象.new 内部类();
+</code></pre>
+<pre><code class="java">public class ShowInnerClass {
+    public ShowInnerClass.InnerClass InnerClass;
+    private int data;
+    private int num;
+    private void methodOne(){
+        System.out.println(&quot;Hello world&quot;);
+    }
+
+    public ShowInnerClass(){
+        InnerClass = new InnerClass();
+    }
+
+    /**
+     * InnerClass是ShowInnerClass的内部类
+     */
+     class InnerClass{
+         private int num2;
+         protected int age;
+         public void method(){
+            data++;
+            methodOne();
+        }
+    }
+}
+</code></pre>
+<p>上面的类中定义了非静态内部类：</p>
+<pre><code class="java">public class InnerTest {
+    public static void main(String[] args) {
+        ShowInnerClass showInnerClass = new ShowInnerClass();
+        ShowInnerClass.InnerClass innerClass = showInnerClass.new InnerClass();
+        innerClass.method();
+    }
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code class="shell">Hello world
+
+Process finished with exit code 0
+</code></pre>
+<h1 id="2-我们为什么需要内部类？"><a href="#2-我们为什么需要内部类？" class="headerlink" title="2.我们为什么需要内部类？"></a>2.我们为什么需要内部类？</h1><p>有人有问题：内部类要实现的东西，用前面已学的东西也可以实现，为什么要用它？</p>
+<p>这个问题粗略的来讲可以从使用环境来解释它。<br>有的地方我们用内部类的方法会更方便，至于是那些地方，现在本人并没有很深的理解。<br>但是，下面的场景我们可以考虑使用：<br>在定义POJO接收Json数据时，如果存在嵌套结构，我们可以使用内部类来定义接收，如下实例：</p>
+<pre><code class="java">public class BackRequest {
+    private String transactionId;
+    private List&lt;Report&gt; reports;
+    public static class Report{
+        private String uuid;
+        private String errorCode;
+        private String errorDesc;
+        private String time;
+    }
+}
+</code></pre>
+<p>使用上面的定义，让我们很容易的将Json数据和实体一一对应。</p>
+<h1 id="3-匿名内部类"><a href="#3-匿名内部类" class="headerlink" title="3.匿名内部类"></a>3.匿名内部类</h1><p>匿名类就是没有名字的子类。因为没有名字，可以使代码更简洁。</p>
+<p>例如<br>Bank是类，下面代码用Bank的一个子类创建对象：</p>
+<pre><code class="java">new Bnak(){
+...类体
+}
+</code></pre>
+<p>实例：</p>
+<pre><code class="java">public class NoNameClass {
+    public int num;
+    public int age;
+
+    public void say(){
+        System.out.println(&quot;say hello&quot;);
+    }
+
+    public static void main(String[] args) {
+       NoNameClass noNameClass = new NoNameClass() {
+           public void say() {
+               System.out.println(&quot;I am no body&quot;);
+           }
+       };
+       noNameClass.say();
+    }
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code>I am no body
+
+Process finished with exit code 0
+</code></pre>
+<p>我们可以看出这样使子类的对象的创建更简洁了。但也有一个的局限性，就是一次使用。<br>不能在使用第二次这个类，因为没有名字。</p>
+<p><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa15">Java基础学习&#x2F;src&#x2F;main&#x2F;java&#x2F;exa15 · 严家豆&#x2F;Study - 码云 - 开源中国 (gitee.com)</a></p>

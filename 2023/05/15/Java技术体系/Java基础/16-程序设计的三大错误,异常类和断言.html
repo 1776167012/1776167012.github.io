@@ -1,0 +1,150 @@
+<hr>
+<p>title: 16.程序设计的三大错误,异常类和断言<br>date: 2023-05-15 10:03:59<br>tags: Java基础<br>—# 1.程序设计的三大错误</p>
+<h2 id="1-1-语法错误"><a href="#1-1-语法错误" class="headerlink" title="1.1.语法错误"></a>1.1.语法错误</h2><p>最低级错误，由编译器发现。这个错误就是你错误使用Java语法导致的编译失败，<br>这类错误一般在集成开发工具中编写代码的时候会有工具警告。</p>
+<p>例如：</p>
+<p><img src="/../../resource/Java%E5%9F%BA%E7%A1%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%801.png" alt="img.png"></p>
+<p>在编程中将String类型的数据赋值给int类型的变量，这明显是语法错误，所有开发工具给出了警告。<br>在使用集成开发工具进行编程的过程中，语法错误基本不会发生。</p>
+<h2 id="1-2-逻辑错误"><a href="#1-2-逻辑错误" class="headerlink" title="1.2.逻辑错误"></a>1.2.逻辑错误</h2><p>程序没有按照预期的方案执行。逻辑错误也称为小虫子（bugs）其查找和改正错误的过程称为调试（debugging）。<br>处理方法一般为缩小范围法。<br>根据具体的业务场景来定位具体的业务组件，然后一步一步的进行断点调试，最后定位问题所在。<br>这类错误的发生条件基于没有语法错误的情况下，程序运行过程中出现了与预期结果不符的情况，<br>这时这个情况的错误我们就称之为逻辑错误，这类错误是比较难处理的，它需要我们对业务有一定的熟悉度才能进行正确的解决。</p>
+<p>例如：我们需要写一个程序用来两数之和，我们采用这种实现</p>
+<pre><code class="java">public byte add(byte a,byte b){
+    return (byte) (a+b);
+}
+</code></pre>
+<p>刚开始，我们可能觉得没啥问题，但是，如果我们这样使用：</p>
+<pre><code class="java">public static void main(String[] args) {
+    LogicError logicError = new LogicError();
+    byte b=100;
+    byte c=100;
+    System.out.println(&quot;100+100= &quot;+logicError.add(b,c));
+}
+</code></pre>
+<p>我们会发现，最后的结果和预期不一样：</p>
+<pre><code class="shell">100+100= -56
+
+Process finished with exit code 0
+</code></pre>
+<p>这就是很明显的逻辑错误了，我们用byte数据类型计算超过其运算范围的加法，就会出现得到的结果和预期的不一致的情况。</p>
+<p>这时候我们就可以修改程序来进行bug修复：</p>
+<pre><code class="java">/**
+ * 逻辑错误
+ */
+public class LogicError {
+    public int add(int a,int b){
+        return a+b;
+    }
+    public static void main(String[] args) {
+        LogicError logicError = new LogicError();
+        byte b=100;
+        byte c=100;
+        System.out.println(&quot;100+100= &quot;+logicError.add(b,c));
+    }
+}
+</code></pre>
+<h2 id="1-3-运行错误"><a href="#1-3-运行错误" class="headerlink" title="1.3.运行错误"></a>1.3.运行错误</h2><p>如果环境发现了一个不可能执行的错误，就会出现。其处理方法就是异常和断言。<br>如果程序在运行中出现了错误导致程序异常中断，<br>一般这样的错误最常见的是空指针异常，数据越界，错误类型转换等等。</p>
+<p>例如：</p>
+<pre><code class="java">/**
+ * 运行错误
+ */
+public class RunError {
+    public int add(Integer a,Integer b){
+        return a+b;
+    }
+    public static void main(String[] args) {
+        RunError logicError = new RunError();
+        System.out.println(&quot;100+100= &quot;+logicError.add(null,100));
+    }
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code class="shell">Exception in thread &quot;main&quot; java.lang.NullPointerException
+    at Base.exa16.RunError.addOne(RunError.java:10)
+    at Base.exa16.RunError.main(RunError.java:28)
+
+Process finished with exit code 1
+</code></pre>
+<h1 id="2-异常处理和断言"><a href="#2-异常处理和断言" class="headerlink" title="2.异常处理和断言"></a>2.异常处理和断言</h1><h2 id="2-1-try-catch语句处理异常"><a href="#2-1-try-catch语句处理异常" class="headerlink" title="2.1.try-catch语句处理异常"></a>2.1.try-catch语句处理异常</h2><p>Java使用try-catch语句来处理运行错误，就是将可能出现异常的操作语句放在try部分，<br>一旦try部分抛出异常（即在try里的某条语句发生了运行错误），那么try部分将立即结束，<br>转向执行异常处理器catch部分处理错误，try-catch语句可以由几个catch组成，分别处理发送的相应异常，</p>
+<p>例如：</p>
+<pre><code class="java">  try{
+       包含的可能发送异常的语句
+      }
+    catch(ExceptionSubClass1 e){
+        发生了ExceptionSubClass1异常后执行的语句
+    ....
+    }
+    catch(ExceptionSubClass2 e){
+        发生了ExceptionSubClass2异常后执行的语句
+    ....
+    }
+</code></pre>
+<p>举个例子：<br>假如你是一个中学生，你想要偷偷去网吧上网，但你又还怕被逮到，可是你又很聪明， 你想到了几种办法来应对，</p>
+<ul>
+<li>方法一：当你被老师抓到时，你会乖乖向老师认错，并求他不要告诉你父母。</li>
+<li>方法二：当你被父母抓到，你会转头就跑回家，疯狂做家务。</li>
+</ul>
+<p>在这个例子中，你去上网这个过程中可能不会出错，一切平安，也可能会出现错误，你为了处理可能出现的错误，<br>于是你想出了几个办法。<br>try-catch就是用来装这些的：</p>
+<pre><code class="java"> try{
+         你去上网；
+    }
+    catch(被老师抓住){
+       乖乖认错；
+    }
+    catch(被父母抓住){
+       跑回家做家务；
+    }
+</code></pre>
+<p>示例：</p>
+<pre><code class="java">public class TryCatchStudy {
+    public static void main(String[] args) {
+        try{
+            int i=0/0;
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println(&quot;发生了异常哦！！&quot;);
+        }
+    }
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code class="shell">java.lang.ArithmeticException: / by zero
+    at Base.exa16.TryCatchStudy.main(TryCatchStudy.java:9)
+发生了异常哦！！
+
+Process finished with exit code 0
+</code></pre>
+<h1 id="2-断言"><a href="#2-断言" class="headerlink" title="2.断言"></a>2.断言</h1><p>在一个具有自我保护能力的程序中，断言非常常用</p>
+<h2 id="2-1-断言的定义"><a href="#2-1-断言的定义" class="headerlink" title="2.1 断言的定义"></a>2.1 断言的定义</h2><p>Java中提供了一种机制，让我们能在程序开发阶段尽可能全面的测试程序的稳定性，<br>同时能让我们在开发完成测试完成后不修改代码的基础上 <strong>注释掉测试语句</strong>，<br>从而不让测试语句影响程序运行效率。 这种机制，就是断言机制。断言机制相比于异常处理，<br>它提供了更为高效的异常处理机制(使我们有选择性的忽略某些检查代码提高运行效率)</p>
+<h2 id="2-2-如何使用断言"><a href="#2-2-如何使用断言" class="headerlink" title="2.2 如何使用断言"></a>2.2 如何使用断言</h2><p>断言使用assert关键字,assert使用有两种：</p>
+<pre><code class="java">//condition是一个判断语句，如果判断语句是false，则会抛出AssertError异常
+assert condition;
+//其中condition是一个判断语句，如果判断语句是false，则会抛出AssertError异常且把message
+//赋给AssertError构造方法进行打印。
+assert condition:message;
+</code></pre>
+<p>要想断言生效，需要开启断言，需要添加运行配置的VM options: -ea</p>
+<p><img src="/../../resource/Java%E5%9F%BA%E7%A1%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB,%E6%96%AD%E8%A8%803.png" alt="img.png"></p>
+<pre><code class="java">public class TryCatchStudy {
+    public static void main(String[] args) {
+        //使用断言进行判断，如果不符合判断，则抛出异常AssertError
+        assert args != null;
+        int num = 30;
+        try{
+            int i=0/0;
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println(&quot;发生了异常哦！！&quot;);
+        }
+       //使用断言进行判断，如果不符合判断，则抛出异常,且把num的值传给AssertError
+        assert num&lt;0:num;
+    }
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code class="shell">java.lang.ArithmeticException: / by zero
+    at Base.exa16.TryCatchStudy.main(TryCatchStudy.java:9)
+Exception in thread &quot;main&quot; java.lang.AssertionError: 30
+    at Base.exa16.TryCatchStudy.main(TryCatchStudy.java:14)
+发生了异常哦！！
+
+Process finished with exit code 1
+</code></pre>
+<p><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa16">Java基础学习&#x2F;src&#x2F;main&#x2F;java&#x2F;exa16 · 严家豆&#x2F;Study - 码云 - 开源中国 (gitee.com)</a></p>
