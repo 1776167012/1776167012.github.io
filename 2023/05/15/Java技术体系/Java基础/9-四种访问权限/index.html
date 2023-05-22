@@ -23,7 +23,7 @@
   
 
   
-<link rel="stylesheet" href="/muzhi-blog.github.io/css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 
 
   
@@ -61,7 +61,7 @@
       fancybox: true,
       pjax: false,
       loading: {
-        gif: '/images/theme/loading.gif',
+        gif: '/muzhi-blog.github.io/images/theme/loading.gif',
         lottie: ''
       },
       lazyload: {
@@ -92,7 +92,7 @@
       },
       preview: {
         background: {
-          default: '/images/theme/welcome2.png',
+          default: '/muzhi-blog.github.io/images/theme/welcome2.png',
           api: ''
         },
         motto: {
@@ -166,11 +166,11 @@
       <i class="iconfont iconbaseline-close-px"></i>
     </div>
     <ul class="menu-content"><li class="menu-item">
-        <a href="/2023/05/20/muzhiIndex/ " class="underline "> 首页</a>
+        <a href="/muzhi-blog.github.io/2023/05/20/muzhiIndex/ " class="underline "> 首页</a>
       </li><li class="menu-item">
-        <a href="/archives/ " class="underline "> 归档</a>
+        <a href="/muzhi-blog.github.io/archives/ " class="underline "> 归档</a>
       </li><li class="menu-item">
-        <a href="/2023/05/20/personinfo/ " class="underline "> 关于</a>
+        <a href="/muzhi-blog.github.io/2023/05/20/personinfo/ " class="underline "> 关于</a>
       </li></ul>
     
       <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
@@ -184,7 +184,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img   class="lazyload" data-original="/muzhi-blog.github.io/images/theme/post-image.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <img   class="lazyload" data-original="/images/theme/post-image.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
   <div class="head-mask">
     <h1 class="head-title">9.四种访问权限</h1>
     <div class="head-info">
@@ -204,20 +204,20 @@
 <h3 id="1-1-2-例子"><a href="#1-1-2-例子" class="headerlink" title="1.1.2 例子"></a>1.1.2 例子</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonPrivate</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">getX</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">setX</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.x = x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>下面尝试创建PersonPrivate对象并调用它的方法：</p>
-<p><img   class="lazyload" data-original="/muzhi-blog.github.io/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/../../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%901.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
+<p><img   class="lazyload" data-original="/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%901.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
 <p><strong>我们可以看到，在另一个类中创建PersonPrivate对象后，无法通过该对象调用其中定义的private变量或方法。</strong></p>
 <h2 id="1-2-公有-public"><a href="#1-2-公有-public" class="headerlink" title="1.2.公有(public)"></a>1.2.公有(public)</h2><h3 id="1-2-1-公有变量和方法"><a href="#1-2-1-公有变量和方法" class="headerlink" title="1.2.1 公有变量和方法"></a>1.2.1 公有变量和方法</h3><p>用public修饰的成员变量和方法我们称之为公有变量和方法。<br>在任何一个类中用另一个类创建了一个对象，可以通过该对象访问其中的共有变量和方法。</p>
 <h3 id="1-2-2-例子"><a href="#1-2-2-例子" class="headerlink" title="1.2.2 例子"></a>1.2.2 例子</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonPublic</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getX</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setX</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.x = x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img   class="lazyload" data-original="/muzhi-blog.github.io/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/../../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%902.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
+<p><img   class="lazyload" data-original="/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%902.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
 <p>我们可以看到，在另一个类中创建该类的对象后，可以直接访问该类定义的public方法和变量。</p>
 <h2 id="1-3-友好-无修饰符"><a href="#1-3-友好-无修饰符" class="headerlink" title="1.3.友好(无修饰符)"></a>1.3.友好(无修饰符)</h2><h3 id="1-3-1-友好变量和方法"><a href="#1-3-1-友好变量和方法" class="headerlink" title="1.3.1 友好变量和方法"></a>1.3.1 友好变量和方法</h3><p>不用private，public，protected修饰符修饰的成员变量和方法被称为友好变量和友好方法。<br>这种变量和方法的可见性只允许同一包的其他类创建对象后可以用对象进行访问。<br><strong>在同一包中的前提下</strong> 在任何一个类中用一个类创建了一个对象，该对象能访问该类中的友好变量和方法，<br>否则不可见。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonFriend</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">set</span><span class="params">(<span class="type">int</span> x)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.x = x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">getX</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>当在同一个包里的时候，可见</p>
-<p><img   class="lazyload" data-original="/muzhi-blog.github.io/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/../../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%903.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
+<p><img   class="lazyload" data-original="/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%903.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
 <p>下面再另一个包中创建PersonFriend对象并试图访问：</p>
-<p><img   class="lazyload" data-original="/muzhi-blog.github.io/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/../../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%904.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
+<p><img   class="lazyload" data-original="/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%904.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
 <p>可以发现，无法进行访问。</p>
 <h2 id="1-4-受保护-protected"><a href="#1-4-受保护-protected" class="headerlink" title="1.4.受保护(protected)"></a>1.4.受保护(protected)</h2><h3 id="1-4-1-受保护的变量和方法"><a href="#1-4-1-受保护的变量和方法" class="headerlink" title="1.4.1 受保护的变量和方法"></a>1.4.1 受保护的变量和方法</h3><p>用protected修饰的成员变量和方法被称为受保护的成员变量和方法。<br>当在另外一个类中用一个类创建了一个对象后，如果两个类在同一包中，<br>那么该对象可以访问该类的protected变量和方法，否则不可见。</p>
 <p><strong>大家可能会有一个疑惑：友好和受保护的用法好像相同，其实他们还是有差别的</strong></p>
@@ -226,7 +226,7 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonExtend</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> y;</span><br><span class="line">    <span class="type">int</span> z;</span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> n;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonSon</span> <span class="keyword">extends</span> <span class="title class_">PersonExtend</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img   class="lazyload" data-original="/muzhi-blog.github.io/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/../../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%905.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
+<p><img   class="lazyload" data-original="/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%905.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
 <p>可以看到，除了私有变量y，其他的都继承了。</p>
 <ul>
 <li>子类和父类不在同一包中：子类只继承父类的protected和public成员，友好成员不继承了。<br>（这里protected和友好类的差别出现了）</li>
@@ -236,7 +236,7 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> exa08;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> exa09.PersonExtend;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonSon</span> <span class="keyword">extends</span> <span class="title class_">PersonExtend</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img   class="lazyload" data-original="/muzhi-blog.github.io/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/../../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%906.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
+<p><img   class="lazyload" data-original="/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/../resource/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%906.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
 <p>这里可以看到，这时只继承了protected和public的变量。</p>
 <h1 id="2-四种修饰符的差异"><a href="#2-四种修饰符的差异" class="headerlink" title="2.四种修饰符的差异"></a>2.四种修饰符的差异</h1><p>类声明时，如果在关键字class前加上public关键字，我们称为public类，不加则是友好类。<br>我们可以在任何另外一个类中使用public类创建对象，但要在另一个类中用友好类创建对象时，<br>必须要保证它们在同一包中。</p>
 <p>下面是访问修饰符修饰的变量或方法在不同范围的权限列表：</p>
@@ -294,12 +294,12 @@
         
         
         
-  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/muzhi-blog.github.io/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li></ul> 
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li></ul> 
 
         
   <nav class="nav">
-    <a href="/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/8-%E5%8C%85%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%8Cimport%E5%85%B3%E9%94%AE%E5%AD%97/"><i class="iconfont iconleft"></i>8.包的概念,import关键字</a>
-    <a href="/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/10-JRE%E6%89%A9%E5%B1%95%E5%92%8Cjar%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%99%A8/">10.JRE扩展和Jar文件以及文档生成器<i class="iconfont iconright"></i></a>
+    <a href="/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/8-%E5%8C%85%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%8Cimport%E5%85%B3%E9%94%AE%E5%AD%97/"><i class="iconfont iconleft"></i>8.包的概念,import关键字</a>
+    <a href="/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/10-JRE%E6%89%A9%E5%B1%95%E5%92%8Cjar%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%99%A8/">10.JRE扩展和Jar文件以及文档生成器<i class="iconfont iconright"></i></a>
   </nav>
 
       </section>
@@ -356,7 +356,7 @@
   
   
     
-<script src="/muzhi-blog.github.io/js/color-mode.js"></script>
+<script src="/js/color-mode.js"></script>
 
   
   
@@ -384,8 +384,8 @@
 
 
 
-<script src="/muzhi-blog.github.io/js/utils.js"></script>
-<script src="/muzhi-blog.github.io/js/script.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
 
 
 

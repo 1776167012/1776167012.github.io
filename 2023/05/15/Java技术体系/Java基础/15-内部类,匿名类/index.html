@@ -23,7 +23,7 @@
   
 
   
-<link rel="stylesheet" href="/muzhi-blog.github.io/css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 
 
   
@@ -61,7 +61,7 @@
       fancybox: true,
       pjax: false,
       loading: {
-        gif: '/images/theme/loading.gif',
+        gif: '/muzhi-blog.github.io/images/theme/loading.gif',
         lottie: ''
       },
       lazyload: {
@@ -92,7 +92,7 @@
       },
       preview: {
         background: {
-          default: '/images/theme/welcome2.png',
+          default: '/muzhi-blog.github.io/images/theme/welcome2.png',
           api: ''
         },
         motto: {
@@ -166,11 +166,11 @@
       <i class="iconfont iconbaseline-close-px"></i>
     </div>
     <ul class="menu-content"><li class="menu-item">
-        <a href="/2023/05/20/muzhiIndex/ " class="underline "> 首页</a>
+        <a href="/muzhi-blog.github.io/2023/05/20/muzhiIndex/ " class="underline "> 首页</a>
       </li><li class="menu-item">
-        <a href="/archives/ " class="underline "> 归档</a>
+        <a href="/muzhi-blog.github.io/archives/ " class="underline "> 归档</a>
       </li><li class="menu-item">
-        <a href="/2023/05/20/personinfo/ " class="underline "> 关于</a>
+        <a href="/muzhi-blog.github.io/2023/05/20/personinfo/ " class="underline "> 关于</a>
       </li></ul>
     
       <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
@@ -184,7 +184,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img   class="lazyload" data-original="/muzhi-blog.github.io/images/theme/post-image.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <img   class="lazyload" data-original="/images/theme/post-image.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
   <div class="head-mask">
     <h1 class="head-title">15.内部类,匿名类</h1>
     <div class="head-info">
@@ -208,7 +208,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ShowInnerClass</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> data;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> num;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">methodOne</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * InnerClass是ShowInnerClass的内部类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">InnerClass</span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>&#123;</span><br><span class="line">            data++;</span><br><span class="line">            methodOne();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="1-2-2-内部类的编译文件"><a href="#1-2-2-内部类的编译文件" class="headerlink" title="1.2.2 内部类的编译文件"></a>1.2.2 内部类的编译文件</h3><p>内部类只是用来支撑外部类的工作。编译后，他的名称形如“外部类名称$内部类名称.class”。<br>例如，showInnerClass中内部类InnerClass,被编译为showInnerClass$$InnerClass.class。</p>
-<p><img   class="lazyload" data-original="/muzhi-blog.github.io/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/15-%E5%86%85%E9%83%A8%E7%B1%BB,%E5%8C%BF%E5%90%8D%E7%B1%BB/../../resource/Java%E5%9F%BA%E7%A1%80/15-%E5%86%85%E9%83%A8%E7%B1%BB,%E5%8C%BF%E5%90%8D%E7%B1%BB1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
+<p><img   class="lazyload" data-original="/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/15-%E5%86%85%E9%83%A8%E7%B1%BB,%E5%8C%BF%E5%90%8D%E7%B1%BB/../resource/Java%E5%9F%BA%E7%A1%80/15-%E5%86%85%E9%83%A8%E7%B1%BB,%E5%8C%BF%E5%90%8D%E7%B1%BB1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
 <h3 id="1-2-3-内部类的成员"><a href="#1-2-3-内部类的成员" class="headerlink" title="1.2.3 内部类的成员"></a>1.2.3 内部类的成员</h3><p>内部类可以声明为public,protected,private，其意义与用在类的其他成员上相同。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ShowInnerClass</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ShowInnerClass.InnerClass InnerClass;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> data;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> num;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">methodOne</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello world&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ShowInnerClass</span><span class="params">()</span>&#123;</span><br><span class="line">        InnerClass = <span class="keyword">new</span> <span class="title class_">InnerClass</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * InnerClass是ShowInnerClass的内部类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">     <span class="keyword">class</span> <span class="title class_">InnerClass</span>&#123;</span><br><span class="line">         <span class="keyword">private</span> <span class="type">int</span> num2;</span><br><span class="line">         <span class="keyword">protected</span> <span class="type">int</span> age;</span><br><span class="line">         <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>&#123;</span><br><span class="line">            data++;</span><br><span class="line">            methodOne();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -268,12 +268,12 @@
         
         
         
-  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/muzhi-blog.github.io/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li></ul> 
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li></ul> 
 
         
   <nav class="nav">
-    <a href="/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/14-%E6%8E%A5%E5%8F%A3%E7%BC%96%E7%A8%8B/"><i class="iconfont iconleft"></i>14.接口编程</a>
-    <a href="/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%80/">16.程序设计的三大错误,异常类和断言<i class="iconfont iconright"></i></a>
+    <a href="/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/14-%E6%8E%A5%E5%8F%A3%E7%BC%96%E7%A8%8B/"><i class="iconfont iconleft"></i>14.接口编程</a>
+    <a href="/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%80/">16.程序设计的三大错误,异常类和断言<i class="iconfont iconright"></i></a>
   </nav>
 
       </section>
@@ -330,7 +330,7 @@
   
   
     
-<script src="/muzhi-blog.github.io/js/color-mode.js"></script>
+<script src="/js/color-mode.js"></script>
 
   
   
@@ -358,8 +358,8 @@
 
 
 
-<script src="/muzhi-blog.github.io/js/utils.js"></script>
-<script src="/muzhi-blog.github.io/js/script.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
 
 
 

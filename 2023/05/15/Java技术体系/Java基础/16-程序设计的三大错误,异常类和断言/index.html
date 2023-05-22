@@ -23,7 +23,7 @@
   
 
   
-<link rel="stylesheet" href="/muzhi-blog.github.io/css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 
 
   
@@ -61,7 +61,7 @@
       fancybox: true,
       pjax: false,
       loading: {
-        gif: '/images/theme/loading.gif',
+        gif: '/muzhi-blog.github.io/images/theme/loading.gif',
         lottie: ''
       },
       lazyload: {
@@ -92,7 +92,7 @@
       },
       preview: {
         background: {
-          default: '/images/theme/welcome2.png',
+          default: '/muzhi-blog.github.io/images/theme/welcome2.png',
           api: ''
         },
         motto: {
@@ -166,11 +166,11 @@
       <i class="iconfont iconbaseline-close-px"></i>
     </div>
     <ul class="menu-content"><li class="menu-item">
-        <a href="/2023/05/20/muzhiIndex/ " class="underline "> 首页</a>
+        <a href="/muzhi-blog.github.io/2023/05/20/muzhiIndex/ " class="underline "> 首页</a>
       </li><li class="menu-item">
-        <a href="/archives/ " class="underline "> 归档</a>
+        <a href="/muzhi-blog.github.io/archives/ " class="underline "> 归档</a>
       </li><li class="menu-item">
-        <a href="/2023/05/20/personinfo/ " class="underline "> 关于</a>
+        <a href="/muzhi-blog.github.io/2023/05/20/personinfo/ " class="underline "> 关于</a>
       </li></ul>
     
       <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
@@ -184,7 +184,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img   class="lazyload" data-original="/muzhi-blog.github.io/images/theme/post-image.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <img   class="lazyload" data-original="/images/theme/post-image.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
   <div class="head-mask">
     <h1 class="head-title">16.程序设计的三大错误,异常类和断言</h1>
     <div class="head-info">
@@ -199,7 +199,7 @@
         
         <h1 id="1-程序设计的三大错误"><a href="#1-程序设计的三大错误" class="headerlink" title="1.程序设计的三大错误"></a>1.程序设计的三大错误</h1><h2 id="1-1-语法错误"><a href="#1-1-语法错误" class="headerlink" title="1.1.语法错误"></a>1.1.语法错误</h2><p>最低级错误，由编译器发现。这个错误就是你错误使用Java语法导致的编译失败，<br>这类错误一般在集成开发工具中编写代码的时候会有工具警告。</p>
 <p>例如：</p>
-<p><img   class="lazyload" data-original="/muzhi-blog.github.io/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%80/../../resource/Java%E5%9F%BA%E7%A1%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%801.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
+<p><img   class="lazyload" data-original="/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%80/../resource/Java%E5%9F%BA%E7%A1%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%801.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
 <p>在编程中将String类型的数据赋值给int类型的变量，这明显是语法错误，所有开发工具给出了警告。<br>在使用集成开发工具进行编程的过程中，语法错误基本不会发生。</p>
 <h2 id="1-2-逻辑错误"><a href="#1-2-逻辑错误" class="headerlink" title="1.2.逻辑错误"></a>1.2.逻辑错误</h2><p>程序没有按照预期的方案执行。逻辑错误也称为小虫子（bugs）其查找和改正错误的过程称为调试（debugging）。<br>处理方法一般为缩小范围法。<br>根据具体的业务场景来定位具体的业务组件，然后一步一步的进行断点调试，最后定位问题所在。<br>这类错误的发生条件基于没有语法错误的情况下，程序运行过程中出现了与预期结果不符的情况，<br>这时这个情况的错误我们就称之为逻辑错误，这类错误是比较难处理的，它需要我们对业务有一定的熟悉度才能进行正确的解决。</p>
 <p>例如：我们需要写一个程序用来两数之和，我们采用这种实现</p>
@@ -248,7 +248,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//condition是一个判断语句，如果判断语句是false，则会抛出AssertError异常</span></span><br><span class="line"><span class="keyword">assert</span> condition;</span><br><span class="line"><span class="comment">//其中condition是一个判断语句，如果判断语句是false，则会抛出AssertError异常且把message</span></span><br><span class="line"><span class="comment">//赋给AssertError构造方法进行打印。</span></span><br><span class="line"><span class="keyword">assert</span> condition:message;</span><br></pre></td></tr></table></figure>
 
 <p>要想断言生效，需要开启断言，需要添加运行配置的VM options: -ea</p>
-<p><img   class="lazyload" data-original="/muzhi-blog.github.io/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%80/../../resource/Java%E5%9F%BA%E7%A1%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB,%E6%96%AD%E8%A8%803.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
+<p><img   class="lazyload" data-original="/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%80/../resource/Java%E5%9F%BA%E7%A1%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB,%E6%96%AD%E8%A8%803.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">img.png</span></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TryCatchStudy</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//使用断言进行判断，如果不符合判断，则抛出异常AssertError</span></span><br><span class="line">        <span class="keyword">assert</span> args != <span class="literal">null</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">30</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="type">int</span> i=<span class="number">0</span>/<span class="number">0</span>;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            System.out.println(<span class="string">&quot;发生了异常哦！！&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">       <span class="comment">//使用断言进行判断，如果不符合判断，则抛出异常,且把num的值传给AssertError</span></span><br><span class="line">        <span class="keyword">assert</span> num&lt;<span class="number">0</span>:num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>运行结果：</p>
@@ -269,12 +269,12 @@
         
         
         
-  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/muzhi-blog.github.io/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li></ul> 
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li></ul> 
 
         
   <nav class="nav">
-    <a href="/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/15-%E5%86%85%E9%83%A8%E7%B1%BB,%E5%8C%BF%E5%90%8D%E7%B1%BB/"><i class="iconfont iconleft"></i>15.内部类,匿名类</a>
-    <a href="/muzhi-blog.github.io/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/17-%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%AD%A6%E4%B9%A0%EF%BC%8Cfinal%E5%85%B3%E9%94%AE%E5%AD%97/">17.常用类学习,final关键字<i class="iconfont iconright"></i></a>
+    <a href="/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/15-%E5%86%85%E9%83%A8%E7%B1%BB,%E5%8C%BF%E5%90%8D%E7%B1%BB/"><i class="iconfont iconleft"></i>15.内部类,匿名类</a>
+    <a href="/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/17-%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%AD%A6%E4%B9%A0%EF%BC%8Cfinal%E5%85%B3%E9%94%AE%E5%AD%97/">17.常用类学习,final关键字<i class="iconfont iconright"></i></a>
   </nav>
 
       </section>
@@ -331,7 +331,7 @@
   
   
     
-<script src="/muzhi-blog.github.io/js/color-mode.js"></script>
+<script src="/js/color-mode.js"></script>
 
   
   
@@ -359,8 +359,8 @@
 
 
 
-<script src="/muzhi-blog.github.io/js/utils.js"></script>
-<script src="/muzhi-blog.github.io/js/script.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
 
 
 
