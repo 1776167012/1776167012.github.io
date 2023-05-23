@@ -1,0 +1,60 @@
+<p>@[toc]</p>
+<h1 id="1-什么是OutputStream？（输出流）"><a href="#1-什么是OutputStream？（输出流）" class="headerlink" title="1.什么是OutputStream？（输出流）"></a>1.什么是OutputStream？（输出流）</h1><p>在JavaAPI中，我们将可以向目的地写入一个字节序列的对象称为输出流。字节序列的来源地可以是文件，也可以是网络，还可以是内存块等等。<br>输出流根据每次写出的字节数量的不同分为字节输出流和字符输出流。 字节输出流每次都是写出一个字节的，而字符输出流每次写出都是根据基于两字节的字符为单位写出的。</p>
+<h1 id="2-使用FileOutputStream写出文件"><a href="#2-使用FileOutputStream写出文件" class="headerlink" title="2.使用FileOutputStream写出文件"></a>2.使用FileOutputStream写出文件</h1><p>在outputStream中的关键常用的方法是：write方法。</p>
+<h2 id="2-1-void-write-int-b-向目的地写入一个字节"><a href="#2-1-void-write-int-b-向目的地写入一个字节" class="headerlink" title="2.1 void write(int b) 向目的地写入一个字节"></a>2.1 void write(int b) 向目的地写入一个字节</h2><p>这个方法向目的地写入一个字节</p>
+<pre><code class="java">/**
+ * 每次写入单个字节
+ * @throws IOException
+ */
+public static void writeStudy() throws IOException {
+    OutputStream outputStream = new FileOutputStream(&quot;四郎.txt&quot;);
+    String str = &quot;我是四郎&quot;;
+    byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
+    for (byte b:bytes){
+        outputStream.write(b);
+    }
+}
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/475bcd6d681f460e9ff24502b3f0dbbc.png" alt="在这里插入图片描述"></p>
+<h2 id="2-2-void-write-byte-b-向目的地写入多个字节"><a href="#2-2-void-write-byte-b-向目的地写入多个字节" class="headerlink" title="2.2 void write(byte b[]) 向目的地写入多个字节"></a>2.2 void write(byte b[]) 向目的地写入多个字节</h2><p>这个方法一次向目的地写入多个字节。</p>
+<pre><code class="java">/**
+ * 一次写入多个字节
+ * @throws IOException
+ */
+public static void writeBytesStudy() throws IOException {
+    OutputStream outputStream = new FileOutputStream(&quot;四郎.txt&quot;);
+    String str = &quot;我是四郎&quot;;
+    byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
+    outputStream.write(bytes);
+}
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/1ad739ceb9844633a13fb9fb6bf6bf44.png" alt="在这里插入图片描述"></p>
+<h2 id="2-3-void-write-byte-b-int-off-int-len-向目的地写入指定多个字节"><a href="#2-3-void-write-byte-b-int-off-int-len-向目的地写入指定多个字节" class="headerlink" title="2.3 void write(byte b[], int off, int len) 向目的地写入指定多个字节"></a>2.3 void write(byte b[], int off, int len) 向目的地写入指定多个字节</h2><p>一次性写入字节数组b中指定范围的数据到目的地</p>
+<pre><code class="java">/**
+ * 从指定字节数组中选一部分进行写入
+ * @throws IOException
+ */
+public static void writeBytesLenStudy() throws IOException {
+    OutputStream outputStream = new FileOutputStream(&quot;四郎.txt&quot;);
+    String str = &quot;我是四郎&quot;;
+    byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
+    outputStream.write(bytes,2,2);
+}
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/f40256afa07042428c58d0ef898f9b5d.png" alt="在这里插入图片描述"></p>
+<h2 id="2-4-void-flush-如果使用的是缓冲流，需要调用这个方法一次写出"><a href="#2-4-void-flush-如果使用的是缓冲流，需要调用这个方法一次写出" class="headerlink" title="2.4 void flush() 如果使用的是缓冲流，需要调用这个方法一次写出"></a>2.4 void flush() 如果使用的是缓冲流，需要调用这个方法一次写出</h2><p>对于缓冲输出流，它的write方法并不会立即向磁盘中写入数据，而需要缓存满了或者调用flush方法立即写入</p>
+<pre><code class="java">/**
+ * 对于缓冲输出流，它的write方法并不会立即向磁盘中写入数据，
+ * 而需要缓存满了或者调用flush方法立即写入
+ * @throws IOException
+ */
+public static void flushStudy() throws IOException {
+    OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(&quot;四郎.txt&quot;));
+    String str = &quot;我是四郎&quot;;
+    byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
+    outputStream.write(bytes);
+    outputStream.flush();
+}
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/3467a9f1d8bd4df4b206d9295610698a.png" alt="在这里插入图片描述"></p>
+<p><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Progress/exa20">代码地址：Java基础学习&#x2F;src&#x2F;main&#x2F;java&#x2F;Progress&#x2F;exa20 · 严家豆&#x2F;Study - 码云 - 开源中国 (gitee.com)</a></p>

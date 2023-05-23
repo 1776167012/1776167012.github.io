@@ -1,0 +1,104 @@
+<h1 id="1-基本步骤"><a href="#1-基本步骤" class="headerlink" title="1.基本步骤"></a>1.基本步骤</h1><ul>
+<li>首先在电脑上安装mysql，创建相应的数据库和表</li>
+<li>然后在开发项目中导入相应的jar包</li>
+<li>最后在代码中调用相应类进行调用。</li>
+</ul>
+<h1 id="2-实例演示"><a href="#2-实例演示" class="headerlink" title="2.实例演示"></a>2.实例演示</h1><h2 id="2-1-事先在mysql中创建名为jdbc的数据库"><a href="#2-1-事先在mysql中创建名为jdbc的数据库" class="headerlink" title="2.1.事先在mysql中创建名为jdbc的数据库"></a>2.1.事先在mysql中创建名为jdbc的数据库</h2><p>建立user的表：</p>
+<pre><code class="java">mysql&gt; create database jdbc;
+Query OK, 1 row affected (0.05 sec)
+
+mysql&gt; use jdbc
+Database changed
+mysql&gt; create table users(
+    -&gt; id int primary key auto_increment,
+    -&gt; name varchar(40),
+    -&gt; password varchar(40),
+    -&gt; email varchar(60),
+    -&gt; birthday date)character set utf8 collate utf8_general_ci;
+Query OK, 0 rows affected, 1 warning (0.11 sec)
+mysql&gt; insert into users(name,password,email,birthday)
+    -&gt; values(&#39;zs&#39;,&#39;123456&#39;,&#39;zs@sina.com&#39;,&#39;1980-12-03&#39;);
+Query OK, 1 row affected (0.09 sec)
+mysql&gt; select * from users;
++----+------+----------+-------------+------------+
+| id | name | password | email       | birthday   |
++----+------+----------+-------------+------------+
+|  1 | zs   | 123456   | zs@sina.com | 1980-12-03 |
++----+------+----------+-------------+------------+
+</code></pre>
+<p><strong>或者可以使用mysql自带的数据库world（无需自己新建）进行查询，本例选择后者。</strong></p>
+<h2 id="2-2-然后程序中连接mysql"><a href="#2-2-然后程序中连接mysql" class="headerlink" title="2.2.然后程序中连接mysql"></a>2.2.然后程序中连接mysql</h2><p>首先，java的mysql驱动jar包导入项目中。<br><strong>maven项目</strong>可以直接添加配置：</p>
+<pre><code class="java">&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;mysql&lt;/groupId&gt;
+        &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+        &lt;version&gt;8.0.12&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+<p><strong>普通项目</strong>可以通过这种方式添加：<br>首先在<br><a href="https://mvnrepository.com/artifact/mysql/mysql-connector-java/8.0.30">https://mvnrepository.com/artifact/mysql/mysql-connector-java/8.0.30</a><br><img src="https://img-blog.csdnimg.cn/5b9a6f6d4d4d45c39b89efacecf4ee9c.png" alt="在这里插入图片描述"><br>点击红框框下载jar包，然后再如图所示，点击+号进行jar包添加。<br><img src="https://img-blog.csdnimg.cn/03d9751ee2ae4bc1908d8835cfc341a0.png" alt="在这里插入图片描述"></p>
+<p>然后写入下列代码：</p>
+<pre><code class="java">package Progress.exa25;
+
+import java.sql.*;
+
+public class JdbcStudy {
+
+    public static void main(String[] args) {
+        Statement stmt=null;
+        ResultSet rs=null;
+        Connection conn=null;
+        try{
+            //加载驱动程序
+            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
+            String url=&quot;jdbc:mysql://localhost:3306/world?&amp;useSSL=false&amp;serverTimezone=UTC&quot;;
+            String username=&quot;root&quot;;
+            String password=&quot;root&quot;;
+            //建立连接
+            conn = DriverManager.getConnection(url,username,password);
+            //操作数据
+            stmt= conn.createStatement();
+            String sql = &quot;select * from city&quot;;
+            rs = stmt.executeQuery(sql);
+            System.out.println(&quot;id|name|countryCode|&quot;);
+            while(rs.next()) {
+                int id = rs.getInt(&quot;id&quot;);
+                String name = rs.getString(&quot;name&quot;);
+                String countryCode = rs.getString(&quot;countryCode&quot;);
+                System.out.println(id +&quot; | &quot;+name+&quot; | &quot;+countryCode);
+            }
+        }catch(ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }finally{
+            //释放资源
+            if(rs!=null){
+                try{
+                    rs.close();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+                rs=null;
+            }
+
+            if(stmt!=null){
+                try{
+                    stmt.close();
+                } catch(SQLException e) {
+                    e.printStackTrace();
+                }
+                stmt=null;
+            }if(conn!=null){
+                try{
+                   conn.close();
+               }catch(SQLException e){
+                   e.printStackTrace();
+                }
+                conn=null;
+            }
+        }
+    }
+
+}
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/0db9c583bccb41efbdd9f677b7b27416.png" alt="在这里插入图片描述"></p>
+<p>运行之，成功访问。<br><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Progress/exa25">代码地址：Java基础学习&#x2F;src&#x2F;main&#x2F;java&#x2F;Progress&#x2F;exa25 · 严家豆&#x2F;Study - 码云 - 开源中国 (gitee.com)</a></p>
