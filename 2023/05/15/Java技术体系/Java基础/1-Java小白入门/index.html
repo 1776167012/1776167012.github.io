@@ -43,12 +43,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/rainbow.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/rainbow.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -218,7 +218,7 @@
 <li>分布式，健壮性，安全性，体系结构中立，可移植性，解释型，高性能，多线程，动态性</li>
 <li>支持网络编程并且很方便</li>
 </ul>
-<h3 id="6-学习最简单的java程序"><a href="#6-学习最简单的java程序" class="headerlink" title="6.学习最简单的java程序"></a>6.学习最简单的java程序</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FirstSample</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="6-学习最简单的java程序"><a href="#6-学习最简单的java程序" class="headerlink" title="6.学习最简单的java程序"></a>6.学习最简单的java程序</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FirstSample</span>&#123;<br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span>&#123;<br>    System.out.println(<span class="hljs-string">&quot;Hello World&quot;</span>);<br> &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p><strong>通过编写上面的代码我们能学到什么？</strong></p>
 <ul>
@@ -273,18 +273,18 @@
   
 
 <footer class="footer">
-  <div class="footer-social"><a 
+  <div class="footer-social"><a
         href="https://gitee.com/yan-jiadou "
         target="_blank"
         class="footer-social-item"
-        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOver="this.style.color= '#9f7be1'"
         onMouseOut="this.style.color='#33333D'">
           <i class="iconfont  icongithub-fill "></i>
-      </a><a 
+      </a><a
         href="mailto:1776167012@qq.com "
         target="_blank"
         class="footer-social-item"
-        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOver="this.style.color=#FF3B00"
         onMouseOut="this.style.color='#33333D'">
           <i class="iconfont  iconmail"></i>
       </a></div>
@@ -292,6 +292,18 @@
     <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
   
 </footer>
+
+
+  
+<script src="/lib/mermaid/mermaid.min.js"></script>
+  <!-- 或者使用CDN -->
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
+
+
   
       <div class="fab fab-plus">
     <i class="iconfont iconplus"></i>

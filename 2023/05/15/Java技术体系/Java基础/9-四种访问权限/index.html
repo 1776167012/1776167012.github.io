@@ -43,12 +43,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/rainbow.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/rainbow.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -201,18 +201,18 @@
 <p><strong>私有（private）,友好（无修饰符）,保护(protected),公有(public)</strong></p>
 <h2 id="1-1-私有-private"><a href="#1-1-私有-private" class="headerlink" title="1.1.私有(private)"></a>1.1.私有(private)</h2><h3 id="1-1-1私有变量和私有方法"><a href="#1-1-1私有变量和私有方法" class="headerlink" title="1.1.1私有变量和私有方法"></a>1.1.1私有变量和私有方法</h3><p>在定义的类的时候在声明变量&#x2F;方法前加上private修饰符，表示声明的是私有变量或方法，<br>其访问权限是<strong>只能在自己类中被访问</strong>。当在另外一个类中用一个类创建了一个该类的对象后，<br>该对象不能访问自己的私有变量，调用类中的私有方法。</p>
 <p><strong>想要对数据的操作只能在本类中处理，就可以使用private这个关键字。</strong></p>
-<h3 id="1-1-2-例子"><a href="#1-1-2-例子" class="headerlink" title="1.1.2 例子"></a>1.1.2 例子</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonPrivate</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">getX</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">setX</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.x = x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-1-2-例子"><a href="#1-1-2-例子" class="headerlink" title="1.1.2 例子"></a>1.1.2 例子</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PersonPrivate</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> x;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getX</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> x;<br>    &#125;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setX</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> &#123;<br>        <span class="hljs-built_in">this</span>.x = x;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>下面尝试创建PersonPrivate对象并调用它的方法：</p>
 <p><img   class="lazyload" data-original="/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%901.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">私有属性</span></p>
 <p><strong>我们可以看到，在另一个类中创建PersonPrivate对象后，无法通过该对象调用其中定义的private变量或方法。</strong></p>
 <h2 id="1-2-公有-public"><a href="#1-2-公有-public" class="headerlink" title="1.2.公有(public)"></a>1.2.公有(public)</h2><h3 id="1-2-1-公有变量和方法"><a href="#1-2-1-公有变量和方法" class="headerlink" title="1.2.1 公有变量和方法"></a>1.2.1 公有变量和方法</h3><p>用public修饰的成员变量和方法我们称之为公有变量和方法。<br>在任何一个类中用另一个类创建了一个对象，可以通过该对象访问其中的共有变量和方法。</p>
-<h3 id="1-2-2-例子"><a href="#1-2-2-例子" class="headerlink" title="1.2.2 例子"></a>1.2.2 例子</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonPublic</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getX</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setX</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.x = x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-2-例子"><a href="#1-2-2-例子" class="headerlink" title="1.2.2 例子"></a>1.2.2 例子</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PersonPublic</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> x;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getX</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> x;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setX</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> &#123;<br>        <span class="hljs-built_in">this</span>.x = x;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p><img   class="lazyload" data-original="/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%902.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">共有属性</span></p>
 <p>我们可以看到，在另一个类中创建该类的对象后，可以直接访问该类定义的public方法和变量。</p>
 <h2 id="1-3-友好-无修饰符"><a href="#1-3-友好-无修饰符" class="headerlink" title="1.3.友好(无修饰符)"></a>1.3.友好(无修饰符)</h2><h3 id="1-3-1-友好变量和方法"><a href="#1-3-1-友好变量和方法" class="headerlink" title="1.3.1 友好变量和方法"></a>1.3.1 友好变量和方法</h3><p>不用private，public，protected修饰符修饰的成员变量和方法被称为友好变量和友好方法。<br>这种变量和方法的可见性只允许同一包的其他类创建对象后可以用对象进行访问。<br><strong>在同一包中的前提下</strong> 在任何一个类中用一个类创建了一个对象，该对象能访问该类中的友好变量和方法，<br>否则不可见。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonFriend</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">set</span><span class="params">(<span class="type">int</span> x)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.x = x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">getX</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PersonFriend</span> &#123;<br>    <br>    <span class="hljs-type">int</span> x;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">set</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span>&#123;<br>        <span class="hljs-built_in">this</span>.x = x;<br>    &#125;<br>    <span class="hljs-type">int</span> <span class="hljs-title function_">getX</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-keyword">return</span> x;<br>    &#125;<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>当在同一个包里的时候，可见</p>
 <p><img   class="lazyload" data-original="/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%903.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">友好属性</span></p>
@@ -224,7 +224,7 @@
 <ul>
 <li>子类和父类在同一包中的继承性：除了private成员变量和方法，其他的都继承了。</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonExtend</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> y;</span><br><span class="line">    <span class="type">int</span> z;</span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> n;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonSon</span> <span class="keyword">extends</span> <span class="title class_">PersonExtend</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PersonExtend</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> x;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> y;<br>    <span class="hljs-type">int</span> z;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">int</span> n;<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PersonSon</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">PersonExtend</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> name;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p><img   class="lazyload" data-original="/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%905.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">受保护属性</span></p>
 <p>可以看到，除了私有变量y，其他的都继承了。</p>
@@ -232,9 +232,9 @@
 <li>子类和父类不在同一包中：子类只继承父类的protected和public成员，友好成员不继承了。<br>（这里protected和友好类的差别出现了）</li>
 </ul>
 <p>这里将父类和子类放在不同的包中：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> exa09;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonExtend</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> y;</span><br><span class="line">    <span class="type">int</span> z;</span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> exa09;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PersonExtend</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> x;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> y;<br>    <span class="hljs-type">int</span> z;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">int</span> n;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> exa08;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> exa09.PersonExtend;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonSon</span> <span class="keyword">extends</span> <span class="title class_">PersonExtend</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> exa08;<br><br><span class="hljs-keyword">import</span> exa09.PersonExtend;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PersonSon</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">PersonExtend</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> name;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p><img   class="lazyload" data-original="/2023/05/15/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E5%9F%BA%E7%A1%80/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%906.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">受保护属性</span></p>
 <p>这里可以看到，这时只继承了protected和public的变量。</p>
@@ -323,18 +323,18 @@
   
 
 <footer class="footer">
-  <div class="footer-social"><a 
+  <div class="footer-social"><a
         href="https://gitee.com/yan-jiadou "
         target="_blank"
         class="footer-social-item"
-        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOver="this.style.color= '#9f7be1'"
         onMouseOut="this.style.color='#33333D'">
           <i class="iconfont  icongithub-fill "></i>
-      </a><a 
+      </a><a
         href="mailto:1776167012@qq.com "
         target="_blank"
         class="footer-social-item"
-        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOver="this.style.color=#FF3B00"
         onMouseOut="this.style.color='#33333D'">
           <i class="iconfont  iconmail"></i>
       </a></div>
@@ -342,6 +342,18 @@
     <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
   
 </footer>
+
+
+  
+<script src="/lib/mermaid/mermaid.min.js"></script>
+  <!-- 或者使用CDN -->
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
+
+
   
       <div class="fab fab-plus">
     <i class="iconfont iconplus"></i>

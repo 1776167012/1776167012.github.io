@@ -43,12 +43,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/rainbow.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/rainbow.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -190,7 +190,7 @@
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>五月 15, 2023</span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3222</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3211</span>
     </div>
   </div>
 </section>
@@ -199,10 +199,10 @@
         
         <h1 id="1-类的概念"><a href="#1-类的概念" class="headerlink" title="1.类的概念"></a>1.类的概念</h1><p>类java是基本要素，非常重要，怎么理解类的概念呢？<br>如果将Java程序当作一个工厂的话，那么类就是工厂里的电子设备的设计图纸，<br>每个电子设备有其对应的属性和操作方法，而对象就是具体的电子设备，<br>操作设备的工人知道电子设备的属性和操作方法后才能利用电子设备进行工作。<br>换句话说，类是创建对象的蓝图，而对象就是类的具体展现。</p>
 <h2 id="1-1-如何创建一个类"><a href="#1-1-如何创建一个类" class="headerlink" title="1.1 如何创建一个类"></a>1.1 如何创建一个类</h2><p>创建一个类需要的是用class关键字声明它，然后编写类体进行类的具体定义。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class 类名&#123;</span><br><span class="line">    </span><br><span class="line">       类体的内容</span><br><span class="line">&#125;                 </span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">class 类名&#123;<br>    <br>       类体的内容<br>&#125;                 <br></code></pre></td></tr></table></figure>
 
 <p>class是声明类的关键字，当我们声明一个类后，我们需要用一对花括号去定义一个类，<br>在花括号里编写java代码去定义一个类。<br>例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span>&#123;<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h2 id="1-2-如何定义一个类"><a href="#1-2-如何定义一个类" class="headerlink" title="1.2 如何定义一个类"></a>1.2 如何定义一个类</h2><p>在Java中，一个类的类体包括如下内容：变量，方法</p>
 <h3 id="1-2-1变量"><a href="#1-2-1变量" class="headerlink" title="1.2.1变量"></a>1.2.1变量</h3><p>变量，就是存储数据的标识符，我们可以用基本的数据类型（或复杂的引用类型）去声明一个变量，<br>使其作为类定义的一部分。</p>
@@ -212,9 +212,9 @@
 <li>类变量：类级别的变量，用static修饰, 它有只有一个，被多个相同类创建的对象共享</li>
 <li>局部变量：方法级别的变量，局部变量的作用域只是方法,随着方法的执行创建，方法的执行结束消亡</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">    <span class="type">int</span> age;<span class="comment">//实例变量</span></span><br><span class="line">    <span class="keyword">static</span> <span class="type">String</span> <span class="variable">type</span> <span class="operator">=</span> <span class="string">&quot;中国人&quot;</span>;<span class="comment">//类变量</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span>&#123;<br>    <span class="hljs-type">int</span> age;<span class="hljs-comment">//实例变量</span><br>    <span class="hljs-keyword">static</span> <span class="hljs-type">String</span> <span class="hljs-variable">type</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;中国人&quot;</span>;<span class="hljs-comment">//类变量</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">    <span class="type">int</span> age;<span class="comment">//实例变量</span></span><br><span class="line">    <span class="keyword">static</span> <span class="type">String</span> <span class="variable">type</span> <span class="operator">=</span> <span class="string">&quot;中国人&quot;</span>;<span class="comment">//类变量</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">int</span> num;<span class="comment">//局部变量            </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span>&#123;<br>    <span class="hljs-type">int</span> age;<span class="hljs-comment">//实例变量</span><br>    <span class="hljs-keyword">static</span> <span class="hljs-type">String</span> <span class="hljs-variable">type</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;中国人&quot;</span>;<span class="hljs-comment">//类变量</span><br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-type">int</span> num;<span class="hljs-comment">//局部变量            </span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h3 id="1-2-2-方法"><a href="#1-2-2-方法" class="headerlink" title="1.2.2 方法"></a>1.2.2 方法</h3><p>方法可分为：<strong>构造方法，实例方法，类方法（用static修饰的方法）</strong></p>
 <ul>
@@ -225,12 +225,12 @@
 <li><p>类方法是直接可以通过类名进行调用的方法。</p>
 </li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">    <span class="type">int</span> age;<span class="comment">//实例变量</span></span><br><span class="line">    <span class="keyword">static</span> <span class="type">String</span> <span class="variable">type</span> <span class="operator">=</span> <span class="string">&quot;中国人&quot;</span>;<span class="comment">//类变量</span></span><br><span class="line">    <span class="comment">//构造方法，注意它的写法</span></span><br><span class="line">    <span class="comment">//构造方法是一个类的必要属性之一</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Person</span><span class="params">()</span>&#123;            </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//实例方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">int</span> num;<span class="comment">//局部变量            </span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//类方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">method2</span><span class="params">()</span>&#123;</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span>&#123;<br>    <span class="hljs-type">int</span> age;<span class="hljs-comment">//实例变量</span><br>    <span class="hljs-keyword">static</span> <span class="hljs-type">String</span> <span class="hljs-variable">type</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;中国人&quot;</span>;<span class="hljs-comment">//类变量</span><br>    <span class="hljs-comment">//构造方法，注意它的写法</span><br>    <span class="hljs-comment">//构造方法是一个类的必要属性之一</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Person</span><span class="hljs-params">()</span>&#123;            <br>    &#125;<br>    <span class="hljs-comment">//实例方法</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-type">int</span> num;<span class="hljs-comment">//局部变量            </span><br>    &#125;<br>    <span class="hljs-comment">//类方法</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method2</span><span class="hljs-params">()</span>&#123;<br>            <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
 <h1 id="2-对象"><a href="#2-对象" class="headerlink" title="2.对象"></a>2.对象</h1><p>通过类的学习，我们知道了类是构建对象的蓝图，下面我们学习如何使用类来构建对象并进行使用。</p>
 <p>语法如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">类名  对象名;</span><br><span class="line">对象名  = <span class="keyword">new</span> 类名();</span><br><span class="line"><span class="comment">//上面的是对象的创建，下面是对象的使用</span></span><br><span class="line">对象名.变量名</span><br><span class="line">对象名.方法()</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">类名  对象名;<br>对象名  = <span class="hljs-keyword">new</span> 类名();<br><span class="hljs-comment">//上面的是对象的创建，下面是对象的使用</span><br>对象名.变量名<br>对象名.方法()<br></code></pre></td></tr></table></figure>
 
 <p><strong>问：除了new的方式，还有那些方式可以得到一个实例对象？</strong></p>
 <ul>
@@ -242,13 +242,22 @@
 </ul>
 <p>这样我们就生成了一个对象实例。</p>
 <h1 id="3-类定义实例"><a href="#3-类定义实例" class="headerlink" title="3.类定义实例"></a>3.类定义实例</h1><p>下面我们写了一个名为Computer的类，然后在类ObjectStudy中用它生成了实例并使用实例对象达到我们的目的。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 此类展示对象操作。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ObjectStudy</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span>&#123;</span><br><span class="line">        <span class="type">Computer</span> <span class="variable">com</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Computer</span>();</span><br><span class="line">        <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">200</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> com.add(m,n);</span><br><span class="line">        result = com.add(<span class="number">120</span>+m,n*<span class="number">10</span>+<span class="number">8</span>);</span><br><span class="line">        System.out.println(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Computer</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x+y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 此类展示对象操作。</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ObjectStudy</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String args[])</span>&#123;<br>        <span class="hljs-type">Computer</span> <span class="hljs-variable">com</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Computer</span>();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">m</span> <span class="hljs-operator">=</span> <span class="hljs-number">100</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> <span class="hljs-number">200</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> com.add(m,n);<br>        result = com.add(<span class="hljs-number">120</span>+m,n*<span class="hljs-number">10</span>+<span class="hljs-number">8</span>);<br>        System.out.println(result);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Computer</span>&#123;<br>    <span class="hljs-type">int</span> <span class="hljs-title function_">add</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span> &#123;<br>        <span class="hljs-keyword">return</span> x+y;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>运行结果：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2228</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">2228<br><br>Process finished with exit code 0<br></code></pre></td></tr></table></figure>
 
 
-<h1 id="4-理解类和对象的关系"><a href="#4-理解类和对象的关系" class="headerlink" title="4.理解类和对象的关系"></a>4.理解类和对象的关系</h1><h2 id="4-1-一个java程序和类之间的关系"><a href="#4-1-一个java程序和类之间的关系" class="headerlink" title="4.1.一个java程序和类之间的关系"></a>4.1.一个java程序和类之间的关系</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">JavaApplication--&gt;mainClass--&gt;method</span><br><span class="line">mainClass--&gt;filed</span><br><span class="line">JavaApplication--&gt;Class1--&gt;method1</span><br><span class="line">Class1--&gt;filed1</span><br><span class="line">JavaApplication--&gt;Class2</span><br><span class="line">Class2--&gt;method2</span><br><span class="line">Class2--&gt;filed2</span><br></pre></td></tr></table></figure>
+<h1 id="4-理解类和对象的关系"><a href="#4-理解类和对象的关系" class="headerlink" title="4.理解类和对象的关系"></a>4.理解类和对象的关系</h1><h2 id="4-1-一个java程序和类之间的关系"><a href="#4-1-一个java程序和类之间的关系" class="headerlink" title="4.1.一个java程序和类之间的关系"></a>4.1.一个java程序和类之间的关系</h2><pre class="mermaid">graph LR
+JavaApplication-->mainClass
+mainClass-->method
+mainClass-->filed
+JavaApplication-->Class1
+Class1-->method1
+Class1-->filed1
+JavaApplication-->Class2
+Class2-->method2
+Class2-->filed2</pre>
 
 <p>我自己的理解来看：<br>如果把java程序看做一个工厂的话，类就是工厂里的电子设备的设计图纸，电子设备有其对应的属性和操作方法，<br>而对象就是电子设备的实体，控制设备的工人知道电子设备的属性和操作方法后才能利用电子设备可以生产出产品。</p>
 <h1 id="5-细节知识分析"><a href="#5-细节知识分析" class="headerlink" title="5.细节知识分析"></a>5.细节知识分析</h1><h2 id="5-1-类与类的关系"><a href="#5-1-类与类的关系" class="headerlink" title="5.1.类与类的关系"></a>5.1.类与类的关系</h2><p>我个人认为类分为主类和子附属类(相当于一个公司的boss和员工，而这个关系是逐级递分的，<br>就是说子附属类的下级可以有子子附属类），主类是最终要运行的那个类，它一般是决策类。<br>主类和其子类的组成的工程的类层次结构。</p>
@@ -313,18 +322,18 @@
   
 
 <footer class="footer">
-  <div class="footer-social"><a 
+  <div class="footer-social"><a
         href="https://gitee.com/yan-jiadou "
         target="_blank"
         class="footer-social-item"
-        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOver="this.style.color= '#9f7be1'"
         onMouseOut="this.style.color='#33333D'">
           <i class="iconfont  icongithub-fill "></i>
-      </a><a 
+      </a><a
         href="mailto:1776167012@qq.com "
         target="_blank"
         class="footer-social-item"
-        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOver="this.style.color=#FF3B00"
         onMouseOut="this.style.color='#33333D'">
           <i class="iconfont  iconmail"></i>
       </a></div>
@@ -332,6 +341,18 @@
     <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
   
 </footer>
+
+
+  
+<script src="/lib/mermaid/mermaid.min.js"></script>
+  <!-- 或者使用CDN -->
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
+
+
   
       <div class="fab fab-plus">
     <i class="iconfont iconplus"></i>

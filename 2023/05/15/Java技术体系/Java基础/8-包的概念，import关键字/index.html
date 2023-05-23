@@ -43,12 +43,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/rainbow.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/rainbow.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -201,15 +201,15 @@
 <p><strong>包有助于我们项目的结构化，规范化。<br>因为如果一个复杂的项目的源代码文件都放在一个文件夹下，可控性会变得非常差。</strong></p>
 <h1 id="2-如何使用包（import关键字）"><a href="#2-如何使用包（import关键字）" class="headerlink" title="2.如何使用包（import关键字）"></a>2.如何使用包（import关键字）</h1><p>下面我使用IDEA演示：</p>
 <p>首先写两个名字相同内容不同的类：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">People</span>&#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">f</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我是bao1的people&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">People</span>&#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">f</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我是bao2的people&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">People</span>&#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">f</span><span class="hljs-params">()</span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;我是bao1的people&quot;</span>);<br>    &#125;<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">People</span>&#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">f</span><span class="hljs-params">()</span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;我是bao2的people&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>我们知道这两个类不能放在同一个包中（否则编译器会报错）<br>下面我们分别创建两个包，名字分别为bao1,bao2并且把这两个类分别放在两个包中：</p>
 <p>于是问题又来啦，我们该如何使用它们呢？</p>
 <h1 id="3-import关键字"><a href="#3-import关键字" class="headerlink" title="3.import关键字"></a>3.import关键字</h1><p>这里就出现了一个import语句，这个语句可以让一个包中的类中可以使用另一个包中的类，怎么操作呢？下面继续：<br>我们在bao1中创建一个主类，在这个类中我们要对这两个名字相同的类操作的代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        Base.exa08.bao1.<span class="type">People</span> <span class="variable">speak</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Base</span>.exa08.bao1.People();</span><br><span class="line">        speak.f();</span><br><span class="line">        Base.exa08.bao2.<span class="type">People</span> <span class="variable">speaks</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Base</span>.exa08.bao2.People();</span><br><span class="line">        speaks.f();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        Base.exa08.bao1.<span class="hljs-type">People</span> <span class="hljs-variable">speak</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Base</span>.exa08.bao1.People();<br>        speak.f();<br>        Base.exa08.bao2.<span class="hljs-type">People</span> <span class="hljs-variable">speaks</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Base</span>.exa08.bao2.People();<br>        speaks.f();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>结果如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">我是bao1的people</span><br><span class="line">我是bao2的people</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">我是bao1的people<br>我是bao2的people<br><br>Process finished with exit code 0<br></code></pre></td></tr></table></figure>
 
 
 <p>对于import的用法是：<br>import 包路径.要引用的类;<br><strong>如果要引用某个包中的全部类，可以用*来表示， *  代表全部。</strong></p>
@@ -256,18 +256,18 @@
   
 
 <footer class="footer">
-  <div class="footer-social"><a 
+  <div class="footer-social"><a
         href="https://gitee.com/yan-jiadou "
         target="_blank"
         class="footer-social-item"
-        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOver="this.style.color= '#9f7be1'"
         onMouseOut="this.style.color='#33333D'">
           <i class="iconfont  icongithub-fill "></i>
-      </a><a 
+      </a><a
         href="mailto:1776167012@qq.com "
         target="_blank"
         class="footer-social-item"
-        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOver="this.style.color=#FF3B00"
         onMouseOut="this.style.color='#33333D'">
           <i class="iconfont  iconmail"></i>
       </a></div>
@@ -275,6 +275,18 @@
     <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
   
 </footer>
+
+
+  
+<script src="/lib/mermaid/mermaid.min.js"></script>
+  <!-- 或者使用CDN -->
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
+
+
   
       <div class="fab fab-plus">
     <i class="iconfont iconplus"></i>

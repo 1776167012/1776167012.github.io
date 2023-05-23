@@ -103,9 +103,11 @@ class Computer{
 Process finished with exit code 0
 </code></pre>
 <h1 id="4-理解类和对象的关系"><a href="#4-理解类和对象的关系" class="headerlink" title="4.理解类和对象的关系"></a>4.理解类和对象的关系</h1><h2 id="4-1-一个java程序和类之间的关系"><a href="#4-1-一个java程序和类之间的关系" class="headerlink" title="4.1.一个java程序和类之间的关系"></a>4.1.一个java程序和类之间的关系</h2><pre><code class="mermaid">graph LR
-JavaApplication--&gt;mainClass--&gt;method
+JavaApplication--&gt;mainClass
+mainClass--&gt;method
 mainClass--&gt;filed
-JavaApplication--&gt;Class1--&gt;method1
+JavaApplication--&gt;Class1
+Class1--&gt;method1
 Class1--&gt;filed1
 JavaApplication--&gt;Class2
 Class2--&gt;method2

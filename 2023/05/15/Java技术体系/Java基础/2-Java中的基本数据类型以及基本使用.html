@@ -18,7 +18,9 @@ Process finished with exit code 0
 <p>当然我们也可以强制转换将高精度数值赋给低精度变量，不过强制转换可能出现精度损失的状况</p>
 <p>下面属于低转高，不会出现精度损失</p>
 <pre><code class="mermaid">graph LR
-byte--&gt;short--&gt;int--&gt;long
+byte--&gt;short
+short--&gt;int
+int--&gt;long
 char--&gt;int
 int--&gt;double
 float--&gt;double
