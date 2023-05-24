@@ -1,4 +1,5 @@
-<h1 id="1-什么是InputStream（输入流）？"><a href="#1-什么是InputStream（输入流）？" class="headerlink" title="1.什么是InputStream（输入流）？"></a>1.什么是InputStream（输入流）？</h1><p>在JavaAPI中，我们可以从字节序列来源地读入一个字节序列的对象称为输入流。字节序列的来源地可以是文件，也可以是网络，还可以是内存块等等。<br>输入流根据每次读取的字节数量的不同分为字节输入流和字符输入流。 字节输入流每次都是读取一个字节的，而字符输入流每次读入都是根据基于两字节的字符为单位读取的。</p>
+<hr>
+<h2 id="title-2-1-Java读文件之InputStream学习date-2023-05-20-11-58-00tags-Java进阶"><a href="#title-2-1-Java读文件之InputStream学习date-2023-05-20-11-58-00tags-Java进阶" class="headerlink" title="title: 2.1 Java读文件之InputStream学习date: 2023-05-20 11:58:00tags: Java进阶"></a>title: 2.1 Java读文件之InputStream学习<br>date: 2023-05-20 11:58:00<br>tags: Java进阶</h2><h1 id="1-什么是InputStream（输入流）？"><a href="#1-什么是InputStream（输入流）？" class="headerlink" title="1.什么是InputStream（输入流）？"></a>1.什么是InputStream（输入流）？</h1><p>在JavaAPI中，可以从字节序列来源地读入一个字节序列的对象称为输入流。<br>字节序列的来源地可以是文件，也可以是网络，还可以是内存块等等。<br>输入流根据每次读取的字节数量的不同被分为字节输入流和字符输入流。<br>字节输入流每次都是读取一个字节的，而字符输入流每次读入都是根据基于两字节的字符为单位读取的。</p>
 <h1 id="2-JDK中对InputStream的定义"><a href="#2-JDK中对InputStream的定义" class="headerlink" title="2.JDK中对InputStream的定义"></a>2.JDK中对InputStream的定义</h1><p>在JDK中，InputStream是一个抽象类，其主要方法定义如下：</p>
 <table>
 <thead>
@@ -24,9 +25,21 @@
 <td>当填充完毕时，返回实际填充数</td>
 </tr>
 </tbody></table>
-<p>这个类的主要能力定义就是从文件或网络或某处读取数据到程序中。这个<strong>某处</strong>我们称之为<strong>源</strong>，而根据这个源的不同实现出了不同的具体的实现类来让我们方便使用。</p>
+<p>这个类的主要能力定义就是从文件或网络或某处读取数据到程序中。<br>这个<strong>某处</strong>我们称之为<strong>源</strong>，而根据这个源的不同,JDK实现出了不同的具体的实现类来让我们方便使用。</p>
 <h2 id="2-1-使用FileInputStream读取文件"><a href="#2-1-使用FileInputStream读取文件" class="headerlink" title="2.1 使用FileInputStream读取文件"></a>2.1 使用FileInputStream读取文件</h2><p>下面使用它的一个实现类FileInputStream读取文件<br>FileInputStream顾名思义，它是源为文件的字节输入流。</p>
-<h3 id="2-1-1-read-使用实例"><a href="#2-1-1-read-使用实例" class="headerlink" title="2.1.1 read() 使用实例"></a>2.1.1 read() 使用实例</h3><pre><code class="java">/**
+<h3 id="2-1-1-read-使用实例"><a href="#2-1-1-read-使用实例" class="headerlink" title="2.1.1 read() 使用实例"></a>2.1.1 read() 使用实例</h3><p>麻子.txt 内容如下：</p>
+<pre><code class="text">姓名: 张麻子
+性别： 男
+年龄: 28
+自我评价： 好好啊好好好哈
+大学成绩：A A A
+毕业院校: 黄埔军校
+获得证书：教师资格证, 教官证
+人生格言: 公平，公平，还是tm的公平
+专业：打劫专业
+</code></pre>
+<p>下面使用FileInputStream的read方法读取该文件</p>
+<pre><code class="java">/**
  * FileInputStream实例
  * @throws IOException
  */
@@ -38,8 +51,21 @@ public static void fileInputStreamStudy() throws IOException {
     }
 }
 </code></pre>
-<p>上面的测试，每次读取都是读取的一个字节，所以后面的中文是可能无法正确显示的，因为中文为两个字节一组：<br><img src="https://img-blog.csdnimg.cn/b7b6c06177f546a382a100c073f9f12c.png" alt="在这里插入图片描述"></p>
-<h3 id="2-1-2-read-byte-b-使用实例"><a href="#2-1-2-read-byte-b-使用实例" class="headerlink" title="2.1.2 read(byte[] b)使用实例"></a>2.1.2 read(byte[] b)使用实例</h3><pre><code class="java">public static void readByteStudy() throws IOException {
+<p>运行结果：</p>
+<pre><code class="text">å§å: å¼ éº»å­
+æ§å«ï¼ ç·
+å¹´é¾: 28
+èªæè¯ä»·ï¼ å¥½å¥½åå¥½å¥½å¥½å
+å¤§å­¦æç»©ï¼A A A
+æ¯ä¸é¢æ ¡: é»ååæ ¡
+è·å¾è¯ä¹¦ï¼æå¸èµæ ¼è¯, æå®è¯
+äººçæ ¼è¨: å¬å¹³ï¼å¬å¹³ï¼è¿æ¯tmçå¬å¹³
+ä¸ä¸ï¼æå«ä¸ä¸
+Process finished with exit code 0
+</code></pre>
+<p>上面的测试，每次读取都是读取的一个字节，所以后面的中文是可能无法正确显示的，因为中文为两个字节一组.</p>
+<h3 id="2-1-2-read-byte-b-使用实例"><a href="#2-1-2-read-byte-b-使用实例" class="headerlink" title="2.1.2 read(byte[] b)使用实例"></a>2.1.2 read(byte[] b)使用实例</h3><p>此方法可以一次性读取指定数量(b的大小)的字节数据填充到参数b中。</p>
+<pre><code class="java">public static void readByteStudy() throws IOException {
     InputStream inputStream = new FileInputStream(&quot;麻子.txt&quot;);
     byte[] a = new byte[1000];
     System.out.println(inputStream.read(a));
@@ -48,8 +74,21 @@ public static void fileInputStreamStudy() throws IOException {
     }
 }
 </code></pre>
-<p><img src="https://img-blog.csdnimg.cn/59e7397bdff24365ae6038c6d896feda.png" alt="在这里插入图片描述"></p>
-<h3 id="2-1-3-read-byte-b-int-off-int-len"><a href="#2-1-3-read-byte-b-int-off-int-len" class="headerlink" title="2.1.3 read(byte[] b , int off,int len)"></a>2.1.3 read(byte[] b , int off,int len)</h3><pre><code class="java">public static void readByteLengthStudy() throws IOException {
+<p>运行结果：</p>
+<pre><code class="text">250
+￥ﾧﾓ￥ﾐﾍ: ￥ﾼﾠ￩ﾺﾻ￥ﾭﾐ
+￦ﾀﾧ￥ﾈﾫ￯ﾼﾚ ￧ﾔﾷ
+￥ﾹﾴ￩ﾾﾄ: 28
+￨ﾇﾪ￦ﾈﾑ￨ﾯﾄ￤ﾻﾷ￯ﾼﾚ ￥ﾥﾽ￥ﾥﾽ￥ﾕﾊ￥ﾥﾽ￥ﾥﾽ￥ﾥﾽ￥ﾓﾈ
+￥ﾤﾧ￥ﾭﾦ￦ﾈﾐ￧ﾻﾩ￯ﾼﾚA A A
+￦ﾯﾕ￤ﾸﾚ￩ﾙﾢ￦ﾠﾡ: ￩ﾻﾄ￥ﾟﾔ￥ﾆﾛ￦ﾠﾡ
+￨ﾎﾷ￥ﾾﾗ￨ﾯﾁ￤ﾹﾦ￯ﾼﾚ￦ﾕﾙ￥ﾸﾈ￨ﾵﾄ￦ﾠﾼ￨ﾯﾁ, ￦ﾕﾙ￥ﾮﾘ￨ﾯﾁ
+￤ﾺﾺ￧ﾔﾟ￦ﾠﾼ￨ﾨﾀ: ￥ﾅﾬ￥ﾹﾳ￯ﾼﾌ￥ﾅﾬ￥ﾹﾳ￯ﾼﾌ￨﾿ﾘ￦ﾘﾯtm￧ﾚﾄ￥ﾅﾬ￥ﾹﾳ
+￤ﾸﾓ￤ﾸﾚ￯ﾼﾚ￦ﾉﾓ￥ﾊﾫ￤ﾸﾓ￤ﾸﾚ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+Process finished with exit code 0
+</code></pre>
+<h3 id="2-1-3-read-byte-b-int-off-int-len"><a href="#2-1-3-read-byte-b-int-off-int-len" class="headerlink" title="2.1.3 read(byte[] b , int off,int len)"></a>2.1.3 read(byte[] b , int off,int len)</h3><p>此方法可以一次性读取指定数量(len)的字节数据填充到参数b中,且b的开始索引位置是off</p>
+<pre><code class="java">public static void readByteLengthStudy() throws IOException {
     InputStream inputStream = new FileInputStream(&quot;麻子.txt&quot;);
     byte[] a = new byte[1000];
     System.out.println(inputStream.read(a,100,100));
@@ -58,58 +97,109 @@ public static void fileInputStreamStudy() throws IOException {
     }
 }
 </code></pre>
-<p><img src="https://img-blog.csdnimg.cn/b8316632d312456dbcd5564882374d0f.png" alt="在这里插入图片描述"></p>
+<p>运行结果</p>
+<pre><code class="text">100
+                                                                                                    ￥ﾧﾓ￥ﾐﾍ: ￥ﾼﾠ￩ﾺﾻ￥ﾭﾐ
+￦ﾀﾧ￥ﾈﾫ￯ﾼﾚ ￧ﾔﾷ
+￥ﾹﾴ￩ﾾﾄ: 28
+￨ﾇﾪ￦ﾈﾑ￨ﾯﾄ￤ﾻﾷ￯ﾼﾚ ￥ﾥﾽ￥ﾥﾽ￥ﾕﾊ￥ﾥﾽ￥ﾥﾽ￥ﾥﾽ￥ﾓﾈ
+￥ﾤﾧ￥ﾭﾦ￦ﾈﾐ￧ﾻﾩ￯ﾼﾚ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+Process finished with exit code 0
+</code></pre>
 <h2 id="2-2-其他方法学习"><a href="#2-2-其他方法学习" class="headerlink" title="2.2 其他方法学习"></a>2.2 其他方法学习</h2><h3 id="2-2-1-skip-long-n-跳过源中指定字节数进行读取"><a href="#2-2-1-skip-long-n-跳过源中指定字节数进行读取" class="headerlink" title="2.2.1 skip(long n) 跳过源中指定字节数进行读取"></a>2.2.1 skip(long n) 跳过源中指定字节数进行读取</h3><pre><code class="java">/**
  * skip可以跳过源中一定数量的字节
  * @throws IOException
  */
 public static void skipStudy() throws IOException {
-    InputStream inputStream = new FileInputStream(&quot;麻子.txt&quot;);
-    System.out.println(inputStream.skip(100));
-    int n;
-    while ((n=inputStream.read())!=-1){
-        System.out.println(inputStream.available());
+        InputStream inputStream = new FileInputStream(&quot;麻子.txt&quot;);
+        System.out.println(&quot;跳过前100个字节： &quot;+inputStream.skip(100));
+        int n;
+        while ((n=inputStream.read())!=-1){
         System.out.print((char)n);
-    }
+        }
 }
 </code></pre>
-<p><img src="https://img-blog.csdnimg.cn/448a91e9fb5142e29a55b5463f68c6a6.png" alt="在这里插入图片描述"></p>
+<p>运行结果：</p>
+<pre><code class="text">跳过前100个字节： 100
+A A A
+æ¯ä¸é¢æ ¡: é»ååæ ¡
+è·å¾è¯ä¹¦ï¼æå¸èµæ ¼è¯, æå®è¯
+äººçæ ¼è¨: å¬å¹³ï¼å¬å¹³ï¼è¿æ¯tmçå¬å¹³
+ä¸ä¸ï¼æå«ä¸ä¸
+Process finished with exit code 0
+</code></pre>
 <h3 id="2-2-2-available-预估剩余未读取的字节数量"><a href="#2-2-2-available-预估剩余未读取的字节数量" class="headerlink" title="2.2.2 available() 预估剩余未读取的字节数量"></a>2.2.2 available() 预估剩余未读取的字节数量</h3><pre><code class="java">/**
  * available可以预估剩余未读取的字节估计数
  * @throws IOException
  */
 public static void availableStudy() throws IOException {
-    InputStream inputStream = new FileInputStream(&quot;麻子.txt&quot;);
-    int n;
-    while ((n=inputStream.read())!=-1){
-        System.out.println(inputStream.available());
-        System.out.print((char)n);
+        InputStream inputStream = new FileInputStream(&quot;麻子.txt&quot;);
+        int n = 100;
+        int ch;
+        while ((ch=inputStream.read())!=-1&amp;&amp;n&gt;0){
+        n--;
+        System.out.print((char)ch);
+        }
+        System.out.println(&quot;还剩的未读的字节数：&quot;+ inputStream.available());
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code class="text">å§å: å¼ éº»å­
+æ§å«ï¼ ç·
+å¹´é¾: 28
+èªæè¯ä»·ï¼ å¥½å¥½åå¥½å¥½å¥½å
+å¤§å­¦æç»©ï¼还剩的未读的字节数：149
+
+Process finished with exit code 0
+</code></pre>
+<h3 id="2-2-3-mark-int-readlimit-标记重读点，并设置重读点范围（和缓冲区相关）"><a href="#2-2-3-mark-int-readlimit-标记重读点，并设置重读点范围（和缓冲区相关）" class="headerlink" title="2.2.3 mark(int readlimit) 标记重读点，并设置重读点范围（和缓冲区相关）"></a>2.2.3 mark(int readlimit) 标记重读点，并设置重读点范围（和缓冲区相关）</h3><p>其中readlimit是在标记位置失效之前可以读取的最大字节限制,设置了它后,<br>只能在读取标记点后readlimit的过程中调用reset方法进行重置,如果超过了这个范围,reset就会调用失败。</p>
+<h3 id="2-2-4-reset-将流的游标重置为重读点"><a href="#2-2-4-reset-将流的游标重置为重读点" class="headerlink" title="2.2.4 reset() 将流的游标重置为重读点"></a>2.2.4 reset() 将流的游标重置为重读点</h3><pre><code class="java">class Test {
+    /**
+     * mark在JAVA中的实现是和缓冲区相关的。只要缓冲区够大，mark后读取的数据没有超出缓冲区的大小，mark标记就不会失效。
+     * 如果不够大，mark后又读取了大量的数据，导致缓冲区更新，原来标记的位置自然找不到了。
+     * 因此，mark后读取多少字节才失效，并不完全由readlimit参数确定，也和BufferedInputStream类的缓冲区大小有关。
+     * 如果BufferedInputStream类的缓冲区大小大于readlimit，在mark以后只有读取超过缓冲区大小的数据，mark标记才会失效。
+     * @throws IOException
+     */
+    public static void markStudy() throws IOException {
+        InputStream inputStream = new BufferedInputStream(new FileInputStream(&quot;麻子.txt&quot;),100);
+        int n;
+        // 这里100可以重置, 101却重置失败
+        int num = 100;
+        //这里的readLimit和实际情况相关，
+        // 如果BufferedInputStream类的缓冲区大小大于readlimit，在mark以后只有读取超过缓冲区大小的数据，mark标记才会失效。
+        inputStream.mark(10);
+        while ((n=inputStream.read())!=-1&amp;&amp;num&gt;1){
+            num--;
+            System.out.print((char) n);
+        }
+        inputStream.reset();
+        System.out.println();
+        System.out.println(&quot;调用reset 重新读取&quot;);
+        while ((n=inputStream.read())!=-1){
+            System.out.print((char)n);
+        }
     }
 }
 </code></pre>
-<p><img src="https://img-blog.csdnimg.cn/db9c96e7346c4797861c8b3acc34f50a.png" alt="在这里插入图片描述"></p>
-<h3 id="2-2-3-mark-int-readlimit-标记重读点，并设置重读点失效条件（和缓冲区相关）"><a href="#2-2-3-mark-int-readlimit-标记重读点，并设置重读点失效条件（和缓冲区相关）" class="headerlink" title="2.2.3 mark(int readlimit) 标记重读点，并设置重读点失效条件（和缓冲区相关）"></a>2.2.3 mark(int readlimit) 标记重读点，并设置重读点失效条件（和缓冲区相关）</h3><h3 id="2-2-4-reset-将流的游标重置为重读点"><a href="#2-2-4-reset-将流的游标重置为重读点" class="headerlink" title="2.2.4 reset() 将流的游标重置为重读点"></a>2.2.4 reset() 将流的游标重置为重读点</h3><pre><code class="java">/**
- * mark在JAVA中的实现是和缓冲区相关的。只要缓冲区够大，mark后读取的数据没有超出缓冲区的大小，mark标记就不会失效。
- * 如果不够大，mark后又读取了大量的数据，导致缓冲区更新，原来标记的位置自然找不到了。
- * 因此，mark后读取多少字节才失效，并不完全由readlimit参数确定，也和BufferedInputStream类的缓冲区大小有关。
- * 如果BufferedInputStream类的缓冲区大小大于readlimit，在mark以后只有读取超过缓冲区大小的数据，mark标记才会失效。
- * @throws IOException
- */
-public static void markStudy() throws IOException {
-    InputStream inputStream = new BufferedInputStream(new FileInputStream(&quot;麻子.txt&quot;));
-    int n;
-    while ((n=inputStream.read())!=-1){
-        if(n==173) inputStream.mark(50);//这里的readLimit和实际情况相关
-        System.out.println(n);
-    }
-    inputStream.reset();
-    System.out.println(&quot;调用reset 重新读取&quot;);
-    while ((n=inputStream.read())!=-1){
-        System.out.println(n);
-    }
-}
+<p>运行结果：</p>
+<pre><code class="text">å§å: å¼ éº»å­
+æ§å«ï¼ ç·
+å¹´é¾: 28
+èªæè¯ä»·ï¼ å¥½å¥½åå¥½å¥½å¥½å
+å¤§å­¦æç»©ï¼
+调用reset 重新读取
+å§å: å¼ éº»å­
+æ§å«ï¼ ç·
+å¹´é¾: 28
+èªæè¯ä»·ï¼ å¥½å¥½åå¥½å¥½å¥½å
+å¤§å­¦æç»©ï¼A A A
+æ¯ä¸é¢æ ¡: é»ååæ ¡
+è·å¾è¯ä¹¦ï¼æå¸èµæ ¼è¯, æå®è¯
+äººçæ ¼è¨: å¬å¹³ï¼å¬å¹³ï¼è¿æ¯tmçå¬å¹³
+ä¸ä¸ï¼æå«ä¸ä¸
+Process finished with exit code 0
 </code></pre>
-<p><img src="https://img-blog.csdnimg.cn/cb33f7cefa694370baaeab5edccc4649.png" alt="在这里插入图片描述"></p>
 <h3 id="2-2-5-markSupported-钩子方法，供实现类使用，如果实现类支持mark-reset将其实现返回true"><a href="#2-2-5-markSupported-钩子方法，供实现类使用，如果实现类支持mark-reset将其实现返回true" class="headerlink" title="2.2.5 markSupported() 钩子方法，供实现类使用，如果实现类支持mark,reset将其实现返回true"></a>2.2.5 markSupported() 钩子方法，供实现类使用，如果实现类支持mark,reset将其实现返回true</h3><p>InputStream默认为false</p>
 <pre><code class="java">public boolean markSupported() {
     return false;

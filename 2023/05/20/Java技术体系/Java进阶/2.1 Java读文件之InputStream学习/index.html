@@ -1,0 +1,452 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>2.1 Java读文件之InputStream学习 - 牧之的博客空间</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content="1.什么是InputStream（输入流）？在Java...">
+  <meta name="author" content="MuZhi">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/rainbow.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/rainbow.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '/images/theme/welcome2.png',
+          api: ''
+        },
+        motto: {
+          default: 'public class Hello {public static void main(String[] args) {System.out.println(1+1=n)}}',
+          typing: true,
+          api: '',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="lock-screen">
+<script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">2.1 Java读文件之InputStream学习</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 文章归档</a>
+      </li><li class="menu-item">
+        <a href="/2099/05/20/personinfo/ " class="underline "> 关于作者</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">2.1 Java读文件之InputStream学习</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>五月 20, 2023</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>7413</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+        <h1 id="1-什么是InputStream（输入流）？"><a href="#1-什么是InputStream（输入流）？" class="headerlink" title="1.什么是InputStream（输入流）？"></a>1.什么是InputStream（输入流）？</h1><p>在JavaAPI中，可以从字节序列来源地读入一个字节序列的对象称为输入流。<br>字节序列的来源地可以是文件，也可以是网络，还可以是内存块等等。<br>输入流根据每次读取的字节数量的不同被分为字节输入流和字符输入流。<br>字节输入流每次都是读取一个字节的，而字符输入流每次读入都是根据基于两字节的字符为单位读取的。</p>
+<h1 id="2-JDK中对InputStream的定义"><a href="#2-JDK中对InputStream的定义" class="headerlink" title="2.JDK中对InputStream的定义"></a>2.JDK中对InputStream的定义</h1><p>在JDK中，InputStream是一个抽象类，其主要方法定义如下：</p>
+<table>
+<thead>
+<tr>
+<th>方法定义</th>
+<th>返回值描述</th>
+<th>方法描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>abstract int read()</td>
+<td>返回的是读入的字节asc码（-1~225）</td>
+<td>当读取完毕时，返回-1</td>
+</tr>
+<tr>
+<td>int read(byte b[])</td>
+<td>将源中的字节信息填充到b中</td>
+<td>当填充完毕时，返回实际填充数</td>
+</tr>
+<tr>
+<td>int read(byte b[],int off,int len)</td>
+<td>将b中指定位置填充源中的字节</td>
+<td>当填充完毕时，返回实际填充数</td>
+</tr>
+</tbody></table>
+<p>这个类的主要能力定义就是从文件或网络或某处读取数据到程序中。<br>这个<strong>某处</strong>我们称之为<strong>源</strong>，而根据这个源的不同,JDK实现出了不同的具体的实现类来让我们方便使用。</p>
+<h2 id="2-1-使用FileInputStream读取文件"><a href="#2-1-使用FileInputStream读取文件" class="headerlink" title="2.1 使用FileInputStream读取文件"></a>2.1 使用FileInputStream读取文件</h2><p>下面使用它的一个实现类FileInputStream读取文件<br>FileInputStream顾名思义，它是源为文件的字节输入流。</p>
+<h3 id="2-1-1-read-使用实例"><a href="#2-1-1-read-使用实例" class="headerlink" title="2.1.1 read() 使用实例"></a>2.1.1 read() 使用实例</h3><p>麻子.txt 内容如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">姓名: 张麻子<br>性别： 男<br>年龄: 28<br>自我评价： 好好啊好好好哈<br>大学成绩：A A A<br>毕业院校: 黄埔军校<br>获得证书：教师资格证, 教官证<br>人生格言: 公平，公平，还是tm的公平<br>专业：打劫专业<br></code></pre></td></tr></table></figure>
+
+<p>下面使用FileInputStream的read方法读取该文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * FileInputStream实例</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">fileInputStreamStudy</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-type">InputStream</span> <span class="hljs-variable">inputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(<span class="hljs-string">&quot;麻子.txt&quot;</span>);<br>    <span class="hljs-type">int</span> n;<br>    <span class="hljs-keyword">while</span> ((n=inputStream.read())!=-<span class="hljs-number">1</span>)&#123;<br>        System.out.print((<span class="hljs-type">char</span>)n);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs text">å§å: å¼ éº»å­<br>æ§å«ï¼ ç·<br>å¹´é¾: 28<br>èªæè¯ä»·ï¼ å¥½å¥½åå¥½å¥½å¥½å<br>å¤§å­¦æç»©ï¼A A A<br>æ¯ä¸é¢æ ¡: é»ååæ ¡<br>è·å¾è¯ä¹¦ï¼æå¸èµæ ¼è¯, æå®è¯<br>äººçæ ¼è¨: å¬å¹³ï¼å¬å¹³ï¼è¿æ¯tmçå¬å¹³<br>ä¸ä¸ï¼æå«ä¸ä¸<br>Process finished with exit code 0<br></code></pre></td></tr></table></figure>
+
+<p>上面的测试，每次读取都是读取的一个字节，所以后面的中文是可能无法正确显示的，因为中文为两个字节一组.</p>
+<h3 id="2-1-2-read-byte-b-使用实例"><a href="#2-1-2-read-byte-b-使用实例" class="headerlink" title="2.1.2 read(byte[] b)使用实例"></a>2.1.2 read(byte[] b)使用实例</h3><p>此方法可以一次性读取指定数量(b的大小)的字节数据填充到参数b中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readByteStudy</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-type">InputStream</span> <span class="hljs-variable">inputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(<span class="hljs-string">&quot;麻子.txt&quot;</span>);<br>    <span class="hljs-type">byte</span>[] a = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[<span class="hljs-number">1000</span>];<br>    System.out.println(inputStream.read(a));<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">byte</span> n:a)&#123;<br>        System.out.print((<span class="hljs-type">char</span>)n);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs text">250<br>￥ﾧﾓ￥ﾐﾍ: ￥ﾼﾠ￩ﾺﾻ￥ﾭﾐ<br>￦ﾀﾧ￥ﾈﾫ￯ﾼﾚ ￧ﾔﾷ<br>￥ﾹﾴ￩ﾾﾄ: 28<br>￨ﾇﾪ￦ﾈﾑ￨ﾯﾄ￤ﾻﾷ￯ﾼﾚ ￥ﾥﾽ￥ﾥﾽ￥ﾕﾊ￥ﾥﾽ￥ﾥﾽ￥ﾥﾽ￥ﾓﾈ<br>￥ﾤﾧ￥ﾭﾦ￦ﾈﾐ￧ﾻﾩ￯ﾼﾚA A A<br>￦ﾯﾕ￤ﾸﾚ￩ﾙﾢ￦ﾠﾡ: ￩ﾻﾄ￥ﾟﾔ￥ﾆﾛ￦ﾠﾡ<br>￨ﾎﾷ￥ﾾﾗ￨ﾯﾁ￤ﾹﾦ￯ﾼﾚ￦ﾕﾙ￥ﾸﾈ￨ﾵﾄ￦ﾠﾼ￨ﾯﾁ, ￦ﾕﾙ￥ﾮﾘ￨ﾯﾁ<br>￤ﾺﾺ￧ﾔﾟ￦ﾠﾼ￨ﾨﾀ: ￥ﾅﾬ￥ﾹﾳ￯ﾼﾌ￥ﾅﾬ￥ﾹﾳ￯ﾼﾌ￨﾿ﾘ￦ﾘﾯtm￧ﾚﾄ￥ﾅﾬ￥ﾹﾳ<br>￤ﾸﾓ￤ﾸﾚ￯ﾼﾚ￦ﾉﾓ￥ﾊﾫ￤ﾸﾓ￤ﾸﾚ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <br>Process finished with exit code 0<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-1-3-read-byte-b-int-off-int-len"><a href="#2-1-3-read-byte-b-int-off-int-len" class="headerlink" title="2.1.3 read(byte[] b , int off,int len)"></a>2.1.3 read(byte[] b , int off,int len)</h3><p>此方法可以一次性读取指定数量(len)的字节数据填充到参数b中,且b的开始索引位置是off</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readByteLengthStudy</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-type">InputStream</span> <span class="hljs-variable">inputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(<span class="hljs-string">&quot;麻子.txt&quot;</span>);<br>    <span class="hljs-type">byte</span>[] a = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[<span class="hljs-number">1000</span>];<br>    System.out.println(inputStream.read(a,<span class="hljs-number">100</span>,<span class="hljs-number">100</span>));<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">byte</span> n:a)&#123;<br>        System.out.print((<span class="hljs-type">char</span>)n);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>运行结果</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">100<br>                                                                                                    ￥ﾧﾓ￥ﾐﾍ: ￥ﾼﾠ￩ﾺﾻ￥ﾭﾐ<br>￦ﾀﾧ￥ﾈﾫ￯ﾼﾚ ￧ﾔﾷ<br>￥ﾹﾴ￩ﾾﾄ: 28<br>￨ﾇﾪ￦ﾈﾑ￨ﾯﾄ￤ﾻﾷ￯ﾼﾚ ￥ﾥﾽ￥ﾥﾽ￥ﾕﾊ￥ﾥﾽ￥ﾥﾽ￥ﾥﾽ￥ﾓﾈ<br>￥ﾤﾧ￥ﾭﾦ￦ﾈﾐ￧ﾻﾩ￯ﾼﾚ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <br>Process finished with exit code 0<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="2-2-其他方法学习"><a href="#2-2-其他方法学习" class="headerlink" title="2.2 其他方法学习"></a>2.2 其他方法学习</h2><h3 id="2-2-1-skip-long-n-跳过源中指定字节数进行读取"><a href="#2-2-1-skip-long-n-跳过源中指定字节数进行读取" class="headerlink" title="2.2.1 skip(long n) 跳过源中指定字节数进行读取"></a>2.2.1 skip(long n) 跳过源中指定字节数进行读取</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * skip可以跳过源中一定数量的字节</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">skipStudy</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-type">InputStream</span> <span class="hljs-variable">inputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(<span class="hljs-string">&quot;麻子.txt&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;跳过前100个字节： &quot;</span>+inputStream.skip(<span class="hljs-number">100</span>));<br>        <span class="hljs-type">int</span> n;<br>        <span class="hljs-keyword">while</span> ((n=inputStream.read())!=-<span class="hljs-number">1</span>)&#123;<br>        System.out.print((<span class="hljs-type">char</span>)n);<br>        &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">跳过前100个字节： 100<br>A A A<br>æ¯ä¸é¢æ ¡: é»ååæ ¡<br>è·å¾è¯ä¹¦ï¼æå¸èµæ ¼è¯, æå®è¯<br>äººçæ ¼è¨: å¬å¹³ï¼å¬å¹³ï¼è¿æ¯tmçå¬å¹³<br>ä¸ä¸ï¼æå«ä¸ä¸<br>Process finished with exit code 0<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="2-2-2-available-预估剩余未读取的字节数量"><a href="#2-2-2-available-预估剩余未读取的字节数量" class="headerlink" title="2.2.2 available() 预估剩余未读取的字节数量"></a>2.2.2 available() 预估剩余未读取的字节数量</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * available可以预估剩余未读取的字节估计数</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">availableStudy</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-type">InputStream</span> <span class="hljs-variable">inputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(<span class="hljs-string">&quot;麻子.txt&quot;</span>);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> <span class="hljs-number">100</span>;<br>        <span class="hljs-type">int</span> ch;<br>        <span class="hljs-keyword">while</span> ((ch=inputStream.read())!=-<span class="hljs-number">1</span>&amp;&amp;n&gt;<span class="hljs-number">0</span>)&#123;<br>        n--;<br>        System.out.print((<span class="hljs-type">char</span>)ch);<br>        &#125;<br>        System.out.println(<span class="hljs-string">&quot;还剩的未读的字节数：&quot;</span>+ inputStream.available());<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">å§å: å¼ éº»å­<br>æ§å«ï¼ ç·<br>å¹´é¾: 28<br>èªæè¯ä»·ï¼ å¥½å¥½åå¥½å¥½å¥½å<br>å¤§å­¦æç»©ï¼还剩的未读的字节数：149<br><br>Process finished with exit code 0<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="2-2-3-mark-int-readlimit-标记重读点，并设置重读点范围（和缓冲区相关）"><a href="#2-2-3-mark-int-readlimit-标记重读点，并设置重读点范围（和缓冲区相关）" class="headerlink" title="2.2.3 mark(int readlimit) 标记重读点，并设置重读点范围（和缓冲区相关）"></a>2.2.3 mark(int readlimit) 标记重读点，并设置重读点范围（和缓冲区相关）</h3><p>其中readlimit是在标记位置失效之前可以读取的最大字节限制,设置了它后,<br>只能在读取标记点后readlimit的过程中调用reset方法进行重置,如果超过了这个范围,reset就会调用失败。</p>
+<h3 id="2-2-4-reset-将流的游标重置为重读点"><a href="#2-2-4-reset-将流的游标重置为重读点" class="headerlink" title="2.2.4 reset() 将流的游标重置为重读点"></a>2.2.4 reset() 将流的游标重置为重读点</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * mark在JAVA中的实现是和缓冲区相关的。只要缓冲区够大，mark后读取的数据没有超出缓冲区的大小，mark标记就不会失效。</span><br><span class="hljs-comment">     * 如果不够大，mark后又读取了大量的数据，导致缓冲区更新，原来标记的位置自然找不到了。</span><br><span class="hljs-comment">     * 因此，mark后读取多少字节才失效，并不完全由readlimit参数确定，也和BufferedInputStream类的缓冲区大小有关。</span><br><span class="hljs-comment">     * 如果BufferedInputStream类的缓冲区大小大于readlimit，在mark以后只有读取超过缓冲区大小的数据，mark标记才会失效。</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">markStudy</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-type">InputStream</span> <span class="hljs-variable">inputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(<span class="hljs-string">&quot;麻子.txt&quot;</span>),<span class="hljs-number">100</span>);<br>        <span class="hljs-type">int</span> n;<br>        <span class="hljs-comment">// 这里100可以重置, 101却重置失败</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">num</span> <span class="hljs-operator">=</span> <span class="hljs-number">100</span>;<br>        <span class="hljs-comment">//这里的readLimit和实际情况相关，</span><br>        <span class="hljs-comment">// 如果BufferedInputStream类的缓冲区大小大于readlimit，在mark以后只有读取超过缓冲区大小的数据，mark标记才会失效。</span><br>        inputStream.mark(<span class="hljs-number">10</span>);<br>        <span class="hljs-keyword">while</span> ((n=inputStream.read())!=-<span class="hljs-number">1</span>&amp;&amp;num&gt;<span class="hljs-number">1</span>)&#123;<br>            num--;<br>            System.out.print((<span class="hljs-type">char</span>) n);<br>        &#125;<br>        inputStream.reset();<br>        System.out.println();<br>        System.out.println(<span class="hljs-string">&quot;调用reset 重新读取&quot;</span>);<br>        <span class="hljs-keyword">while</span> ((n=inputStream.read())!=-<span class="hljs-number">1</span>)&#123;<br>            System.out.print((<span class="hljs-type">char</span>)n);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs text">å§å: å¼ éº»å­<br>æ§å«ï¼ ç·<br>å¹´é¾: 28<br>èªæè¯ä»·ï¼ å¥½å¥½åå¥½å¥½å¥½å<br>å¤§å­¦æç»©ï¼<br>调用reset 重新读取<br>å§å: å¼ éº»å­<br>æ§å«ï¼ ç·<br>å¹´é¾: 28<br>èªæè¯ä»·ï¼ å¥½å¥½åå¥½å¥½å¥½å<br>å¤§å­¦æç»©ï¼A A A<br>æ¯ä¸é¢æ ¡: é»ååæ ¡<br>è·å¾è¯ä¹¦ï¼æå¸èµæ ¼è¯, æå®è¯<br>äººçæ ¼è¨: å¬å¹³ï¼å¬å¹³ï¼è¿æ¯tmçå¬å¹³<br>ä¸ä¸ï¼æå«ä¸ä¸<br>Process finished with exit code 0<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-2-5-markSupported-钩子方法，供实现类使用，如果实现类支持mark-reset将其实现返回true"><a href="#2-2-5-markSupported-钩子方法，供实现类使用，如果实现类支持mark-reset将其实现返回true" class="headerlink" title="2.2.5 markSupported() 钩子方法，供实现类使用，如果实现类支持mark,reset将其实现返回true"></a>2.2.5 markSupported() 钩子方法，供实现类使用，如果实现类支持mark,reset将其实现返回true</h3><p>InputStream默认为false</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">markSupported</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Progress/exa20">Java基础学习&#x2F;src&#x2F;main&#x2F;java&#x2F;Progress&#x2F;exa20 · 严家豆&#x2F;Study - 码云 - 开源中国 (gitee.com)</a></p>
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>MuZhi</li>
+    <li><strong>本文链接：</strong><a href="https://1776167012.github.io/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E8%BF%9B%E9%98%B6/2.1%20Java%E8%AF%BB%E6%96%87%E4%BB%B6%E4%B9%8BInputStream%E5%AD%A6%E4%B9%A0/index.html" title="https:&#x2F;&#x2F;1776167012.github.io&#x2F;2023&#x2F;05&#x2F;20&#x2F;Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB&#x2F;Java%E8%BF%9B%E9%98%B6&#x2F;2.1%20Java%E8%AF%BB%E6%96%87%E4%BB%B6%E4%B9%8BInputStream%E5%AD%A6%E4%B9%A0&#x2F;index.html">https:&#x2F;&#x2F;1776167012.github.io&#x2F;2023&#x2F;05&#x2F;20&#x2F;Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB&#x2F;Java%E8%BF%9B%E9%98%B6&#x2F;2.1%20Java%E8%AF%BB%E6%96%87%E4%BB%B6%E4%B9%8BInputStream%E5%AD%A6%E4%B9%A0&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E8%BF%9B%E9%98%B6/" rel="tag">Java进阶</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E8%BF%9B%E9%98%B6/1.%20Java%E8%BF%9B%E9%98%B6%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E5%85%A5%E9%97%A8/"><i class="iconfont iconleft"></i>1.Java进阶之文件操作入门</a>
+    <a href="/2023/05/20/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E8%BF%9B%E9%98%B6/Java%E8%BF%9B%E9%98%B6%E4%B9%8B%E5%8A%A8%E6%80%81%E7%BC%96%E8%AF%91/">Java进阶之动态编译<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<div id="gitalk" class="gitalk"></div>
+<script defer src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  window.onload = function () {
+    var gitalk = new Gitalk({
+      clientID: 'cf1a88bb18f217ba4273',
+      clientSecret: 'a318855f6fbec72927c2c0dd565e61ab6f79cbf0',
+      id: window.location.pathname,
+      repo: 'muzhi-resource',
+      owner: '1776167012',
+      admin: '1776167012'
+    });
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        gitalk.render('gitalk');
+      });
+    } else {
+      gitalk.render('gitalk');
+    }
+  }
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFInputStream%EF%BC%88%E8%BE%93%E5%85%A5%E6%B5%81%EF%BC%89%EF%BC%9F"><span class="toc-text">1.什么是InputStream（输入流）？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-JDK%E4%B8%AD%E5%AF%B9InputStream%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">2.JDK中对InputStream的定义</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E4%BD%BF%E7%94%A8FileInputStream%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6"><span class="toc-text">2.1 使用FileInputStream读取文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-1-read-%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="toc-text">2.1.1 read() 使用实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-2-read-byte-b-%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="toc-text">2.1.2 read(byte[] b)使用实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-3-read-byte-b-int-off-int-len"><span class="toc-text">2.1.3 read(byte[] b , int off,int len)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95%E5%AD%A6%E4%B9%A0"><span class="toc-text">2.2 其他方法学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-skip-long-n-%E8%B7%B3%E8%BF%87%E6%BA%90%E4%B8%AD%E6%8C%87%E5%AE%9A%E5%AD%97%E8%8A%82%E6%95%B0%E8%BF%9B%E8%A1%8C%E8%AF%BB%E5%8F%96"><span class="toc-text">2.2.1 skip(long n) 跳过源中指定字节数进行读取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-available-%E9%A2%84%E4%BC%B0%E5%89%A9%E4%BD%99%E6%9C%AA%E8%AF%BB%E5%8F%96%E7%9A%84%E5%AD%97%E8%8A%82%E6%95%B0%E9%87%8F"><span class="toc-text">2.2.2 available() 预估剩余未读取的字节数量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-mark-int-readlimit-%E6%A0%87%E8%AE%B0%E9%87%8D%E8%AF%BB%E7%82%B9%EF%BC%8C%E5%B9%B6%E8%AE%BE%E7%BD%AE%E9%87%8D%E8%AF%BB%E7%82%B9%E8%8C%83%E5%9B%B4%EF%BC%88%E5%92%8C%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9B%B8%E5%85%B3%EF%BC%89"><span class="toc-text">2.2.3 mark(int readlimit) 标记重读点，并设置重读点范围（和缓冲区相关）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-4-reset-%E5%B0%86%E6%B5%81%E7%9A%84%E6%B8%B8%E6%A0%87%E9%87%8D%E7%BD%AE%E4%B8%BA%E9%87%8D%E8%AF%BB%E7%82%B9"><span class="toc-text">2.2.4 reset() 将流的游标重置为重读点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-5-markSupported-%E9%92%A9%E5%AD%90%E6%96%B9%E6%B3%95%EF%BC%8C%E4%BE%9B%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BD%BF%E7%94%A8%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%AE%9E%E7%8E%B0%E7%B1%BB%E6%94%AF%E6%8C%81mark-reset%E5%B0%86%E5%85%B6%E5%AE%9E%E7%8E%B0%E8%BF%94%E5%9B%9Etrue"><span class="toc-text">2.2.5 markSupported() 钩子方法，供实现类使用，如果实现类支持mark,reset将其实现返回true</span></a></li></ol></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a
+        href="https://gitee.com/yan-jiadou "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'"
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a
+        href="mailto:1776167012@qq.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#00CCFF"
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+
+
+  
+<script src="/lib/mermaid/mermaid.min.js"></script>
+  <!-- 或者使用CDN -->
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
+
+
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
