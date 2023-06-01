@@ -11,7 +11,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="google" content="notranslate" />
   
-  <meta name="description" content="1.如何在程序中获取本机的IP地址，主机名以及域名呢？...">
+  <meta name="description" content="1.如何在程序中获取本机的IP地址，主机名以及域名？在...">
   <meta name="author" content="MuZhi">
   <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
@@ -191,17 +191,23 @@
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>五月 15, 2023</span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1417</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1238</span>
     </div>
   </div>
 </section>
     <section class="main">
       <section class="content">
         
-        <p>1.如何在程序中获取本机的IP地址，主机名以及域名呢？<br>在java中，我们可以利用java.net.InetAddress这个类来实现。<br>InetAddress 类提供了操作 IP 地址的各种方法。该类本身没有构造方法，而是通过调用相关静态方法获取实例。<br>InetAddress类常用方法如下：<br>&#x2F;&#x2F;获取本地主机的InetAddress实例对象<br>InetAddress getLocalHost();<br>&#x2F;&#x2F;获取IP地址字符串<br>String getHostAddress();<br>&#x2F;&#x2F;返回此对象的原始IP地址字节数组<br>byte[] getAddress();<br>&#x2F;&#x2F;获取本机主机名称<br>String getHostName();<br>&#x2F;&#x2F;获取本机完全限定域名<br>String getCanonicalHostname();<br>&#x2F;&#x2F;根据IP获取实例对象<br>InetAddress getByAddress(byte[] addr);<br>&#x2F;&#x2F;根据host获取实例对象<br>InetAddress getByName(String host);<br>2.使用InetAddress</p>
-<p>如果我们想要通过java编程的方式得到本机的ip地址，我们可以利用javaAPI中的：java.net.InetAddress; 来实现<br>核心代码如下：<br>public static void main(String[] args) throws UnknownHostException {<br>&#x2F;&#x2F;创建本地主机的InetAddress对象<br>InetAddress inetAddr &#x3D; InetAddress.getLocalHost();<br>&#x2F;&#x2F;获得本地主机的IP地址<br>String ip &#x3D; inetAddr.getHostAddress();<br>&#x2F;&#x2F;获得本机的名称<br>String HostName&#x3D;inetAddr.getHostName();<br>&#x2F;&#x2F;获得本机的域名<br>String canonicalHostName&#x3D;inetAddr.getCanonicalHostName();<br>System.out.println(“本机的IP为：”+ip);<br>System.out.println(“本机的名称为：”+HostName);<br>System.out.println(“本机的域名为：”+canonicalHostName);<br>&#x2F;&#x2F;为何域名会和主机名重名？<br>&#x2F;&#x2F;当尝试获得本地主机的域名和主机名时，如果本地主机没有域名，<br>&#x2F;&#x2F;则显示的域名和主机名重名<br>}</p>
-<p>3.应用场景<br>当我们需要向别人发送本地ip地址或域名或主机名时，我们需要通过上面的方式获取。<br>比如：QQ登录时，程序会将自己的ip地址发送给QQ的服务器，这时服务器就可以根据此ip来判断是否异地登录从而进行下一步操作。</p>
-<p>项目地址：<br>Java动手做一做&#x2F;src&#x2F;main&#x2F;java&#x2F;InternetCode&#x2F;Exa1&#x2F;CoreCode.java · 严家豆&#x2F;Study - 码云 - 开源中国 (gitee.com)</p>
+        <h2 id="1-如何在程序中获取本机的IP地址，主机名以及域名？"><a href="#1-如何在程序中获取本机的IP地址，主机名以及域名？" class="headerlink" title="1.如何在程序中获取本机的IP地址，主机名以及域名？"></a>1.如何在程序中获取本机的IP地址，主机名以及域名？</h2><p>在java中，我们可以利用java.net.InetAddress这个类来实现。<br>InetAddress 类提供了操作 IP 地址的各种方法。该类本身没有构造方法，而是通过调用相关静态方法获取实例。</p>
+<p>InetAddress类常用方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//获取本地主机的InetAddress实例对象</span><br>InetAddress <span class="hljs-title function_">getLocalHost</span><span class="hljs-params">()</span>;<br><span class="hljs-comment">//获取IP地址字符串</span><br>String <span class="hljs-title function_">getHostAddress</span><span class="hljs-params">()</span>;<br><span class="hljs-comment">//返回此对象的原始IP地址字节数组</span><br><span class="hljs-type">byte</span>[] getAddress();<br><span class="hljs-comment">//获取本机主机名称</span><br>String <span class="hljs-title function_">getHostName</span><span class="hljs-params">()</span>;<br><span class="hljs-comment">//获取本机完全限定域名</span><br>String <span class="hljs-title function_">getCanonicalHostname</span><span class="hljs-params">()</span>;<br><span class="hljs-comment">//根据IP获取实例对象</span><br>InetAddress <span class="hljs-title function_">getByAddress</span><span class="hljs-params">(<span class="hljs-type">byte</span>[] addr)</span>;<br><span class="hljs-comment">//根据host获取实例对象</span><br>InetAddress <span class="hljs-title function_">getByName</span><span class="hljs-params">(String host)</span>;<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-如何使用InetAddress"><a href="#2-如何使用InetAddress" class="headerlink" title="2.如何使用InetAddress"></a>2.如何使用InetAddress</h2><p>如果我们想要通过java编程的方式得到本机的ip地址，我们可以利用javaAPI中的：java.net.InetAddress; 来实现</p>
+<p>核心代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> UnknownHostException &#123;<br><span class="hljs-comment">//创建本地主机的InetAddress对象</span><br><span class="hljs-type">InetAddress</span> <span class="hljs-variable">inetAddr</span> <span class="hljs-operator">=</span> InetAddress.getLocalHost();<br><span class="hljs-comment">//获得本地主机的IP地址</span><br><span class="hljs-type">String</span> <span class="hljs-variable">ip</span> <span class="hljs-operator">=</span> inetAddr.getHostAddress();<br><span class="hljs-comment">//获得本机的名称</span><br>String HostName=inetAddr.getHostName();<br><span class="hljs-comment">//获得本机的域名</span><br>String canonicalHostName=inetAddr.getCanonicalHostName();<br>System.out.println(<span class="hljs-string">&quot;本机的IP为：&quot;</span>+ip);<br>System.out.println(<span class="hljs-string">&quot;本机的名称为：&quot;</span>+HostName);<br>System.out.println(<span class="hljs-string">&quot;本机的域名为：&quot;</span>+canonicalHostName);<br><span class="hljs-comment">//为何域名会和主机名重名？</span><br><span class="hljs-comment">//当尝试获得本地主机的域名和主机名时，如果本地主机没有域名，</span><br><span class="hljs-comment">//则显示的域名和主机名重名</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-应用场景"><a href="#3-应用场景" class="headerlink" title="3.应用场景"></a>3.应用场景</h2><p>当我们需要向别人发送本地ip地址或域名或主机名时，我们需要通过上面的方式获取。<br>比如：QQ登录时，程序会将自己的ip地址发送给QQ的服务器，这时服务器就可以根据此ip来判断是否异地登录从而进行下一步操作。</p>
+<h2 id="4-代码仓库"><a href="#4-代码仓库" class="headerlink" title="4.代码仓库"></a>4.代码仓库</h2><p>完整代码仓库地址：<br><a target="_blank" rel="noopener" href="https://gitee.com/yan-jiadou/study/blob/master/Java%E5%8A%A8%E6%89%8B%E5%81%9A%E4%B8%80%E5%81%9A/src/main/java/InternetCode/Exa1/CoreCode.java">本文对应代码仓库</a></p>
 
       </section>
       <section class="extra">
@@ -265,7 +271,7 @@
           
   <aside class="toc-wrap">
     <h3 class="toc-title">文章目录：</h3>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A6%82%E4%BD%95%E5%9C%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E8%8E%B7%E5%8F%96%E6%9C%AC%E6%9C%BA%E7%9A%84IP%E5%9C%B0%E5%9D%80%EF%BC%8C%E4%B8%BB%E6%9C%BA%E5%90%8D%E4%BB%A5%E5%8F%8A%E5%9F%9F%E5%90%8D%EF%BC%9F"><span class="toc-text">1.如何在程序中获取本机的IP地址，主机名以及域名？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8InetAddress"><span class="toc-text">2.如何使用InetAddress</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">3.应用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93"><span class="toc-text">4.代码仓库</span></a></li></ol>
   </aside>
 
         
