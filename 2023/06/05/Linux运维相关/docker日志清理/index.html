@@ -6,13 +6,13 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title> - 牧之的博客空间</title>
+  <title>docker日志清理 - 牧之的博客空间</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="google" content="notranslate" />
   
-  <meta name="description" content="一.HashMap属性了解
-属性类型属性名称属性默认值...">
+  <meta name="description" content="我们可能遇到服务器上磁盘发生占满的清空
+这时,我们可以...">
   <meta name="author" content="MuZhi">
   <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
@@ -141,6 +141,24 @@
     
 
 
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">docker日志清理</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+  </nav>
+
   
   
 
@@ -172,25 +190,42 @@
     <section class="head">
   <img   class="lazyload" data-original="/images/theme/post-image.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
   <div class="head-mask">
-    <h1 class="head-title"></h1>
+    <h1 class="head-title">docker日志清理</h1>
     <div class="head-info">
-      <span class="post-info-item"><i class="iconfont iconcalendar"></i>五月 24, 2023</span>
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>六月 05, 2023</span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3429</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1960</span>
     </div>
   </div>
 </section>
     <section class="main">
       <section class="content">
         
-        <p>一.HashMap属性了解</p>
-<p>属性类型属性名称属性默认值属性说明longserialVersionUID362498820763181265L序列化编号intDEFAULT_INITIAL_CAPACITY16默认初始化大小intMAXIMUM_CAPACITY2^30最大容量大小floatDEFAULT_LOAD_FACTOR0.75f默认加载因子intTREEIFY_THRESHOLD8树化临界值intUNTREEIFY_THRESHOLD6非树化临界值intMIN_TREEIFY_CAPACITY64最小树容量Node&lt;K,V&gt;[]tablenull用于存储键值对节点的数组Set&lt;Map.Entry&lt;K,V&gt;&gt;entrySetnull暂时未知其作用intsize0map中的元素个数intmodCount0操作数floatloadFactor0f加载因子intthreshold0数组扩容临界值：比如它等于2，则当size&#x3D;2时，会进行扩容操作</p>
-<p>二. 构造方法解析<br>1.HashMap()<br>此构造方法只是给HashMap中的加载因子loadFactor进行赋值为默认值 0.75f<br>2.HashMap(int initialCapacity)<br>此构造方法，以initialCapacity, 0.75f为参数调用第三个构造方法。</p>
-<p>3.HashMap(int initialCapacity,float loadFactor)<br>此构造方法存在逻辑：<br>如果initialCapacity小于0，抛出非法参数异常<br>如果initialCapacity大于2^30，将其修正为2^30<br>如果加载因子loadFactor不大于0或者是NaN(类似1&#x2F;0)，抛出非法参数异常<br>将实例的加载因子赋值：this.loadFactor &#x3D; loadFactor<br>计算出下次扩容临界值并给下次扩容临界值赋值：this.threshold &#x3D; tableSizeFor(initialCapacity);<br>计算方法：就是计算出cap的对应的二次方的值，比如当cap &#x3D; 2时， 返回 2<br>当cap &#x3D; 3 ,返回4， 返回的数肯定大于或等于cap<br>static final int tableSizeFor(int cap) {<br>int n &#x3D; cap - 1;<br>n |&#x3D; n &gt;&gt;&gt; 1;<br>n |&#x3D; n &gt;&gt;&gt; 2;<br>n |&#x3D; n &gt;&gt;&gt; 4;<br>n |&#x3D; n &gt;&gt;&gt; 8;<br>n |&#x3D; n &gt;&gt;&gt; 16;<br>return (n &lt; 0) ? 1 : (n &gt;&#x3D; (1&lt;&lt;30)) ? (1&lt;&lt;30) : n + 1;<br>}<br>4.HashMap(Map m)<br>此构造方法的逻辑是先给加载因子赋值： this.loadFactor &#x3D; 0.75f<br>然后判断m的大小是否大于0，<br>如果不是，什么都不做，结束。<br>如果是<br>则判断table是否为空：<br>如果是： 计算出map的容量大小(m的大小&#x2F;加载因子 + 1)t，然后进行检查修正。如果t&gt;threshold , 给threshold赋值。<br>如果table不为空，判断m的大小是是否大于了threshold,如果大于了，则进行扩容。<br>然后循环m, 取出key,value进行putVal操作。</p>
-<p>三.常用方法解析<br>1.resize() 扩容方法<br>final Node&lt;K,V&gt;[] resize() {<br>Node&lt;K,V&gt;[] oldTab &#x3D; table;<br>int oldCap &#x3D; (oldTab &#x3D;&#x3D; null) ? 0 : oldTab.length;<br>int oldThr &#x3D; threshold;<br>int newCap, newThr &#x3D; 0;<br>if (oldCap &gt; 0) {<br>if (oldCap &gt;&#x3D; MAXIMUM_CAPACITY) {<br>threshold &#x3D; Integer.MAX_VALUE;<br>return oldTab;<br>}<br>else if ((newCap &#x3D; oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp;<br>oldCap &gt;&#x3D; DEFAULT_INITIAL_CAPACITY)<br>newThr &#x3D; oldThr &lt;&lt; 1; &#x2F;&#x2F; double threshold<br>} else if (oldThr &gt; 0) &#x2F;&#x2F; initial capacity was placed in threshold<br>newCap &#x3D; oldThr;<br>else {               &#x2F;&#x2F; zero initial threshold signifies using defaults<br>newCap &#x3D; DEFAULT_INITIAL_CAPACITY;<br>newThr &#x3D; (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);<br>}<br>if (newThr &#x3D;&#x3D; 0) {<br>float ft &#x3D; (float)newCap * loadFactor;<br>newThr &#x3D; (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (float)MAXIMUM_CAPACITY ?<br>(int)ft : Integer.MAX_VALUE);<br>}<br>threshold &#x3D; newThr;<br>Node&lt;K,V&gt;[] newTab &#x3D; (Node&lt;K,V&gt;[])new Node[newCap];<br>table &#x3D; newTab;<br>if (oldTab !&#x3D; null) {<br>&#x2F;&#x2F;这里的操作是将旧的table的数据复制到新的table中<br>}<br>return newTab;<br>}</p>
-<p>2.put(K key, V value)<br>首先，计算key的hash值，计算逻辑如下：<br>如果key&#x3D;&#x3D;null,则其hash &#x3D; 0, 否则<br>h &#x3D; key.hashCode()   其中key.hashCode()得到的是一个伪随机数。<br>hash &#x3D; h^(h&gt;&gt;&gt;16)<br>然后将，hash, key,value,false,true作为入参调用putVal方法。</p>
-<p>3.putVal(int hash, K key, V value,boolean OnlyIfAbsent，<br>boolean evict) 存储方法<br>首先声明下面几个变量：<br>类型名称描述Node&lt;K,V&gt;[]tab节点数组Node&lt;K,V&gt; p指定位置的节点int n,in存储数组大小，i存储索引</p>
-<p>在进行逻辑学习之前，有必要学习下其中Node数据结构：<br>static class Node&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; {<br>final int hash;&#x2F;&#x2F;hash码，构造时指定<br>final K key; &#x2F;&#x2F;键<br>V value;&#x2F;&#x2F;值<br>Node&lt;K,V&gt; next;&#x2F;&#x2F;出现hash冲突时链接法下一个冲突节点<br>Node(int hash, K key, V value, Node&lt;K,V&gt; next) {<br>this.hash &#x3D; hash;<br>this.key &#x3D; key;<br>this.value &#x3D; value;<br>this.next &#x3D; next;<br>}}<br>putVal方法正式逻辑如下：</p>
+        <p>我们可能遇到服务器上磁盘发生占满的清空</p>
+<p>这时,我们可以执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">du -h | sort -h<br></code></pre></td></tr></table></figure>
+<p>我们会看到：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs text">88M     ./freeswtich/qwfreeswitch/sounds/old_test<br>104M    ./freeswtich/qwfreeswitch/sounds<br>138M    ./freeswtich/qwfreeswitch/docker/package/freeswitch/.git/objects<br>138M    ./freeswtich/qwfreeswitch/docker/package/freeswitch/.git/objects/pack<br>139M    ./freeswtich/qwfreeswitch/docker/package/freeswitch/.git<br>152M    ./MRCPServer/asrbaidumrcp/.git/objects/d7<br>153M    ./MRCPServer/asrbaidumrcp/.git<br>153M    ./MRCPServer/asrbaidumrcp/.git/objects<br>153M    ./MRCPServer/asrbaidumrcp/docker<br>281M    ./freeswtich/qwfreeswitch/docker/package<br>281M    ./freeswtich/qwfreeswitch/docker/package/freeswitch<br>282M    ./freeswtich/qwfreeswitch/docker<br>316M    ./MRCPServer/asrbaidumrcp<br>394M    ./freeswtich/qwfreeswitch<br>580M    ./glibc-2.28/build<br>624M    ./freeswtich<br>828M    ./glibc-2.28<br>965M    ./MRCPServer<br>3.0G    .<br>[root@ecs-235046 ~]# ^C<br>[root@ecs-235046 ~]# <br><br></code></pre></td></tr></table></figure>
+
+<p>然后可能会分析出是docker的日志占用的大部分空间,我们需要释放这些空间,但是又不能停止docker</p>
+<p>这时候,我们则需要这个命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat /dev/null &gt; 指定的日志文件-json.log<br></code></pre></td></tr></table></figure>
+
+<p>这个命令有效,但是,每次都要手动的做,不免有些麻烦。</p>
+<p>于是，我们可以使用shell+cron来定时的清理那些占用空间的日志：</p>
+<p>我们先来学习下这个脚本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/sh</span><br><br>echo &quot;======== docker containers logs file size ========&quot;  <br><br>logs=$(find /var/lib/docker/containers/ -name *-json.log)  <br><br>for log in $logs  <br>        do  <br>             ls -lh $log   <br>        done  <br></code></pre></td></tr></table></figure>
+<p>这个脚本打印出所有容器每个日志占用的空间。</p>
+<p>下面学习下面脚本：</p>
+<p>我们可以使用下面的脚本来清理七天前的日志：<br>新建脚本docker_log_clean.sh<br>,内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/bash</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">限定作用目录</span><br>DOCKER_LOG_DIR=&quot;/var/lib/docker/containers&quot;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">时间限定</span><br>DAYS_TO_KEEP=7<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">限定文件后缀</span><br>LOG_PREFIX=&quot;-json.log&quot;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查找出最后修改时间超过7天的文件列表</span><br>logs=$(find $DOCKER_LOG_DIR -name &quot;*$LOG_PREFIX&quot; -type f -mtime +$DAYS_TO_KEEP)<br><br>for log in $logs  <br>        do  <br>          ls -lh $log   <br>          cat /dev/null &gt; $log<br>          echo &quot;deleted $log&quot;<br>        done  <br></code></pre></td></tr></table></figure>
+<p>然后：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">crontab -e<br></code></pre></td></tr></table></figure>
+
+<p>在里面添加下面一行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">0 0 * * * /bin/bash /path/to/docker-log-cleanup.sh<br></code></pre></td></tr></table></figure>
+
+<p>这里的的 &#x2F;path&#x2F;to&#x2F;docker-log-cleanup.sh 指的是脚本的绝对路径。</p>
 
       </section>
       <section class="extra">
@@ -198,17 +233,19 @@
           <ul class="copyright">
   
     <li><strong>本文作者：</strong>MuZhi</li>
-    <li><strong>本文链接：</strong><a href="https://1776167012.github.io/2023/05/24/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E8%BF%9B%E9%98%B6/22%20JDK%E6%BA%90%E7%A0%81%E4%B9%8BHashMap/index.html" title="https:&#x2F;&#x2F;1776167012.github.io&#x2F;2023&#x2F;05&#x2F;24&#x2F;Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB&#x2F;Java%E8%BF%9B%E9%98%B6&#x2F;22%20JDK%E6%BA%90%E7%A0%81%E4%B9%8BHashMap&#x2F;index.html">https:&#x2F;&#x2F;1776167012.github.io&#x2F;2023&#x2F;05&#x2F;24&#x2F;Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB&#x2F;Java%E8%BF%9B%E9%98%B6&#x2F;22%20JDK%E6%BA%90%E7%A0%81%E4%B9%8BHashMap&#x2F;index.html</a></li>
+    <li><strong>本文链接：</strong><a href="https://1776167012.github.io/2023/06/05/Linux%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3/docker%E6%97%A5%E5%BF%97%E6%B8%85%E7%90%86/index.html" title="https:&#x2F;&#x2F;1776167012.github.io&#x2F;2023&#x2F;06&#x2F;05&#x2F;Linux%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3&#x2F;docker%E6%97%A5%E5%BF%97%E6%B8%85%E7%90%86&#x2F;index.html">https:&#x2F;&#x2F;1776167012.github.io&#x2F;2023&#x2F;06&#x2F;05&#x2F;Linux%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3&#x2F;docker%E6%97%A5%E5%BF%97%E6%B8%85%E7%90%86&#x2F;index.html</a></li>
     <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
   
 </ul>
         
         
         
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker%E5%AE%B9%E5%99%A8/" rel="tag">docker容器</a></li></ul> 
+
         
   <nav class="nav">
-    <a href="/2023/06/05/Linux%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3/docker%E6%97%A5%E5%BF%97%E6%B8%85%E7%90%86/"><i class="iconfont iconleft"></i>docker日志清理</a>
-    <a href="/2023/05/24/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E8%BF%9B%E9%98%B6/21%20JDK%E6%BA%90%E7%A0%81%E4%B9%8BArrayList/"><i class="iconfont iconright"></i></a>
+    <a href="/2099/05/20/projectInfo/"><i class="iconfont iconleft"></i>牧之的小玩意儿</a>
+    <a href="/2023/05/24/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E8%BF%9B%E9%98%B6/22%20JDK%E6%BA%90%E7%A0%81%E4%B9%8BHashMap/"><i class="iconfont iconright"></i></a>
   </nav>
 
       </section>
