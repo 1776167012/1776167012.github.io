@@ -6,13 +6,13 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>docker日志清理 - 牧之的博客空间</title>
+  <title> - 牧之的博客空间</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="google" content="notranslate" />
   
-  <meta name="description" content="我们可能遇到服务器上磁盘发生占满的清空
-这时,我们可以...">
+  <meta name="description" content="1.Linux系统中的文件组织目录结构
+Linux系统...">
   <meta name="author" content="MuZhi">
   <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
@@ -141,24 +141,6 @@
     
 
 
-  <nav class="navbar">
-    <div class="left">
-      
-        <i class="iconfont iconhome j-navbar-back-home"></i>
-      
-      
-      
-        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
-      
-      
-    </div>
-    <div class="center">docker日志清理</div>
-    <div class="right">
-      <i class="iconfont iconmenu j-navbar-menu"></i>
-    </div>
-    
-  </nav>
-
   
   
 
@@ -190,42 +172,49 @@
     <section class="head">
   <img   class="lazyload" data-original="/images/theme/post-image.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
   <div class="head-mask">
-    <h1 class="head-title">docker日志清理</h1>
+    <h1 class="head-title"></h1>
     <div class="head-info">
-      <span class="post-info-item"><i class="iconfont iconcalendar"></i>六月 05, 2023</span>
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>六月 09, 2023</span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1960</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>936</span>
     </div>
   </div>
 </section>
     <section class="main">
       <section class="content">
         
-        <p>我们可能遇到服务器上磁盘发生占满的清空</p>
-<p>这时,我们可以执行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">du -h | sort -h<br></code></pre></td></tr></table></figure>
-<p>我们会看到：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs text">88M     ./freeswtich/qwfreeswitch/sounds/old_test<br>104M    ./freeswtich/qwfreeswitch/sounds<br>138M    ./freeswtich/qwfreeswitch/docker/package/freeswitch/.git/objects<br>138M    ./freeswtich/qwfreeswitch/docker/package/freeswitch/.git/objects/pack<br>139M    ./freeswtich/qwfreeswitch/docker/package/freeswitch/.git<br>152M    ./MRCPServer/asrbaidumrcp/.git/objects/d7<br>153M    ./MRCPServer/asrbaidumrcp/.git<br>153M    ./MRCPServer/asrbaidumrcp/.git/objects<br>153M    ./MRCPServer/asrbaidumrcp/docker<br>281M    ./freeswtich/qwfreeswitch/docker/package<br>281M    ./freeswtich/qwfreeswitch/docker/package/freeswitch<br>282M    ./freeswtich/qwfreeswitch/docker<br>316M    ./MRCPServer/asrbaidumrcp<br>394M    ./freeswtich/qwfreeswitch<br>580M    ./glibc-2.28/build<br>624M    ./freeswtich<br>828M    ./glibc-2.28<br>965M    ./MRCPServer<br>3.0G    .<br>[root@ecs-235046 ~]# ^C<br>[root@ecs-235046 ~]# <br><br></code></pre></td></tr></table></figure>
-
-<p>然后可能会分析出是docker的日志占用的大部分空间,我们需要释放这些空间,但是又不能停止docker</p>
-<p>这时候,我们则需要这个命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat /dev/null &gt; 指定的日志文件-json.log<br></code></pre></td></tr></table></figure>
-
-<p>这个命令有效,但是,每次都要手动的做,不免有些麻烦。</p>
-<p>于是，我们可以使用shell+cron来定时的清理那些占用空间的日志：</p>
-<p>我们先来学习下这个脚本：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/sh</span><br><br>echo &quot;======== docker containers logs file size ========&quot;  <br><br>logs=$(find /var/lib/docker/containers/ -name *-json.log)  <br><br>for log in $logs  <br>        do  <br>             ls -lh $log   <br>        done  <br></code></pre></td></tr></table></figure>
-<p>这个脚本打印出所有容器每个日志占用的空间。</p>
-<p>下面学习下面脚本：</p>
-<p>我们可以使用下面的脚本来清理七天前的日志：<br>新建脚本docker_log_clean.sh<br>,内容如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/bash</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">限定作用目录</span><br>DOCKER_LOG_DIR=&quot;/var/lib/docker/containers&quot;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">时间限定</span><br>DAYS_TO_KEEP=7<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">限定文件后缀</span><br>LOG_PREFIX=&quot;-json.log&quot;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查找出最后修改时间超过7天的文件列表</span><br>logs=$(find $DOCKER_LOG_DIR -name &quot;*$LOG_PREFIX&quot; -type f -mtime +$DAYS_TO_KEEP)<br><br>for log in $logs  <br>        do  <br>          ls -lh $log   <br>          cat /dev/null &gt; $log<br>          echo &quot;deleted $log&quot;<br>        done  <br></code></pre></td></tr></table></figure>
-<p>然后：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">crontab -e<br></code></pre></td></tr></table></figure>
-
-<p>在里面添加下面一行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">0 0 * * * /bin/bash /path/to/docker-log-cleanup.sh<br></code></pre></td></tr></table></figure>
-
-<p>这里的的 &#x2F;path&#x2F;to&#x2F;docker-log-cleanup.sh 指的是脚本的绝对路径。</p>
+        <p>1.Linux系统中的文件组织目录结构</p>
+<p>Linux系统的文件组织遵循FHS标准：</p>
+<p>FHS定义了两层规范，<br>第一层是，&#x2F; 下面的各个目录应该要放什么数据，例如&#x2F;etc 应该放置设置文件，&#x2F;bin与&#x2F;sbin则应该放置可执行文件等。<br>第二层是针对&#x2F;usr及&#x2F;var这两个目录的子目录来定义。例如&#x2F;var&#x2F;log放置系统日志文件，&#x2F;usr&#x2F;share放置共享数据文件等等。<br>fhs-3.0.pdf (linuxfoundation.org)</p>
+<p>2.Linux中的绝对路径和相对路径</p>
+<p>cd 命令用来切换路径<br>当前目录  .</p>
+<p>上一级目录 ..</p>
+<p>home目录 ~</p>
+<p>相对路径 cd ..&#x2F;</p>
+<p>绝对路径 cd &#x2F;home&#x2F;shiyanlou</p>
+<p>3.Linux系统中对文件的移动，复制，重命名,查阅</p>
+<p>新建空白文件 touch file</p>
+<p>新建空白目录 mkdir testdir</p>
+<p>创建多级目录 mkdir -p father&#x2F;son</p>
+<p>复制文件到相同目录下且改名  cp filename filename1</p>
+<p>复制文件到指定文件夹下 cp filename dirname</p>
+<p>复制目录 cp -r filedir newdiername</p>
+<p>删除文件 rm test</p>
+<p>强制删除文件 rm -f test</p>
+<p>删除目录  rm -r dir</p>
+<p>强制删除目录 rm -rf dir</p>
+<p>移动文件到指定目录  mv file dir</p>
+<p>文件重命名 mv file newfile</p>
+<p>正序显示查看文件 cat file</p>
+<p>倒序显示查看文件内容  tac  file</p>
+<p>打印行号显示文件内容  nl file</p>
+<p>查阅文件 less file  (翻页查阅)</p>
+<p>只查看文件开始n行 head -n 100 file</p>
+<p>动态只查看文件最后几行  tail -n 10 -f file</p>
+<p>查看文件类型 file filename</p>
+<p>4.Linux文件编辑</p>
+<p>文件编辑命令 vim file<br>I 插入  esc 退出插入模式  :wq 保存并退出</p>
+<p>这个需要学习的话，可以使用vimtutor命令进入学习界面<br>vimtutor</p>
 
       </section>
       <section class="extra">
@@ -233,19 +222,17 @@
           <ul class="copyright">
   
     <li><strong>本文作者：</strong>MuZhi</li>
-    <li><strong>本文链接：</strong><a href="https://1776167012.github.io/2023/06/05/Linux%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3/docker%E6%97%A5%E5%BF%97%E6%B8%85%E7%90%86/index.html" title="https:&#x2F;&#x2F;1776167012.github.io&#x2F;2023&#x2F;06&#x2F;05&#x2F;Linux%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3&#x2F;docker%E6%97%A5%E5%BF%97%E6%B8%85%E7%90%86&#x2F;index.html">https:&#x2F;&#x2F;1776167012.github.io&#x2F;2023&#x2F;06&#x2F;05&#x2F;Linux%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3&#x2F;docker%E6%97%A5%E5%BF%97%E6%B8%85%E7%90%86&#x2F;index.html</a></li>
+    <li><strong>本文链接：</strong><a href="https://1776167012.github.io/2023/06/09/Linux%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3/linux/3.Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E4%BB%A5%E5%8F%8A%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/index.html" title="https:&#x2F;&#x2F;1776167012.github.io&#x2F;2023&#x2F;06&#x2F;09&#x2F;Linux%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3&#x2F;linux&#x2F;3.Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E4%BB%A5%E5%8F%8A%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C&#x2F;index.html">https:&#x2F;&#x2F;1776167012.github.io&#x2F;2023&#x2F;06&#x2F;09&#x2F;Linux%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3&#x2F;linux&#x2F;3.Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E4%BB%A5%E5%8F%8A%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C&#x2F;index.html</a></li>
     <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
   
 </ul>
         
         
         
-  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker%E5%AE%B9%E5%99%A8/" rel="tag">docker容器</a></li></ul> 
-
         
   <nav class="nav">
     <a href="/2099/05/20/projectInfo/"><i class="iconfont iconleft"></i>牧之的小玩意儿</a>
-    <a href="/2023/05/24/Java%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/Java%E8%BF%9B%E9%98%B6/22%20JDK%E6%BA%90%E7%A0%81%E4%B9%8BHashMap/"><i class="iconfont iconright"></i></a>
+    <a href="/2023/06/09/Linux%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3/linux/2.Linux%E7%94%A8%E6%88%B7%E5%8F%8A%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/"><i class="iconfont iconright"></i></a>
   </nav>
 
       </section>
