@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          19 Java进阶之动态编译 - 牧之的博客 | Muzhi Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://1776167012.github.io/article/Java技术体系-Java进阶-17-Java异常处理机制学习-基本概念及用法/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/beantech.min.css">
+
+
+    
+<link rel="stylesheet" href="/css/donate.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script>
+	</script>
+	<style>
+	* {
+            box-sizing: border-box;
+        }
+
+        form {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding-left: 13px;
+        }
+
+        button {
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        /*搜索框1*/
+        .bar1 {
+			background: #FFF;
+			max-width: 200px;
+		}
+        .bar1 input {
+			max-height: 30px;
+            border: 2px solid #BFBFBF;
+            border-radius: 5px;
+            background: #FFFFFF;
+            color: #BFBFBF;
+			-webkit-text-fill-color: #BFBFBF;
+        }
+        .bar1 button {
+			max-height: 30px;
+            top: 0;
+            right: 0;
+            background: #BFBFBF;
+            border-radius: 0 5px 5px 0;
+        }
+        .bar1 button:before {
+            content: "\f002";
+            font-family: FontAwesome;
+            font-size: 16px;
+            color: #F9F0DA;
+        }
+		</style>
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/feed.xml" title="牧之" type="application/atom+xml">
+</head>
+
+
+
+<!-- hack iOS CSS :active style -->
+<!-- <body ontouchstart=""  class="<?php echo($_COOKIE['night'] == '1' ? '' : ''); ?>"> -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('https://api.dujin.org/bing/1920.php')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+                            
+                        </div>
+                        <h1>19 Java进阶之动态编译</h1>
+                        <!-- <h2 class="subheading"></h2> -->
+                        <span class="meta">
+                            muzhi on
+                            2023-05-20
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1776167012</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+					<li>
+                        <a href="/archive/">文章归档</a>
+                    </li>
+					<li>
+                        <a href="/tags/">博客标签</a>
+                    </li>
+					<li>
+                        <a href="/about/">关于作者</a>
+                    </li>
+					<!--
+					修改about在前面的问题
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">没有什么比快乐更重要</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    -->
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				
+                <h1><span id="1异常概述">1.异常概述</span></h1>
+<p>程序员的理想世界中，用户输入的数据的格式永远都是正确的，选择文件都是存在的，代码永远不会出现bug。<br>
+但在现实世界中，却往往充满了不良的数据和有问题的代码，而这些问题产生的结果我们称之为异常，<br>
+英文名为Excepiton。</p>
+<h2><span id="11-遇到异常我们应该怎么做">1.1 遇到异常我们应该怎么做？</span></h2>
+<p>我们首先需要明白异常会出现在那些地方？<br>
+大致可以分为三个阶段：</p>
+<ul>
+<li>开发期 ： 在这个时期，我们应该尽可能的处理出现的异常，这个时期出现的异常风险最小，能够及时的被修复。</li>
+<li>测试期 ： 这个时期出现的异常往往是测试人员测试过程中出现的异常，这个异常根据类型可以分为：系统异常，业务异常，系统异常比较容易排查问题，修复，业务异常需要开发人员深入分析进行问题排查。</li>
+<li>运行期 ： 如果这个时期出现了异常，那么就意味着出大问题了！！！ 希望我们永远不要遇到。。。</li>
+</ul>
+<p>那么，我们该如何去让我们的系统不出现异常呢？<br>
+这就是我们学习的重点了，Java提供了一个异常处理机制可以帮助我们尽可能的减少异常所带来的损失。</p>
+<h1><span id="2异常处理机制学习">2.异常处理机制学习</span></h1>
+<h2><span id="21处理错误">2.1.处理错误</span></h2>
+<p>一般对于用户而言，出现错误时，程序能够采取合理的行为，如果由于出现错误而使得某些操作没有完成，那么我们程序应该：<br>
+<strong>返回到一种安全的状态，并能够让用户执行其他的命令。<br>
+允许用户保存所有工作的结果，并以妥善的方式终止程序。<br>
+异常处理的任务就是将控制权从产生错误的地方转移到能够处理这些错误的错误处理器中。</strong></p>
+<h2><span id="22-常见的错误">2.2 常见的错误</span></h2>
+<h3><span id="221-用户输入错误">2.2.1 用户输入错误</span></h3>
+<p>除了那些不可避免的键盘输入错误之外，有些用户不喜欢遵守要求输入。<br>
+例如假设有一个用户请求连接一个URL，而这个URL语法却不正确，如果我们的代码中没有进行检查，那么网络层就会报错。<strong>(这种错误我们可以选择在前端过滤解决掉，也可以选择在后端过滤解决)</strong></p>
+<h3><span id="222-设备错误">2.2.2 设备错误</span></h3>
+<p>当硬件出现问题时，我们会发生设备错误。<strong>（这种错误大部分无法解决，只能提示用户）</strong></p>
+<h3><span id="223-物理限制">2.2.3 物理限制</span></h3>
+<p>比如磁盘已经满了。<strong>（这个问题采用动态内部处理，也可以提示用户）</strong></p>
+<h3><span id="224-代码错误">2.2.4 代码错误</span></h3>
+<p>这个就是你的编程问题了。<strong>（这个问题的解决方案就是提高自己的编程水平）</strong></p>
+<p><strong>注意：在java中，如果某个方法不能够采用正确的方式完成它的任务，可以通过另外一个途径退出方法，在这种情况下，方法并不返回任何值，而是抛出一个封装了错误信息的对象，然后方法立即退出并不会返回任何值，此时程序也不会从调用这个方法的代码继续执行，而是异常处理机制开始搜索能够处理这种异常状况的异常处理器来处理异常，如果没有找到，此线程直接结束。</strong></p>
+<h2><span id="23-异常分类">2.3 异常分类</span></h2>
+<p>我们通过前面的学习知道，程序发生异常时会抛出一个对象，我们称之为异常对象，异常对象分很多种，在Java程序设计语言中，异常对象都继承于Throwable类。<br>
+结构图大致如下：<br>
+<img src="https://img-blog.csdnimg.cn/dccda8e0e118476c8d01aba7c20c9adb.png" alt="在这里插入图片描述"></p>
+<p>从图中我们可以看出：所有的异常类都是由Throwable扩展而来。<br>
+第二层分为Error和Exception类：</p>
+<h3><span id="231-error类">2.3.1 Error类</span></h3>
+<p>Error类层次结构描述了java运行时系统的内部错误和资源耗尽错误。我们的应用程序不应该抛出这种错误，<strong>如果出现了这种错误，处理通知用户，并尽力妥善终止程序之外，我们几乎无能为力。</strong></p>
+<h3><span id="232-exception">2.3.2 Exception</span></h3>
+<p>在设计java程序时，要重点关注Exception，我们看到它又被分为了两类：<br>
+一般规则是：<br>
+<strong>由编程错误导致的异常属于RuntimeException；</strong><br>
+<strong>如果程序没有问题，但由于像I/O错误这类问题导致的异常属于其他异常（IOException）</strong></p>
+<ul>
+<li>
+<p>继承于RuntimeException的异常例子：<br>
++错误的强制类型转换<br>
+<img src="https://img-blog.csdnimg.cn/79fa38c0adec4012b1598be3f29ff44c.png" alt="在这里插入图片描述"></p>
+<p>+数组访问越界<br>
+<img src="https://img-blog.csdnimg.cn/acf884aaa2514738b85a669c843ff14c.png" alt="在这里插入图片描述"></p>
+<p>+访问null指针<br>
+<img src="https://img-blog.csdnimg.cn/d7ad04abba6a4fb691e6dd6cb833c3cb.png" alt="在这里插入图片描述"></p>
+</li>
+<li>
+<p>其他异常例子：<br>
++试图打开一个不存在的文件<br>
+<img src="https://img-blog.csdnimg.cn/3ab78abd95bc49498108c752c0f8f834.png" alt="在这里插入图片描述"></p>
+</li>
+</ul>
+<p>+试图根据给定的字符串查找Class对象，而这个字符串表示的类不存在<br>
+<img src="https://img-blog.csdnimg.cn/a4b3da3201ae48d598c74e0e5322a930.png" alt="在这里插入图片描述"></p>
+<p><strong>注意：如果出现了RuntimeException，那么就一定是我们代码的问题,这时我们就要检查代码是否编写正确。</strong></p>
+<h3><span id="233-检查型异常和非检查型异常">2.3.3 检查型异常和非检查型异常</span></h3>
+<p>在Java语言中，将继承于Error类或RuntimeException的所有异常称之为非检查型异常（unchecked），对于非检查型异常，我们无法捕获。<br>
+其他所有的异常称之为检查型异常（checked），对于检查型异常我们需要根据自己的需求去进行异常捕获处理。</p>
+<p><strong>注意：编译器将会检查我们是否为所有的检查型异常提供了异常处理器。</strong></p>
+<h2><span id="24-检查型异常">2.4 检查型异常</span></h2>
+<p>如果遇到了无法处理的情况，Java方法可以抛出一个检查型异常来让调用者捕获。<br>
+一个合格的方法不仅要告诉调用者将要返回什么值，还要能在必要的时候告诉调用者发生了什么错误。</p>
+<p>如何实现呢？ 对于返回值，我们都知道用个return 就可以了，那么对于检查型异常呢？<br>
+要让方法抛出发生的错误，我们需要在方法的首部指出这个方法可能抛出的错误，所以要修改方法的首部，以反映这个方法可能抛出的异常：<br>
+一个方法可以声明一个或多个异常<br>
+像FileInputStream的构造方法声明了一个异常</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">FileInputStream</span><span class="params">(String name)</span> <span class="keyword">throws</span> FileNotFoundException &#123;</span><br><span class="line">    <span class="built_in">this</span>(name != <span class="literal">null</span> ? <span class="keyword">new</span> <span class="title class_">File</span>(name) : <span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们也可以为一个方法声明两个没有包含关系的异常<br>
+例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 这个方法将在发生对应的异常时将其抛出</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">IoException1</span><span class="params">()</span> <span class="keyword">throws</span> IOException, ClassNotFoundException &#123;</span><br><span class="line">    <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;noEx&quot;</span>);</span><br><span class="line">    <span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(file);</span><br><span class="line">    inputStream.read();</span><br><span class="line">    <span class="type">Class</span> <span class="variable">cl</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;java&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在编写方法时，不必声明这个方法的所有异常，至于什么时候需要在方法中用throws声明异常，以及要用throws子句声明那些异常，需要记住下面的4种情况：</p>
+<ul>
+<li>调用了一个抛出检查型异常的方法。</li>
+<li>检测到一个错误，并且利用throw语句抛出一个检查型异常。</li>
+<li>程序出现错误。</li>
+<li>Java虚拟机或运行库出现内部错误。</li>
+</ul>
+<p><strong>如果遇到前两种情况，则必须告诉调用这个方法的调用者有可能抛出异常。</strong><br>
+<strong>对于后两种情况，我们需要去排查原因，然后优化代码去避免它。</strong><br>
+注意：不可以声明非检查型异常。 总之，一个方法必须声明所有可能抛出的的检查型异常，而非检查型异常要么在我们的控制外，要么从一开始就避免的</p>
+<h2><span id="25-抛出异常">2.5 抛出异常</span></h2>
+<p>前面我们只在方法中声明了异常是不够的，还需要抛出它，这样异常处理器才能获取该异常并进行处理。<br>
+抛出其实非常简单：在必要时刻抛出一个对象就可以了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 抛出异常</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">IoException2</span><span class="params">()</span> <span class="keyword">throws</span> IOException, ClassNotFoundException &#123;</span><br><span class="line">    <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;noEx&quot;</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(file);</span><br><span class="line">        inputStream.read();</span><br><span class="line">    &#125;<span class="keyword">catch</span> (FileNotFoundException fileNotFoundException)&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">FileNotFoundException</span>(<span class="string">&quot;未找到文件&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">catch</span> (IOException e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IOException</span>(<span class="string">&quot;文件读取&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">cl</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;java&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">catch</span> (ClassNotFoundException e)&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ClassNotFoundException</span>(<span class="string">&quot;未找到类文件java.class&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过前面我们可以看到，如果一个已有的异常类能够满足你的要求，抛出这个异常非常容易：</p>
+<ul>
+<li>找到一个合适的异常类</li>
+<li>创建这个类的对象</li>
+<li>将对象抛出</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        IoException2();</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">        System.out.println(e.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意：一旦抛出了异常，这个方法就不会返回结果给调用者，而是将异常对象返回给调用者的异常处理器，如果调用者没有做异常捕获处理，则必须抛出这个异常给上层调用者。</strong></p>
+<h2><span id="26-创建异常类">2.6 创建异常类</span></h2>
+<p>如果没有合适的异常类满足我们的要求呢？这时我们可以自己创建一个异常类来满足我们的需求。<br>
+我们的代码可能会遇到任何异常类都无法描述的问题，这时，我们就可以定义一个继承于Exception的类或继承于它的任何子类的类即可。<br>
+例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">FileFormatException</span> <span class="keyword">extends</span> <span class="title class_">IOException</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">FileFormatException</span><span class="params">()</span> &#123; &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">FileFormatException</span><span class="params">(String gripe)</span>&#123;</span><br><span class="line">    <span class="built_in">super</span>(gripe);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建自定义异常类的习惯做法是，包含两个构造器：一个是默认的构造器，另一个是包含详细信息的构造器（超类Throwable的toString方法会返回一个字符串，其中包含这个详细信息，这在调试中非常有用）</p>
+<p>演示Demo:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FileFormatException</span> <span class="keyword">extends</span> <span class="title class_">IOException</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">FileFormatException</span><span class="params">()</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">FileFormatException</span><span class="params">(String s)</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>(s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            throwFiledFormatException(<span class="string">&quot;File:fff&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">throwFiledFormatException</span><span class="params">(String file)</span> <span class="keyword">throws</span> FileFormatException &#123;</span><br><span class="line">        <span class="keyword">if</span>(file.contains(<span class="string">&quot;:&quot;</span>))&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">FileFormatException</span>(<span class="string">&quot;file 不能包含：字符&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/7bdf821c7c3545d8b5d882b65da51edb.png" alt="在这里插入图片描述"></p>
+<h2><span id="27-捕获异常">2.7 捕获异常</span></h2>
+<p>如果发生了异常，但没有任何地方捕获这个异常，程序就会终止，并在控制台上打印一个消息，其中包括这个异常的类型和一个堆栈轨迹。<br>
+如果我们想让我们的程序不随意强退，我们就要捕获检查型异常来避免非正常终止。</p>
+<h3><span id="271-捕获一个异常">2.7.1 捕获一个异常</span></h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">   执行代码</span><br><span class="line">&#125;<span class="keyword">catch</span>(异常类型 e)&#123;</span><br><span class="line">   如何处理异常</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果try语句块中的任何代码抛出了catch子句中指定的一个异常类，那么：</p>
+<ul>
+<li>程序将跳过try语句块的其余代码</li>
+<li>程序将执行catch子句中的处理器代码<br>
+如果try语句块中的代码没有抛出任何异常，那么程序将跳过catch子句。</li>
+</ul>
+<p>注意：如果方法中的任何代码抛出了catch子句中没有声明的一个异常类型，那么这个方法就会立即退出（这时我们只能希望它的调用者为这种类型提供了catch子句）</p>
+<h3><span id="272-捕获多个异常">2.7.2 捕获多个异常</span></h3>
+<p>例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;<span class="keyword">catch</span>(FileNotFoundException e)&#123;</span><br><span class="line"></span><br><span class="line">&#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>一般来说，捕获多个异常时，范围小的异常在前面。</strong><br>
+异常对象可能包含有关异常性质的信息，要想获得这个对象的更多信息，我们可以尝试使用：<br>
+e.getMessage();得到详细的错误信息，或者可以使用e.getClass().getName();来获得异常对象的实际类型。</p>
+<h3><span id="273-并列异常捕获要求catch里的异常不可有包含关系">2.7.3 并列异常捕获(要求catch里的异常不可有包含关系)</span></h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;<span class="keyword">catch</span>(FileNotFountException | UnknownHostException e)&#123;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="274-异常链">2.7.4 异常链</span></h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;<span class="keyword">catch</span>(SQLException e)&#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ServletException</span>(<span class="string">&quot;database error &quot;</span> + e.getMessage());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后更外层的方法捕获抛出的这个异常从而形成异常链。</p>
+<p>对于异常链有一种更好的方法，可以把原始异常设置为新异常的 “原因” ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;<span class="keyword">catch</span>(SQLException original)&#123;</span><br><span class="line">  <span class="type">Exception</span> <span class="variable">e</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServletException</span>(<span class="string">&quot;datebase error&quot;</span>);</span><br><span class="line">  e.initCause(original);</span><br><span class="line">  <span class="keyword">throw</span> e;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>捕获到这个异常时，可以使用下面的这条语句获取原始异常：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Throwable</span> <span class="variable">original</span> <span class="operator">=</span> caughtException.getCause();</span><br></pre></td></tr></table></figure>
+<p><strong>注意：如果在一个方法中发生了一个检查型异常，但这个方法不允许抛出检查型异常，那么包装技术也很有用，我们可以捕获这个检查型异常，并将它包装成一个运行时异常。</strong></p>
+<p><strong>总结：正确认识异常类型，以及定义异常，声明异常，捕获异常的意义。</strong></p>
+<h1><span id="3代码地址">3.代码地址</span></h1>
+<p><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Progress/exa35">Java基础学习/src/main/java/Progress/exa35 · 严家豆/Study - 码云 - 开源中国 (gitee.com)</a></p>
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/Java技术体系-Java进阶-15-Java进阶之Scanner类学习（基本概念，常见用法）/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">&larr; 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/Java技术体系-Java进阶-18-Object中equals和toStirng-源码分析/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">下一篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+				<!--
+                
+                <hr>
+                <h5>朋友们</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://zytgalaxy.github.io/" target="_blank">ztygalaxy</a></li>
+                    
+                        <li><a href="" target="_blank">xiaoming</a></li>
+                    
+                </ul>
+                
+				-->
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+        })  
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhihu_xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse"><b>B</b></i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/1776167012">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; muzhi 2026 
+                    <br>
+					
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://1776167012.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+	<script  type="text/javascript">
+<!-- Image to hack wechat -->
+<img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+</body>
+
+</html>

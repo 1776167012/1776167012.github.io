@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          18-1.实用类Scanner,StringBuffer,Date,Calendar - 牧之的博客 | Muzhi Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://1776167012.github.io/article/Java技术体系-Java基础-18-1-实用类Scanner-StringBuffer-Date-Caledar/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/beantech.min.css">
+
+
+    
+<link rel="stylesheet" href="/css/donate.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script>
+	</script>
+	<style>
+	* {
+            box-sizing: border-box;
+        }
+
+        form {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding-left: 13px;
+        }
+
+        button {
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        /*搜索框1*/
+        .bar1 {
+			background: #FFF;
+			max-width: 200px;
+		}
+        .bar1 input {
+			max-height: 30px;
+            border: 2px solid #BFBFBF;
+            border-radius: 5px;
+            background: #FFFFFF;
+            color: #BFBFBF;
+			-webkit-text-fill-color: #BFBFBF;
+        }
+        .bar1 button {
+			max-height: 30px;
+            top: 0;
+            right: 0;
+            background: #BFBFBF;
+            border-radius: 0 5px 5px 0;
+        }
+        .bar1 button:before {
+            content: "\f002";
+            font-family: FontAwesome;
+            font-size: 16px;
+            color: #F9F0DA;
+        }
+		</style>
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/feed.xml" title="牧之" type="application/atom+xml">
+</head>
+
+
+
+<!-- hack iOS CSS :active style -->
+<!-- <body ontouchstart=""  class="<?php echo($_COOKIE['night'] == '1' ? '' : ''); ?>"> -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/header_img/codeBack.png')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Java基础" title="Java基础">Java基础</a>
+                            
+                        </div>
+                        <h1>18-1.实用类Scanner,StringBuffer,Date,Calendar</h1>
+                        <!-- <h2 class="subheading"></h2> -->
+                        <span class="meta">
+                            muzhi on
+                            2023-05-15
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1776167012</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+					<li>
+                        <a href="/archive/">文章归档</a>
+                    </li>
+					<li>
+                        <a href="/tags/">博客标签</a>
+                    </li>
+					<li>
+                        <a href="/about/">关于作者</a>
+                    </li>
+					<!--
+					修改about在前面的问题
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">没有什么比快乐更重要</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    -->
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				
+                <h1><span id="1scanner类">1.Scanner类</span></h1>
+<h2><span id="11说明">1.1.说明</span></h2>
+<p>Scanner对象可以从<strong>字符序列</strong>或<strong>文件</strong>中解析出程序所需要的数据（位置Java.util）</p>
+<h2><span id="12常用方法">1.2.常用方法</span></h2>
+<ul>
+<li>Scanner useDelimiter(String regex) <br><br>
+此方法将正则表达式作为分隔标记（就是把与正则表达式匹配的字符作为分隔符），<br>
+若不指定分隔标记，那么默认空格或制表符或回行符作为解析String对象中字符序列中的单词。<br>
+String中的split方法也可以满足利用正则表达式分割字符串的功能。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ScannerStudy</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> FileNotFoundException &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">input</span> <span class="operator">=</span> <span class="string">&quot;1 fish 2 fish red fish blue fish&quot;</span>;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(input).useDelimiter(<span class="string">&quot;\\s*fish\\s*&quot;</span>);</span><br><span class="line">        System.out.println(s.nextInt());</span><br><span class="line">        System.out.println(s.nextInt());</span><br><span class="line">        System.out.println(s.next());</span><br><span class="line">        System.out.println(s.next());</span><br><span class="line">        s.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>String next();<br><br>
+Scanner对象可调用此方法依次返回被解析的字符序列中字符串。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ScannerStudy</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> FileNotFoundException &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">input</span> <span class="operator">=</span> <span class="string">&quot;1 fish 2 fish red fish blue fish&quot;</span>;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(input);</span><br><span class="line">        System.out.println(s.next());</span><br><span class="line">        System.out.println(s.next());</span><br><span class="line">        s.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>boolean hadNext(); <br><br>
+如果最后一个字符串已被next()方法返回，那么调用此方法返回的值为false，否则为true,用来判断是否还有<br>
+信息可读</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ScannerStudy</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> FileNotFoundException &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">input</span> <span class="operator">=</span> <span class="string">&quot;1 fish 2 fish red fish blue fish&quot;</span>;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(input);</span><br><span class="line">        System.out.println(s.hadNext());</span><br><span class="line">        s.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>int nextInt(); <br><br>
+我们可以调用此方法将数字型字符转化为int或double数据返回，如果字符不是数字型的，<br>
+Scanner对象调用此方法将发生InputMismatchException异常，<br>
+在处理异常时可以调用next()方法返回非数字化字符。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ScannerStudy</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> FileNotFoundException &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">input</span> <span class="operator">=</span> <span class="string">&quot;1 fish 2 fish red fish blue fish&quot;</span>;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(input).useDelimiter(<span class="string">&quot;\\s*fish\\s*&quot;</span>);</span><br><span class="line">        System.out.println(s.nextInt());</span><br><span class="line">        s.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="13-scanner的常见用法">1.3 Scanner的常见用法</span></h2>
+<h3><span id="131-读取控制台的输入">1.3.1 读取控制台的输入</span></h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> sc.next();</span><br><span class="line">        System.out.println(str);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以通过这个类实现和用户在控制台上的交互。</p>
+<h3><span id="132-简单问答程序">1.3.2 简单问答程序</span></h3>
+<p>我们使用这个类来做一个简单的数学问答系统</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ScannerDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        ScannerSysIn();<span class="comment">//完整代码点击文章底部链接进入代码仓库学习</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">你好，欢迎来到问答游戏</span><br><span class="line">你准备好啦吗？ 准备好啦请按Y</span><br><span class="line">y</span><br><span class="line">1+1=？</span><br><span class="line">2</span><br><span class="line">恭喜你，回答正确！得分</span><br><span class="line">1+2=?</span><br><span class="line">4</span><br><span class="line">很遗憾，回答错误....</span><br><span class="line">游戏结束！！</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<h1><span id="2stringbuffer类">2.StringBuffer类</span></h1>
+<h2><span id="21说明">2.1.说明</span></h2>
+<p>与String类不同是，StringBuffer类对象实体的内存空间可以自动的改变大小，<br>
+便于存放可变的字符序列，增强内存利用率。(位置java.lang) ,<br>
+与String相比，它的字符序列是可变的。和String相同的是,StringBuffer也是线程安全的。</p>
+<h2><span id="22构造方法">2.2.构造方法</span></h2>
+<h3><span id="222stringbuffer">2.2.2StringBuffer();</span></h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">StringBuffer</span><span class="params">()</span> &#123;</span><br><span class="line">     <span class="built_in">super</span>(<span class="number">16</span>);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>使用此构造方法创建一个对象的实体，初始容量可以容纳16个字符，当该对象的实体存放的字符序列的长度大于16时，<br>
+实体的内容量自动增加(当容量满了后，自动扩容,扩容机制为2*oldCapacity+2)，以便于存放所增加的字符。</p>
+<p>演示实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 默认构造方法学习</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">study01</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//新建一个新的StringBuffer对象</span></span><br><span class="line">        <span class="type">StringBuffer</span> <span class="variable">stringBuffer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();</span><br><span class="line">        System.out.println(<span class="string">&quot;使用new StringBuffer()构造的对象其容量大小为：&quot;</span>+stringBuffer.capacity());</span><br><span class="line">        stringBuffer.append(<span class="string">&quot;1111123434433233&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;扩容机制为：2*oldCapacity+2&quot;</span>);</span><br><span class="line">        stringBuffer.append(<span class="string">&quot;1&quot;</span>);</span><br><span class="line">        <span class="comment">//扩容: int newCapacity = (value.length &lt;&lt; 1) + 2;  -&gt;  2*oldCapacity+2</span></span><br><span class="line">        System.out.println(<span class="string">&quot;第一次扩容：16*2+2= &quot;</span>+stringBuffer.capacity());</span><br><span class="line">        stringBuffer.append(<span class="string">&quot;11111111111111112222221&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;第二次扩容：34*2+2= &quot;</span>+stringBuffer.capacity());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">使用new StringBuffer()构造的对象其容量大小为：16</span><br><span class="line">扩容机制为：2*oldCapacity+2</span><br><span class="line">第一次扩容：16*2+2= 34</span><br><span class="line">第二次扩容：34*2+2= 70</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<h3><span id="223-stringbufferint-size">2.2.3 StringBuffer(int size);</span></h3>
+<p>指定容量的构造方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">StringBuffer</span><span class="params">(<span class="type">int</span> capacity)</span> &#123;</span><br><span class="line">       <span class="built_in">super</span>(capacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此构造方法可以指定分配给该对象的实体的初始容量为参数size指定的字符个数，也会自动增加。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="comment">//实例</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *构造时指定容量大小</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">study02</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">StringBuffer</span> <span class="variable">stringBuffer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(<span class="number">5</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;使用new StringBuffer(5)构造的对象其容量大小为：&quot;</span>+stringBuffer.capacity());</span><br><span class="line">        stringBuffer.append(<span class="string">&quot;11111&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;扩容机制为：2*oldCapacity+2&quot;</span>);</span><br><span class="line">        stringBuffer.append(<span class="string">&quot;1&quot;</span>);</span><br><span class="line">        <span class="comment">//扩容: int newCapacity = (value.length &lt;&lt; 1) + 2;  -&gt;  2*oldCapacity+2</span></span><br><span class="line">        System.out.println(<span class="string">&quot;第一次扩容：5*2+2= &quot;</span>+stringBuffer.capacity());</span><br><span class="line">        stringBuffer.append(<span class="string">&quot;1111111&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;第二次扩容：12*2+2= &quot;</span>+stringBuffer.capacity());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="224-stringbufferstring-s">2.2.4 StringBuffer(String s);</span></h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">StringBuffer</span><span class="params">(String str)</span> &#123;</span><br><span class="line">       <span class="built_in">super</span>(str.length() + <span class="number">16</span>);</span><br><span class="line">       append(str);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>此构造方法可以指定分配给该对象的实体的初始容量为参数s的序列长度再加16。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 字符串构造</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">study03</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">StringBuffer</span> <span class="variable">stringBuffer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(<span class="string">&quot;111&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;使用new StringBuffer(\&quot;111\&quot;)构造的对象其容量大小为：&quot;</span></span><br><span class="line">                +stringBuffer.capacity());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="23非构造方法">2.3.非构造方法</span></h2>
+<h3><span id="231-append方法">2.3.1 append方法</span></h3>
+<p><strong>StringBuffer append(String s);</strong><br><br>
+此方法将String对象s的字符序列追加到当前StringBuffer对象的字符序列中，<br>
+并返回当前StringBuffer对象引用。</p>
+<p><strong>StringBuffer append(int n);</strong><br><br>
+此方法将int型数据n转化为String对象，再把该String对象的字符序列追加到当前StringBuffer中，<br>
+并返回当前StringBuffer对象引用。（同理，其他数据类型一样）</p>
+<p><strong>StringBuffer append(Object o);</strong><br><br>
+此方法将一个object对象o的字符序列表示(object.toString())追加到当前StringBuffer中，并返回当前StringBuffer对象引用。</p>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">appendStudy</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">StringBuffer</span> <span class="variable">stringBuffer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(<span class="string">&quot;111&quot;</span>);</span><br><span class="line">        stringBuffer.append(<span class="string">&quot;nihao&quot;</span>);</span><br><span class="line">        System.out.println(stringBuffer.toString());</span><br><span class="line">        stringBuffer.append(<span class="number">1222</span>);</span><br><span class="line">        System.out.println(stringBuffer.toString());</span><br><span class="line">        stringBuffer.append(<span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">        System.out.println(stringBuffer.toString());<span class="comment">//.....等等</span></span><br><span class="line">        stringBuffer.append(<span class="keyword">new</span> <span class="title class_">Object</span>());</span><br><span class="line">        System.out.println(stringBuffer.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="232-public-char-charatint-n">2.3.2 public char charAt(int n);</span></h3>
+<p>此方法得到StringBuffer对象字符序列中位置为n上的字符。（从0开始计数）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">charAtStudy</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">StringBuffer</span> <span class="variable">stringBuffer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(<span class="string">&quot;123&quot;</span>);</span><br><span class="line">        System.out.println(stringBuffer.charAt(<span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="233-public-void-setcharatint-nchar-ch">2.3.3 public void setCharAt(int n,char ch);</span></h3>
+<p>此方法将当前StringBuffer对象字符序列位置n处的字符用参数ch指定的字符替换（n必须有意义）并返回当前对象引用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">charAtStudy</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">StringBuffer</span> <span class="variable">stringBuffer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(<span class="string">&quot;123&quot;</span>);</span><br><span class="line">        System.out.println(stringBuffer.charAt(<span class="number">1</span>));</span><br><span class="line">        stringBuffer.setCharAt(<span class="number">1</span>,<span class="string">&#x27;4&#x27;</span>);</span><br><span class="line">        System.out.println(stringBuffer.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3><span id="234-stringbuffer-insertint-indexstring-str">2.3.4 StringBuffer insert(int index,String str);</span></h3>
+<p>此方法将参数str指定的字符插入到参数index指定的位置，并返回当前对象引用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">insertStudy</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">StringBuffer</span> <span class="variable">stringBuffer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(<span class="string">&quot;123&quot;</span>);</span><br><span class="line">        stringBuffer.insert(<span class="number">1</span>,<span class="number">6</span>);</span><br><span class="line">        System.out.println(stringBuffer.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="235-public-stringbuffer-reverse">2.3.5 public StringBuffer reverse();</span></h3>
+<p>此方法可将该对象实体中的字符序列翻转，并返回当前对象引用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * reverse将字符序列进行反转</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reverseStudy</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">StringBuffer</span> <span class="variable">stringBuffer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(<span class="string">&quot;123&quot;</span>);</span><br><span class="line">        stringBuffer.reverse();</span><br><span class="line">        System.out.println(stringBuffer.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="236-stringbuffer-deleteint-startindexint-endindex">2.3.6 StringBuffer delete(int startIndex,int endIndex);</span></h3>
+<p>此方法从对象的字符序列中删除一个子字符序列，并返回（从startIndex~endIndex-1）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">deleteStudy</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">StringBuffer</span> <span class="variable">stringBuffer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(<span class="string">&quot;1235678&quot;</span>);</span><br><span class="line">        System.out.println(stringBuffer.delete(<span class="number">0</span>,<span class="number">3</span>).toString());</span><br><span class="line">        System.out.println(stringBuffer.deleteCharAt(<span class="number">1</span>).toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="237-stringbuffer-replaceint-startindexint-endindexstring-str">2.3.7 StringBuffer replace(int startIndex,int endIndex,String str);</span></h3>
+<p>此方法是将位置为startIndex~endIndex-1位置的子序列用str替换。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">replaceStudy</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">StringBuffer</span> <span class="variable">stringBuffer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(<span class="string">&quot;1235678&quot;</span>);</span><br><span class="line">        stringBuffer.replace(<span class="number">0</span>,<span class="number">3</span>,<span class="string">&quot;hhhh&quot;</span>);</span><br><span class="line">        System.out.println(stringBuffer.toString());</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="238-stringbuffer对象可以调用length">2.3.8 StringBuffer对象可以调用length();</span></h3>
+<p>方法获取实体中存放的字符序列的长度，也可调用capacity();方法获取当前实体的实际容量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">lengthStudy</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">StringBuffer</span> <span class="variable">stringBuffer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(<span class="string">&quot;1235678&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;stringBuffer length: &quot;</span>+stringBuffer.length());</span><br><span class="line">        System.out.println(<span class="string">&quot;stringBuffer capacity: &quot;</span>+stringBuffer.capacity());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1><span id="3date类和calendar类">3.Date类和Calendar类</span></h1>
+<p><strong>说明：</strong><br>
+程序设计中可能需要日期，时间等数据，而java.util包中的Date类和Calender类，二者可用于处理日期时间数据，<br>
+让我们能获得想要的时间参数。</p>
+<h1><span id="31date类">3.1.Date类</span></h1>
+<p>通过Date类我们可以获取我们想要的时间日期。</p>
+<h3><span id="311-date">3.1.1 Date();</span></h3>
+<p>使用此构造方法创建的对象可以获取本机当前日期和时间。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 无参构造方法学习</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">DateStudy1</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">Date</span> <span class="variable">nowDate</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">        System.out.println(<span class="string">&quot;目前本机时间表示：&quot;</span>+nowDate.toString());</span><br><span class="line">        System.out.println(<span class="string">&quot;目前时间戳&quot;</span>+nowDate.getTime());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="312-datelong-time">3.1.2 Date(long time);</span></h3>
+<p>众所周知，计算机系统将其自身的时间的“公元”设置在1970年1月1日0时（格林威治时间），<br>
+此方法中的参数取正数表示公元后的时间，取负数表示公元前的时间。1000表示1000ms。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 指定参数构造方法学习</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">DateStudy2</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//获取指定时间对象</span></span><br><span class="line">        <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="number">1658546489564L</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;目前本机时间表示：&quot;</span>+date.toString());</span><br><span class="line">        System.out.println(<span class="string">&quot;目前时间戳&quot;</span>+date.getTime());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//除了上面两个构造方法，Date中其他的构造方法已经弃用了</span></span><br><span class="line">        <span class="type">Date</span> <span class="variable">date2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="32calendar类">3.2.Calendar类</span></h2>
+<p>通过Calendar类，我们可以进行日期的计算，跳转我们指定的日期时间上。</p>
+<h3><span id="321-static-getinstance">3.2.1 static getInstance();</span></h3>
+<p>此方法可以初始化一个日历对象。</p>
+<h3><span id="322-set方法">3.2.2 set方法</span></h3>
+<p><strong>public final void set(int year,int month,int date);</strong> <br><br>
+<strong>public final void set(int year,int month,int date,int hour,int minure);</strong> <br><br>
+<strong>public final void set(int year,int month,int date,int hour,int minure,int second);</strong> <br><br>
+Calendar对象可以调用上述方法将日历翻到任何一个时间，当参数year取负数时表示公元前（真实公元）<br>
+假如我们要设置一个日期我们可以：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Calendar</span> <span class="variable">calendar</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">        calendar.set(<span class="number">2018</span>,<span class="number">5</span>,<span class="number">21</span>,<span class="number">12</span>,<span class="number">22</span>,<span class="number">34</span>);</span><br><span class="line">        System.out.println(calendar.getTime());</span><br><span class="line">        System.out.println(calendar.getTimeInMillis());</span><br><span class="line">        System.out.println(calendar.getTime().getTime());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="323-public-int-getint-field">3.2.3 public int get(int field);</span></h3>
+<p>此方法可以获取有关年份，月份，小时，星期等信息，参数的field的有效值由Calendar的静态常量指定，<br>
+如：Calendar.get(Calendar.MONTH);返回一个整数（0表示1月依次递增年份也是如此）</p>
+<h3><span id="324-public-long-gettimeinmillis">3.2.4 public long getTimeInMillis();</span></h3>
+<p>此方法可以返回当前Calendar对象中时间的毫秒计时。</p>
+<p>关于日期API的学习，还是建议大家到下面路径进行系统学习:<br><br>
+<a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%8A%A8%E6%89%8B%E5%81%9A%E4%B8%80%E5%81%9A/src/main/java/DateTimeApi">https://gitee.com/yan-jiadou/study/tree/master/Java%E5%8A%A8%E6%89%8B%E5%81%9A%E4%B8%80%E5%81%9A/src/main/java/DateTimeApi</a></p>
+<h1><span id="4console类">4.Console类</span></h1>
+<p>如果希望在键盘输入一行文本，但不想使其在命令行显式的显示，那么就需要使用java.io包中的Console类的对象来完成。<br><br>
+用法如下：<br><br>
+首先使用System类调用console()方法返回Console类的一个对象。 <br><br>
+例如：<strong>Console cons=System.console();</strong> <br><br>
+然后调用readPasswoord()方法读取用户在键盘输入的一行文本，并将文本以一个char数组返回： <br><br>
+<strong>char[] password = cons.readPsaaword();</strong></p>
+<h1><span id="代码地址">代码地址</span></h1>
+<p><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Base/exa18">Java基础学习/src/main/java/Base/exa18 · 严家豆/Study - 码云 - 开源中国 (gitee.com)</a></p>
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/Java技术体系-Java基础-17-常用类学习，final关键字/" data-toggle="tooltip" data-placement="top" title="17.常用类学习,final关键字">&larr; 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/Java技术体系-Java基础-18-2-动手实验：简历分析器/" data-toggle="tooltip" data-placement="top" title="18-2.动手实验：简历分析器">下一篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Java基础" title="Java基础">Java基础</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+				<!--
+                
+                <hr>
+                <h5>朋友们</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://zytgalaxy.github.io/" target="_blank">ztygalaxy</a></li>
+                    
+                        <li><a href="" target="_blank">xiaoming</a></li>
+                    
+                </ul>
+                
+				-->
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+        })  
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhihu_xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse"><b>B</b></i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/1776167012">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; muzhi 2026 
+                    <br>
+					
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://1776167012.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+	<script  type="text/javascript">
+<!-- Image to hack wechat -->
+<img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+</body>
+
+</html>

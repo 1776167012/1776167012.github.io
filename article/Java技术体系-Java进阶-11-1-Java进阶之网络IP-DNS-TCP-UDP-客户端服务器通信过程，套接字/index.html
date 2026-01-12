@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          19 Java进阶之动态编译 - 牧之的博客 | Muzhi Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://1776167012.github.io/article/Java技术体系-Java进阶-11-1-Java进阶之网络IP-DNS-TCP-UDP-客户端服务器通信过程，套接字/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/beantech.min.css">
+
+
+    
+<link rel="stylesheet" href="/css/donate.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script>
+	</script>
+	<style>
+	* {
+            box-sizing: border-box;
+        }
+
+        form {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding-left: 13px;
+        }
+
+        button {
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        /*搜索框1*/
+        .bar1 {
+			background: #FFF;
+			max-width: 200px;
+		}
+        .bar1 input {
+			max-height: 30px;
+            border: 2px solid #BFBFBF;
+            border-radius: 5px;
+            background: #FFFFFF;
+            color: #BFBFBF;
+			-webkit-text-fill-color: #BFBFBF;
+        }
+        .bar1 button {
+			max-height: 30px;
+            top: 0;
+            right: 0;
+            background: #BFBFBF;
+            border-radius: 0 5px 5px 0;
+        }
+        .bar1 button:before {
+            content: "\f002";
+            font-family: FontAwesome;
+            font-size: 16px;
+            color: #F9F0DA;
+        }
+		</style>
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/feed.xml" title="牧之" type="application/atom+xml">
+</head>
+
+
+
+<!-- hack iOS CSS :active style -->
+<!-- <body ontouchstart=""  class="<?php echo($_COOKIE['night'] == '1' ? '' : ''); ?>"> -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('https://api.dujin.org/bing/1920.php')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+                            
+                        </div>
+                        <h1>19 Java进阶之动态编译</h1>
+                        <!-- <h2 class="subheading"></h2> -->
+                        <span class="meta">
+                            muzhi on
+                            2023-05-20
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1776167012</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+					<li>
+                        <a href="/archive/">文章归档</a>
+                    </li>
+					<li>
+                        <a href="/tags/">博客标签</a>
+                    </li>
+					<li>
+                        <a href="/about/">关于作者</a>
+                    </li>
+					<!--
+					修改about在前面的问题
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">没有什么比快乐更重要</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    -->
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				
+                <h1><span id="1网络术语解释">1.网络术语解释</span></h1>
+<h2><span id="11-什么是ip">1.1 什么是IP？</span></h2>
+<p>IP是一种互联网协议地址，用它我们可以唯一的标识互联网上的计算机。它由四段用点隔开的0~225的十进制数组成，例如：130.254.204.31</p>
+<h2><span id="12-什么叫dns">1.2 什么叫DNS？</span></h2>
+<p>由于前面的ip地址由于数字很抽象难记，所以我们经常将它们映射为被称为域名的好记的名字。例如：<a href="http://www.baidu.com">www.baidu.com</a>。在互联网上有特殊的称为域名服务器（DNS）的服务器，它把主机的名字转换成ip地址，然后用这个ip发送请求。</p>
+<h2><span id="13-tcp和udp">1.3 TCP和UDP</span></h2>
+<p>两个ip之间相互通信可以通过传输控制协议（TCP）和用户数据报协议(UDP)实现。<br>
+TCP能够让两台主机建立连接并交换数据流，确保数据的传输，也确保数据包以它们发送的顺序传输。<br>
+UDP允许一台计算机上的应用程序向另一台计算机上的应用程序发送数据报，UDP不确保数据完整到达。</p>
+<h1><span id="2客户端服务器通信">2.客户端/服务器通信</span></h1>
+<p>Java支持基于流的通信和基于包的通信。其中基于流的通信使用TCP进行数据传输，因为TCP协议能够发现丢失的数据信息并重新发送。基于包的使用UDP，此协议不能保证传输没有丢失。所以大多数的java程序使用的是<strong>TCP协议(就是基于流的通信方式)</strong>,保证数据完整传输。</p>
+<h2><span id="21-java如何进行网络通信">2.1 Java如何进行网络通信？</span></h2>
+<p><strong>JavaAPI提供用于创建套接字的类来便于程序通过Internet通信。</strong></p>
+<p>一旦Java程序通过Socket建立连接，客户端和服务器就可以通过Socket进行通信。<br>
+当客户端尝试连接到服务器时，服务器必须正在运行且为监听状态。</p>
+<h4><span id="java通信过程如下图">java通信过程如下图</span></h4>
+<p><img src="https://img-blog.csdnimg.cn/20200429105636646.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MxNzc2MTY3MDEy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+首先启动服务器程序，服务器程序对指定端口进行监听。<br>
+然后客户端通过ip:port尝试连接服务端，连接成功后就能进行通信了。</p>
+<h2><span id="22-下面我们学习socket类">2.2 下面我们学习Socket类</span></h2>
+<h3><span id="221-serversocket">2.2.1 ServerSocket</span></h3>
+<p>要创建服务器，我们可以用ServerSocket类来创建一个套接字对象，并把它附在一个端口上，服务器从这个端口监听连接。<br>
+端口号的范围为：0~65536 <strong>但其中的0 ~1024是为特定服务保留的端口号，建议不用。</strong></p>
+<p>创建语句如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//port为设置的服务器端口号</span></span><br><span class="line">ServerSocket serverSocket=<span class="keyword">new</span> <span class="title class_">ServerSocket</span>(port);</span><br></pre></td></tr></table></figure>
+<p>创建之后我们可以使用下面语句进行监听：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Socket socket=ServerSocket.accept();</span><br></pre></td></tr></table></figure>
+<p>这个语句会一直等待，直到有客户端请求连接到此服务器。</p>
+<h3><span id="22-2-socket">2.2 2 Socket</span></h3>
+<p>客户端用以下语句来请求与服务器连接：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//serverName是服务器的互联网主机名或IP，port为服务器建立服务对应的端口号</span></span><br><span class="line">Socket socket=<span class="keyword">new</span> <span class="title class_">Socket</span>(serverName,port);</span><br></pre></td></tr></table></figure>
+<h3><span id="223-利用io流进行数据传输">2.2.3 利用I/O流进行数据传输</span></h3>
+<p>服务器和客户端连接后，我们可以从Socket中获取I/O流，然后通过I/O流机制就能实现网络数据传输了。<br>
+如图：<br>
+<img src="https://img-blog.csdnimg.cn/20200429111129812.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MxNzc2MTY3MDEy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+显然我们可以看到，关键是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">socket.getInputStream();<span class="comment">//获得套接字输入流</span></span><br><span class="line">socket.getOutputStream();<span class="comment">//获得套接字输出流</span></span><br></pre></td></tr></table></figure>
+<h1><span id="2示例演示提供两个版本ui版和无ui版">2.示例演示（提供两个版本：UI版和无UI版）</span></h1>
+<h2><span id="31-ui版">3.1 UI版</span></h2>
+<p>下面开发出一个在线计算圆面积的例子：<br>
+<img src="https://img-blog.csdnimg.cn/20200429130911926.gif" alt="在这里插入图片描述"></p>
+<h3><span id="311-serverjava">3.1.1 Server.java</span></h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Server</span> <span class="keyword">extends</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">(Stage primaryStage)</span>&#123;</span><br><span class="line">        TextArea ta=<span class="keyword">new</span> <span class="title class_">TextArea</span>();</span><br><span class="line">        Scene scene=<span class="keyword">new</span> <span class="title class_">Scene</span>(<span class="keyword">new</span> <span class="title class_">ScrollPane</span>(ta),<span class="number">450</span>,<span class="number">200</span>);</span><br><span class="line">        primaryStage.setTitle(<span class="string">&quot;Server&quot;</span>);</span><br><span class="line">        primaryStage.setScene(scene);</span><br><span class="line">        primaryStage.show();</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">          建立一个线程来进行端口监听</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                <span class="comment">//创建服务器套接字，服务器端口号设为8000</span></span><br><span class="line">                ServerSocket serverSocket=<span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">8000</span>);</span><br><span class="line"></span><br><span class="line">                Platform.runLater(()-&gt;ta.appendText(<span class="string">&quot;服务器启动成功 日期：&quot;</span>+<span class="keyword">new</span> <span class="title class_">Date</span>()+<span class="string">&#x27;\n&#x27;</span>));</span><br><span class="line"></span><br><span class="line">                <span class="comment">//服务器进入监听状态</span></span><br><span class="line">                System.out.println(<span class="string">&quot;服务器进入监听状态&quot;</span>);</span><br><span class="line">                <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">                System.out.println(<span class="string">&quot;监听到连接，即将进入下一步&quot;</span>);</span><br><span class="line">                <span class="comment">//创建服务器接受和发送数据的流</span></span><br><span class="line">                <span class="type">DataInputStream</span> <span class="variable">inputFromClient</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DataInputStream</span>(socket.getInputStream());</span><br><span class="line">                DataOutputStream outputToClient=<span class="keyword">new</span> <span class="title class_">DataOutputStream</span>(socket.getOutputStream());</span><br><span class="line"></span><br><span class="line">                <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">                    <span class="type">double</span> radius=inputFromClient.readDouble();<span class="comment">//接受到的数据赋给radius</span></span><br><span class="line"></span><br><span class="line">                    <span class="type">double</span> area=radius*radius*Math.PI;<span class="comment">//计算面积</span></span><br><span class="line"></span><br><span class="line">                    outputToClient.writeDouble(area);<span class="comment">//将计算值发送出去</span></span><br><span class="line"></span><br><span class="line">                    Platform.runLater(()-&gt;&#123;</span><br><span class="line">                        ta.appendText(<span class="string">&quot;接收到客户端传来的半径：:&quot;</span>+radius+<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">                        ta.appendText(<span class="string">&quot;面积是:&quot;</span>+area+<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;<span class="keyword">catch</span>(IOException ex)&#123;</span><br><span class="line">                ex.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="312-clientjava">3.1.2 Client.java</span></h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> <span class="keyword">extends</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    DataOutputStream toServer=<span class="literal">null</span>;<span class="comment">//声明输出流</span></span><br><span class="line">    DataInputStream fromServer=<span class="literal">null</span>;<span class="comment">//声明输入流</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">(Stage primaryStage)</span> &#123;</span><br><span class="line"></span><br><span class="line">        BorderPane paneForTextField=<span class="keyword">new</span> <span class="title class_">BorderPane</span>();</span><br><span class="line">        paneForTextField.setPadding(<span class="keyword">new</span> <span class="title class_">Insets</span>(<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>));</span><br><span class="line">        paneForTextField.setStyle(<span class="string">&quot;-fx-border-color:green&quot;</span>);</span><br><span class="line">        paneForTextField.setLeft(<span class="keyword">new</span> <span class="title class_">Label</span>(<span class="string">&quot;请输入半径：&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="type">TextField</span> <span class="variable">tf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TextField</span>();</span><br><span class="line">        tf.setAlignment(Pos.BOTTOM_RIGHT);</span><br><span class="line">        paneForTextField.setCenter(tf);</span><br><span class="line"></span><br><span class="line">        <span class="type">BorderPane</span> <span class="variable">mainPane</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BorderPane</span>();</span><br><span class="line">        <span class="type">TextArea</span> <span class="variable">ta</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TextArea</span>();</span><br><span class="line">        mainPane.setCenter(<span class="keyword">new</span> <span class="title class_">ScrollPane</span>(ta));</span><br><span class="line">        mainPane.setTop(paneForTextField);</span><br><span class="line"></span><br><span class="line">        Scene scene=<span class="keyword">new</span> <span class="title class_">Scene</span>(mainPane,<span class="number">450</span>,<span class="number">200</span>);</span><br><span class="line">        primaryStage.setTitle(<span class="string">&quot;Client&quot;</span>);</span><br><span class="line">        primaryStage.setScene(scene);</span><br><span class="line">        primaryStage.show();</span><br><span class="line"></span><br><span class="line">        tf.setOnAction(e-&gt;&#123;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                <span class="type">double</span> <span class="variable">radius</span> <span class="operator">=</span> Double.parseDouble(tf.getText().trim());</span><br><span class="line">                <span class="comment">//将radius写入输出流发送出去</span></span><br><span class="line">                toServer.writeDouble(radius);</span><br><span class="line">                toServer.flush();<span class="comment">//清空输出流</span></span><br><span class="line">                <span class="comment">//从输入流中获取的值赋给area(此方法会阻塞)</span></span><br><span class="line">                <span class="type">double</span> <span class="variable">area</span> <span class="operator">=</span> fromServer.readDouble();</span><br><span class="line">                ta.appendText(<span class="string">&quot;半径：&quot;</span>+radius+<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">                ta.appendText(<span class="string">&quot;面积是： &quot;</span>+area+<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">            &#125;<span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">                System.err.println(ex);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//创建套接字</span></span><br><span class="line">            <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Socket</span>(<span class="string">&quot;localhost&quot;</span>,<span class="number">8000</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//创建客户端接受和发送数据的流</span></span><br><span class="line">            fromServer = <span class="keyword">new</span> <span class="title class_">DataInputStream</span>(socket.getInputStream());</span><br><span class="line">            toServer = <span class="keyword">new</span> <span class="title class_">DataOutputStream</span>(socket.getOutputStream());</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException ex) &#123;</span><br><span class="line">            ta.appendText(ex.toString()+<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="32-无ui版">3.2 无UI版</span></h2>
+<p><img src="https://img-blog.csdnimg.cn/c094bda6328a427995220c5ed8468b1e.png" alt="在这里插入图片描述"></p>
+<h3><span id="321-serverjava">3.2.1 Server.java</span></h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Server</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">             <span class="comment">/*</span></span><br><span class="line"><span class="comment">          建立一个线程来进行端口监听</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                <span class="comment">//创建服务器套接字，服务器端口号设为8000</span></span><br><span class="line">                ServerSocket serverSocket=<span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">8000</span>);</span><br><span class="line">                System.out.println(<span class="string">&quot;服务器启动成功 日期：&quot;</span>+<span class="keyword">new</span> <span class="title class_">Date</span>()+<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">                <span class="comment">//服务器进入监听状态</span></span><br><span class="line">                System.out.println(<span class="string">&quot;服务器进入监听状态&quot;</span>);</span><br><span class="line">                <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">                System.out.println(<span class="string">&quot;监听到连接，即将进入下一步&quot;</span>);</span><br><span class="line">                <span class="comment">//创建服务器接受和发送数据的流</span></span><br><span class="line">                <span class="type">DataInputStream</span> <span class="variable">inputFromClient</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DataInputStream</span>(socket.getInputStream());</span><br><span class="line">                DataOutputStream outputToClient=<span class="keyword">new</span> <span class="title class_">DataOutputStream</span>(socket.getOutputStream());</span><br><span class="line"></span><br><span class="line">                <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">                    <span class="comment">//接受到的数据赋给radius</span></span><br><span class="line">                    <span class="type">double</span> radius=inputFromClient.readDouble();</span><br><span class="line">                    <span class="type">double</span> area=radius*radius*Math.PI;<span class="comment">//计算面积</span></span><br><span class="line">                    outputToClient.writeDouble(area);<span class="comment">//将计算值发送出去</span></span><br><span class="line">                    System.out.println(<span class="string">&quot;接收到客户端传来的半径：:&quot;</span>+radius+<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">                    System.out.println(<span class="string">&quot;面积是:&quot;</span>+area+<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;<span class="keyword">catch</span>(IOException ex)&#123;</span><br><span class="line">                ex.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="322-clientjava">3.2.2 Client.java</span></h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        DataOutputStream toServer=<span class="literal">null</span>;<span class="comment">//声明输出流</span></span><br><span class="line">        DataInputStream fromServer=<span class="literal">null</span>;<span class="comment">//声明输入流</span></span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//创建套接字</span></span><br><span class="line">            <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Socket</span>(<span class="string">&quot;localhost&quot;</span>,<span class="number">8000</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//创建客户端接受和发送数据的流</span></span><br><span class="line">            fromServer = <span class="keyword">new</span> <span class="title class_">DataInputStream</span>(socket.getInputStream());</span><br><span class="line">            toServer = <span class="keyword">new</span> <span class="title class_">DataOutputStream</span>(socket.getOutputStream());</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;请输入半径：&quot;</span>);</span><br><span class="line">                <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">                <span class="type">double</span> <span class="variable">radius</span> <span class="operator">=</span> sc.nextDouble();</span><br><span class="line">                <span class="comment">//将radius写入输出流发送出去</span></span><br><span class="line">                toServer.writeDouble(radius);</span><br><span class="line">                toServer.flush();<span class="comment">//清空输出流</span></span><br><span class="line">                <span class="comment">//从输入流中获取的值赋给area(此方法会阻塞)</span></span><br><span class="line">                <span class="type">double</span> <span class="variable">area</span> <span class="operator">=</span> fromServer.readDouble();</span><br><span class="line">                System.out.println(<span class="string">&quot;半径：&quot;</span>+radius+<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">                System.out.println(<span class="string">&quot;面积是： &quot;</span>+area+<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException ex) &#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1><span id="4-代码地址">4 代码地址</span></h1>
+<p><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Progress/exa29_1">Java基础学习/src/main/java/Progress/exa29_1 · 严家豆/Study - 码云 - 开源中国 (gitee.com)</a></p>
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/Java技术体系-Java进阶-10-3-Java进阶之线程信号量，避免死锁/" data-toggle="tooltip" data-placement="top" title="10.3 Java进阶之线程信号量">&larr; 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/Java技术体系-Java进阶-11-2-Java进阶之网络InetAddress类，多线程网络编程/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">下一篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+				<!--
+                
+                <hr>
+                <h5>朋友们</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://zytgalaxy.github.io/" target="_blank">ztygalaxy</a></li>
+                    
+                        <li><a href="" target="_blank">xiaoming</a></li>
+                    
+                </ul>
+                
+				-->
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+        })  
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhihu_xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse"><b>B</b></i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/1776167012">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; muzhi 2026 
+                    <br>
+					
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://1776167012.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+	<script  type="text/javascript">
+<!-- Image to hack wechat -->
+<img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+</body>
+
+</html>
