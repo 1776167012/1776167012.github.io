@@ -295,69 +295,44 @@
                 post-container">
 
 				
-                <h1><span id="1访问权限从何而来">1.访问权限从何而来？</span></h1>
-<p>我们已经知道当一个类创建了一个对象后，该对象可以通过  .  操作符访问自己的变量，使用其中的方法。<br>
-实际上在Java中我们通过对象操作的变量和使用类中的方法是<strong>有限制的</strong>，<br>
-我们并不是能随心所欲的访问一个对象的所有变量或所有方法的。<br>
-其限制的主要原因是在声明变量和方法时的修饰符，访问权限修饰符大概分为四个：</p>
+                <h1><span id="1访问权限从何而来">1.访问权限从何而来？</span></h1><p>我们已经知道当一个类创建了一个对象后，该对象可以通过  .  操作符访问自己的变量，使用其中的方法。<br>实际上在Java中我们通过对象操作的变量和使用类中的方法是<strong>有限制的</strong>，<br>我们并不是能随心所欲的访问一个对象的所有变量或所有方法的。<br>其限制的主要原因是在声明变量和方法时的修饰符，访问权限修饰符大概分为四个：</p>
 <p><strong>私有（private）,友好（无修饰符）,保护(protected),公有(public)</strong></p>
-<h2><span id="11私有private">1.1.私有(private)</span></h2>
-<h3><span id="111私有变量和私有方法">1.1.1私有变量和私有方法</span></h3>
-<p>在定义的类的时候在声明变量/方法前加上private修饰符，表示声明的是私有变量或方法，<br>
-其访问权限是<strong>只能在自己类中被访问</strong>。当在另外一个类中用一个类创建了一个该类的对象后，<br>
-该对象不能访问自己的私有变量，调用类中的私有方法。</p>
+<h2><span id="11私有private">1.1.私有(private)</span></h2><h3><span id="111私有变量和私有方法">1.1.1私有变量和私有方法</span></h3><p>在定义的类的时候在声明变量/方法前加上private修饰符，表示声明的是私有变量或方法，<br>其访问权限是<strong>只能在自己类中被访问</strong>。当在另外一个类中用一个类创建了一个该类的对象后，<br>该对象不能访问自己的私有变量，调用类中的私有方法。</p>
 <p><strong>想要对数据的操作只能在本类中处理，就可以使用private这个关键字。</strong></p>
-<h3><span id="112-例子">1.1.2 例子</span></h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonPrivate</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">getX</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">setX</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.x = x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="112-例子">1.1.2 例子</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonPrivate</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">getX</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">setX</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.x = x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>下面尝试创建PersonPrivate对象并调用它的方法：</p>
-<p><img src="9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%901.png" alt="私有属性"></p>
+<p><img src="9-四种访问权限/9-四种访问权限1.png" alt="私有属性"></p>
 <p><strong>我们可以看到，在另一个类中创建PersonPrivate对象后，无法通过该对象调用其中定义的private变量或方法。</strong></p>
-<h2><span id="12公有public">1.2.公有(public)</span></h2>
-<h3><span id="121-公有变量和方法">1.2.1 公有变量和方法</span></h3>
-<p>用public修饰的成员变量和方法我们称之为公有变量和方法。<br>
-在任何一个类中用另一个类创建了一个对象，可以通过该对象访问其中的共有变量和方法。</p>
-<h3><span id="122-例子">1.2.2 例子</span></h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonPublic</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getX</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setX</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.x = x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%902.png" alt="共有属性"></p>
+<h2><span id="12公有public">1.2.公有(public)</span></h2><h3><span id="121-公有变量和方法">1.2.1 公有变量和方法</span></h3><p>用public修饰的成员变量和方法我们称之为公有变量和方法。<br>在任何一个类中用另一个类创建了一个对象，可以通过该对象访问其中的共有变量和方法。</p>
+<h3><span id="122-例子">1.2.2 例子</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonPublic</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getX</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setX</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.x = x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="9-四种访问权限/9-四种访问权限2.png" alt="共有属性"></p>
 <p>我们可以看到，在另一个类中创建该类的对象后，可以直接访问该类定义的public方法和变量。</p>
-<h2><span id="13友好无修饰符">1.3.友好(无修饰符)</span></h2>
-<h3><span id="131-友好变量和方法">1.3.1 友好变量和方法</span></h3>
-<p>不用private，public，protected修饰符修饰的成员变量和方法被称为友好变量和友好方法。<br>
-这种变量和方法的可见性只允许同一包的其他类创建对象后可以用对象进行访问。<br>
-<strong>在同一包中的前提下</strong> 在任何一个类中用一个类创建了一个对象，该对象能访问该类中的友好变量和方法，<br>
-否则不可见。</p>
+<h2><span id="13友好无修饰符">1.3.友好(无修饰符)</span></h2><h3><span id="131-友好变量和方法">1.3.1 友好变量和方法</span></h3><p>不用private，public，protected修饰符修饰的成员变量和方法被称为友好变量和友好方法。<br>这种变量和方法的可见性只允许同一包的其他类创建对象后可以用对象进行访问。<br><strong>在同一包中的前提下</strong> 在任何一个类中用一个类创建了一个对象，该对象能访问该类中的友好变量和方法，<br>否则不可见。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonFriend</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">set</span><span class="params">(<span class="type">int</span> x)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.x = x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">getX</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>当在同一个包里的时候，可见</p>
-<p><img src="9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%903.png" alt="友好属性"></p>
+<p><img src="9-四种访问权限/9-四种访问权限3.png" alt="友好属性"></p>
 <p>下面再另一个包中创建PersonFriend对象并试图访问：</p>
-<p><img src="9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%904.png" alt="友好属性"></p>
+<p><img src="9-四种访问权限/9-四种访问权限4.png" alt="友好属性"></p>
 <p>可以发现，无法进行访问。</p>
-<h2><span id="14受保护protected">1.4.受保护(protected)</span></h2>
-<h3><span id="141-受保护的变量和方法">1.4.1 受保护的变量和方法</span></h3>
-<p>用protected修饰的成员变量和方法被称为受保护的成员变量和方法。<br>
-当在另外一个类中用一个类创建了一个对象后，如果两个类在同一包中，<br>
-那么该对象可以访问该类的protected变量和方法，否则不可见。</p>
+<h2><span id="14受保护protected">1.4.受保护(protected)</span></h2><h3><span id="141-受保护的变量和方法">1.4.1 受保护的变量和方法</span></h3><p>用protected修饰的成员变量和方法被称为受保护的成员变量和方法。<br>当在另外一个类中用一个类创建了一个对象后，如果两个类在同一包中，<br>那么该对象可以访问该类的protected变量和方法，否则不可见。</p>
 <p><strong>大家可能会有一个疑惑：友好和受保护的用法好像相同，其实他们还是有差别的</strong></p>
 <ul>
 <li>子类和父类在同一包中的继承性：除了private成员变量和方法，其他的都继承了。</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonExtend</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> y;</span><br><span class="line">    <span class="type">int</span> z;</span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> n;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonSon</span> <span class="keyword">extends</span> <span class="title class_">PersonExtend</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%905.png" alt="受保护属性"></p>
+<p><img src="9-四种访问权限/9-四种访问权限5.png" alt="受保护属性"></p>
 <p>可以看到，除了私有变量y，其他的都继承了。</p>
 <ul>
-<li>子类和父类不在同一包中：子类只继承父类的protected和public成员，友好成员不继承了。<br>
-（这里protected和友好类的差别出现了）</li>
+<li>子类和父类不在同一包中：子类只继承父类的protected和public成员，友好成员不继承了。<br>（这里protected和友好类的差别出现了）</li>
 </ul>
 <p>这里将父类和子类放在不同的包中：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> exa09;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonExtend</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> y;</span><br><span class="line">    <span class="type">int</span> z;</span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> exa08;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> exa09.PersonExtend;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonSon</span> <span class="keyword">extends</span> <span class="title class_">PersonExtend</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/9-%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%906.png" alt="受保护属性"></p>
+<p><img src="9-四种访问权限/9-四种访问权限6.png" alt="受保护属性"></p>
 <p>这里可以看到，这时只继承了protected和public的变量。</p>
-<h1><span id="2四种修饰符的差异">2.四种修饰符的差异</span></h1>
-<p>类声明时，如果在关键字class前加上public关键字，我们称为public类，不加则是友好类。<br>
-我们可以在任何另外一个类中使用public类创建对象，但要在另一个类中用友好类创建对象时，<br>
-必须要保证它们在同一包中。</p>
+<h1><span id="2四种修饰符的差异">2.四种修饰符的差异</span></h1><p>类声明时，如果在关键字class前加上public关键字，我们称为public类，不加则是友好类。<br>我们可以在任何另外一个类中使用public类创建对象，但要在另一个类中用友好类创建对象时，<br>必须要保证它们在同一包中。</p>
 <p>下面是访问修饰符修饰的变量或方法在不同范围的权限列表：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -399,8 +374,8 @@
 </tr>
 </tbody>
 </table>
-<p>代码地址：<br>
-<a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa09">https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa09</a></p>
+</div>
+<p>代码地址：<br><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa09">https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa09</a></p>
 
                 
                 <hr>
@@ -680,23 +655,6 @@
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
-</script>
 </body>
 
 </html>

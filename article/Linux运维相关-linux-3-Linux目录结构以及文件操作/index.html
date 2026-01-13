@@ -297,16 +297,12 @@
 				
                 <p>1.Linux系统中的文件组织目录结构</p>
 <p>Linux系统的文件组织遵循FHS标准：</p>
-<p>FHS定义了两层规范，<br>
-第一层是，/ 下面的各个目录应该要放什么数据，例如/etc 应该放置设置文件，/bin与/sbin则应该放置可执行文件等。<br>
-第二层是针对/usr及/var这两个目录的子目录来定义。例如/var/log放置系统日志文件，/usr/share放置共享数据文件等等。<br>
-fhs-3.0.pdf (<a href="http://linuxfoundation.org">linuxfoundation.org</a>)</p>
+<p>FHS定义了两层规范，<br>第一层是，/ 下面的各个目录应该要放什么数据，例如/etc 应该放置设置文件，/bin与/sbin则应该放置可执行文件等。<br>第二层是针对/usr及/var这两个目录的子目录来定义。例如/var/log放置系统日志文件，/usr/share放置共享数据文件等等。<br>fhs-3.0.pdf (linuxfoundation.org)</p>
 <p>2.Linux中的绝对路径和相对路径</p>
-<p>cd 命令用来切换路径<br>
-当前目录  .</p>
-<p>上一级目录 …</p>
+<p>cd 命令用来切换路径<br>当前目录  .</p>
+<p>上一级目录 ..</p>
 <p>home目录 ~</p>
-<p>相对路径 cd …/</p>
+<p>相对路径 cd ../</p>
 <p>绝对路径 cd /home/shiyanlou</p>
 <p>3.Linux系统中对文件的移动，复制，重命名,查阅</p>
 <p>新建空白文件 touch file</p>
@@ -329,10 +325,8 @@ fhs-3.0.pdf (<a href="http://linuxfoundation.org">linuxfoundation.org</a>)</p>
 <p>动态只查看文件最后几行  tail -n 10 -f file</p>
 <p>查看文件类型 file filename</p>
 <p>4.Linux文件编辑</p>
-<p>文件编辑命令 vim file<br>
-I 插入  esc 退出插入模式  :wq 保存并退出</p>
-<p>这个需要学习的话，可以使用vimtutor命令进入学习界面<br>
-vimtutor</p>
+<p>文件编辑命令 vim file<br>I 插入  esc 退出插入模式  :wq 保存并退出</p>
+<p>这个需要学习的话，可以使用vimtutor命令进入学习界面<br>vimtutor</p>
 
                 
                 <hr>
@@ -340,12 +334,12 @@ vimtutor</p>
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/article/Linux运维相关-linux-1-Linux入门命令-快捷键/" data-toggle="tooltip" data-placement="top" title="docker日志清理">&larr; 上一篇</a>
+                            <a href="/article/Linux运维相关-linux-2-Linux用户及文件权限/" data-toggle="tooltip" data-placement="top" title="docker日志清理">&larr; 上一篇</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/article/Linux运维相关-linux-2-Linux用户及文件权限/" data-toggle="tooltip" data-placement="top" title="docker日志清理">下一篇 &rarr;</a>
+                            <a href="/article/Java技术体系-Java进阶-1-Java进阶之文件操作入门/" data-toggle="tooltip" data-placement="top" title="1.Java进阶之文件操作入门">下一篇 &rarr;</a>
                         </li>
                     
                 </ul>
@@ -612,23 +606,6 @@ vimtutor</p>
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
-</script>
 </body>
 
 </html>

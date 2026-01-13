@@ -304,59 +304,29 @@
                 <p>AID的目的就是C(一致性)</p>
 <p>ANSI SQL标准定义的四个隔离级别分别为：</p>
 <ul>
-<li>
-<p>READ UNCOMMITTED 读未提交：就是不同事务之间所有状态下对数据是完全相互可见的，事务B可以见到事务A对某张表做的任何操作，在这种隔离性下的安全性非常低。</p>
-</li>
-<li>
-<p>READ COMMITTED 读已提交：事务A只能看到事务B提交后的操作。这种隔离级别下的安全性相比前者好一点。</p>
-</li>
-<li>
-<p>REPEATABLE READ 可重复读：目前MySQL InnoDB默认的事务隔离级别。</p>
-</li>
-<li>
-<p>SERIALIZABLE 串行化：安全级别最大，但性能上会有损失，由于可重复读已经达到3°隔离，所以本地事务一般不用这个隔离级别，串行化的隔离级别主要用于innoDB的分布式事务中。</p>
-</li>
+<li>READ UNCOMMITTED 读未提交：就是不同事务之间所有状态下对数据是完全相互可见的，事务B可以见到事务A对某张表做的任何操作，在这种隔离性下的安全性非常低。</li>
 </ul>
-<h2><span id="1不同事务隔离级别对锁的支持">1.不同事务隔离级别对锁的支持</span></h2>
-<h3><span id="11-读未提交脏读">1.1 读未提交（脏读）</span></h3>
-<p>查询数据时不加锁，更新数据也不加锁，正因为这样，其他事务之间才能做到读未提交。</p>
-<h3><span id="12-读已提交不可重复读">1.2 读已提交（不可重复读）</span></h3>
-<p>在读已提交隔离级别下，数据的读写添加了行级锁，除了唯一性的约束检查以及外键约束的检查需要Gap Lock（间隙锁），其他情况下InnoDB存储引擎不会使用Gap Lock锁。</p>
-<h3><span id="13-可重复读">1.3 可重复读</span></h3>
-<p>查询数据时，使用Next-key Lock锁避免幻读(多读)情况。</p>
-<h3><span id="14-串行化">1.4 串行化</span></h3>
-<p>在串行化的隔离级别下，InnoDB会对每个查询语句后自动加上 LOCK IN SHARE MODE（共享锁）。</p>
-<h2><span id="2不同事务隔离级别的优缺点">2.不同事务隔离级别的优缺点</span></h2>
-<h3><span id="1读未提交脏读">1）读未提交（脏读）</span></h3>
-<p>优点：暂时没有<br>
-缺点：由于事务中的修改对其他事务都是可见的，所以事务可以读取未提交的数据，如果那些未提交的数据最后回滚了，那么读到的数据就是脏数据，这会导致很多问题。</p>
-<h3><span id="2读已提交">2）读已提交</span></h3>
-<p>优点：相比于读未提交，它防止了脏读<br>
-缺点：虽然防止了脏读，但是，它无法避免一致性冲突问题，由于在读已提交隔离性下，一个事务开始时，只能看见已经提交的事务所做的修改<br>
-所以同一个事务执行两次相同的查询时会发生两次查询的结果不一致的情况。</p>
-<h3><span id="3可重复读">3）可重复读</span></h3>
-<p>优点：防止脏读，一致性冲突问题<br>
-缺点：虽然防止了一致性冲突，但是它无法防止下面的情况：同一个事务中第一次查询时，符合条件的数据有2条，过了一段时间，其他事务插入了一条相同查询条件的数据并提交了，<br>
-那么当再次查询时，会查到三条数据，这显然是不对的（幻读）。<br>
-注意：但MySQL的InnoDB存储引擎通过MVCC防止了幻读的产生，所以在MySQL中，可重复读已经完全具备ACID特性。</p>
-<h3><span id="4串行化">4）串行化</span></h3>
-<p>优点：最高的事务隔离级别，安全性最高<br>
-缺点：串行化下的事务会在读取的每一行数据上都加锁，这会导致开销相比前面而言增大了许多。</p>
+<ul>
+<li>READ COMMITTED 读已提交：事务A只能看到事务B提交后的操作。这种隔离级别下的安全性相比前者好一点。</li>
+</ul>
+<ul>
+<li>REPEATABLE READ 可重复读：目前MySQL InnoDB默认的事务隔离级别。</li>
+</ul>
+<ul>
+<li>SERIALIZABLE 串行化：安全级别最大，但性能上会有损失，由于可重复读已经达到3°隔离，所以本地事务一般不用这个隔离级别，串行化的隔离级别主要用于innoDB的分布式事务中。</li>
+</ul>
+<h2><span id="1不同事务隔离级别对锁的支持">1.不同事务隔离级别对锁的支持</span></h2><h3><span id="11-读未提交脏读">1.1 读未提交（脏读）</span></h3><p>查询数据时不加锁，更新数据也不加锁，正因为这样，其他事务之间才能做到读未提交。</p>
+<h3><span id="12-读已提交不可重复读">1.2 读已提交（不可重复读）</span></h3><p>在读已提交隔离级别下，数据的读写添加了行级锁，除了唯一性的约束检查以及外键约束的检查需要Gap Lock（间隙锁），其他情况下InnoDB存储引擎不会使用Gap Lock锁。</p>
+<h3><span id="13-可重复读">1.3 可重复读</span></h3><p>查询数据时，使用Next-key Lock锁避免幻读(多读)情况。</p>
+<h3><span id="14-串行化">1.4 串行化</span></h3><p>在串行化的隔离级别下，InnoDB会对每个查询语句后自动加上 LOCK IN SHARE MODE（共享锁）。</p>
+<h2><span id="2不同事务隔离级别的优缺点">2.不同事务隔离级别的优缺点</span></h2><h3><span id="1读未提交脏读">1）读未提交（脏读）</span></h3><p>优点：暂时没有<br>缺点：由于事务中的修改对其他事务都是可见的，所以事务可以读取未提交的数据，如果那些未提交的数据最后回滚了，那么读到的数据就是脏数据，这会导致很多问题。</p>
+<h3><span id="2读已提交">2）读已提交</span></h3><p>优点：相比于读未提交，它防止了脏读<br>缺点：虽然防止了脏读，但是，它无法避免一致性冲突问题，由于在读已提交隔离性下，一个事务开始时，只能看见已经提交的事务所做的修改<br>所以同一个事务执行两次相同的查询时会发生两次查询的结果不一致的情况。</p>
+<h3><span id="3可重复读">3）可重复读</span></h3><p>优点：防止脏读，一致性冲突问题<br>缺点：虽然防止了一致性冲突，但是它无法防止下面的情况：同一个事务中第一次查询时，符合条件的数据有2条，过了一段时间，其他事务插入了一条相同查询条件的数据并提交了，<br>那么当再次查询时，会查到三条数据，这显然是不对的（幻读）。<br>注意：但MySQL的InnoDB存储引擎通过MVCC防止了幻读的产生，所以在MySQL中，可重复读已经完全具备ACID特性。</p>
+<h3><span id="4串行化">4）串行化</span></h3><p>优点：最高的事务隔离级别，安全性最高<br>缺点：串行化下的事务会在读取的每一行数据上都加锁，这会导致开销相比前面而言增大了许多。</p>
 <p>下面的图可帮助理解（但和MySQL的隔离界别有一点差别的）：</p>
-<p>3.相关操作语句<br>
-1）在InnoDB存储引擎中，可以使用下面命令来设置当前会话或全局的事务隔离级别：<br>
-SET [GLOBAL|SESSION] TRANSACTION ISOLATION LEVEL<br>
-READ UNCOMMITTED|READ COMMITTED|REPEATABLE READ|SERIALIZABLE<br>
-2) 查询数据库当前的事务隔离级别<br>
-SELECT @@tx_isolation \G;//查看当前会话隔离级别<br>
-SELECT @@global.tx_isolation \G;//查看全局事务隔离级别</p>
-<p>4.上面提到的锁的知识<br>
-1）间隙锁<br>
-简单来说过，间隙锁其实就是对范围内的数据进行加锁来防止出现幻读的情况。</p>
-<p>2）Next-key Lock锁<br>
-他其实是间隙锁和行级锁的合称，它对应两种情况：<br>
-当进行范围查询时，使用间隙锁进行锁定范围数据。<br>
-当进行索引等值查询时，使用行级锁锁定数据。</p>
+<p>3.相关操作语句<br>1）在InnoDB存储引擎中，可以使用下面命令来设置当前会话或全局的事务隔离级别：<br>SET [GLOBAL|SESSION] TRANSACTION ISOLATION LEVEL<br>READ UNCOMMITTED|READ COMMITTED|REPEATABLE READ|SERIALIZABLE<br>2) 查询数据库当前的事务隔离级别<br>   SELECT @@tx_isolation \G;//查看当前会话隔离级别<br>   SELECT @@global.tx_isolation \G;//查看全局事务隔离级别</p>
+<p>4.上面提到的锁的知识<br>1）间隙锁<br>简单来说过，间隙锁其实就是对范围内的数据进行加锁来防止出现幻读的情况。</p>
+<p>2）Next-key Lock锁<br>他其实是间隙锁和行级锁的合称，它对应两种情况：<br>当进行范围查询时，使用间隙锁进行锁定范围数据。<br>当进行索引等值查询时，使用行级锁锁定数据。</p>
 
                 
                 <hr>
@@ -654,23 +624,6 @@ SELECT @@global.tx_isolation \G;//查看全局事务隔离级别</p>
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
-</script>
 </body>
 
 </html>

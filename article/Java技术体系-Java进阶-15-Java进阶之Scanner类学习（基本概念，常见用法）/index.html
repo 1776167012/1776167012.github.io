@@ -295,17 +295,10 @@
                 post-container">
 
 				
-                <h1><span id="1scanner基础学习">1.Scanner基础学习</span></h1>
-<h2><span id="11-scanner类是个什么类">1.1 Scanner类是个什么类？</span></h2>
-<p>其实这个类并不是一个输入类，只是我们初学的人把它的一种用法作为输入方法而已，从字面意思上来理解，它应该是个扫描类。<br>
-Java 8 API这样解释Scanner类：<br>
-一个简单的文本扫描器，可以使用正则表达式解析原始类型和字符串。</p>
-<h2><span id="12-构造方法学习">1.2 构造方法学习</span></h2>
-<p><a href="https://www.matools.com/api/java8">https://www.matools.com/api/java8</a><br>
-<strong>我们常用的Scanner in=new Scanner(<a href="http://System.in">System.in</a>);调用的就是Scanner(InputStream source)构造方法。</strong><br>
-通过对Scanner构造方法的学习，我们可以知道Scanner对象能对那些形式的信息进行扫描, Scanner中定义了很多类型的构造器，我们了解其中具有代表性的。</p>
+                <h1><span id="1scanner基础学习">1.Scanner基础学习</span></h1><h2><span id="11-scanner类是个什么类">1.1 Scanner类是个什么类？</span></h2><p>其实这个类并不是一个输入类，只是我们初学的人把它的一种用法作为输入方法而已，从字面意思上来理解，它应该是个扫描类。<br>Java 8 API这样解释Scanner类：<br>一个简单的文本扫描器，可以使用正则表达式解析原始类型和字符串。</p>
+<h2><span id="12-构造方法学习">1.2 构造方法学习</span></h2><p><a href="https://www.matools.com/api/java8">https://www.matools.com/api/java8</a><br><strong>我们常用的Scanner in=new Scanner(System.in);调用的就是Scanner(InputStream source)构造方法。</strong><br>通过对Scanner构造方法的学习，我们可以知道Scanner对象能对那些形式的信息进行扫描, Scanner中定义了很多类型的构造器，我们了解其中具有代表性的。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这里表示能对Reader，Buffer的信息进行处理</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Scanner</span><span class="params">(Readable source)</span></span><br><span class="line"><span class="comment">//扫描器将可以的对指定输入流中的信息进行处理</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Scanner</span><span class="params">(InputStream source)</span></span><br><span class="line"><span class="comment">//扫描器将可以的对指定输入流中的信息以指定字符集进行处理</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Scanner</span><span class="params">(InputStream source, String charsetName)</span></span><br><span class="line"><span class="comment">//扫描器能对File对象描述的文件中的信息以指定字符集进行处理</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Scanner</span><span class="params">(File source, String charsetName)</span></span><br><span class="line"><span class="comment">//扫描器也能对指定路径描述的文件信息进行处理</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Scanner</span><span class="params">(Path source)</span></span><br><span class="line"><span class="comment">//扫描器也能对指定字符串进行处理</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Scanner</span><span class="params">(String source)</span></span><br><span class="line"><span class="comment">//扫描器能对指定可读通道的信息进行处理</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Scanner</span><span class="params">(ReadableByteChannel source)</span></span><br></pre></td></tr></table></figure>
-<h2><span id="13-其他重要方法学习">1.3 其他重要方法学习</span></h2>
+<h2><span id="13-其他重要方法学习">1.3 其他重要方法学习</span></h2><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -315,67 +308,31 @@ Java 8 API这样解释Scanner类：<br>
 </thead>
 <tbody>
 <tr>
-<td>String	next()</td>
-<td>查找并返回此扫描仪的下一个完成匹配项。</td>
-</tr>
-<tr>
-<td>void	close()</td>
-<td>关闭此扫描器。</td>
-</tr>
-<tr>
-<td>boolean	hasNext()</td>
-<td>如果此扫描器在其输入中有下一个匹配项，则返回true。默认情况下匹配空格</td>
-</tr>
-<tr>
-<td>boolean	hasNext(String pattern)</td>
-<td>如果下一个匹配项遵守指定字符串构造的模式，则返回true。</td>
-</tr>
-<tr>
-<td>int	nextInt()</td>
-<td>扫描源的下一个int类型的数据</td>
-</tr>
-<tr>
-<td>int	radix()</td>
-<td>返回此扫描器的默认基数。</td>
-</tr>
-<tr>
-<td>String	toString()</td>
-<td>返回此 Scanner的字符串表示 。</td>
-</tr>
-<tr>
-<td>Scanner	useRadix(int radix)</td>
-<td>将此扫描器的默认基数设置为指定的基数。</td>
+<td></td>
 </tr>
 </tbody>
 </table>
+</div>
+<p>String    next() |查找并返回此扫描仪的下一个完成匹配项。<br>|void    close()  | 关闭此扫描器。 |<br>boolean    hasNext() |如果此扫描器在其输入中有下一个匹配项，则返回true。默认情况下匹配空格<br>boolean    hasNext(String pattern) |如果下一个匹配项遵守指定字符串构造的模式，则返回true。<br>int    nextInt() |扫描源的下一个int类型的数据<br>int    radix() |返回此扫描器的默认基数。<br>String    toString() |返回此 Scanner的字符串表示 。<br>Scanner    useRadix(int radix) |将此扫描器的默认基数设置为指定的基数。</p>
 <p>其他API方法大家可以查看API文档进行详细的学习。</p>
-<h1><span id="2scanner的用法">2.Scanner的用法</span></h1>
-<h2><span id="21常见用法">2.1.常见用法</span></h2>
-<h3><span id="211-输入流扫描">2.1.1 输入流扫描</span></h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> sc.nextInt();</span><br><span class="line">通过这种方式来实现数据的手动输入。</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Scanner输入流构造器学习</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">scannerInputStream</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> sc.nextInt();</span><br><span class="line">    System.out.println(<span class="string">&quot;你输入了:&quot;</span>+ i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1><span id="2scanner的用法">2.Scanner的用法</span></h1><h2><span id="21常见用法">2.1.常见用法</span></h2><h3><span id="211-输入流扫描">2.1.1 输入流扫描</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> sc.nextInt();</span><br><span class="line">通过这种方式来实现数据的手动输入。</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Scanner输入流构造器学习</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">scannerInputStream</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> sc.nextInt();</span><br><span class="line">    System.out.println(<span class="string">&quot;你输入了:&quot;</span>+ i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://img-blog.csdnimg.cn/a48970e471db4e6cbfb028ce1cd79ada.png" alt="在这里插入图片描述"></p>
 <p>通过查看构造方法我们知道它还可以用于文件扫描，路径扫描，字符串扫描，通道扫描。</p>
-<h3><span id="212-文件扫描">2.1.2 .文件扫描</span></h3>
-<p>用法如下：</p>
+<h3><span id="212-文件扫描">2.1.2 .文件扫描</span></h3><p>用法如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">File test=<span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;D:\\test.txt&quot;</span>);<span class="comment">//这里的路径就是文件的路径，可以用相对路径也可以用绝对路径</span></span><br><span class="line"> <span class="type">Scanner</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(test);<span class="comment">//这样in中存储的的就是test.txt文本的数据了</span></span><br><span class="line"> <span class="comment">//我们可以调用下面方法来对它进行操作</span></span><br><span class="line">  <span class="keyword">while</span> (in.hasNext())&#123;</span><br><span class="line">      <span class="type">String</span> <span class="variable">word</span> <span class="operator">=</span> in.next();</span><br><span class="line">      System.out.println(word);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <p>示例：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对File文件扫描</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> FileNotFoundException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">scannerFile</span><span class="params">()</span> <span class="keyword">throws</span> FileNotFoundException &#123;</span><br><span class="line">    <span class="comment">//这里的路径就是文件的路径，可以用相对路径也可以用绝对路径</span></span><br><span class="line">    <span class="type">File</span> <span class="variable">test</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;麻子.txt&quot;</span>);</span><br><span class="line">    <span class="comment">//这样in中存储的的就是麻子.txt文本的数据了</span></span><br><span class="line">    <span class="type">Scanner</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(test);</span><br><span class="line">    <span class="comment">//我们可以调用下面方法来对它进行操作</span></span><br><span class="line">    <span class="keyword">while</span> (in.hasNext())&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">word</span> <span class="operator">=</span> in.next();</span><br><span class="line">        System.out.print(word);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://img-blog.csdnimg.cn/7c93f015d6564cbcba1ed14f3deec905.png" alt="在这里插入图片描述"></p>
-<h3><span id="213-路径扫描path的路径设置相对文件扫描的设置显得麻烦许多">2.1.3 路径扫描，Path的路径设置相对文件扫描的设置显得麻烦许多</span></h3>
-<p>假设我们想要一个BufferedReader从文件test.txt中读取文件，该文件位于相对于当前工作目录的目录logs中，我们可以：</p>
+<h3><span id="213-路径扫描path的路径设置相对文件扫描的设置显得麻烦许多">2.1.3 路径扫描，Path的路径设置相对文件扫描的设置显得麻烦许多</span></h3><p>假设我们想要一个BufferedReader从文件test.txt中读取文件，该文件位于相对于当前工作目录的目录logs中，我们可以：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Path</span> <span class="variable">path</span> <span class="operator">=</span> FileSystems.getDefault().getPath(<span class="string">&quot;logs&quot;</span>,<span class="string">&quot;test.txt&quot;</span>);</span><br><span class="line">BufferedReader reader=Files.newBufferedReader(path);</span><br></pre></td></tr></table></figure>
-<p>从上面我们看出，它要求把路径分开输入，比较麻烦，所以还是用上面的方式简单点。<br>
-示例：</p>
+<p>从上面我们看出，它要求把路径分开输入，比较麻烦，所以还是用上面的方式简单点。<br>示例：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">scannerPath</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="type">Path</span> <span class="variable">path</span> <span class="operator">=</span> FileSystems.getDefault().getPath(<span class="string">&quot;麻子.txt&quot;</span>);</span><br><span class="line">    <span class="type">Scanner</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(path);</span><br><span class="line">    <span class="comment">//我们可以调用下面方法来对它进行操作</span></span><br><span class="line">    <span class="keyword">while</span> (in.hasNext())&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">word</span> <span class="operator">=</span> in.next();</span><br><span class="line">        System.out.print(word);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//BufferedReader reader = Files.newBufferedReader(path);</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://img-blog.csdnimg.cn/86cdd592afb54044b6bc799535ccbe82.png" alt="在这里插入图片描述"></p>
-<h3><span id="214-字符串扫描">2.1.4 字符串扫描</span></h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">scannerString</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">Scanner</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(<span class="string">&quot;we should working hard&quot;</span>);</span><br><span class="line">    <span class="comment">//我们可以调用下面方法来对它进行操作</span></span><br><span class="line">    <span class="keyword">while</span> (in.hasNext())&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">word</span> <span class="operator">=</span> in.next();</span><br><span class="line">        System.out.println(word);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="214-字符串扫描">2.1.4 字符串扫描</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">scannerString</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">Scanner</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(<span class="string">&quot;we should working hard&quot;</span>);</span><br><span class="line">    <span class="comment">//我们可以调用下面方法来对它进行操作</span></span><br><span class="line">    <span class="keyword">while</span> (in.hasNext())&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">word</span> <span class="operator">=</span> in.next();</span><br><span class="line">        System.out.println(word);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://img-blog.csdnimg.cn/ad253f65809d4fd7b3fced117f6b2230.png" alt="在这里插入图片描述"></p>
-<h3><span id="215-通道扫描">2.1.5 通道扫描</span></h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">scannerChannel</span><span class="params">()</span> <span class="keyword">throws</span> FileNotFoundException &#123;</span><br><span class="line">    <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;麻子.txt&quot;</span>);</span><br><span class="line">    <span class="type">FileInputStream</span> <span class="variable">fileInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(file);</span><br><span class="line">    <span class="type">Scanner</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(fileInputStream.getChannel());</span><br><span class="line">    <span class="keyword">while</span> (in.hasNext())&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">word</span> <span class="operator">=</span> in.next();</span><br><span class="line">        System.out.print(word);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="215-通道扫描">2.1.5 通道扫描</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">scannerChannel</span><span class="params">()</span> <span class="keyword">throws</span> FileNotFoundException &#123;</span><br><span class="line">    <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;麻子.txt&quot;</span>);</span><br><span class="line">    <span class="type">FileInputStream</span> <span class="variable">fileInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(file);</span><br><span class="line">    <span class="type">Scanner</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(fileInputStream.getChannel());</span><br><span class="line">    <span class="keyword">while</span> (in.hasNext())&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">word</span> <span class="operator">=</span> in.next();</span><br><span class="line">        System.out.print(word);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://img-blog.csdnimg.cn/93e11967993d43049876979f69d3ae0c.png" alt="在这里插入图片描述"></p>
-<h1><span id="3代码地址">3.代码地址</span></h1>
-<p><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Progress/exa33">Java基础学习/src/main/java/Progress/exa33 · 严家豆/Study - 码云 - 开源中国 (gitee.com)</a></p>
+<h1><span id="3代码地址">3.代码地址</span></h1><p><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Progress/exa33">Java基础学习/src/main/java/Progress/exa33 · 严家豆/Study - 码云 - 开源中国 (gitee.com)</a></p>
 
                 
                 <hr>
@@ -383,12 +340,12 @@ Java 8 API这样解释Scanner类：<br>
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/article/Java技术体系-Java进阶-13-2-Java进阶之lambda函数式接口/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">&larr; 上一篇</a>
+                            <a href="/article/Java技术体系-Java进阶-16-Java字符串之码点和代码单元/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">&larr; 上一篇</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/article/Java技术体系-Java进阶-16-Java字符串之码点和代码单元/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">下一篇 &rarr;</a>
+                            <a href="/article/Java技术体系-Java进阶-17-Java异常处理机制学习-基本概念及用法/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">下一篇 &rarr;</a>
                         </li>
                     
                 </ul>
@@ -655,23 +612,6 @@ Java 8 API这样解释Scanner类：<br>
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
-</script>
 </body>
 
 </html>

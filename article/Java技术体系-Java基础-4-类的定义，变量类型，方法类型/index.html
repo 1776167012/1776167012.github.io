@@ -295,24 +295,12 @@
                 post-container">
 
 				
-                <h1><span id="1类的概念">1.类的概念</span></h1>
-<p>类java是基本要素，非常重要，怎么理解类的概念呢？<br>
-如果将Java程序当作一个工厂的话，那么类就是工厂里的电子设备的设计图纸，<br>
-每个电子设备有其对应的属性和操作方法，而对象就是具体的电子设备，<br>
-操作设备的工人知道电子设备的属性和操作方法后才能利用电子设备进行工作。<br>
-换句话说，类是创建对象的蓝图，而对象就是类的具体展现。</p>
-<h2><span id="11-如何创建一个类">1.1 如何创建一个类</span></h2>
-<p>创建一个类需要的是用class关键字声明它，然后编写类体进行类的具体定义。</p>
+                <h1><span id="1类的概念">1.类的概念</span></h1><p>类java是基本要素，非常重要，怎么理解类的概念呢？<br>如果将Java程序当作一个工厂的话，那么类就是工厂里的电子设备的设计图纸，<br>每个电子设备有其对应的属性和操作方法，而对象就是具体的电子设备，<br>操作设备的工人知道电子设备的属性和操作方法后才能利用电子设备进行工作。<br>换句话说，类是创建对象的蓝图，而对象就是类的具体展现。</p>
+<h2><span id="11-如何创建一个类">1.1 如何创建一个类</span></h2><p>创建一个类需要的是用class关键字声明它，然后编写类体进行类的具体定义。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class 类名&#123;</span><br><span class="line">    </span><br><span class="line">       类体的内容</span><br><span class="line">&#125;                 </span><br></pre></td></tr></table></figure>
-<p>class是声明类的关键字，当我们声明一个类后，我们需要用一对花括号去定义一个类，<br>
-在花括号里编写java代码去定义一个类。<br>
-例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="12-如何定义一个类">1.2 如何定义一个类</span></h2>
-<p>在Java中，一个类的类体包括如下内容：变量，方法</p>
-<h3><span id="121变量">1.2.1变量</span></h3>
-<p>变量，就是存储数据的标识符，我们可以用基本的数据类型（或复杂的引用类型）去声明一个变量，<br>
-使其作为类定义的一部分。</p>
+<p>class是声明类的关键字，当我们声明一个类后，我们需要用一对花括号去定义一个类，<br>在花括号里编写java代码去定义一个类。<br>例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="12-如何定义一个类">1.2 如何定义一个类</span></h2><p>在Java中，一个类的类体包括如下内容：变量，方法</p>
+<h3><span id="121变量">1.2.1变量</span></h3><p>变量，就是存储数据的标识符，我们可以用基本的数据类型（或复杂的引用类型）去声明一个变量，<br>使其作为类定义的一部分。</p>
 <p>其中变量可分为：</p>
 <ul>
 <li>成员变量,实例变量：对象级别的变量 ,它随着对象的创建而创建，消亡而消亡</li>
@@ -321,74 +309,50 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">    <span class="type">int</span> age;<span class="comment">//实例变量</span></span><br><span class="line">    <span class="keyword">static</span> <span class="type">String</span> <span class="variable">type</span> <span class="operator">=</span> <span class="string">&quot;中国人&quot;</span>;<span class="comment">//类变量</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">    <span class="type">int</span> age;<span class="comment">//实例变量</span></span><br><span class="line">    <span class="keyword">static</span> <span class="type">String</span> <span class="variable">type</span> <span class="operator">=</span> <span class="string">&quot;中国人&quot;</span>;<span class="comment">//类变量</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">int</span> num;<span class="comment">//局部变量            </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3><span id="122-方法">1.2.2 方法</span></h3>
-<p>方法可分为：<strong>构造方法，实例方法，类方法（用static修饰的方法）</strong></p>
+<h3><span id="122-方法">1.2.2 方法</span></h3><p>方法可分为：<strong>构造方法，实例方法，类方法（用static修饰的方法）</strong></p>
 <ul>
-<li>
-<p>构造方法，用于构造对象的方法，在Java中默认提供无参构造方法，我们也可以自己编写构造方法。</p>
+<li><p>构造方法，用于构造对象的方法，在Java中默认提供无参构造方法，我们也可以自己编写构造方法。</p>
 </li>
-<li>
-<p>实例方法就是普通的方法，只有创建了类的实例对象，通过对象进行调用。</p>
+<li><p>实例方法就是普通的方法，只有创建了类的实例对象，通过对象进行调用。</p>
 </li>
-<li>
-<p>类方法是直接可以通过类名进行调用的方法。</p>
+<li><p>类方法是直接可以通过类名进行调用的方法。</p>
 </li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">    <span class="type">int</span> age;<span class="comment">//实例变量</span></span><br><span class="line">    <span class="keyword">static</span> <span class="type">String</span> <span class="variable">type</span> <span class="operator">=</span> <span class="string">&quot;中国人&quot;</span>;<span class="comment">//类变量</span></span><br><span class="line">    <span class="comment">//构造方法，注意它的写法</span></span><br><span class="line">    <span class="comment">//构造方法是一个类的必要属性之一</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Person</span><span class="params">()</span>&#123;            </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//实例方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">int</span> num;<span class="comment">//局部变量            </span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//类方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">method2</span><span class="params">()</span>&#123;</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1><span id="2对象">2.对象</span></h1>
-<p>通过类的学习，我们知道了类是构建对象的蓝图，下面我们学习如何使用类来构建对象并进行使用。</p>
-<p>语法如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">类名  对象名;</span><br><span class="line">对象名  = <span class="keyword">new</span> 类名();</span><br><span class="line"><span class="comment">//上面的是对象的创建，下面是对象的使用</span></span><br><span class="line">对象名.变量名</span><br><span class="line">对象名.方法()</span><br></pre></td></tr></table></figure>
+<h1><span id="2对象">2.对象</span></h1><p>通过类的学习，我们知道了类是构建对象的蓝图，下面我们学习如何使用类来构建对象并进行使用。</p>
+<p>语法如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">类名  对象名;</span><br><span class="line">对象名  = <span class="keyword">new</span> 类名();</span><br><span class="line"><span class="comment">//上面的是对象的创建，下面是对象的使用</span></span><br><span class="line">对象名.变量名</span><br><span class="line">对象名.方法()</span><br></pre></td></tr></table></figure></p>
 <p><strong>问：除了new的方式，还有那些方式可以得到一个实例对象？</strong></p>
 <ul>
 <li>clone方式（克隆）（原型模式，了解即可）</li>
 <li>newInstance方式(反射机制，了解即可)</li>
 <li>反序列化方式（序列化机制，了解即可）</li>
-<li>对于final类可以直接赋值得到，例如String直接就可以String s=“dfadf”</li>
+<li>对于final类可以直接赋值得到，例如String直接就可以String s=”dfadf”</li>
 <li>通过对象工厂获取（工厂模式，了解即可）</li>
 </ul>
 <p>这样我们就生成了一个对象实例。</p>
-<h1><span id="3类定义实例">3.类定义实例</span></h1>
-<p>下面我们写了一个名为Computer的类，然后在类ObjectStudy中用它生成了实例并使用实例对象达到我们的目的。</p>
+<h1><span id="3类定义实例">3.类定义实例</span></h1><p>下面我们写了一个名为Computer的类，然后在类ObjectStudy中用它生成了实例并使用实例对象达到我们的目的。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 此类展示对象操作。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ObjectStudy</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span>&#123;</span><br><span class="line">        <span class="type">Computer</span> <span class="variable">com</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Computer</span>();</span><br><span class="line">        <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">200</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> com.add(m,n);</span><br><span class="line">        result = com.add(<span class="number">120</span>+m,n*<span class="number">10</span>+<span class="number">8</span>);</span><br><span class="line">        System.out.println(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Computer</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x+y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2228</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
-<h1><span id="4理解类和对象的关系">4.理解类和对象的关系</span></h1>
-<h2><span id="41一个java程序和类之间的关系">4.1.一个java程序和类之间的关系</span></h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">JavaApplication--&gt;mainClass</span><br><span class="line">mainClass--&gt;method</span><br><span class="line">mainClass--&gt;filed</span><br><span class="line">JavaApplication--&gt;Class1</span><br><span class="line">Class1--&gt;method1</span><br><span class="line">Class1--&gt;filed1</span><br><span class="line">JavaApplication--&gt;Class2</span><br><span class="line">Class2--&gt;method2</span><br><span class="line">Class2--&gt;filed2</span><br></pre></td></tr></table></figure>
-<p>我自己的理解来看：<br>
-如果把java程序看做一个工厂的话，类就是工厂里的电子设备的设计图纸，电子设备有其对应的属性和操作方法，<br>
-而对象就是电子设备的实体，控制设备的工人知道电子设备的属性和操作方法后才能利用电子设备可以生产出产品。</p>
-<h1><span id="5细节知识分析">5.细节知识分析</span></h1>
-<h2><span id="51类与类的关系">5.1.类与类的关系</span></h2>
-<p>我个人认为类分为主类和子附属类(相当于一个公司的boss和员工，而这个关系是逐级递分的，<br>
-就是说子附属类的下级可以有子子附属类），主类是最终要运行的那个类，它一般是决策类。<br>
-主类和其子类的组成的工程的类层次结构。</p>
-<h2><span id="52变量和变量区别">5.2.变量和变量区别</span></h2>
-<ul>
+<p>运行结果：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2228</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure></p>
+<h1><span id="4理解类和对象的关系">4.理解类和对象的关系</span></h1><h2><span id="41一个java程序和类之间的关系">4.1.一个java程序和类之间的关系</span></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">JavaApplication--&gt;mainClass</span><br><span class="line">mainClass--&gt;method</span><br><span class="line">mainClass--&gt;filed</span><br><span class="line">JavaApplication--&gt;Class1</span><br><span class="line">Class1--&gt;method1</span><br><span class="line">Class1--&gt;filed1</span><br><span class="line">JavaApplication--&gt;Class2</span><br><span class="line">Class2--&gt;method2</span><br><span class="line">Class2--&gt;filed2</span><br></pre></td></tr></table></figure>
+<p>我自己的理解来看：<br>如果把java程序看做一个工厂的话，类就是工厂里的电子设备的设计图纸，电子设备有其对应的属性和操作方法，<br>而对象就是电子设备的实体，控制设备的工人知道电子设备的属性和操作方法后才能利用电子设备可以生产出产品。</p>
+<h1><span id="5细节知识分析">5.细节知识分析</span></h1><h2><span id="51类与类的关系">5.1.类与类的关系</span></h2><p>我个人认为类分为主类和子附属类(相当于一个公司的boss和员工，而这个关系是逐级递分的，<br>就是说子附属类的下级可以有子子附属类），主类是最终要运行的那个类，它一般是决策类。<br>主类和其子类的组成的工程的类层次结构。</p>
+<h2><span id="52变量和变量区别">5.2.变量和变量区别</span></h2><ul>
 <li>实例变量：简单来说就是方法外,类里声明的变量，它作用于对象级别</li>
 <li>局部变量：简单来说就是方法内声明的变量，它作用于方法级别</li>
 <li>类变量：用static修饰的方法外,类里声明的变量，它作用于类级别</li>
 </ul>
 <p><strong>在方法体里的局部变量优先级高于成员变量（如果出现局部变量和实例变量同名的情况）</strong></p>
-<h2><span id="53方法的区别">5.3.方法的区别</span></h2>
-<p>方法分为构造方法，实例方法，类方法：</p>
+<h2><span id="53方法的区别">5.3.方法的区别</span></h2><p>方法分为构造方法，实例方法，类方法：</p>
 <ul>
-<li>
-<p>构造方法：是类中的一种特殊的方法，当程序用类创建对象是需要使用它的构造方法。<br>
-构造方法没有类型，它的名字和其类名完全相同。如果没有写，编译器会自动给一个空的构造方法。</p>
+<li><p>构造方法：是类中的一种特殊的方法，当程序用类创建对象是需要使用它的构造方法。<br>构造方法没有类型，它的名字和其类名完全相同。如果没有写，编译器会自动给一个空的构造方法。</p>
 </li>
-<li>
-<p>实例方法：实例方法具有入参，出参，方法名等结构，它代表一个实例的能力，通常用来定义业务处理逻辑。</p>
+<li><p>实例方法：实例方法具有入参，出参，方法名等结构，它代表一个实例的能力，通常用来定义业务处理逻辑。</p>
 </li>
-<li>
-<p>类方法：类方法就是用static修饰的实例方法，它代表一个类的能力，通常用来定义算法类的方法。</p>
+<li><p>类方法：类方法就是用static修饰的实例方法，它代表一个类的能力，通常用来定义算法类的方法。</p>
 </li>
 </ul>
-<h2><span id="54类方法和类变量的特点">5.4.类方法和类变量的特点</span></h2>
-<p>类方法和类变量拥有各自独自的内存空间，且只有一个。</p>
-<p>代码地址：<br>
-<a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa04">https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa04</a></p>
+<h2><span id="54类方法和类变量的特点">5.4.类方法和类变量的特点</span></h2><p>类方法和类变量拥有各自独自的内存空间，且只有一个。</p>
+<p>代码地址：<br><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa04">https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa04</a></p>
 <p>关于方法的具体分析在下一篇博客会详细说明。</p>
 
                 
@@ -665,23 +629,6 @@
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
-</script>
 </body>
 
 </html>

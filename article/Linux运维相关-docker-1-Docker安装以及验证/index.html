@@ -305,48 +305,28 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">&quot;registry-mirrors&quot;: [&quot;https://n6syp70m.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker restart</span><br></pre></td></tr></table></figure>
 <p>5.卸载docker</p>
-<p>删除安装包</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum remove docker-ce</span><br></pre></td></tr></table></figure>
+<p>删除安装包<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum remove docker-ce</span><br></pre></td></tr></table></figure></p>
 <p>删除镜像，容器，配置文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /var/lib/docker</span><br></pre></td></tr></table></figure>
-<h2><span id="docker-常用命令">docker 常用命令</span></h2>
-<h3><span id="查看docker中已经存在的镜像">查看docker中已经存在的镜像</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image ls</span><br></pre></td></tr></table></figure>
-<h3><span id="拉取镜像">拉取镜像</span></h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// pull后面的参数规则是软件名称:版本号</span><br><span class="line">docker image pull ubuntu:18.04</span><br></pre></td></tr></table></figure>
-<h3><span id="从镜像仓库中查找镜像">从镜像仓库中查找镜像</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search 镜像名称</span><br></pre></td></tr></table></figure>
-<h3><span id="设置镜像标签">设置镜像标签</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker tag 860c279d2fec runoob/centos:dev</span><br></pre></td></tr></table></figure>
-<h3><span id="删除镜像删除镜像前确保该镜像的所有容器以及删除">删除镜像（删除镜像前确保该镜像的所有容器以及删除）</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi 镜像名称</span><br></pre></td></tr></table></figure>
-<h3><span id="从镜像来启动并进入容器">从镜像来启动并进入容器</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container run -it ubuntu:18.04 /bin/bash</span><br></pre></td></tr></table></figure>
-<h3><span id="启动已经停止的容器">启动已经停止的容器</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start id</span><br></pre></td></tr></table></figure>
-<h3><span id="重启容器">重启容器</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart 容器id</span><br></pre></td></tr></table></figure>
-<h3><span id="启动容器后台运行">启动容器后台运行</span></h3>
-<p>docker run -itd --name 容器名称 镜像名称 /bin/bash</p>
-<h3><span id="退出容器">退出容器</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exit 停止容器并退出</span><br><span class="line">Ctrl + PQ 保持容器运行状态并退出</span><br></pre></td></tr></table></figure>
-<h3><span id="查看正在运行的容器">查看正在运行的容器</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker container ls</span><br><span class="line"></span><br><span class="line">docker ps</span><br></pre></td></tr></table></figure>
-<h3><span id="查看所有容器">查看所有容器</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker container ls -a</span><br><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
-<h3><span id="停止并杀死容器">停止并杀死容器</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker container stop ID //杀死容器</span><br><span class="line">docker container rm -f ID //删除容器</span><br></pre></td></tr></table></figure>
-<h3><span id="进入容器">进入容器</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it 容器id /bin/bash</span><br></pre></td></tr></table></figure>
-<h4><span id="导入和导出容器">导入和导出容器</span></h4>
-<p>导出容器到指定文件</p>
+<h2><span id="docker-常用命令">docker 常用命令</span></h2><h3><span id="查看docker中已经存在的镜像">查看docker中已经存在的镜像</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image ls</span><br></pre></td></tr></table></figure>
+<h3><span id="拉取镜像">拉取镜像</span></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// pull后面的参数规则是软件名称:版本号</span><br><span class="line">docker image pull ubuntu:18.04</span><br></pre></td></tr></table></figure>
+<h3><span id="从镜像仓库中查找镜像">从镜像仓库中查找镜像</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search 镜像名称</span><br></pre></td></tr></table></figure>
+<h3><span id="设置镜像标签">设置镜像标签</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker tag 860c279d2fec runoob/centos:dev</span><br></pre></td></tr></table></figure>
+<h3><span id="删除镜像删除镜像前确保该镜像的所有容器以及删除">删除镜像（删除镜像前确保该镜像的所有容器以及删除）</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi 镜像名称</span><br></pre></td></tr></table></figure>
+<h3><span id="从镜像来启动并进入容器">从镜像来启动并进入容器</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container run -it ubuntu:18.04 /bin/bash</span><br></pre></td></tr></table></figure>
+<h3><span id="启动已经停止的容器">启动已经停止的容器</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start id</span><br></pre></td></tr></table></figure>
+<h3><span id="重启容器">重启容器</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart 容器id</span><br></pre></td></tr></table></figure>
+<h3><span id="启动容器后台运行">启动容器后台运行</span></h3><p>docker run -itd —name 容器名称 镜像名称 /bin/bash</p>
+<h3><span id="退出容器">退出容器</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exit 停止容器并退出</span><br><span class="line">Ctrl + PQ 保持容器运行状态并退出</span><br></pre></td></tr></table></figure>
+<h3><span id="查看正在运行的容器">查看正在运行的容器</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker container ls</span><br><span class="line"></span><br><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+<h3><span id="查看所有容器">查看所有容器</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker container ls -a</span><br><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+<h3><span id="停止并杀死容器">停止并杀死容器</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker container stop ID //杀死容器</span><br><span class="line">docker container rm -f ID //删除容器</span><br></pre></td></tr></table></figure>
+<h3><span id="进入容器">进入容器</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it 容器id /bin/bash</span><br></pre></td></tr></table></figure>
+<h4><span id="导入和导出容器">导入和导出容器</span></h4><p>导出容器到指定文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker export 容器id &gt; ubuntu.tar</span><br></pre></td></tr></table></figure>
-<p>导入容器快照</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat docker/name.tar | docker import - test/ubuntu:v1</span><br></pre></td></tr></table></figure>
-<p>也可以通过指定URL或者某个目录导入</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker import http://example.com/examplimage.tgz example/imagerepo</span><br></pre></td></tr></table></figure>
-<h3><span id="导出指定容器的日志">导出指定容器的日志</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs --since=&#x27;2023-06-08T17:00:00&#x27; --until=&#x27;2023-06-08T17:20:00&#x27; containerName &gt;&gt; db/0421.log</span><br></pre></td></tr></table></figure>
+<p>导入容器快照<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat docker/name.tar | docker import - test/ubuntu:v1</span><br></pre></td></tr></table></figure></p>
+<p>也可以通过指定URL或者某个目录导入<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker import http://example.com/examplimage.tgz example/imagerepo</span><br></pre></td></tr></table></figure></p>
+<h3><span id="导出指定容器的日志">导出指定容器的日志</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs --since=&#x27;2023-06-08T17:00:00&#x27; --until=&#x27;2023-06-08T17:20:00&#x27; containerName &gt;&gt; db/0421.log</span><br></pre></td></tr></table></figure>
 
                 
                 <hr>
@@ -359,7 +339,7 @@
                     
                     
                         <li class="next">
-                            <a href="/article/Linux运维相关-linux-1-Linux入门命令-快捷键/" data-toggle="tooltip" data-placement="top" title="docker日志清理">下一篇 &rarr;</a>
+                            <a href="/article/Linux运维相关-docker-3-docker日志清理/" data-toggle="tooltip" data-placement="top" title="docker日志清理">下一篇 &rarr;</a>
                         </li>
                     
                 </ul>
@@ -626,23 +606,6 @@
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
-</script>
 </body>
 
 </html>

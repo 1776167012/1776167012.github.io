@@ -295,51 +295,30 @@
                 post-container">
 
 				
-                <h1><span id="1方法引用">1.方法引用</span></h1>
-<h2><span id="11-复用已有方法传递lambda">1.1 复用已有方法传递lambda</span></h2>
-<p>有时我们可能已经有现成的方法可以完成你想要传递到其他代码的某个动作。<br>
-例如：假设我们只希望只要出现一个定时器事件就打印这个事件的对象。<br>
-为此我们可以调用：</p>
+                <h1><span id="1方法引用">1.方法引用</span></h1><h2><span id="11-复用已有方法传递lambda">1.1 复用已有方法传递lambda</span></h2><p>有时我们可能已经有现成的方法可以完成你想要传递到其他代码的某个动作。<br>例如：假设我们只希望只要出现一个定时器事件就打印这个事件的对象。<br>为此我们可以调用：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Timer</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Timer</span>(<span class="number">1000</span>,event-&gt;System.out.println(event));</span><br></pre></td></tr></table></figure>
-<p>但有咩有什么方法可以直接把println方法传递到Timer构造器呢？<br>
-答案是有：</p>
+<p>但有咩有什么方法可以直接把println方法传递到Timer构造器呢？<br>答案是有：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Timer</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Timer</span>(<span class="number">1000</span>,System.out::Println);<span class="comment">//等价于上面的语句</span></span><br></pre></td></tr></table></figure>
 <p>演示</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 这里的：(event)-&gt;System.out.println(event) 等价于</span></span><br><span class="line"><span class="comment"> * System.out::println</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">methodReference</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">Timer</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Timer</span>(<span class="number">1000</span>, (event)-&gt;System.out.println(event));</span><br><span class="line">    t.start();</span><br><span class="line">    <span class="comment">//这里我们看到了：：的使用</span></span><br><span class="line">    <span class="comment">//等价于上面的语句,只不过是隐藏了参数</span></span><br><span class="line">    <span class="type">Timer</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Timer</span>(<span class="number">1000</span>,System.out::println);</span><br><span class="line">    t1.start();</span><br><span class="line"></span><br><span class="line">    JOptionPane.showMessageDialog(<span class="literal">null</span>,<span class="string">&quot;要退出吗?&quot;</span>);</span><br><span class="line">    System.exit(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://img-blog.csdnimg.cn/0006f154c6024e6295abf440c0b3c19d.png" alt="在这里插入图片描述"></p>
-<h2><span id="12-操作符">1.2 : :操作符</span></h2>
-<p>从上面的例子我们可以看出，<strong>::操作符可以让我们调用已有的实现作为lambda表达式传入。</strong><br>
-：：操作符的使用场景主要有三种：</p>
-<h3><span id="121-objectinstancemethod">1.2.1 object::instanceMethod</span></h3>
-<p>其中object是类的实例，instanceMethod为实例方法。<br>
-通过这种方式传入的lambda表达式等价于提供方法参数的的表达式<br>
-例如：</p>
+<h2><span id="12-操作符">1.2 : :操作符</span></h2><p>从上面的例子我们可以看出，<strong>::操作符可以让我们调用已有的实现作为lambda表达式传入。</strong><br>：：操作符的使用场景主要有三种：</p>
+<h3><span id="121-objectinstancemethod">1.2.1 object::instanceMethod</span></h3><p>其中object是类的实例，instanceMethod为实例方法。<br>通过这种方式传入的lambda表达式等价于提供方法参数的的表达式<br>例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out::println等价于x-&gt;System.out.println(x)</span><br></pre></td></tr></table></figure>
-<h3><span id="122-classstaticmethod">1.2.2 Class::staticMethod</span></h3>
-<p>其中Class为类引用，staticMethod为静态方法。<br>
-方法的引用等价于提供方法参数的lambda表达式,例如：</p>
+<h3><span id="122-classstaticmethod">1.2.2 Class::staticMethod</span></h3><p>其中Class为类引用，staticMethod为静态方法。<br>方法的引用等价于提供方法参数的lambda表达式,例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out::println等价于x-&gt;System.out.println(x)</span><br><span class="line">Math::pow等价于(x,y)-&gt;Math.pow(x,y)</span><br></pre></td></tr></table></figure>
-<h3><span id="123-classinstancemethod">1.2.3 Class::instanceMethod</span></h3>
-<p>第三种情况中，第一个参数会成为方法的目标。<br>
-例如：</p>
+<h3><span id="123-classinstancemethod">1.2.3 Class::instanceMethod</span></h3><p>第三种情况中，第一个参数会成为方法的目标。<br>例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String::compareToIgnoreCase等价于(x,y)-&gt;x.compareToIgnoreCase(y)</span><br></pre></td></tr></table></figure>
-<h2><span id="13-构造器引用">1.3 构造器引用</span></h2>
-<p>构造器引用与方法引用很类似，只不过方法名为new。<br>
-例如：Person::new 是Person构造器的引用。</p>
-<h1><span id="2变量作用域">2.变量作用域</span></h1>
-<p>有时候，我们希望能够在lambda表达式中访问外围方法或类中的变量。<br>
-那么这个时候我们需要知道一些知识点。</p>
-<h2><span id="21-lambda表达式引用外围变量">2.1 lambda表达式引用外围变量</span></h2>
-<ul>
+<h2><span id="13-构造器引用">1.3 构造器引用</span></h2><p>构造器引用与方法引用很类似，只不过方法名为new。<br>例如：Person::new 是Person构造器的引用。</p>
+<h1><span id="2变量作用域">2.变量作用域</span></h1><p>有时候，我们希望能够在lambda表达式中访问外围方法或类中的变量。<br>那么这个时候我们需要知道一些知识点。</p>
+<h2><span id="21-lambda表达式引用外围变量">2.1 lambda表达式引用外围变量</span></h2><ul>
 <li>引用值是一直不会改变的变量。</li>
 <li>在lambda表达式中声明一个与局部变量同名的参数或局部变量是不合法的。</li>
 </ul>
-<h2><span id="22-在lambda表达式中使用this关键字时是指创建这个lambda表达式的this参数">2.2 在lambda表达式中使用this关键字时，是指创建这个lambda表达式的this参数。</span></h2>
-<p>例如：</p>
+<h2><span id="22-在lambda表达式中使用this关键字时是指创建这个lambda表达式的this参数">2.2 在lambda表达式中使用this关键字时，是指创建这个lambda表达式的this参数。</span></h2><p>例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span>&#123;</span><br><span class="line">  ActionListener listener=event-&gt;&#123;</span><br><span class="line">    System.out.println(<span class="built_in">this</span>.toString());</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>表达式this.toString()会调用的是Application对象的toString方法。</strong></p>
-<h1><span id="3-代码仓库地址">3 代码仓库地址</span></h1>
-<p><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Progress/exa31_3">Java基础学习/src/main/java/Progress/exa31_3 · 严家豆/Study - 码云 - 开源中国 (gitee.com)</a></p>
+<h1><span id="3-代码仓库地址">3 代码仓库地址</span></h1><p><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Progress/exa31_3">Java基础学习/src/main/java/Progress/exa31_3 · 严家豆/Study - 码云 - 开源中国 (gitee.com)</a></p>
 
                 
                 <hr>
@@ -347,12 +326,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/article/Java技术体系-Java进阶-13-1-Java进阶之lambda表达式基本概念，语法/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">&larr; 上一篇</a>
+                            <a href="/article/Java技术体系-Java进阶-14-1-Java进阶之注解概念，工作原理/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">&larr; 上一篇</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/article/Java技术体系-Java进阶-13-2-Java进阶之lambda函数式接口/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">下一篇 &rarr;</a>
+                            <a href="/article/Java技术体系-Java进阶-16-Java字符串之码点和代码单元/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">下一篇 &rarr;</a>
                         </li>
                     
                 </ul>
@@ -619,23 +598,6 @@
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
-</script>
 </body>
 
 </html>

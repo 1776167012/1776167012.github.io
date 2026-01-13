@@ -295,29 +295,18 @@
                 post-container">
 
 				
-                <h1><span id="1什么是包package">1.什么是包？（package）</span></h1>
-<p>包是java语言管理类很有效的一个机制。<br>
-当两个源文件里包含名字相同的类，我们怎样才能区分这样的类，这就需要包了，<br>
-包名的目的就是有效的区分名字相同的类，当不同的源文件中的两个类名字相同时，<br>
-它们就可以通过隶属不同的包来相互区分。所以我认为包的主要作用是实现对类的分类。</p>
-<p><strong>包有助于我们项目的结构化，规范化。<br>
-因为如果一个复杂的项目的源代码文件都放在一个文件夹下，可控性会变得非常差。</strong></p>
-<h1><span id="2如何使用包import关键字">2.如何使用包（import关键字）</span></h1>
-<p>下面我使用IDEA演示：</p>
+                <h1><span id="1什么是包package">1.什么是包？（package）</span></h1><p>包是java语言管理类很有效的一个机制。<br>当两个源文件里包含名字相同的类，我们怎样才能区分这样的类，这就需要包了，<br>包名的目的就是有效的区分名字相同的类，当不同的源文件中的两个类名字相同时，<br>它们就可以通过隶属不同的包来相互区分。所以我认为包的主要作用是实现对类的分类。</p>
+<p><strong>包有助于我们项目的结构化，规范化。<br>因为如果一个复杂的项目的源代码文件都放在一个文件夹下，可控性会变得非常差。</strong></p>
+<h1><span id="2如何使用包import关键字">2.如何使用包（import关键字）</span></h1><p>下面我使用IDEA演示：</p>
 <p>首先写两个名字相同内容不同的类：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">People</span>&#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">f</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我是bao1的people&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">People</span>&#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">f</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我是bao2的people&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我们知道这两个类不能放在同一个包中（否则编译器会报错）<br>
-下面我们分别创建两个包，名字分别为bao1,bao2并且把这两个类分别放在两个包中：</p>
+<p>我们知道这两个类不能放在同一个包中（否则编译器会报错）<br>下面我们分别创建两个包，名字分别为bao1,bao2并且把这两个类分别放在两个包中：</p>
 <p>于是问题又来啦，我们该如何使用它们呢？</p>
-<h1><span id="3import关键字">3.import关键字</span></h1>
-<p>这里就出现了一个import语句，这个语句可以让一个包中的类中可以使用另一个包中的类，怎么操作呢？下面继续：<br>
-我们在bao1中创建一个主类，在这个类中我们要对这两个名字相同的类操作的代码如下：</p>
+<h1><span id="3import关键字">3.import关键字</span></h1><p>这里就出现了一个import语句，这个语句可以让一个包中的类中可以使用另一个包中的类，怎么操作呢？下面继续：<br>我们在bao1中创建一个主类，在这个类中我们要对这两个名字相同的类操作的代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        Base.exa08.bao1.<span class="type">People</span> <span class="variable">speak</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Base</span>.exa08.bao1.People();</span><br><span class="line">        speak.f();</span><br><span class="line">        Base.exa08.bao2.<span class="type">People</span> <span class="variable">speaks</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Base</span>.exa08.bao2.People();</span><br><span class="line">        speaks.f();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>结果如下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">我是bao1的people</span><br><span class="line">我是bao2的people</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
-<p>对于import的用法是：<br>
-import 包路径.要引用的类;<br>
-<strong>如果要引用某个包中的全部类，可以用*来表示， *  代表全部。</strong></p>
+<p>对于import的用法是：<br>import 包路径.要引用的类;<br><strong>如果要引用某个包中的全部类，可以用<em>来表示， </em>  代表全部。</strong></p>
 
                 
                 <hr>
@@ -597,23 +586,6 @@ import 包路径.要引用的类;<br>
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
-</script>
 </body>
 
 </html>

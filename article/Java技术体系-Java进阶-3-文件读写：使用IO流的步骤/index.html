@@ -295,75 +295,45 @@
                 post-container">
 
 				
-                <h1><span id="1使用输入流的步骤">1.使用输入流的步骤</span></h1>
-<h2><span id="11使用输入流的4个基本步骤">1.1.使用输入流的4个基本步骤</span></h2>
-<ul>
+                <h1><span id="1使用输入流的步骤">1.使用输入流的步骤</span></h1><h2><span id="11使用输入流的4个基本步骤">1.1.使用输入流的4个基本步骤</span></h2><ul>
 <li>步骤1：设定输入流的源。(创建File对象或路径)</li>
 <li>步骤2：创建指向源的输入流。（创建指向 File对象|文件路径 的流对象(InputStream)）</li>
 <li>步骤3：让输入流读取源中的数据。（调用InputStream的read方法）</li>
 <li>步骤4：关闭输入流。（调用InputStream的close方法）</li>
 </ul>
-<h2><span id="12具体编码以fileinputstream为例">1.2.具体编码（以FileInputStream为例）</span></h2>
-<h3><span id="第一二步的实现">第一,二步的实现</span></h3>
-<h4><span id="fileinputstreamstring-name">FileInputStream(String name);</span></h4>
-<p>使用给定的文件名name创建一个FileInputStream流。其中name指向的文件与源代码文件所在的目录是并列关系</p>
-<h4><span id="fileinputstreamfile-file">FileInputStream(File file);</span></h4>
-<p>使用File对象创建一个输入流。</p>
+<h2><span id="12具体编码以fileinputstream为例">1.2.具体编码（以FileInputStream为例）</span></h2><h3><span id="第一二步的实现">第一,二步的实现</span></h3><h4><span id="fileinputstreamstring-name">FileInputStream(String name);</span></h4><p>使用给定的文件名name创建一个FileInputStream流。其中name指向的文件与源代码文件所在的目录是并列关系</p>
+<h4><span id="fileinputstreamfile-file">FileInputStream(File file);</span></h4><p>使用File对象创建一个输入流。</p>
 <p><strong>说明：上述两种方法中的参数name和file指定的文件称为输入流的源，输入流的作用是打开了一个到达文件的通道</strong></p>
 <p>用法如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line"> <span class="type">FileInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;hello.txt&quot;</span>); </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line"> System.out.println(<span class="string">&quot;File read error:&quot;</span>+e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>(第二种构造方法类似于上述)</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    File file=<span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;hello.txt&quot;</span>);</span><br><span class="line">    FileInputStream in=<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(file);</span><br><span class="line">&#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;File read error:&quot;</span>+e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3><span id="第三步让输入流读取源中的数据通过使用read方法实现">第三步：让输入流读取源中的数据：通过使用read方法实现</span></h3>
-<h4><span id="int-read">int read();</span></h4>
-<p>该方法从源中读取单个字节的数据，返回0~225之间的一个整数，如果未读出字节就返回-1，每调用一次，读取游标向后移动一位。</p>
-<h4><span id="int-readbyte-b">int read(byte b[]);</span></h4>
-<p>该方法从源中试图读取b.length个字节到字节数组b中，返回实际的读取字节数目。如果到达文件的末尾则返回-1.</p>
-<h4><span id="int-readbyte-b-int-offint-len">int read(byte b[] ,int off,int len);</span></h4>
-<p>该方法从源中试图读取len个字节到字节数组b中，并返回实际读取的字节数目。参数off指定从字节数组的某个位置开始存放读取的数据。如果到达文件的末尾，则返回-1.</p>
-<h3><span id="第四步关闭流">第四步：关闭流</span></h3>
-<h4><span id="close">close();</span></h4>
-<p>此方法为关闭流的方法。</p>
+<h3><span id="第三步让输入流读取源中的数据通过使用read方法实现">第三步：让输入流读取源中的数据：通过使用read方法实现</span></h3><h4><span id="int-read">int read();</span></h4><p>该方法从源中读取单个字节的数据，返回0~225之间的一个整数，如果未读出字节就返回-1，每调用一次，读取游标向后移动一位。</p>
+<h4><span id="int-readbyte-b">int read(byte b[]);</span></h4><p>该方法从源中试图读取b.length个字节到字节数组b中，返回实际的读取字节数目。如果到达文件的末尾则返回-1.</p>
+<h4><span id="int-readbyte-b-int-offint-len">int read(byte b[] ,int off,int len);</span></h4><p>该方法从源中试图读取len个字节到字节数组b中，并返回实际读取的字节数目。参数off指定从字节数组的某个位置开始存放读取的数据。如果到达文件的末尾，则返回-1.</p>
+<h3><span id="第四步关闭流">第四步：关闭流</span></h3><h4><span id="close">close();</span></h4><p>此方法为关闭流的方法。</p>
 <p><strong>注意：FileInputStream按顺序地读取文件，只要不关闭流，每次调用read方法就顺序地读取源中其余的内容直到源的末尾或被关闭。</strong></p>
-<h2><span id="13具体实例">1.3具体实例</span></h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 学习使用文件字节输入流的步骤</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">useDemo</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="comment">//1.创建文件源对象</span></span><br><span class="line">    <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;麻子.txt&quot;</span>);</span><br><span class="line">    <span class="comment">//2.创建文件字节输入流对象并指向文件源对象</span></span><br><span class="line">    <span class="type">InputStream</span> <span class="variable">fileStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(file);</span><br><span class="line">    <span class="comment">//3.让输入流读取源中的数据</span></span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">while</span> ((n=fileStream.read())!=-<span class="number">1</span>)&#123;</span><br><span class="line">        System.out.print((<span class="type">char</span>)n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//4.读取完毕，调用close方法关闭流，释放系统资源</span></span><br><span class="line">    fileStream.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行结果：(回想下这里为什么会出现乱码？)</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">å§å: å¼ éº»å­</span><br><span class="line">æ§å«ï¼ ç·</span><br><span class="line">å¹´é¾: 28</span><br><span class="line">èªæè¯ä»·ï¼ å¥½å¥½åå¥½å¥½å¥½å</span><br><span class="line">å¤§å­¦æç»©ï¼A A A</span><br><span class="line">æ¯ä¸é¢æ ¡: é»ååæ ¡</span><br><span class="line">è·å¾è¯ä¹¦ï¼æå¸èµæ ¼è¯, æå®è¯</span><br><span class="line">äººçæ ¼è¨: å¬å¹³ï¼å¬å¹³ï¼è¿æ¯tmçå¬å¹³</span><br><span class="line">ä¸ä¸ï¼æå«ä¸ä¸</span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
-<h1><span id="2输出流使用步骤">2.输出流使用步骤</span></h1>
-<h2><span id="21使用输出流的基本步骤">2.1.使用输出流的基本步骤</span></h2>
-<ul>
+<h2><span id="13具体实例">1.3具体实例</span></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 学习使用文件字节输入流的步骤</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">useDemo</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="comment">//1.创建文件源对象</span></span><br><span class="line">    <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;麻子.txt&quot;</span>);</span><br><span class="line">    <span class="comment">//2.创建文件字节输入流对象并指向文件源对象</span></span><br><span class="line">    <span class="type">InputStream</span> <span class="variable">fileStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(file);</span><br><span class="line">    <span class="comment">//3.让输入流读取源中的数据</span></span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">while</span> ((n=fileStream.read())!=-<span class="number">1</span>)&#123;</span><br><span class="line">        System.out.print((<span class="type">char</span>)n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//4.读取完毕，调用close方法关闭流，释放系统资源</span></span><br><span class="line">    fileStream.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：(回想下这里为什么会出现乱码？)<br><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">å§å: å¼ éº»å­</span><br><span class="line">æ§å«ï¼ ç·</span><br><span class="line">å¹´é¾: 28</span><br><span class="line">èªæè¯ä»·ï¼ å¥½å¥½åå¥½å¥½å¥½å</span><br><span class="line">å¤§å­¦æç»©ï¼A A A</span><br><span class="line">æ¯ä¸é¢æ ¡: é»ååæ ¡</span><br><span class="line">è·å¾è¯ä¹¦ï¼æå¸èµæ ¼è¯, æå®è¯</span><br><span class="line">äººçæ ¼è¨: å¬å¹³ï¼å¬å¹³ï¼è¿æ¯tmçå¬å¹³</span><br><span class="line">ä¸ä¸ï¼æå«ä¸ä¸</span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure></p>
+<h1><span id="2输出流使用步骤">2.输出流使用步骤</span></h1><h2><span id="21使用输出流的基本步骤">2.1.使用输出流的基本步骤</span></h2><ul>
 <li>步骤1：给出输出流的目的地。（创建file对象）</li>
 <li>步骤2：创建指向目的地的输出流。（创建输出流的对象指向file对象）</li>
 <li>步骤3：让输出流把数据写入到目的地。（调用write方法）</li>
 <li>步骤4：关闭输出流。（调用close方法）</li>
 </ul>
-<h2><span id="22具体编码以fileoutputstream为例">2.2.具体编码（以FileOutputStream为例）</span></h2>
-<h3><span id="1给出输出流的目的地">1.给出输出流的目的地</span></h3>
-<p>一般目的地为File对象或String对象指定路径的文件。</p>
-<h3><span id="2创建指向目的地的输出流">2.创建指向目的地的输出流</span></h3>
-<p>我们可以使用FileOutputStream类具有刷新功能的构造方法创建指向文件的输出流：</p>
-<h4><span id="fileoutputstreamstring-name">FileOutputStream(String name);</span></h4>
-<p>此方法使用给定的文件名name创建FileOutputStream流。其中name指向的文件与源代码文件所在的目录是并列关系</p>
-<h4><span id="fileoutputstreamfile-file">FileOutputStream(File file);</span></h4>
-<p>此方法使用File对象创建FileOutputStream流。</p>
+<h2><span id="22具体编码以fileoutputstream为例">2.2.具体编码（以FileOutputStream为例）</span></h2><h3><span id="1给出输出流的目的地">1.给出输出流的目的地</span></h3><p>一般目的地为File对象或String对象指定路径的文件。</p>
+<h3><span id="2创建指向目的地的输出流">2.创建指向目的地的输出流</span></h3><p>我们可以使用FileOutputStream类具有刷新功能的构造方法创建指向文件的输出流：</p>
+<h4><span id="fileoutputstreamstring-name">FileOutputStream(String name);</span></h4><p>此方法使用给定的文件名name创建FileOutputStream流。其中name指向的文件与源代码文件所在的目录是并列关系</p>
+<h4><span id="fileoutputstreamfile-file">FileOutputStream(File file);</span></h4><p>此方法使用File对象创建FileOutputStream流。</p>
 <p><strong>说明：上述两种方法中的参数name和file指定的文件称为输出流的目的地，输出流的作用是打开了一个到达文件的通道</strong></p>
-<h3><span id="3使用输出流写字节">3.使用输出流写字节</span></h3>
-<p>需要使用的方法：</p>
-<h4><span id="void-writeint-n">void write(int n);</span></h4>
-<p>该方法向目的地写入单个字节。</p>
-<h4><span id="void-writebyte-b">void write(byte b[]);</span></h4>
-<p>该方法向目的地写入一个字节数组。</p>
-<h4><span id="void-writebyte-bint-offint-len">void write(byte b[],int off,int len);</span></h4>
-<p>该方法给定字节数组中起始于偏移量off处取len个字节写到目的地。</p>
-<h3><span id="4关闭输出流">4.关闭输出流。</span></h3>
-<h4><span id="void-close">void close();</span></h4>
-<p><strong>注意：FileOutputStream流顺序地写入文件，只要不关闭流，每次调用write方法就顺序地向目的地写入内容，直到流被关闭</strong></p>
-<h2><span id="23-具体实例">2.3 具体实例</span></h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">useDemo</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="comment">//创建目的地</span></span><br><span class="line">    <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;四郎.txt&quot;</span>);</span><br><span class="line">    <span class="comment">//创建指向目的地的输出流</span></span><br><span class="line">    <span class="type">OutputStream</span> <span class="variable">outputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(file);</span><br><span class="line">    <span class="comment">//准备要写的数据</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;大家好，我是四郎，我喜欢麻子&quot;</span>;</span><br><span class="line">    <span class="comment">//调用write方法进行写入</span></span><br><span class="line">    outputStream.write(str.getBytes(StandardCharsets.UTF_8));</span><br><span class="line">    <span class="comment">//调用close方法关闭流</span></span><br><span class="line">    outputStream.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>生成的文件 四郎.txt的内容</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">大家好，我是四郎，我喜欢麻子</span><br></pre></td></tr></table></figure>
-<p>代码地址：<br>
-<a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Progress/exa21">Java基础学习/src/main/java/Progress/exa21 · 严家豆/Study - 码云 - 开源中国 (gitee.com)</a></p>
+<h3><span id="3使用输出流写字节">3.使用输出流写字节</span></h3><p>需要使用的方法：</p>
+<h4><span id="void-writeint-n">void write(int n);</span></h4><p>该方法向目的地写入单个字节。</p>
+<h4><span id="void-writebyte-b">void write(byte b[]);</span></h4><p>该方法向目的地写入一个字节数组。</p>
+<h4><span id="void-writebyte-bint-offint-len">void write(byte b[],int off,int len);</span></h4><p>该方法给定字节数组中起始于偏移量off处取len个字节写到目的地。</p>
+<h3><span id="4关闭输出流">4.关闭输出流。</span></h3><h4><span id="void-close">void close();</span></h4><p><strong>注意：FileOutputStream流顺序地写入文件，只要不关闭流，每次调用write方法就顺序地向目的地写入内容，直到流被关闭</strong></p>
+<h2><span id="23-具体实例">2.3 具体实例</span></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">useDemo</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="comment">//创建目的地</span></span><br><span class="line">    <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;四郎.txt&quot;</span>);</span><br><span class="line">    <span class="comment">//创建指向目的地的输出流</span></span><br><span class="line">    <span class="type">OutputStream</span> <span class="variable">outputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(file);</span><br><span class="line">    <span class="comment">//准备要写的数据</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;大家好，我是四郎，我喜欢麻子&quot;</span>;</span><br><span class="line">    <span class="comment">//调用write方法进行写入</span></span><br><span class="line">    outputStream.write(str.getBytes(StandardCharsets.UTF_8));</span><br><span class="line">    <span class="comment">//调用close方法关闭流</span></span><br><span class="line">    outputStream.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>生成的文件 四郎.txt的内容<br><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">大家好，我是四郎，我喜欢麻子</span><br></pre></td></tr></table></figure></p>
+<p>代码地址：<br><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Progress/exa21">Java基础学习/src/main/java/Progress/exa21 · 严家豆/Study - 码云 - 开源中国 (gitee.com)</a></p>
 
                 
                 <hr>
@@ -643,23 +613,6 @@
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
-</script>
 </body>
 
 </html>

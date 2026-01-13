@@ -295,46 +295,14 @@
                 post-container">
 
 				
-                <p>一.ArrayList属性了解<br>
-longserialVersionUID8683452581122892189L序列化编号intDEFAULT_CAPACITY10默认大小Object[]EMPTY_ELEMENTDATA{}空数组Object[]DEFAULTCAPACITY_EMPTY_ELEMENTDATA{}默认空数组Object[]elementDatanull元素数组intsize0元素个数</p>
-<p>二. ArrayList构造方法解析<br>
-1.ArrayList()<br>
-此构造方法很简单，直接将elementData置为{},也就是一个空数组.</p>
-<p>2.ArrayList(int initalCapacity)<br>
-此构造方法将判断initalCapacity是否合法，如果不合法(小于0)，则抛出非法异常。<br>
-合法则正常构建数组：<br>
-当initalCapacity==0 , elementData = { }<br>
-当initalCapacity&gt;0 ,  elementData = new Object[initalCapacity]</p>
-<p>3.ArrayList(Collection c)<br>
-此构造方法会将集合c中的元素复制一份存入elementData中。<br>
-逻辑如下：<br>
-首先将c转化为数组（调用toArray方法）并赋给elementData<br>
-然后判断c的大小是否不等于0，如果不等于0，则将其大小值赋给size，然后调用Arrays.copyOf方法重新开辟相同大小的Object数组空间，将elementData中的值复制到新Object数组中，并赋给elementData.<br>
-如果等于0，则还是elementData = { }</p>
-<p>三.ArrayList常用方法解析<br>
-1.add(Object obj)方法解析<br>
-每次进入add方法，都会为修改记录变量modCount增1，然后判断elementData的长度是否等于size（满了）<br>
-如果满了则需要进行扩容，扩容原则如下：<br>
-如果使用的是默认无参构造方法，size<em>1.5&lt;=size+1，则为elementData开辟10个对象空间。<br>
-如果使用的是指定数量的构造方法，size</em>1.5&lt;=size+1，则为elementData开辟size+1个对象空间。<br>
-如果在原数组的基础上增加了一半后大于size+1且小于MAX_ARRAY_SIZE,则将数组扩容至150%大小。<br>
-然后将就原数组里的元素移到新的大数组中，最后进行赋值操作，size加一。</p>
-<p>2.get(int index)方法解析<br>
-get方法根据index,得到elementData指定位置上的元素。<br>
-进入get方法，首先检查index, 如果index&lt;0或者index&gt;=size,则抛出数组越界异常。<br>
-如果正常，则返回elementData[index]元素的引用。</p>
-<p>3.remove(int index)方法解析<br>
-进入此方法首先进行index的合法性检查，检查没问题进入下一步，否则抛出异常。<br>
-然后把elementData的引用赋给临时不可变变量es上，接着取出index位置上的元素赋给oldValue<br>
-接着进入删除操作中，首先将修改次数modCount加一，然后声明一个newSize = size-1<br>
-如果要删除的位置小于size-1位置，则进行下面操作：将i+1到size-1的一组数移到i到size-2上，否则啥都不做<br>
-接着es[newSize] = null , size = newSize，这样就完成了删除指定位置的元素的操作。</p>
-<p>4.add(int index,Object obj)<br>
-首先对index进行合法性检查。<br>
-然后对修改记录数modCount进行加一操作。<br>
-然后判断当前elementData的size是否等于它的长度，如果等于，则进行扩容。<br>
-接着把index到size-1位置上的数往后移一位，紧接着 elementData[index] = obj<br>
-最后将size加一。</p>
+                <p>一.ArrayList属性了解<br>longserialVersionUID8683452581122892189L序列化编号intDEFAULT_CAPACITY10默认大小Object[]EMPTY_ELEMENTDATA{}空数组Object[]DEFAULTCAPACITY_EMPTY_ELEMENTDATA{}默认空数组Object[]elementDatanull元素数组intsize0元素个数</p>
+<p>二. ArrayList构造方法解析<br>1.ArrayList()<br>此构造方法很简单，直接将elementData置为{},也就是一个空数组.</p>
+<p>2.ArrayList(int initalCapacity)<br>此构造方法将判断initalCapacity是否合法，如果不合法(小于0)，则抛出非法异常。<br>合法则正常构建数组：<br>当initalCapacity==0 , elementData = { }<br>当initalCapacity&gt;0 ,  elementData = new Object[initalCapacity]</p>
+<p>3.ArrayList(Collection c)<br>此构造方法会将集合c中的元素复制一份存入elementData中。<br>逻辑如下：<br>首先将c转化为数组（调用toArray方法）并赋给elementData<br>然后判断c的大小是否不等于0，如果不等于0，则将其大小值赋给size，然后调用Arrays.copyOf方法重新开辟相同大小的Object数组空间，将elementData中的值复制到新Object数组中，并赋给elementData.<br>如果等于0，则还是elementData = { }</p>
+<p>三.ArrayList常用方法解析<br>1.add(Object obj)方法解析<br>每次进入add方法，都会为修改记录变量modCount增1，然后判断elementData的长度是否等于size（满了）<br>如果满了则需要进行扩容，扩容原则如下：<br>如果使用的是默认无参构造方法，size<em>1.5&lt;=size+1，则为elementData开辟10个对象空间。<br>如果使用的是指定数量的构造方法，size</em>1.5&lt;=size+1，则为elementData开辟size+1个对象空间。<br>如果在原数组的基础上增加了一半后大于size+1且小于MAX_ARRAY_SIZE,则将数组扩容至150%大小。<br>然后将就原数组里的元素移到新的大数组中，最后进行赋值操作，size加一。</p>
+<p>2.get(int index)方法解析<br>get方法根据index,得到elementData指定位置上的元素。<br>进入get方法，首先检查index, 如果index<0或者index>=size,则抛出数组越界异常。<br>如果正常，则返回elementData[index]元素的引用。</0或者index></p>
+<p>3.remove(int index)方法解析<br>进入此方法首先进行index的合法性检查，检查没问题进入下一步，否则抛出异常。<br>然后把elementData的引用赋给临时不可变变量es上，接着取出index位置上的元素赋给oldValue<br>接着进入删除操作中，首先将修改次数modCount加一，然后声明一个newSize = size-1<br>如果要删除的位置小于size-1位置，则进行下面操作：将i+1到size-1的一组数移到i到size-2上，否则啥都不做<br>接着es[newSize] = null , size = newSize，这样就完成了删除指定位置的元素的操作。</p>
+<p>4.add(int index,Object obj)<br>首先对index进行合法性检查。<br>然后对修改记录数modCount进行加一操作。<br>然后判断当前elementData的size是否等于它的长度，如果等于，则进行扩容。<br>接着把index到size-1位置上的数往后移一位，紧接着 elementData[index] = obj<br>最后将size加一。</p>
 
                 
                 <hr>
@@ -342,12 +310,12 @@ get方法根据index,得到elementData指定位置上的元素。<br>
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/article/Java技术体系-Java进阶-20-i-i-问题解析/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">&larr; 上一篇</a>
+                            <a href="/article/Java技术体系-Java进阶-13-1-Java进阶之lambda表达式基本概念，语法/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">&larr; 上一篇</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/article/Java技术体系-Java进阶-22-JDK源码之HashMap/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">下一篇 &rarr;</a>
+                            <a href="/article/Java技术体系-Java进阶-20-i-i-问题解析/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">下一篇 &rarr;</a>
                         </li>
                     
                 </ul>
@@ -614,23 +582,6 @@ get方法根据index,得到elementData指定位置上的元素。<br>
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
-</script>
 </body>
 
 </html>

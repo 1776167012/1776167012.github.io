@@ -295,73 +295,44 @@
                 post-container">
 
 				
-                <h1><span id="1程序设计的三大错误">1.程序设计的三大错误</span></h1>
-<h2><span id="11语法错误">1.1.语法错误</span></h2>
-<p>最低级错误，由编译器发现。这个错误就是你错误使用Java语法导致的编译失败，<br>
-这类错误一般在集成开发工具中编写代码的时候会有工具警告。</p>
+                <h1><span id="1程序设计的三大错误">1.程序设计的三大错误</span></h1><h2><span id="11语法错误">1.1.语法错误</span></h2><p>最低级错误，由编译器发现。这个错误就是你错误使用Java语法导致的编译失败，<br>这类错误一般在集成开发工具中编写代码的时候会有工具警告。</p>
 <p>例如：</p>
-<p><img src="16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%801.png" alt="IDEA自动报错"></p>
-<p>在编程中将String类型的数据赋值给int类型的变量，这明显是语法错误，所有开发工具给出了警告。<br>
-在使用集成开发工具进行编程的过程中，语法错误基本不会发生。</p>
-<h2><span id="12逻辑错误">1.2.逻辑错误</span></h2>
-<p>程序没有按照预期的方案执行。逻辑错误也称为小虫子（bugs）其查找和改正错误的过程称为调试（debugging）。<br>
-处理方法一般为缩小范围法。<br>
-根据具体的业务场景来定位具体的业务组件，然后一步一步的进行断点调试，最后定位问题所在。<br>
-这类错误的发生条件基于没有语法错误的情况下，程序运行过程中出现了与预期结果不符的情况，<br>
-这时这个情况的错误我们就称之为逻辑错误，这类错误是比较难处理的，它需要我们对业务有一定的熟悉度才能进行正确的解决。</p>
+<p><img src="16-程序设计的三大错误,异常类和断言/16-程序设计的三大错误,异常类和断言1.png" alt="IDEA自动报错"></p>
+<p>在编程中将String类型的数据赋值给int类型的变量，这明显是语法错误，所有开发工具给出了警告。<br>在使用集成开发工具进行编程的过程中，语法错误基本不会发生。</p>
+<h2><span id="12逻辑错误">1.2.逻辑错误</span></h2><p>程序没有按照预期的方案执行。逻辑错误也称为小虫子（bugs）其查找和改正错误的过程称为调试（debugging）。<br>处理方法一般为缩小范围法。<br>根据具体的业务场景来定位具体的业务组件，然后一步一步的进行断点调试，最后定位问题所在。<br>这类错误的发生条件基于没有语法错误的情况下，程序运行过程中出现了与预期结果不符的情况，<br>这时这个情况的错误我们就称之为逻辑错误，这类错误是比较难处理的，它需要我们对业务有一定的熟悉度才能进行正确的解决。</p>
 <p>例如：我们需要写一个程序用来两数之和，我们采用这种实现</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">byte</span> <span class="title function_">add</span><span class="params">(<span class="type">byte</span> a,<span class="type">byte</span> b)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="type">byte</span>) (a+b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>刚开始，我们可能觉得没啥问题，但是，如果我们这样使用：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">LogicError</span> <span class="variable">logicError</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">LogicError</span>();</span><br><span class="line">    <span class="type">byte</span> b=<span class="number">100</span>;</span><br><span class="line">    <span class="type">byte</span> c=<span class="number">100</span>;</span><br><span class="line">    System.out.println(<span class="string">&quot;100+100= &quot;</span>+logicError.add(b,c));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我们会发现，最后的结果和预期不一样：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">100+100= -56</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<p>我们会发现，最后的结果和预期不一样：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">100+100= -56</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure></p>
 <p>这就是很明显的逻辑错误了，我们用byte数据类型计算超过其运算范围的加法，就会出现得到的结果和预期的不一致的情况。</p>
 <p>这时候我们就可以修改程序来进行bug修复：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 逻辑错误</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LogicError</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a+b;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">LogicError</span> <span class="variable">logicError</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">LogicError</span>();</span><br><span class="line">        <span class="type">byte</span> b=<span class="number">100</span>;</span><br><span class="line">        <span class="type">byte</span> c=<span class="number">100</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;100+100= &quot;</span>+logicError.add(b,c));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="13运行错误">1.3.运行错误</span></h2>
-<p>如果环境发现了一个不可能执行的错误，就会出现。其处理方法就是异常和断言。<br>
-如果程序在运行中出现了错误导致程序异常中断，<br>
-一般这样的错误最常见的是空指针异常，数据越界，错误类型转换等等。</p>
+<h2><span id="13运行错误">1.3.运行错误</span></h2><p>如果环境发现了一个不可能执行的错误，就会出现。其处理方法就是异常和断言。<br>如果程序在运行中出现了错误导致程序异常中断，<br>一般这样的错误最常见的是空指针异常，数据越界，错误类型转换等等。</p>
 <p>例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 运行错误</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunError</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(Integer a,Integer b)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a+b;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">RunError</span> <span class="variable">logicError</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RunError</span>();</span><br><span class="line">        System.out.println(<span class="string">&quot;100+100= &quot;</span>+logicError.add(<span class="literal">null</span>,<span class="number">100</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.NullPointerException</span><br><span class="line">	at Base.exa16.RunError.addOne(RunError.java:10)</span><br><span class="line">	at Base.exa16.RunError.main(RunError.java:28)</span><br><span class="line"></span><br><span class="line">Process finished with exit code 1</span><br></pre></td></tr></table></figure>
-<h1><span id="2异常处理和断言">2.异常处理和断言</span></h1>
-<h2><span id="21try-catch语句处理异常">2.1.try-catch语句处理异常</span></h2>
-<p>Java使用try-catch语句来处理运行错误，就是将可能出现异常的操作语句放在try部分，<br>
-一旦try部分抛出异常（即在try里的某条语句发生了运行错误），那么try部分将立即结束，<br>
-转向执行异常处理器catch部分处理错误，try-catch语句可以由几个catch组成，分别处理发送的相应异常，</p>
+<p>运行结果：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.NullPointerException</span><br><span class="line">	at Base.exa16.RunError.addOne(RunError.java:10)</span><br><span class="line">	at Base.exa16.RunError.main(RunError.java:28)</span><br><span class="line"></span><br><span class="line">Process finished with exit code 1</span><br></pre></td></tr></table></figure></p>
+<h1><span id="2异常处理和断言">2.异常处理和断言</span></h1><h2><span id="21try-catch语句处理异常">2.1.try-catch语句处理异常</span></h2><p>Java使用try-catch语句来处理运行错误，就是将可能出现异常的操作语句放在try部分，<br>一旦try部分抛出异常（即在try里的某条语句发生了运行错误），那么try部分将立即结束，<br>转向执行异常处理器catch部分处理错误，try-catch语句可以由几个catch组成，分别处理发送的相应异常，</p>
 <p>例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">     包含的可能发送异常的语句</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">catch</span>(ExceptionSubClass1 e)&#123;</span><br><span class="line">      发生了ExceptionSubClass1异常后执行的语句</span><br><span class="line">  ....</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">catch</span>(ExceptionSubClass2 e)&#123;</span><br><span class="line">      发生了ExceptionSubClass2异常后执行的语句</span><br><span class="line">  ....</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>举个例子：<br>
-假如你是一个中学生，你想要偷偷去网吧上网，但你又还怕被逮到，可是你又很聪明， 你想到了几种办法来应对，</p>
+<p>举个例子：<br>假如你是一个中学生，你想要偷偷去网吧上网，但你又还怕被逮到，可是你又很聪明， 你想到了几种办法来应对，</p>
 <ul>
 <li>方法一：当你被老师抓到时，你会乖乖向老师认错，并求他不要告诉你父母。</li>
 <li>方法二：当你被父母抓到，你会转头就跑回家，疯狂做家务。</li>
 </ul>
-<p>在这个例子中，你去上网这个过程中可能不会出错，一切平安，也可能会出现错误，你为了处理可能出现的错误，<br>
-于是你想出了几个办法。<br>
-try-catch就是用来装这些的：</p>
+<p>在这个例子中，你去上网这个过程中可能不会出错，一切平安，也可能会出现错误，你为了处理可能出现的错误，<br>于是你想出了几个办法。<br>try-catch就是用来装这些的：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">        你去上网；</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">catch</span>(被老师抓住)&#123;</span><br><span class="line">      乖乖认错；</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">catch</span>(被父母抓住)&#123;</span><br><span class="line">      跑回家做家务；</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p>示例：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TryCatchStudy</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="type">int</span> i=<span class="number">0</span>/<span class="number">0</span>;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            System.out.println(<span class="string">&quot;发生了异常哦！！&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">java.lang.ArithmeticException: / by zero</span><br><span class="line">	at Base.exa16.TryCatchStudy.main(TryCatchStudy.java:9)</span><br><span class="line">发生了异常哦！！</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
-<h1><span id="2断言">2.断言</span></h1>
-<p>在一个具有自我保护能力的程序中，断言非常常用</p>
-<h2><span id="21-断言的定义">2.1 断言的定义</span></h2>
-<p>Java中提供了一种机制，让我们能在程序开发阶段尽可能全面的测试程序的稳定性，<br>
-同时能让我们在开发完成测试完成后不修改代码的基础上 <strong>注释掉测试语句</strong>，<br>
-从而不让测试语句影响程序运行效率。 这种机制，就是断言机制。断言机制相比于异常处理，<br>
-它提供了更为高效的异常处理机制(使我们有选择性的忽略某些检查代码提高运行效率)</p>
-<h2><span id="22-如何使用断言">2.2 如何使用断言</span></h2>
-<p>断言使用assert关键字,assert使用有两种：</p>
+<p>运行结果：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">java.lang.ArithmeticException: / by zero</span><br><span class="line">	at Base.exa16.TryCatchStudy.main(TryCatchStudy.java:9)</span><br><span class="line">发生了异常哦！！</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure></p>
+<h1><span id="2断言">2.断言</span></h1><p>在一个具有自我保护能力的程序中，断言非常常用</p>
+<h2><span id="21-断言的定义">2.1 断言的定义</span></h2><p>Java中提供了一种机制，让我们能在程序开发阶段尽可能全面的测试程序的稳定性，<br>同时能让我们在开发完成测试完成后不修改代码的基础上 <strong>注释掉测试语句</strong>，<br>从而不让测试语句影响程序运行效率。 这种机制，就是断言机制。断言机制相比于异常处理，<br>它提供了更为高效的异常处理机制(使我们有选择性的忽略某些检查代码提高运行效率)</p>
+<h2><span id="22-如何使用断言">2.2 如何使用断言</span></h2><p>断言使用assert关键字,assert使用有两种：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//condition是一个判断语句，如果判断语句是false，则会抛出AssertError异常</span></span><br><span class="line"><span class="keyword">assert</span> condition;</span><br><span class="line"><span class="comment">//其中condition是一个判断语句，如果判断语句是false，则会抛出AssertError异常且把message</span></span><br><span class="line"><span class="comment">//赋给AssertError构造方法进行打印。</span></span><br><span class="line"><span class="keyword">assert</span> condition:message;</span><br></pre></td></tr></table></figure>
 <p>要想断言生效，需要开启断言，需要添加运行配置的VM options: -ea</p>
-<p><img src="16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%92%8C%E6%96%AD%E8%A8%80/16-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E9%94%99%E8%AF%AF,%E5%BC%82%E5%B8%B8%E7%B1%BB,%E6%96%AD%E8%A8%803.png" alt="IDEA 添加VM"></p>
+<p><img src="16-程序设计的三大错误,异常类和断言/16-程序设计的三大错误,异常类,断言3.png" alt="IDEA 添加VM"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TryCatchStudy</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//使用断言进行判断，如果不符合判断，则抛出异常AssertError</span></span><br><span class="line">        <span class="keyword">assert</span> args != <span class="literal">null</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">30</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="type">int</span> i=<span class="number">0</span>/<span class="number">0</span>;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            System.out.println(<span class="string">&quot;发生了异常哦！！&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">       <span class="comment">//使用断言进行判断，如果不符合判断，则抛出异常,且把num的值传给AssertError</span></span><br><span class="line">        <span class="keyword">assert</span> num&lt;<span class="number">0</span>:num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">java.lang.ArithmeticException: / by zero</span><br><span class="line">	at Base.exa16.TryCatchStudy.main(TryCatchStudy.java:9)</span><br><span class="line">Exception in thread &quot;main&quot; java.lang.AssertionError: 30</span><br><span class="line">	at Base.exa16.TryCatchStudy.main(TryCatchStudy.java:14)</span><br><span class="line">发生了异常哦！！</span><br><span class="line"></span><br><span class="line">Process finished with exit code 1</span><br></pre></td></tr></table></figure>
+<p>运行结果：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">java.lang.ArithmeticException: / by zero</span><br><span class="line">	at Base.exa16.TryCatchStudy.main(TryCatchStudy.java:9)</span><br><span class="line">Exception in thread &quot;main&quot; java.lang.AssertionError: 30</span><br><span class="line">	at Base.exa16.TryCatchStudy.main(TryCatchStudy.java:14)</span><br><span class="line">发生了异常哦！！</span><br><span class="line"></span><br><span class="line">Process finished with exit code 1</span><br></pre></td></tr></table></figure></p>
 <p><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa16">Java基础学习/src/main/java/exa16 · 严家豆/Study - 码云 - 开源中国 (gitee.com)</a></p>
 
                 
@@ -642,23 +613,6 @@ try-catch就是用来装这些的：</p>
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
-</script>
 </body>
 
 </html>

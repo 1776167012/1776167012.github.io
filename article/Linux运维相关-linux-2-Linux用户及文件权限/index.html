@@ -295,10 +295,8 @@
                 post-container">
 
 				
-                <h1><span id="1linux用户权限管理">1.Linux用户权限管理</span></h1>
-<p>在Linux系统中，多个用户可以登录一个主机进行使用，但是不同用户都有着自己的用户空间，<br>
-他们在没有对方的允许的情况下不能访问对方的文件。</p>
-<h2><span id="11-用户权限常用命令">1.1 用户权限常用命令</span></h2>
+                <h1><span id="1linux用户权限管理">1.Linux用户权限管理</span></h1><p>在Linux系统中，多个用户可以登录一个主机进行使用，但是不同用户都有着自己的用户空间，<br>他们在没有对方的允许的情况下不能访问对方的文件。</p>
+<h2><span id="11-用户权限常用命令">1.1 用户权限常用命令</span></h2><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -340,15 +338,15 @@
 <td>将其他用户加入sudo用户组</td>
 </tr>
 <tr>
-<td>sudo deluser muzhi --remove-home</td>
+<td>sudo deluser muzhi —remove-home</td>
 <td>删除用户</td>
 </tr>
 </tbody>
 </table>
-<h1><span id="2linux文件权限">2.Linux文件权限</span></h1>
-<p><img src="2.Linux%E7%94%A8%E6%88%B7%E5%8F%8A%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/1.png" alt="img.png"></p>
+</div>
+<h1><span id="2linux文件权限">2.Linux文件权限</span></h1><p><img src="2.Linux用户及文件权限/1.png" alt="img.png"></p>
 <p>文件权限就是文件的访问控制权限，包括文件的类型，文件的可操作用户。</p>
-<h2><span id="21-常用命令">2.1 常用命令</span></h2>
+<h2><span id="21-常用命令">2.1 常用命令</span></h2><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -362,7 +360,7 @@
 <td>列出本目录下文件的详细信息</td>
 </tr>
 <tr>
-<td>chmod xxx (0–无  1–可执行  2–可写  4–可读)</td>
+<td>chmod xxx (0—无  1—可执行  2—可写  4—可读)</td>
 <td>修改文件权限</td>
 </tr>
 <tr>
@@ -387,6 +385,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@ecs-235046 study]# chown muzhi fiel </span><br><span class="line">[root@ecs-235046 study]# ll</span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 1 muzhi root 0 Jun  9 15:01 fiel</span><br><span class="line">[root@ecs-235046 study]# </span><br></pre></td></tr></table></figure>
 
                 
@@ -395,12 +394,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/article/Linux运维相关-linux-3-Linux目录结构以及文件操作/" data-toggle="tooltip" data-placement="top" title="docker日志清理">&larr; 上一篇</a>
+                            <a href="/article/Linux运维相关-linux-1-Linux入门命令-快捷键/" data-toggle="tooltip" data-placement="top" title="docker日志清理">&larr; 上一篇</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/article/Linux运维相关-docker-3-docker日志清理/" data-toggle="tooltip" data-placement="top" title="docker日志清理">下一篇 &rarr;</a>
+                            <a href="/article/Linux运维相关-linux-3-Linux目录结构以及文件操作/" data-toggle="tooltip" data-placement="top" title="docker日志清理">下一篇 &rarr;</a>
                         </li>
                     
                 </ul>
@@ -667,23 +666,6 @@
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
-</script>
 </body>
 
 </html>

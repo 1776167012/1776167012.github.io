@@ -295,31 +295,16 @@
                 post-container">
 
 				
-                <h1><span id="1什么是面向抽象编程">1.什么是面向抽象编程</span></h1>
-<p>所谓面向抽象编程，是指当设计某种重要的类时，不让该类面向具体的类，而是抽象的类，即所设计的类中的重要数据是抽象类声明的对象，<br>
-而不是具体类声明的对象。<br>
-<strong>抽象类只关心操作，并不关心这些操作的具体算法</strong>，这样就可以让设计者将更多的精力投入到整体的设计中，而无需关心具体的实现。<br>
-面向抽象设计将程序设计的层次提高到系统整体设计的层次。 通过这样的设计，我们可以设计出低耦合，高扩展的系统。（现在了解即可）</p>
-<h2><span id="11-抽象类">1.1 抽象类</span></h2>
-<p>设计出面向抽象的程序，我们需要掌握抽象类和接口的概念。</p>
-<h3><span id="111-如何定义一个抽象类">1.1.1 如何定义一个抽象类</span></h3>
-<p>使用abstract关键字修饰类和方法即可。<br>
-在抽象类里，我们除了可以定义不同的变量和方法外，还可以定义抽象方法，这样的方法不能有方法体，它的实现应该交由其子类完成。<br>
-如下所示：</p>
+                <h1><span id="1什么是面向抽象编程">1.什么是面向抽象编程</span></h1><p>所谓面向抽象编程，是指当设计某种重要的类时，不让该类面向具体的类，而是抽象的类，即所设计的类中的重要数据是抽象类声明的对象，<br>而不是具体类声明的对象。<br><strong>抽象类只关心操作，并不关心这些操作的具体算法</strong>，这样就可以让设计者将更多的精力投入到整体的设计中，而无需关心具体的实现。<br>面向抽象设计将程序设计的层次提高到系统整体设计的层次。 通过这样的设计，我们可以设计出低耦合，高扩展的系统。（现在了解即可）</p>
+<h2><span id="11-抽象类">1.1 抽象类</span></h2><p>设计出面向抽象的程序，我们需要掌握抽象类和接口的概念。</p>
+<h3><span id="111-如何定义一个抽象类">1.1.1 如何定义一个抽象类</span></h3><p>使用abstract关键字修饰类和方法即可。<br>在抽象类里，我们除了可以定义不同的变量和方法外，还可以定义抽象方法，这样的方法不能有方法体，它的实现应该交由其子类完成。<br>如下所示：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Skills</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> num;</span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> age;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> num2;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> <span class="variable">num4</span> <span class="operator">=</span> <span class="number">2200</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Skills</span><span class="params">()</span>&#123;</span><br><span class="line">        num = <span class="number">100</span>;</span><br><span class="line">        age = <span class="number">20</span>;</span><br><span class="line">        num2 = <span class="number">300</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">say</span><span class="params">()</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sayOne</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;I said: &quot;</span>+num);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面代码定义了一个抽象类，我们可以看到抽象类和普通类的差别并不大，就是多个一个修饰符，<br>
-然后抽象类的能力更强（允许定义抽象方法）而已。</p>
-<h3><span id="112-如何使用抽象类">1.1.2 如何使用抽象类</span></h3>
-<p>因为抽象类可以定义的抽象的概念。<br>
-所以我们的具体的实现类需要继承它，然后实现它的抽象方法即可。</p>
+<p>上面代码定义了一个抽象类，我们可以看到抽象类和普通类的差别并不大，就是多个一个修饰符，<br>然后抽象类的能力更强（允许定义抽象方法）而已。</p>
+<h3><span id="112-如何使用抽象类">1.1.2 如何使用抽象类</span></h3><p>因为抽象类可以定义的抽象的概念。<br>所以我们的具体的实现类需要继承它，然后实现它的抽象方法即可。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ChinesePeople</span> <span class="keyword">extends</span> <span class="title class_">Skills</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;can eat chili&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">say</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;can say chinese&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3><span id="113-展示示例">1.1.3 展示示例</span></h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AbstractClassStudy</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Skills</span> <span class="variable">skills</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ChinesePeople</span>();</span><br><span class="line">        skills.eat();</span><br><span class="line">        skills.say();</span><br><span class="line">        <span class="type">Skills</span> <span class="variable">skills1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">EnglishPeople</span>();</span><br><span class="line">        skills1.eat();</span><br><span class="line">        skills1.say();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Skills</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">say</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ChinesePeople</span> <span class="keyword">extends</span> <span class="title class_">Skills</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;can eat chili&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">say</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;can say chinese&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">EnglishPeople</span> <span class="keyword">extends</span> <span class="title class_">Skills</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;can eat hamburger&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">say</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;can say english&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">can eat chili</span><br><span class="line">can say chinese</span><br><span class="line">can eat hamburger</span><br><span class="line">can say english</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
-<h1><span id="2对象向上转型">2.对象向上转型</span></h1>
-<p>当用子类创建一个实例对象，并把这个对象的引用赋给父类的声明变量，我们称此时得到的对象是子类对象的<strong>上转型对象</strong>。<br>
-假设Animal类是Tiger类的父类，有：</p>
+<h3><span id="113-展示示例">1.1.3 展示示例</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AbstractClassStudy</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Skills</span> <span class="variable">skills</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ChinesePeople</span>();</span><br><span class="line">        skills.eat();</span><br><span class="line">        skills.say();</span><br><span class="line">        <span class="type">Skills</span> <span class="variable">skills1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">EnglishPeople</span>();</span><br><span class="line">        skills1.eat();</span><br><span class="line">        skills1.say();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Skills</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">say</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ChinesePeople</span> <span class="keyword">extends</span> <span class="title class_">Skills</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;can eat chili&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">say</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;can say chinese&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">EnglishPeople</span> <span class="keyword">extends</span> <span class="title class_">Skills</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;can eat hamburger&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">say</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;can say english&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">can eat chili</span><br><span class="line">can say chinese</span><br><span class="line">can eat hamburger</span><br><span class="line">can say english</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure></p>
+<h1><span id="2对象向上转型">2.对象向上转型</span></h1><p>当用子类创建一个实例对象，并把这个对象的引用赋给父类的声明变量，我们称此时得到的对象是子类对象的<strong>上转型对象</strong>。<br>假设Animal类是Tiger类的父类，有：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Animal a;</span><br><span class="line">a = <span class="keyword">new</span> <span class="title class_">Tiger</span>();</span><br></pre></td></tr></table></figure>
 <p>或</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Animal a;</span><br><span class="line"><span class="type">Tiger</span> <span class="variable">b</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Tiger</span>();</span><br><span class="line">a = b;</span><br></pre></td></tr></table></figure>
@@ -327,31 +312,23 @@
 <p>对象和对象的上转型对象的操作权限如下图：</p>
 <p>ObjectB是ObjectA的上转型对象</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line"></span><br><span class="line">ObjectB--&gt;hide_param</span><br><span class="line"></span><br><span class="line">ObjectB--&gt;extend_param</span><br><span class="line"></span><br><span class="line">ObjectB--&gt;extend_or_override_param</span><br><span class="line"></span><br><span class="line">ObjectA--&gt;extend_param</span><br><span class="line"></span><br><span class="line">ObjectA--&gt;new_param</span><br><span class="line"></span><br><span class="line">ObjectA--&gt;extend_or_override_param</span><br><span class="line"></span><br><span class="line">ObjectA--&gt;new_method </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>大家自己可以写例子验证一下，通过这个上转型和非上转型对象的权限，我们可以操作我们想要操作的变量或方法，<br>
-当然，也可以直接使用非上转型(通过super关键字在子类定义可以未被继承的变量)</p>
-<h1><span id="2多态封装继承">2.多态，封装，继承</span></h1>
-<h2><span id="21-多态">2.1 多态</span></h2>
-<p>其实多态性并不难理解,其含义大概就是说同一种概念的事物可以有不同的描述。</p>
+<p>大家自己可以写例子验证一下，通过这个上转型和非上转型对象的权限，我们可以操作我们想要操作的变量或方法，<br>当然，也可以直接使用非上转型(通过super关键字在子类定义可以未被继承的变量)</p>
+<h1><span id="2多态封装继承">2.多态，封装，继承</span></h1><h2><span id="21-多态">2.1 多态</span></h2><p>其实多态性并不难理解,其含义大概就是说同一种概念的事物可以有不同的描述。</p>
 <p>比如：</p>
 <ul>
 <li>重载：同一个类中可以写多个同名的方法。</li>
 <li>重写：子类可以重写从父类继承的方法，一种接口的多个实现，父类引用指向子类对象。</li>
 </ul>
-<h2><span id="22-封装">2.2 封装</span></h2>
-<p>封装也不难理解，就是我的变量只能我来操作，我的方法只有我能调用,其他类操作不了。<br>
-比如：</p>
+<h2><span id="22-封装">2.2 封装</span></h2><p>封装也不难理解，就是我的变量只能我来操作，我的方法只有我能调用,其他类操作不了。<br>比如：</p>
 <ul>
 <li>private关键字：private关键字可以将方法或属性封装在类中，避免其他类中对它们进行操作。</li>
 <li>私有静态内部类: 私有静态内部类只能拥有它的类调用</li>
 <li>友好类/友好静态内部类：友好类将自己封装在一个包中，只允许同包的类调用</li>
 <li>受保护的静态内部类：受保护的静态内部类将自己封装在一个包中，只允许同包的类调用或子类调用</li>
 </ul>
-<h2><span id="23-继承">2.3 继承</span></h2>
-<p>继承描述的就是子类可以继承父类一些属性而不用重复定义。</p>
+<h2><span id="23-继承">2.3 继承</span></h2><p>继承描述的就是子类可以继承父类一些属性而不用重复定义。</p>
 <p>extends关键字：子类继承父类以及祖先类的可继承的属性和方法。</p>
-<h1><span id="3抽象类和抽象方法">3.抽象类和抽象方法</span></h1>
-<h2><span id="31用关键字abstract修饰的类称为抽象类">3.1用关键字abstract修饰的类称为抽象类</span></h2>
-<p>例如：</p>
+<h1><span id="3抽象类和抽象方法">3.抽象类和抽象方法</span></h1><h2><span id="31用关键字abstract修饰的类称为抽象类">3.1用关键字abstract修饰的类称为抽象类</span></h2><p>例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">A</span>&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>抽象类中既可以有抽象方法也可以有非抽象方法，而非抽象类中不能有抽象方法</li>
@@ -360,8 +337,7 @@
 <li>抽象类的抽象子类可以重写父类的抽象方法，也可以继承。</li>
 <li>抽象类声明的对象可以做其子类的上转型对象，调用子类重写的方法。</li>
 </ul>
-<h2><span id="32-用关键字abstract修饰的方法称为抽象方法">3.2 用关键字abstract修饰的方法称为抽象方法</span></h2>
-<p>例如：</p>
+<h2><span id="32-用关键字abstract修饰的方法称为抽象方法">3.2 用关键字abstract修饰的方法称为抽象方法</span></h2><p>例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="type">int</span> <span class="title function_">mi</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span>;</span><br></pre></td></tr></table></figure>
 <p>并且在抽象类中：</p>
 <ul>
@@ -369,8 +345,7 @@
 <li>不允许用final和abstract同时修饰一个方法或类。</li>
 <li>不允许用static修饰抽象方法</li>
 </ul>
-<p>代码地址：<br>
-<a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa13">Java基础学习/src/main/java/exa13 · 严家豆/Study - 码云 - 开源中国 (gitee.com)</a></p>
+<p>代码地址：<br><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/exa13">Java基础学习/src/main/java/exa13 · 严家豆/Study - 码云 - 开源中国 (gitee.com)</a></p>
 
                 
                 <hr>
@@ -650,23 +625,6 @@
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
-</script>
 </body>
 
 </html>

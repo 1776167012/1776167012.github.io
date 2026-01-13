@@ -295,18 +295,11 @@
                 post-container">
 
 				
-                <h3><span id="1拉取镜像">1.拉取镜像</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:latest</span><br></pre></td></tr></table></figure>
-<h3><span id="运行容器">运行容器</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd --name mysql-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql</span><br></pre></td></tr></table></figure>
-<h3><span id="3-进入容器">3、进入容器</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it mysql-test /bin/bash</span><br></pre></td></tr></table></figure>
-<h3><span id="4-登陆容器内数据库">4、登陆容器内数据库</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p 设置的密码</span><br></pre></td></tr></table></figure>
-<h3><span id="5然后外部主机安装mysql客户端后">5.然后外部主机安装mysql客户端后</span></h3>
-<p>安装mysql客户端命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install mysql --nogpgcheck</span><br><span class="line">install mysql -y</span><br><span class="line"></span><br><span class="line">mysql -h 127.0.0.1 -P 3306 -u root -p</span><br></pre></td></tr></table></figure>
-<p>然后就可以使用了。</p>
+                <h3><span id="1拉取镜像">1.拉取镜像</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:latest</span><br></pre></td></tr></table></figure>
+<h3><span id="运行容器">运行容器</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd --name mysql-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql</span><br></pre></td></tr></table></figure>
+<h3><span id="3-进入容器">3、进入容器</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it mysql-test /bin/bash</span><br></pre></td></tr></table></figure>
+<h3><span id="4-登陆容器内数据库">4、登陆容器内数据库</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p 设置的密码</span><br></pre></td></tr></table></figure>
+<h3><span id="5然后外部主机安装mysql客户端后">5.然后外部主机安装mysql客户端后</span></h3><p>安装mysql客户端命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install mysql --nogpgcheck</span><br><span class="line">install mysql -y</span><br><span class="line"></span><br><span class="line">mysql -h 127.0.0.1 -P 3306 -u root -p</span><br></pre></td></tr></table></figure><br>然后就可以使用了。</p>
 
                 
                 <hr>
@@ -586,23 +579,6 @@
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
-</script>
 </body>
 
 </html>

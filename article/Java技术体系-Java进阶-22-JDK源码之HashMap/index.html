@@ -296,96 +296,13 @@
 
 				
                 <p>一.HashMap属性了解</p>
-<p>属性类型属性名称属性默认值属性说明longserialVersionUID362498820763181265L序列化编号intDEFAULT_INITIAL_CAPACITY16默认初始化大小intMAXIMUM_CAPACITY2^30最大容量大小floatDEFAULT_LOAD_FACTOR0.75f默认加载因子intTREEIFY_THRESHOLD8树化临界值intUNTREEIFY_THRESHOLD6非树化临界值intMIN_TREEIFY_CAPACITY64最小树容量Node&lt;K,V&gt;[]tablenull用于存储键值对节点的数组Set&lt;Map.Entry&lt;K,V&gt;&gt;entrySetnull暂时未知其作用intsize0map中的元素个数intmodCount0操作数floatloadFactor0f加载因子intthreshold0数组扩容临界值：比如它等于2，则当size=2时，会进行扩容操作</p>
-<p>二. 构造方法解析<br>
-1.HashMap()<br>
-此构造方法只是给HashMap中的加载因子loadFactor进行赋值为默认值 0.75f<br>
-2.HashMap(int initialCapacity)<br>
-此构造方法，以initialCapacity, 0.75f为参数调用第三个构造方法。</p>
-<p>3.HashMap(int initialCapacity,float loadFactor)<br>
-此构造方法存在逻辑：<br>
-如果initialCapacity小于0，抛出非法参数异常<br>
-如果initialCapacity大于2^30，将其修正为2^30<br>
-如果加载因子loadFactor不大于0或者是NaN(类似1/0)，抛出非法参数异常<br>
-将实例的加载因子赋值：this.loadFactor = loadFactor<br>
-计算出下次扩容临界值并给下次扩容临界值赋值：this.threshold = tableSizeFor(initialCapacity);<br>
-计算方法：就是计算出cap的对应的二次方的值，比如当cap = 2时， 返回 2<br>
-当cap = 3 ,返回4， 返回的数肯定大于或等于cap<br>
-static final int tableSizeFor(int cap) {<br>
-int n = cap - 1;<br>
-n |= n &gt;&gt;&gt; 1;<br>
-n |= n &gt;&gt;&gt; 2;<br>
-n |= n &gt;&gt;&gt; 4;<br>
-n |= n &gt;&gt;&gt; 8;<br>
-n |= n &gt;&gt;&gt; 16;<br>
-return (n &lt; 0) ? 1 : (n &gt;= (1&lt;&lt;30)) ? (1&lt;&lt;30) : n + 1;<br>
-}<br>
-4.HashMap(Map m)<br>
-此构造方法的逻辑是先给加载因子赋值： this.loadFactor = 0.75f<br>
-然后判断m的大小是否大于0，<br>
-如果不是，什么都不做，结束。<br>
-如果是<br>
-则判断table是否为空：<br>
-如果是： 计算出map的容量大小(m的大小/加载因子 + 1)t，然后进行检查修正。如果t&gt;threshold , 给threshold赋值。<br>
-如果table不为空，判断m的大小是是否大于了threshold,如果大于了，则进行扩容。<br>
-然后循环m, 取出key,value进行putVal操作。</p>
-<p>三.常用方法解析<br>
-1.resize() 扩容方法<br>
-final Node&lt;K,V&gt;[] resize() {<br>
-Node&lt;K,V&gt;[] oldTab = table;<br>
-int oldCap = (oldTab == null) ? 0 : oldTab.length;<br>
-int oldThr = threshold;<br>
-int newCap, newThr = 0;<br>
-if (oldCap &gt; 0) {<br>
-if (oldCap &gt;= MAXIMUM_CAPACITY) {<br>
-threshold = Integer.MAX_VALUE;<br>
-return oldTab;<br>
-}<br>
-else if ((newCap = oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp;<br>
-oldCap &gt;= DEFAULT_INITIAL_CAPACITY)<br>
-newThr = oldThr &lt;&lt; 1; // double threshold<br>
-} else if (oldThr &gt; 0) // initial capacity was placed in threshold<br>
-newCap = oldThr;<br>
-else {               // zero initial threshold signifies using defaults<br>
-newCap = DEFAULT_INITIAL_CAPACITY;<br>
-newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);<br>
-}<br>
-if (newThr == 0) {<br>
-float ft = (float)newCap * loadFactor;<br>
-newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (float)MAXIMUM_CAPACITY ?<br>
-(int)ft : Integer.MAX_VALUE);<br>
-}<br>
-threshold = newThr;<br>
-Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])new Node[newCap];<br>
-table = newTab;<br>
-if (oldTab != null) {<br>
-//这里的操作是将旧的table的数据复制到新的table中<br>
-}<br>
-return newTab;<br>
-}</p>
-<p>2.put(K key, V value)<br>
-首先，计算key的hash值，计算逻辑如下：<br>
-如果key==null,则其hash = 0, 否则<br>
-h = key.hashCode()   其中key.hashCode()得到的是一个伪随机数。<br>
-hash = h^(h&gt;&gt;&gt;16)<br>
-然后将，hash, key,value,false,true作为入参调用putVal方法。</p>
-<p>3.putVal(int hash, K key, V value,boolean OnlyIfAbsent，<br>
-boolean evict) 存储方法<br>
-首先声明下面几个变量：<br>
-类型名称描述Node&lt;K,V&gt;[]tab节点数组Node&lt;K,V&gt; p指定位置的节点int n,in存储数组大小，i存储索引</p>
-<p>在进行逻辑学习之前，有必要学习下其中Node数据结构：<br>
-static class Node&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; {<br>
-final int hash;//hash码，构造时指定<br>
-final K key; //键<br>
-V value;//值<br>
-Node&lt;K,V&gt; next;//出现hash冲突时链接法下一个冲突节点<br>
-Node(int hash, K key, V value, Node&lt;K,V&gt; next) {<br>
-this.hash = hash;<br>
-this.key = key;<br>
-this.value = value;<br>
-this.next = next;<br>
-}}<br>
-putVal方法正式逻辑如下：</p>
+<p>属性类型属性名称属性默认值属性说明longserialVersionUID362498820763181265L序列化编号intDEFAULT_INITIAL_CAPACITY16默认初始化大小intMAXIMUM_CAPACITY2^30最大容量大小floatDEFAULT_LOAD_FACTOR0.75f默认加载因子intTREEIFY_THRESHOLD8树化临界值intUNTREEIFY_THRESHOLD6非树化临界值intMIN_TREEIFY_CAPACITY64最小树容量Node<k,v>[]tablenull用于存储键值对节点的数组Set<map.entry<k,v>&gt;entrySetnull暂时未知其作用intsize0map中的元素个数intmodCount0操作数floatloadFactor0f加载因子intthreshold0数组扩容临界值：比如它等于2，则当size=2时，会进行扩容操作</map.entry<k,v></k,v></p>
+<p>二. 构造方法解析<br>1.HashMap()<br>此构造方法只是给HashMap中的加载因子loadFactor进行赋值为默认值 0.75f<br>2.HashMap(int initialCapacity)<br>此构造方法，以initialCapacity, 0.75f为参数调用第三个构造方法。</p>
+<p>3.HashMap(int initialCapacity,float loadFactor)<br>此构造方法存在逻辑：<br>如果initialCapacity小于0，抛出非法参数异常<br>如果initialCapacity大于2^30，将其修正为2^30<br>如果加载因子loadFactor不大于0或者是NaN(类似1/0)，抛出非法参数异常<br>将实例的加载因子赋值：this.loadFactor = loadFactor<br>计算出下次扩容临界值并给下次扩容临界值赋值：this.threshold = tableSizeFor(initialCapacity);<br>计算方法：就是计算出cap的对应的二次方的值，比如当cap = 2时， 返回 2<br>当cap = 3 ,返回4， 返回的数肯定大于或等于cap<br>static final int tableSizeFor(int cap) {<br>int n = cap - 1;<br>n |= n &gt;&gt;&gt; 1;<br>n |= n &gt;&gt;&gt; 2;<br>n |= n &gt;&gt;&gt; 4;<br>n |= n &gt;&gt;&gt; 8;<br>n |= n &gt;&gt;&gt; 16;<br>return (n &lt; 0) ? 1 : (n &gt;= (1&lt;<30)) ? (1<<30) : n + 1; } 4.hashmap(map m) 此构造方法的逻辑是先给加载因子赋值： this.loadfactor="0.75f" 然后判断m的大小是否大于0， 如果不是，什么都不做，结束。 如果是 则判断table是否为空： 如果是： 计算出map的容量大小(m的大小 加载因子 1)t，然后进行检查修正。如果t>threshold , 给threshold赋值。<br>如果table不为空，判断m的大小是是否大于了threshold,如果大于了，则进行扩容。<br>然后循环m, 取出key,value进行putVal操作。</30))></p>
+<p>三.常用方法解析<br>1.resize() 扩容方法<br>final Node<k,v>[] resize() {<br>Node<k,v>[] oldTab = table;<br>int oldCap = (oldTab == null) ? 0 : oldTab.length;<br>int oldThr = threshold;<br>int newCap, newThr = 0;<br>if (oldCap &gt; 0) {<br>if (oldCap &gt;= MAXIMUM_CAPACITY) {<br>threshold = Integer.MAX_VALUE;<br>return oldTab;<br>}<br>else if ((newCap = oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp;<br>oldCap &gt;= DEFAULT_INITIAL_CAPACITY)<br>newThr = oldThr &lt;&lt; 1; // double threshold<br>} else if (oldThr &gt; 0) // initial capacity was placed in threshold<br>newCap = oldThr;<br>else {               // zero initial threshold signifies using defaults<br>newCap = DEFAULT_INITIAL_CAPACITY;<br>newThr = (int)(DEFAULT_LOAD_FACTOR <em> DEFAULT_INITIAL_CAPACITY);<br>}<br>if (newThr == 0) {<br>float ft = (float)newCap </em> loadFactor;<br>newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (float)MAXIMUM_CAPACITY ?<br>(int)ft : Integer.MAX_VALUE);<br>}<br>threshold = newThr;<br>Node<k,v>[] newTab = (Node<k,v>[])new Node[newCap];<br>table = newTab;<br>if (oldTab != null) {<br>//这里的操作是将旧的table的数据复制到新的table中<br>}<br>return newTab;<br>}</k,v></k,v></k,v></k,v></p>
+<p>2.put(K key, V value)<br>首先，计算key的hash值，计算逻辑如下：<br>如果key==null,则其hash = 0, 否则<br>h = key.hashCode()   其中key.hashCode()得到的是一个伪随机数。<br>hash = h^(h&gt;&gt;&gt;16)<br>然后将，hash, key,value,false,true作为入参调用putVal方法。</p>
+<p>3.putVal(int hash, K key, V value,boolean OnlyIfAbsent，<br>boolean evict) 存储方法<br>首先声明下面几个变量：<br>类型名称描述Node<k,v>[]tab节点数组Node<k,v> p指定位置的节点int n,in存储数组大小，i存储索引</k,v></k,v></p>
+<p>在进行逻辑学习之前，有必要学习下其中Node数据结构：<br>static class Node<k,v> implements Map.Entry<k,v> {<br>final int hash;//hash码，构造时指定<br>final K key; //键<br>V value;//值<br>Node<k,v> next;//出现hash冲突时链接法下一个冲突节点<br>Node(int hash, K key, V value, Node<k,v> next) {<br>this.hash = hash;<br>this.key = key;<br>this.value = value;<br>this.next = next;<br>}}<br>putVal方法正式逻辑如下：</k,v></k,v></k,v></k,v></p>
 
                 
                 <hr>
@@ -393,7 +310,7 @@ putVal方法正式逻辑如下：</p>
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/article/Java技术体系-Java进阶-21-JDK源码之ArrayList/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">&larr; 上一篇</a>
+                            <a href="/article/Java技术体系-Java进阶-20-i-i-问题解析/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">&larr; 上一篇</a>
                         </li>
                     
                     
@@ -665,23 +582,6 @@ putVal方法正式逻辑如下：</p>
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
-</script>
 </body>
 
 </html>

@@ -296,61 +296,17 @@
 
 				
                 <p>在看面试题的时候看到++i和i++的题目，我们都知道他们是加操作先后的差别，但是仔细想想，我们是否真的懂了？</p>
-<p>我们思考一个问题：下面代码的运行结果为什么是这样？<br>
-public static void main(String[] args) {<br>
-int i=10;<br>
-int n=15;<br>
-i=i++;<br>
-System.out.println(i);<br>
-}</p>
-<p>想要弄清楚程序的输出结果为什么为10，我们需要对代码执行步骤进行解析：<br>
-首先，主方法栈帧初始化内存，然后给i赋值10，给n赋值15<br>
-然后进行i=i++;的操作，重点就是这里<br>
-我们都知道i=i++;是个复合操作，我们先试着将它分开，可能的计算有两种情况：</p>
+<p>我们思考一个问题：下面代码的运行结果为什么是这样？<br>public static void main(String[] args) {<br>int i=10;<br>int n=15;<br>i=i++;<br>System.out.println(i);<br>}</p>
+<p>想要弄清楚程序的输出结果为什么为10，我们需要对代码执行步骤进行解析：<br>首先，主方法栈帧初始化内存，然后给i赋值10，给n赋值15<br>然后进行i=i++;的操作，重点就是这里<br>我们都知道i=i++;是个复合操作，我们先试着将它分开，可能的计算有两种情况：</p>
 <ul>
 <li>i=i;  i=i+1;</li>
-<li>i=i+1;  i=i;<br>
-这时候就有同学有疑惑了，无论是那种情况，i最后的值都应该是11啊，怎么会输出10呢？<br>
-其实，我们看看字节码的逻辑，Java源文件编译为class文件，Java虚拟机实际执行的是class文件<br>
-上面代码编译后的字节码如下：<br>
-public static void main(String[] args) {<br>
-int i = 10;<br>
-int n = true;<br>
-byte var10000 = i;<br>
-int var3 = i + 1;<br>
-i = var10000;<br>
-System.out.println(i);<br>
-}<br>
-可以看到它里面使用了var10000来作为一个中间变量存储i开始的值（10），最后赋给i的还是是中间变量的值，它相当于一个缓存吧。<br>
-至于为啥会编译成这样，想要研究的同学可以研究下编译器的相关机制。<br>
-我们都知道CPU每次运算后的值不会直接写到主存中，而是先存放再Cache中再写入主存，这里类似，每条语句的运算结果其实都不会直接赋给那个变量，而是先通过一种中间缓存机制存放，然后赋给相应的变量。</li>
+<li>i=i+1;  i=i;<br>这时候就有同学有疑惑了，无论是那种情况，i最后的值都应该是11啊，怎么会输出10呢？<br>其实，我们看看字节码的逻辑，Java源文件编译为class文件，Java虚拟机实际执行的是class文件<br>上面代码编译后的字节码如下：<br>public static void main(String[] args) {<br>int i = 10;<br>int n = true;<br>byte var10000 = i;<br>int var3 = i + 1;<br>i = var10000;<br>System.out.println(i);<br>}<br>可以看到它里面使用了var10000来作为一个中间变量存储i开始的值（10），最后赋给i的还是是中间变量的值，它相当于一个缓存吧。<br>至于为啥会编译成这样，想要研究的同学可以研究下编译器的相关机制。<br>我们都知道CPU每次运算后的值不会直接写到主存中，而是先存放再Cache中再写入主存，这里类似，每条语句的运算结果其实都不会直接赋给那个变量，而是先通过一种中间缓存机制存放，然后赋给相应的变量。</li>
 </ul>
-<p>类似的，i=++i；的问题也就一目了然了<br>
-同理我们看一下i=++i编译成calss码后是什么样子的：<br>
-源码：<br>
-public static void main(String[] args) {<br>
-int i=10;<br>
-int n=15;<br>
-i = i++;<br>
-System.out.println(i);</p>
+<p>类似的，i=++i；的问题也就一目了然了<br>同理我们看一下i=++i编译成calss码后是什么样子的：<br>源码：<br>public static void main(String[] args) {<br>int i=10;<br>int n=15;<br>i = i++;<br>System.out.println(i);</p>
 <pre><code>int j=9;
 j = ++j;
 System.out.println(j);
-</code></pre>
-<p>}<br>
-字节码：<br>
-public static void main(String[] args) {<br>
-int i = 10;<br>
-int n = true;<br>
-byte var10000 = i;<br>
-int var4 = i + 1;<br>
-i = var10000;<br>
-System.out.println(i);<br>
-int j = 9;<br>
-int j = j + 1;<br>
-System.out.println(j);<br>
-}<br>
-这时，我们是不是能理解为啥i=i++问题了呢？</p>
+</code></pre><p>}<br>字节码：<br>public static void main(String[] args) {<br>int i = 10;<br>int n = true;<br>byte var10000 = i;<br>int var4 = i + 1;<br>i = var10000;<br>System.out.println(i);<br>int j = 9;<br>int j = j + 1;<br>System.out.println(j);<br>}<br>这时，我们是不是能理解为啥i=i++问题了呢？</p>
 
                 
                 <hr>
@@ -358,12 +314,12 @@ System.out.println(j);<br>
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/article/Java技术体系-Java进阶-17-Java异常处理机制学习-基本概念及用法/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">&larr; 上一篇</a>
+                            <a href="/article/Java技术体系-Java进阶-21-JDK源码之ArrayList/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">&larr; 上一篇</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/article/Java技术体系-Java进阶-21-JDK源码之ArrayList/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">下一篇 &rarr;</a>
+                            <a href="/article/Java技术体系-Java进阶-22-JDK源码之HashMap/" data-toggle="tooltip" data-placement="top" title="19 Java进阶之动态编译">下一篇 &rarr;</a>
                         </li>
                     
                 </ul>
@@ -630,23 +586,6 @@ System.out.println(j);<br>
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
-</script>
 </body>
 
 </html>
