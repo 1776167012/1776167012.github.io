@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          19 Java进阶之动态编译 - 牧之的博客 | Muzhi Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://1776167012.github.io/article/JavaPrograming-Java进阶-19-Java进阶之动态编译/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/beantech.min.css">
+
+
+    
+<link rel="stylesheet" href="/css/donate.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script>
+	</script>
+	<style>
+	* {
+            box-sizing: border-box;
+        }
+
+        form {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding-left: 13px;
+        }
+
+        button {
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        /*搜索框1*/
+        .bar1 {
+			background: #FFF;
+			max-width: 200px;
+		}
+        .bar1 input {
+			max-height: 30px;
+            border: 2px solid #BFBFBF;
+            border-radius: 5px;
+            background: #FFFFFF;
+            color: #BFBFBF;
+			-webkit-text-fill-color: #BFBFBF;
+        }
+        .bar1 button {
+			max-height: 30px;
+            top: 0;
+            right: 0;
+            background: #BFBFBF;
+            border-radius: 0 5px 5px 0;
+        }
+        .bar1 button:before {
+            content: "\f002";
+            font-family: FontAwesome;
+            font-size: 16px;
+            color: #F9F0DA;
+        }
+		</style>
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/feed.xml" title="牧之" type="application/atom+xml">
+</head>
+
+
+
+<!-- hack iOS CSS :active style -->
+<!-- <body ontouchstart=""  class="<?php echo($_COOKIE['night'] == '1' ? '' : ''); ?>"> -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('https://api.dujin.org/bing/1920.php')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+                            
+                        </div>
+                        <h1>19 Java进阶之动态编译</h1>
+                        <!-- <h2 class="subheading"></h2> -->
+                        <span class="meta">
+                            muzhi on
+                            2023-05-20
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1776167012</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                   <!-- 例如，放在导航菜单内部 -->
+                   <li>
+                    <a href="javascript:void(0);" onclick="openSearchModal()" title="搜索">搜索</a>
+                   </li>
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+					<li>
+                        <a href="/archive/">文章归档</a>
+                    </li>
+					<li>
+                        <a href="/tags/">博客标签</a>
+                    </li>
+					<li>
+                        <a href="/about/">关于作者</a>
+                    </li>
+
+					<!--
+					修改about在前面的问题
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">没有什么比快乐更重要</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    -->
+                </ul>
+            </div>
+
+        <!-- 本地搜索弹窗结构 -->
+        <div id="search-mask"></div>
+        <div id="search-modal">
+          <div class="search-header">
+            <input type="text" id="search-input" placeholder="请输入关键词搜索..." autocomplete="off" />
+          </div>
+          <div id="search-status">输入关键词开始搜索...</div>
+          <div class="search-results" id="search-results-container">
+            <!-- 搜索结果将通过JS动态插入到这里 -->
+          </div>
+        </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				
+                <h1><span id="1-作为程序员的最高追求">1. 作为程序员的最高追求</span></h1>
+<p>当我们习惯了编写重复的业务代码，是否有时候会感觉到无聊至极！！<br><br>
+有时候，作为程序员，是否脑子中会不时的闪现出一个想法，如果我能写一个程序让系统能自动的写代码，<br><br>
+然后再自动的装载到系统中实时编译运行就好了。</p>
+<p>实际上，这并不是不能实现，在JDK8中提供了编译相关的API供我们使用，<br>
+通过JDK8,我们可以实现程序自动生成源代码 ，然后自动进行编译加载，在不停掉系统的前提下新增类并使用它！！<br>
+这就是动态编译。</p>
+<h1><span id="2如何实现动态编译">2.如何实现动态编译</span></h1>
+<p>简单来说分为四步：<br><br>
+<strong>生成源码–&gt;编译源码生成字节码文件–&gt;加载字节码得到Class对象–&gt;使用Class对象创建对象并使用</strong></p>
+<h2><span id="21-生成源码">2.1 生成源码</span></h2>
+<p>这一步就是根据业务的不同，我们可以灵活处理，是我们自由发挥的关键。<br><br>
+我们先写一个例子，加入我们打算在系统编译这个源文件并加载它，我们应该怎么做？</p>
+<p>Test.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Progress.exa37.complier;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;这是要用Java编译器Api进行编译的java源文件&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printInfo</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;成功加载并生成对象,执行printInfo完成&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="22-调用编译器api对test源码文件进行编译生成字节码">2.2 调用编译器API对Test源码文件进行编译生成字节码</span></h2>
+<p>这一步我们需要详细学习，这是实现源码到字节码的关键，我们先按简单的来，怎么简单怎么来，<br>
+我们可以用JavaCompiler这个类对指定源文件进行编译：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> FileNotFoundException &#123;</span><br><span class="line">        <span class="type">JavaCompiler</span> <span class="variable">compiler</span> <span class="operator">=</span> ToolProvider.getSystemJavaCompiler();</span><br><span class="line">        <span class="type">OutputStream</span> <span class="variable">outputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;output.txt&quot;</span>);</span><br><span class="line">        <span class="type">OutputStream</span> <span class="variable">errStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;error.txt&quot;</span>);</span><br><span class="line">        <span class="comment">//注意这里的路径就是源文件的路径</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> compiler.run(<span class="literal">null</span>,outputStream,errStream,</span><br><span class="line">                <span class="string">&quot;../study/Java基础学习/src/main/java/Progress/exa38/complier/Test.java&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(result==<span class="number">0</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;编译成功！！！&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当运行完成后，会打印出下面的内容，并在程序同级目录下生成一个class文件：<br>
+Test.class</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Source code recreated from a .class file by IntelliJ IDEA</span></span><br><span class="line"><span class="comment">// (powered by FernFlower decompiler)</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> Progress.exa37.complier;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Test</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] var0)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;这是要用Java编译器Api进行编译的java源文件&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printInfo</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;成功加载并生成对象,执行printInfo完成&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>到这里，我们已经完成了源码的编译。</p>
+<h2><span id="23-调用类加载器对字节码进行加载得到class对象">2.3 调用类加载器对字节码进行加载得到Class对象</span></h2>
+<p>这一步非常关键，这一步的成功与否标志着我们能否顺利的创建对象。<br>
+一般用类加载器对字节码进行加载，<br>
+我们一般都选择自己写一个自定义加载器, 实现findClass方法用来得到此类的Class对象.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Progress.exa37.loader;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.URI;</span><br><span class="line"><span class="keyword">import</span> java.net.URISyntaxException;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Path;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClassLoader</span> <span class="keyword">extends</span> <span class="title class_">ClassLoader</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据路径和类全名对字节码文件进行读取并加载</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pathName 字节码文件路径</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> className 类包名</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回这个类的Class对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt; findClass(String pathName,String className) &#123;</span><br><span class="line">        <span class="comment">// 声明字节码数组</span></span><br><span class="line">        <span class="type">byte</span>[] cLassBytes = <span class="literal">null</span>;</span><br><span class="line">        <span class="type">Path</span> <span class="variable">path</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            path = Paths.get(<span class="keyword">new</span> <span class="title class_">URI</span>(pathName));</span><br><span class="line">            <span class="comment">// 读取字节码文件的字节码</span></span><br><span class="line">            cLassBytes = Files.readAllBytes(path);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException | URISyntaxException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 根据类的包名，字节码数组构建class对象</span></span><br><span class="line">        Class&lt;?&gt; clazz = defineClass(className, cLassBytes, <span class="number">0</span>, cLassBytes.length);</span><br><span class="line">        <span class="keyword">return</span> clazz;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过上面的方法我们可以获取到Class对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Progress.exa37.loader;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.net.MalformedURLException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用自定义的类加载器对class文件加载并创建实例使用之</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LoaderStudy</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, InstantiationException, IllegalAccessException, MalformedURLException &#123;</span><br><span class="line">        <span class="type">MyClassLoader</span> <span class="variable">loader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyClassLoader</span>();</span><br><span class="line">        Class&lt;?&gt; aClass = loader.findClass(<span class="string">&quot;file:///E:/Personal/MyRepository/study/Java基础学习/src/main/java/Progress/exa37/complier/Test.class&quot;</span>,<span class="string">&quot;Progress.exa37.complier.Test&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="24-使用class对象创建对象进行使用">2.4 使用Class对象创建对象进行使用</span></h2>
+<p>通过上面的一步，我们获取到Test.class字节码对应的Class对象后，我们就可以使用Class来创建实例对象了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Progress.exa37.loader;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.net.MalformedURLException;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用自定义的类加载器对class文件加载并创建实例使用之</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LoaderStudy</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, InstantiationException, IllegalAccessException, MalformedURLException &#123;</span><br><span class="line">        <span class="type">MyClassLoader</span> <span class="variable">loader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyClassLoader</span>();</span><br><span class="line">        Class&lt;?&gt; aClass = loader.findClass(<span class="string">&quot;file:///E:/Personal/MyRepository/study/Java基础学习/src/main/java/Progress/exa37/complier/Test.class&quot;</span>,<span class="string">&quot;Progress.exa37.complier.Test&quot;</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> aClass.newInstance();</span><br><span class="line">            <span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> aClass.getMethod(<span class="string">&quot;printInfo&quot;</span>);</span><br><span class="line">            method.invoke(obj);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果：<br>
+控制台打印： 成功加载并生成对象,执行printInfo完成</p>
+<p>到这里，我们应该大概明白如何利用java编译器api和类加载器实现动态编译了。<br>
+那么对于类加载器，我们为何要去自定义一个呢？ 难道不能使用Jdk原有的api去实现相应的功能吗？<br>
+要理解这一点，我们就得学习一些Java中的类加载机制。</p>
+<h1><span id="3-java编译api学习">3. Java编译API学习</span></h1>
+<p>通过上面的动手，我们可以发现在Java程序中对某个源文件进行编译可以这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JavaCompiler</span> <span class="variable">compiler</span> <span class="operator">=</span> ToolProvider.getSystemJavaCompiler();</span><br><span class="line"><span class="comment">//注意这里的路径就是源文件的路径</span></span><br><span class="line"><span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> compiler.run(<span class="literal">null</span>,outputStream,errStream,</span><br><span class="line">    <span class="string">&quot;../study/Java基础学习/src/main/java/Progress/exa38/complier/Test.java&quot;</span>);</span><br><span class="line"><span class="keyword">if</span>(result==<span class="number">0</span>)&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;编译成功！！！&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过JavaCompiler对象的run方法可以对指定路径的源文件进行编译为字节码文件。</p>
+<h1><span id="4-类加载机制">4. 类加载机制</span></h1>
+<p>下面了解Java的类加载机制。<br><br>
+我们知道Java程序的执行流程是先将Java源文件编译成字节码文件(存储虚拟机代码)，<br>
+然后由虚拟机去加载这些字节码文件将其转换为对应平台的机器码进行执行。<br><br>
+而这个虚拟机加载字节码文件的过程，我们有必要进行了解</p>
+<h2><span id="21-类加载过程">2.1 类加载过程</span></h2>
+<p><strong>虚拟机只加载程序执行时所需要的类文件。</strong></p>
+<p>我们假设程序从MyProgram.class开始运行，那么虚拟机的执行步骤如下：</p>
+<ul>
+<li>
+<p>虚拟机有一个用于加载类文件的机制，例如从磁盘中读取文件或者请求Web上的文件，虚拟机会使用该机制来加载MyProgram类文件中的内容。<br>
+一个类的加载流程如下：<br></p>
+<ol>
+<li>如果MyProgram类拥有类型为另一个类的域，或者超类，那么这些类文件也会被加载，这一过程被称为类的解析(加载某个类所依赖的所有类的过程被称为类的解析)</li>
+<li>接着，虚拟机执行MyProgram中的静态的main方法</li>
+<li>如果main方法或者main方法调用的方法要用到更多的类，那么接下来就会加载这些类.</li>
+</ol>
+</li>
+<li>
+<p>然而，类加载机制并非只使用单个的类加载器，每个Java程序至少拥有三个类加载器：</p>
+<ol>
+<li>
+<p><strong>系统类加载器(BootStrap)</strong>：<br><br>
+系统类加载器负责加载系统类(对rt.jar中的类进行加载，为java程序运行时必须的类)。系统类时虚拟机不可分隔的一部分，通常是一些有C语言是实现的底层类。系统类加载器没有对应的ClassLoader对象，它是虚拟机的一部分。</p>
+</li>
+<li>
+<p><strong>扩展类加载器(ExtClassLoader)</strong>： <br><br>
+扩展类加载器用于从jre/lib/ext目录加载 ”标准的扩展“。 我们可以将Jar文件放到该目录下，这样即使没有任何类路径，扩展类加载器也能找到其中的各个类。</p>
+</li>
+<li>
+<p><strong>应用类加载器(AppClassLoader)</strong>：<br><br>
+应用类加载器用于加载应用类。 它由CLASSPATH环境变量或者-classpath命令行选项设置的类路径中的目录里或者jar/zip文件里找到这些类。</p>
+</li>
+</ol>
+</li>
+</ul>
+<p><strong>注意：在Java中，扩展类加载器和系统类加载器都是用Java实现的，他们都是URLClassLoader类的实例。</strong></p>
+<h2><span id="22-类加载器的层次结构">2.2 类加载器的层次结构</span></h2>
+<p>类加载器有一种父/子关系。除了系统类加载器外，其他的每个类加载器都有一个父类加载器。<br><br>
+根据虚拟机规定，类加载器会为它的父类加载器提供一个机会，以便加载任何给定的类，并且只有在其父类<br>
+加载器加载失败时，它才会加载给定的类。</p>
+<p>例如：当要求应用类加载器加载一个类(例如java.util.ArrayList)时，应用类加载器会先去请求扩展类加载器<br>
+对ArrayList进行加载，然后扩展类会再去请求系统类加载器进行加载，系统类加载器会对其进行加载，如果加载<br>
+失败，则扩展类加载器会对其进行加载，如果扩展类加载器加载失败，则应用类加载器会对其进行加载并返回。<br>
+(有点类似责任链模式)</p>
+<h3><span id="221-使用urlclassloader加载jar包中的类">2.2.1 使用URLClassLoader加载jar包中的类</span></h3>
+<p>某些程序具有插件架构，其中代码的某些部分是作为可选的插件打包的。<br>
+如果插件被打包为JAR文件，那就可以直接用URLClassLoader类的实例去加载这些类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">URL</span> <span class="variable">url</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">URL</span>(<span class="string">&quot;file:///path/to/plugin.jar&quot;</span>);</span><br><span class="line"><span class="type">URLClassLoader</span> <span class="variable">loader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">URLClassLoader</span>(<span class="keyword">new</span> <span class="title class_">URL</span>[]&#123;url&#125;);</span><br><span class="line">Class&lt;?&gt; cl = loader.loadClass(<span class="string">&quot;mypackage.myClass&quot;</span>);</span><br><span class="line"><span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> cl.newInstance();</span><br></pre></td></tr></table></figure>
+<p>由于在URLClassLoader构造器中没有指定父类加载器，所以loader的父类加载器就是应用类加载器。<br>
+<strong>在Java中，所有的类加载器都应该继承ClassLoader抽象类。</strong></p>
+<p>大多数的时候，我们不需要去干预类加载的层次结构，通常，类是由于其他的类需要它而被加载的，这个过程对我们是透明的。</p>
+<h3><span id="222-干涉类加载过程">2.2.2 干涉类加载过程</span></h3>
+<p>偶尔，有时需要干涉指定类的加载过程。<br><br>
+思考下面例子：<br><br>
+应用的代码包含一个help方法，它需要调用Class.forName(classNameString), 而这个方法是从一个插件类中被调用的，<br>
+更巧的是，classNameString指定的正是一个包含在这个插件的Jar包的类。<br></p>
+<p>插件的作者很合理的期望这个类应该被加载，但是，help方法是由应用类加载器加载的，而classNameString对于应用类<br>
+加载器是不可视的，这个类无法被正常的加载！！<br></p>
+<p>要解决这个问题，help方法在调用Class.forName(classNameString)之前需要用恰当的类加载器先将这个类加载。<br></p>
+<p>解决方案：<br><br>
+每个线程都有一个类加载器的引用，这个引用被称之为上下文类加载器。<br><br>
+主线程的上下文类加载器是应用类加载器。 当新线程创建时，它的上下文类加载器会被设置为创建该线程的上下文类加载器。<br>
+因此，如果不做额外的操作，那么所有的线程就都会将自己的上下文类加载器设置为应用类加载器！！<br>
+<br><br>
+所以我们可以这样做：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> Thread.currentTherad();</span><br><span class="line">t.setContextClassLoader(selfloader);</span><br></pre></td></tr></table></figure>
+<p>然后help这个方法就能用自定义的类加载器进行类加载了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line"><span class="type">ClassLoader</span> <span class="variable">loader</span> <span class="operator">=</span> t.getContextClassLoader();</span><br><span class="line"><span class="type">Class</span> <span class="variable">cl</span> <span class="operator">=</span> loader.loadClass(className);</span><br></pre></td></tr></table></figure>
+<p>那么问题来了，我们该如何去编写自定义的类加载器呢？<br></p>
+<h3><span id="223-自定义类加载器">2.2.3 自定义类加载器</span></h3>
+<p>我们可以编写自己的用于特殊目的的类加载器，这使得我们可以在向虚拟机传递字节码之前执行定制的检查。<br><br>
+例如我们可以编写一个类加载器，它可以拒绝加载没有标记为 piadfor的类。<br></p>
+<p>如果要编写自己的类加载器，只需要继承ClassLoader类，然后覆盖这个类的findClass方法:<br><br>
+ClassLoader的loadClass方法用于将类的加载操作委托给其父类加载器进行，<br>
+只有当该类尚未加载并且父类加载器也无法加载该类时，才调用findClass方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> Class&lt;?&gt; loadClass(String name, <span class="type">boolean</span> resolve)</span><br><span class="line">    <span class="keyword">throws</span> ClassNotFoundException</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (getClassLoadingLock(name)) &#123;</span><br><span class="line">        <span class="comment">// First, check if the class has already been loaded</span></span><br><span class="line">        Class&lt;?&gt; c = findLoadedClass(name);</span><br><span class="line">        <span class="keyword">if</span> (c == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="type">long</span> <span class="variable">t0</span> <span class="operator">=</span> System.nanoTime();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">//如果类加载器存在父类，先让父类加载</span></span><br><span class="line">                <span class="keyword">if</span> (parent != <span class="literal">null</span>) &#123;</span><br><span class="line">                    c = parent.loadClass(name, <span class="literal">false</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 如果所有的父类都加载失败，调用rt加载器加载</span></span><br><span class="line">                    c = findBootstrapClassOrNull(name);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">                <span class="comment">// ClassNotFoundException thrown if class not found</span></span><br><span class="line">                <span class="comment">// from the non-null parent class loader</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 如果父类加载器和rt加载器都加载失败，则直接调用自己的类加载器加载</span></span><br><span class="line">            <span class="keyword">if</span> (c == <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="comment">// If still not found, then invoke findClass in order</span></span><br><span class="line">                <span class="comment">// to find the class.</span></span><br><span class="line">                <span class="type">long</span> <span class="variable">t1</span> <span class="operator">=</span> System.nanoTime();</span><br><span class="line">                <span class="comment">// 这里是最后的防线</span></span><br><span class="line">                c = findClass(name);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// this is the defining class loader; record the stats</span></span><br><span class="line">                sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);</span><br><span class="line">                sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);</span><br><span class="line">                sun.misc.PerfCounter.getFindClasses().increment();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (resolve) &#123;</span><br><span class="line">            resolveClass(c);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>findClass方法的实现前提是：</p>
+<ul>
+<li>
+<p>为来自本地文件系统或者其他源的类加载其字节码</p>
+</li>
+<li>
+<p>调用ClassLoader的defineClass方法向虚拟机提供字节码</p>
+<p>这样我们就能使用自定义加载器顺利加载自定义类，<br><br>
+示例：</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClassLoader</span> <span class="keyword">extends</span> <span class="title class_">ClassLoader</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据路径和类全名对字节码文件进行读取并加载</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pathName 字节码文件路径 file:///E:/Personal/MyRepository/study/Java基础学习/src/main/java/Progress/exa37/complier/Test.class</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回这个类的Class对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt; findClass(String pathName)  <span class="keyword">throws</span> ClassFormatError &#123;</span><br><span class="line">        <span class="comment">// 声明字节码数组</span></span><br><span class="line">        <span class="type">byte</span>[] cLassBytes = <span class="literal">null</span>;</span><br><span class="line">        <span class="type">Path</span> <span class="variable">path</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            path = Paths.get(<span class="keyword">new</span> <span class="title class_">URI</span>(pathName));</span><br><span class="line">            <span class="comment">// 读取字节码文件的字节码</span></span><br><span class="line">            cLassBytes = Files.readAllBytes(path);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException | URISyntaxException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> pathName.substring(pathName.indexOf(<span class="string">&quot;java&quot;</span>)+<span class="number">5</span>,pathName.indexOf(<span class="string">&quot;.class&quot;</span>)).replace(<span class="string">&quot;/&quot;</span>,<span class="string">&quot;.&quot;</span>);</span><br><span class="line">        <span class="comment">// 根据类的包名，字节码数组构建class对象</span></span><br><span class="line">        Class&lt;?&gt; clazz = defineClass(className, cLassBytes, <span class="number">0</span>, cLassBytes.length);</span><br><span class="line">        <span class="keyword">return</span> clazz;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/JavaPrograming-Java进阶-18-Object中equals和toStirng-源码分析/" data-toggle="tooltip" data-placement="top" title="18 Object类的equals,toString源码解析">&larr; 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/JavaPrograming-Java进阶-20-i-i-问题解析/" data-toggle="tooltip" data-placement="top" title="20 i=i++问题解析">下一篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+				<!--
+                
+                <hr>
+                <h5>朋友们</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+				-->
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+          //console.log(a.target.textContent.replace(/\./g, ""));
+          document.getElementById(a.target.textContent.replace(/\./g, "").replace(" ","-")).scrollIntoView({behavior: 'smooth' });
+        })
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    //document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhihu_xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse"><b>B</b></i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/1776167012">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; muzhi 2026 
+                    <br>
+					
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://1776167012.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Mermaid图表库 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  // 页面加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid !== 'undefined') {
+      // 在这里可以配置Mermaid的主题、流程图方向等
+      mermaid.initialize({
+      // 自动识别并渲染所有 class="mermaid" 的div
+        startOnLoad: true,
+        // 可选：'default', 'dark', 'forest', 'neutral'
+        theme: 'neutral'
+      });
+    }
+  });
+</script>
+<script>
+$(document).ready(function() {
+    var isModalOpen = false;
+    // 1. 加载 search.xml 索引文件
+  $.ajax({
+    url: '/search.json', // 路径改为json
+    dataType: 'json',                    // 数据类型改为json
+    success: function(searchData) {      // 直接得到JS对象
+      console.log('搜索索引加载完成，共 ' + searchData.length + ' 篇文章。');
+      // 注意：searchData 现在直接是数组，无需解析
+      // 需要将全局的 searchData 变量赋值
+      window.searchData = searchData; // 赋值给全局变量
+    },
+    error: function() {
+      $('#search-status').text('无法加载搜索索引文件。');
+    }
+});
+
+    // 2. 搜索功能核心函数
+    function performSearch(keyword) {
+      var resultsContainer = $('#search-results-container').empty();
+      $('#search-status').hide();
+
+      if (!keyword.trim()) {
+        $('#search-status').text('输入关键词开始搜索...').show();
+        return;
+      }
+
+      var resultsHtml = '';
+      var resultCount = 0;
+      var kwReg = new RegExp(keyword, 'gi'); // 创建全局、不区分大小写的正则表达式
+
+      // 遍历所有文章数据
+      window.searchData.forEach(function(item) {
+        // 在标题和内容中搜索关键词
+        var titleMatch = item.title.match(kwReg);
+        var contentMatch = item.content.match(kwReg);
+
+        if (titleMatch || contentMatch) {
+          resultCount++;
+          // 构建标题高亮
+          var highlightedTitle = item.title.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+          // 从内容中提取包含关键词的片段（约150字符）并高亮
+          var contentSnippet = item.content;
+          var firstIndex = contentSnippet.toLowerCase().indexOf(keyword.toLowerCase());
+          if (firstIndex !== -1) {
+            var start = Math.max(0, firstIndex - 60);
+            var end = Math.min(contentSnippet.length, firstIndex + 90);
+            contentSnippet = '...' + contentSnippet.substring(start, end) + '...';
+          } else {
+            contentSnippet = contentSnippet.substring(0, 150) + '...';
+          }
+          contentSnippet = contentSnippet.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+
+          // 生成单个结果的HTML
+          resultsHtml += `
+            <div class="search-result-item">
+              <a href="${item.url}" class="search-result-title">${highlightedTitle}</a>
+              <p class="search-result-excerpt">${contentSnippet}</p>
+            </div>
+          `;
+        }
+      });
+
+      // 显示结果或“无结果”状态
+      if (resultCount > 0) {
+        resultsContainer.html(resultsHtml);
+      } else {
+        resultsContainer.html('<div id="search-status">未找到包含 "' + keyword + '" 的文章。</div>');
+      }
+    }
+
+    // 3. 绑定输入事件（防抖，提升性能）
+    var searchTimer;
+    $('#search-input').on('input', function() {
+      clearTimeout(searchTimer);
+      var keyword = $(this).val();
+      searchTimer = setTimeout(function() {
+        performSearch(keyword);
+      }, 300); // 延迟300毫秒后执行搜索
+    });
+
+    // 4. 全局控制搜索弹窗显示/隐藏的函数
+    window.openSearchModal = function() {
+      isModalOpen = true;
+      $('#search-mask, #search-modal').fadeIn(200);
+      $('#search-input').focus().select(); // 自动聚焦到输入框
+      $('body').css('overflow', 'hidden'); // 防止背景滚动
+    };
+    window.closeSearchModal = function() {
+      isModalOpen = false;
+      $('#search-mask, #search-modal').fadeOut(200);
+      $('#search-input').val(''); // 清空输入框
+      $('#search-results-container').empty(); // 清空结果
+      $('#search-status').text('输入关键词开始搜索...').show();
+      $('body').css('overflow', 'auto');
+    };
+
+    // 5. 事件绑定：点击遮罩关闭、ESC键关闭
+    $('#search-mask').on('click', closeSearchModal);
+    $(document).on('keydown', function(e) {
+      if (e.keyCode === 27 && isModalOpen) { // ESC键
+        closeSearchModal();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.keyCode === 70 && !isModalOpen) { // Ctrl+F / Cmd+F
+        e.preventDefault(); // 阻止浏览器默认查找
+        openSearchModal();
+      }
+    });
+  });
+</script>
+
+<!-- 本地搜索 CSS -->
+    <style>
+      /* 搜索弹窗遮罩 */
+      #search-mask {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9998;
+        display: none;
+      }
+      /* 搜索主容器 */
+      #search-modal {
+        position: fixed;
+        top: 10%; left: 50%;
+        transform: translateX(-50%);
+        width: 80%; max-width: 600px;
+        max-height: 80vh;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      }
+      /* 搜索框区域 */
+      .search-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      #search-input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      #search-input:focus {
+        border-color: #3498db;
+      }
+      /* 搜索结果区域 */
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 20px;
+      }
+      .search-result-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .search-result-item:last-child {
+        border-bottom: none;
+      }
+      .search-result-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #2c3e50;
+      }
+      .search-result-excerpt {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 限制最多显示3行 */
+        -webkit-box-orient: vertical;
+      }
+      .search-result-highlight {
+        background-color: #fff9c4; /* 关键词高亮背景色 */
+        font-weight: bold;
+        color: #e74c3c;
+      }
+      /* 无结果/加载状态 */
+      #search-status {
+        padding: 20px;
+        text-align: center;
+        color: #999;
+      }
+    </style>
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+	<script  type="text/javascript">
+<!-- Image to hack wechat -->
+<img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+</body>
+
+</html>

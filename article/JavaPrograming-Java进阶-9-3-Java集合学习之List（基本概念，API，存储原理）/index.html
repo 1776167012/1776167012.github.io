@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          9.3 Java集合之List(基本概念,API,存储原理) - 牧之的博客 | Muzhi Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://1776167012.github.io/article/JavaPrograming-Java进阶-9-3-Java集合学习之List（基本概念，API，存储原理）/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/beantech.min.css">
+
+
+    
+<link rel="stylesheet" href="/css/donate.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script>
+	</script>
+	<style>
+	* {
+            box-sizing: border-box;
+        }
+
+        form {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding-left: 13px;
+        }
+
+        button {
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        /*搜索框1*/
+        .bar1 {
+			background: #FFF;
+			max-width: 200px;
+		}
+        .bar1 input {
+			max-height: 30px;
+            border: 2px solid #BFBFBF;
+            border-radius: 5px;
+            background: #FFFFFF;
+            color: #BFBFBF;
+			-webkit-text-fill-color: #BFBFBF;
+        }
+        .bar1 button {
+			max-height: 30px;
+            top: 0;
+            right: 0;
+            background: #BFBFBF;
+            border-radius: 0 5px 5px 0;
+        }
+        .bar1 button:before {
+            content: "\f002";
+            font-family: FontAwesome;
+            font-size: 16px;
+            color: #F9F0DA;
+        }
+		</style>
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/feed.xml" title="牧之" type="application/atom+xml">
+</head>
+
+
+
+<!-- hack iOS CSS :active style -->
+<!-- <body ontouchstart=""  class="<?php echo($_COOKIE['night'] == '1' ? '' : ''); ?>"> -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('https://api.dujin.org/bing/1920.php')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+                            
+                        </div>
+                        <h1>9.3 Java集合之List(基本概念,API,存储原理)</h1>
+                        <!-- <h2 class="subheading"></h2> -->
+                        <span class="meta">
+                            muzhi on
+                            2023-05-20
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1776167012</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                   <!-- 例如，放在导航菜单内部 -->
+                   <li>
+                    <a href="javascript:void(0);" onclick="openSearchModal()" title="搜索">搜索</a>
+                   </li>
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+					<li>
+                        <a href="/archive/">文章归档</a>
+                    </li>
+					<li>
+                        <a href="/tags/">博客标签</a>
+                    </li>
+					<li>
+                        <a href="/about/">关于作者</a>
+                    </li>
+
+					<!--
+					修改about在前面的问题
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">没有什么比快乐更重要</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    -->
+                </ul>
+            </div>
+
+        <!-- 本地搜索弹窗结构 -->
+        <div id="search-mask"></div>
+        <div id="search-modal">
+          <div class="search-header">
+            <input type="text" id="search-input" placeholder="请输入关键词搜索..." autocomplete="off" />
+          </div>
+          <div id="search-status">输入关键词开始搜索...</div>
+          <div class="search-results" id="search-results-container">
+            <!-- 搜索结果将通过JS动态插入到这里 -->
+          </div>
+        </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				
+                <html><head></head><body><h1><span id="1-list接口">1. List接口</span></h1>
+<p>在学习List接口之前我们还是得复习下这张图</p>
+<div class="mermaid">graph LR
+
+Collection --extend--&gt; Iterable
+
+List--extend--&gt; Collection
+
+Set--extend--&gt; Collection
+
+Queue--extend--&gt; Collection
+
+SortedMap --extend--&gt; Map
+
+SortedSet--extend--&gt;Set
+Deque--extend--&gt;Queue
+NavigableMap --extend--&gt; SortedMap
+NavigbleSet --extend--&gt; SortedSet
+ListIterator--extend--&gt;Iterator
+RandomAccess</div>
+<p>从图中我们知道了，<strong>List接口继承了Collection接口</strong>。</p>
+<p>也就是说List接口是在Collection接口的基础上衍生出来的具体的链表数据结构的接口，在Java集合中，链表数据结构类都必须要实现List接口。<br>
+通过查看List接口的定义并和Collection接口进行比较，可以找到，专属于List接口的方法有：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//指定开始位置将另一个集合的元素插入进List中</span></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">addAll</span><span class="params">(<span class="type">int</span> index, Collection&lt;? extends E&gt; c)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将List中的元素通过传入的Operator进行替换处理</span></span><br><span class="line"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">replaceAll</span><span class="params">(UnaryOperator&lt;E&gt; operator)</span> {</span><br><span class="line">    Objects.requireNonNull(operator);</span><br><span class="line">    <span class="keyword">final</span> ListIterator&lt;E&gt; li = <span class="built_in">this</span>.listIterator();</span><br><span class="line">    <span class="keyword">while</span> (li.hasNext()) {</span><br><span class="line">        li.set(operator.apply(li.next()));</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//将List中的元素通过传入的Comparator进行排序处理</span></span><br><span class="line"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">sort</span><span class="params">(Comparator&lt;? <span class="built_in">super</span> E&gt; c)</span> {</span><br><span class="line">    Object[] a = <span class="built_in">this</span>.toArray();</span><br><span class="line">    Arrays.sort(a, (Comparator) c);</span><br><span class="line">    ListIterator&lt;E&gt; i = <span class="built_in">this</span>.listIterator();</span><br><span class="line">    <span class="keyword">for</span> (Object e : a) {</span><br><span class="line">        i.next();</span><br><span class="line">        i.set((E) e);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//根据索引位置得到指定位置的元素</span></span><br><span class="line">E <span class="title function_">get</span><span class="params">(<span class="type">int</span> index)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//重置指定索引位置的元素</span></span><br><span class="line">E <span class="title function_">set</span><span class="params">(<span class="type">int</span> index, E element)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//向指定位置插入新的元素</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> index, E element)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//删除指定位置的元素</span></span><br><span class="line">E <span class="title function_">remove</span><span class="params">(<span class="type">int</span> index)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//得到第一个和对象o相等的对象的位置</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">indexOf</span><span class="params">(Object o)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//得到最后一个和对象o相等的对象的位置</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">lastIndexOf</span><span class="params">(Object o)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获得链表迭代器</span></span><br><span class="line">ListIterator&lt;E&gt; <span class="title function_">listIterator</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获得指定起始位置的链表迭代器</span></span><br><span class="line">ListIterator&lt;E&gt; <span class="title function_">listIterator</span><span class="params">(<span class="type">int</span> index)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获得指定位置范围的链表</span></span><br><span class="line">List&lt;E&gt; <span class="title function_">subList</span><span class="params">(<span class="type">int</span> fromIndex, <span class="type">int</span> toIndex)</span>;</span><br></pre></td></tr></tbody></table></figure>
+<h1><span id="2-list的具体实现">2. List的具体实现</span></h1>
+<table>
+<thead>
+<tr>
+<th>集合类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ArrayList</td>
+<td>一种可以动态增长和缩减的索引序列</td>
+</tr>
+<tr>
+<td>LinkedList</td>
+<td>一种可以在任何位置进行高效地插入和删除操作的有序序列</td>
+</tr>
+<tr>
+<td>ArrayDeque</td>
+<td>一种用循环数组实现的双端队列</td>
+</tr>
+<tr>
+<td>HashSet</td>
+<td>一种没有重复元素的无序集合</td>
+</tr>
+<tr>
+<td>TreeSet</td>
+<td>一种没有重复元素的有序集合</td>
+</tr>
+<tr>
+<td>EnumSet</td>
+<td>一种包含枚举类型值的集</td>
+</tr>
+<tr>
+<td>LinkedHashSet</td>
+<td>一种可以记住元素插入次序的集</td>
+</tr>
+<tr>
+<td>PriorityQueue</td>
+<td>一种允许高效删除最小/大元素的集合</td>
+</tr>
+<tr>
+<td>HashMap</td>
+<td>存储key-value结构的数据结构</td>
+</tr>
+<tr>
+<td>TreeMap</td>
+<td>存储key有序的key-value的数据结构</td>
+</tr>
+<tr>
+<td>EnumMap</td>
+<td>一种键值属于枚举类型的映射表</td>
+</tr>
+<tr>
+<td>LinkedHashMap</td>
+<td>一种可以记录键值插入顺序的结构</td>
+</tr>
+<tr>
+<td>WeakHashMap</td>
+<td>一种其值没用后可以被垃圾回收器回收的结构</td>
+</tr>
+<tr>
+<td>IdentityHashMap</td>
+<td>一种用==而不是用equals比较键值的结构</td>
+</tr>
+</tbody>
+</table>
+<p>在具体的查看源码前，我们可以根据上面的表格先猜出那些具体的集合是通过实现List接口来定义的：<br>
+ArrayList,  LinkedList 这是两个比较明显的实现了。</p>
+<h2><span id="21-arraylist">2.1 ArrayList</span></h2>
+<p>简单介绍一下ArrayList的实现就是：</p>
+<p>ArrayList是基于动态数组实现的一个链表数据结构的一个<strong>线程不安全</strong>的类。</p>
+<p>它的使用特性是<strong>插入，删除慢。修改快，查询快，且支持随机查询（根据get(int index)能以常数时间获取元素）。</strong></p>
+<h3><span id="211-存储原理">2.1.1 存储原理</span></h3>
+<ul>
+<li>开辟存储存储空间：<br>
+如果使用的是默认无参构造方法，size<em>1.5&lt;=size+1，则为elementData开辟10个对象空间。<br>
+如果使用的是指定数量的构造方法，size</em>1.5&lt;=size+1，则为elementData开辟size+1个对象空间。</li>
+<li>扩容机制：<br>
+每次添加前会对size+1进行检查<br>
+如果在原数组的基础上增加了一半后大于size+1且小于MAX_ARRAY_SIZE,则将数组扩容至150%大小。</li>
+</ul>
+<p><em><strong>具体的实现可以查阅Jdk源码来进行学习。</strong></em></p>
+<h3><span id="212-性能测试实例">2.1.2  性能测试实例</span></h3>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//完整代码地址在文章最后</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">    List&lt;Integer&gt; list = addTest(<span class="number">100000</span>);</span><br><span class="line">    System.out.println(<span class="string">"修改耗时："</span>+updateTest(list)+<span class="string">"ms"</span>);</span><br><span class="line">    System.out.println(<span class="string">"查询耗时： "</span>+queryTest(list)+<span class="string">"ms"</span>);</span><br><span class="line">    System.out.println(<span class="string">"插入耗时： "</span>+insertTest(list)+<span class="string">"ms"</span>);</span><br><span class="line">    System.out.println(<span class="string">"删除耗时： "</span>+deleteTest(list)+<span class="string">"ms"</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>运行结果：</p>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">添加耗时：5ms</span><br><span class="line">修改耗时：5ms</span><br><span class="line">查询耗时： 4ms</span><br><span class="line">插入耗时： 2760ms</span><br><span class="line">删除耗时： 2167ms</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></tbody></table></figure>
+<p>上面的测试结果实事求是的验证了ArrayList的 <strong>插入，删除慢。</strong></p>
+<h2><span id="22-linkedlist">2.2 LinkedList</span></h2>
+<p>简单概述一下LinkedList的实现就是：LinkedList是基于双向链表实现的一个链表数据结构实现的一个<strong>线程不安全</strong>的类。</p>
+<h3><span id="221-存储原理">2.2.1 存储原理</span></h3>
+<p>LinkedList 采用链表存储，如果是在头尾插入或者删除元素不受元素位置的影响（add(E e)、addFirst(E e) addLast(E e)、removeFirst()、 removeLast()），时间复杂度为 O(1)，效率非常好。<br>
+如果是要在指定位置 i 插入和删除元素的话（add(int index, E element)，remove(Object o)）， 时间复杂度为 O(n) ，因为需要先移动到指定位置再插入。<strong>但是不需要进行原有数据的整体移动处理。</strong></p>
+<p>需要注意的是： <strong>LinkedList不支持高效随机元素访问，ArrayList支持。 LinkedList则无需担心扩容问题，它的存储原理是需要的时候进行开辟空间，然后通过引用链接到一起，所以LinkedList的存储位置是碎片化，不连续的。</strong></p>
+<p>具体的实现请查阅源码。</p>
+<h3><span id="222-性能测试实例">2.2.2 性能测试实例</span></h3>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//代码地址在文章最后</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">    List&lt;Integer&gt; list = addTest(<span class="number">100000</span>);</span><br><span class="line">    System.out.println(<span class="string">"修改耗时："</span>+updateTest(list)+<span class="string">"ms"</span>);</span><br><span class="line">    System.out.println(<span class="string">"查询耗时： "</span>+queryTest(list)+<span class="string">"ms"</span>);</span><br><span class="line">    System.out.println(<span class="string">"插入耗时： "</span>+insertTest(list)+<span class="string">"ms"</span>);</span><br><span class="line">    System.out.println(<span class="string">"删除耗时： "</span>+deleteTest(list)+<span class="string">"ms"</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>运行结果：</p>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">添加耗时：6ms</span><br><span class="line">修改耗时：5284ms</span><br><span class="line">查询耗时： 4917ms</span><br><span class="line">插入耗时： 8351ms</span><br><span class="line">删除耗时： 7564ms</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></tbody></table></figure>
+<p>可以看到，相比而言，其总体性能和ArrayList相比差距还是较大的,所以在实际的使用过程中, ArrayList是首选。</p>
+<h2><span id="23-vector">2.3 Vector</span></h2>
+<p>其实除了ArrayList, LinkedList两种有名的实现之外，JDK最开始提供的List的实现版本是Vector但是它的性能和功能都逐渐被淘汰了。</p>
+<h3><span id="231-存储原理">2.3.1 存储原理</span></h3>
+<p>Vector底层用的是数组实现。 它的关键操作方法都是同步的，这使得线程安全，但是性能不好。</p>
+<ul>
+<li>开辟内存空间<br>
+默认开辟10个内存空间</li>
+<li>扩容机制<br>
+既然是使用数组实现，那么它也一定会有相应的扩容机制，每次添加前会对elementCount+1进行检查，<br>
+如果它大于了数组长度，则进行扩容，采用的基本逻辑是如果指定了扩容大小capIncre，则扩为 oldCap+capIncre,否则进行<strong>两倍扩容</strong>。扩完后如果还是小于elementCount+1,则newCap = elementCount+1<br>
+还进行了一些极限纠正。</li>
+</ul>
+<p>具体的实现请查阅源码。</p>
+<h3><span id="232-性能测试实例">2.3.2 性能测试实例</span></h3>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//完整代码地址见下方链接</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">    List&lt;Integer&gt; list = addTest(<span class="number">100000</span>);</span><br><span class="line">    System.out.println(<span class="string">"修改耗时："</span>+updateTest(list)+<span class="string">"ms"</span>);</span><br><span class="line">    System.out.println(<span class="string">"查询耗时： "</span>+queryTest(list)+<span class="string">"ms"</span>);</span><br><span class="line">    System.out.println(<span class="string">"插入耗时： "</span>+insertTest(list)+<span class="string">"ms"</span>);</span><br><span class="line">    System.out.println(<span class="string">"删除耗时： "</span>+deleteTest(list)+<span class="string">"ms"</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>运行结果：</p>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">添加耗时：15ms</span><br><span class="line">修改耗时：12ms</span><br><span class="line">查询耗时： 6ms</span><br><span class="line">插入耗时： 3288ms</span><br><span class="line">删除耗时： 2760ms</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></tbody></table></figure>
+<p>可以看到在这个测试实例下，Vector的性能和ArrayList相差不大。<br>
+但是，在多线程的情况下它的性能下降的还是很厉害的。</p>
+<p>完整代码地址：<br>
+<a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Progress/exa27_3">https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Progress/exa27_3</a></p>
+<blockquote>
+<p>LinkedList部分参考了文章： <a href="https://javaguide.cn/java/collection/java-collection-questions-01.html#collection-%E5%AD%90%E6%8E%A5%E5%8F%A3%E4%B9%8B-list">https://javaguide.cn/java/collection/java-collection-questions-01.html#collection-%E5%AD%90%E6%8E%A5%E5%8F%A3%E4%B9%8B-list</a></p>
+</blockquote>
+</body></html>
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/JavaPrograming-Java进阶-9-2-java集合基础学习（集合基本概念和基础接口学习）/" data-toggle="tooltip" data-placement="top" title="9.2 Java集合基础学习(集合基本概念,基础接口)">&larr; 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/JavaPrograming-Java进阶-9-4-Java集合之Map学习/" data-toggle="tooltip" data-placement="top" title="9.4 Java集合之Map学习">下一篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+				<!--
+                
+                <hr>
+                <h5>朋友们</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+				-->
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+          //console.log(a.target.textContent.replace(/\./g, ""));
+          document.getElementById(a.target.textContent.replace(/\./g, "").replace(" ","-")).scrollIntoView({behavior: 'smooth' });
+        })
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    //document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhihu_xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse"><b>B</b></i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/1776167012">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; muzhi 2026 
+                    <br>
+					
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://1776167012.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Mermaid图表库 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  // 页面加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid !== 'undefined') {
+      // 在这里可以配置Mermaid的主题、流程图方向等
+      mermaid.initialize({
+      // 自动识别并渲染所有 class="mermaid" 的div
+        startOnLoad: true,
+        // 可选：'default', 'dark', 'forest', 'neutral'
+        theme: 'neutral'
+      });
+    }
+  });
+</script>
+<script>
+$(document).ready(function() {
+    var isModalOpen = false;
+    // 1. 加载 search.xml 索引文件
+  $.ajax({
+    url: '/search.json', // 路径改为json
+    dataType: 'json',                    // 数据类型改为json
+    success: function(searchData) {      // 直接得到JS对象
+      console.log('搜索索引加载完成，共 ' + searchData.length + ' 篇文章。');
+      // 注意：searchData 现在直接是数组，无需解析
+      // 需要将全局的 searchData 变量赋值
+      window.searchData = searchData; // 赋值给全局变量
+    },
+    error: function() {
+      $('#search-status').text('无法加载搜索索引文件。');
+    }
+});
+
+    // 2. 搜索功能核心函数
+    function performSearch(keyword) {
+      var resultsContainer = $('#search-results-container').empty();
+      $('#search-status').hide();
+
+      if (!keyword.trim()) {
+        $('#search-status').text('输入关键词开始搜索...').show();
+        return;
+      }
+
+      var resultsHtml = '';
+      var resultCount = 0;
+      var kwReg = new RegExp(keyword, 'gi'); // 创建全局、不区分大小写的正则表达式
+
+      // 遍历所有文章数据
+      window.searchData.forEach(function(item) {
+        // 在标题和内容中搜索关键词
+        var titleMatch = item.title.match(kwReg);
+        var contentMatch = item.content.match(kwReg);
+
+        if (titleMatch || contentMatch) {
+          resultCount++;
+          // 构建标题高亮
+          var highlightedTitle = item.title.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+          // 从内容中提取包含关键词的片段（约150字符）并高亮
+          var contentSnippet = item.content;
+          var firstIndex = contentSnippet.toLowerCase().indexOf(keyword.toLowerCase());
+          if (firstIndex !== -1) {
+            var start = Math.max(0, firstIndex - 60);
+            var end = Math.min(contentSnippet.length, firstIndex + 90);
+            contentSnippet = '...' + contentSnippet.substring(start, end) + '...';
+          } else {
+            contentSnippet = contentSnippet.substring(0, 150) + '...';
+          }
+          contentSnippet = contentSnippet.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+
+          // 生成单个结果的HTML
+          resultsHtml += `
+            <div class="search-result-item">
+              <a href="${item.url}" class="search-result-title">${highlightedTitle}</a>
+              <p class="search-result-excerpt">${contentSnippet}</p>
+            </div>
+          `;
+        }
+      });
+
+      // 显示结果或“无结果”状态
+      if (resultCount > 0) {
+        resultsContainer.html(resultsHtml);
+      } else {
+        resultsContainer.html('<div id="search-status">未找到包含 "' + keyword + '" 的文章。</div>');
+      }
+    }
+
+    // 3. 绑定输入事件（防抖，提升性能）
+    var searchTimer;
+    $('#search-input').on('input', function() {
+      clearTimeout(searchTimer);
+      var keyword = $(this).val();
+      searchTimer = setTimeout(function() {
+        performSearch(keyword);
+      }, 300); // 延迟300毫秒后执行搜索
+    });
+
+    // 4. 全局控制搜索弹窗显示/隐藏的函数
+    window.openSearchModal = function() {
+      isModalOpen = true;
+      $('#search-mask, #search-modal').fadeIn(200);
+      $('#search-input').focus().select(); // 自动聚焦到输入框
+      $('body').css('overflow', 'hidden'); // 防止背景滚动
+    };
+    window.closeSearchModal = function() {
+      isModalOpen = false;
+      $('#search-mask, #search-modal').fadeOut(200);
+      $('#search-input').val(''); // 清空输入框
+      $('#search-results-container').empty(); // 清空结果
+      $('#search-status').text('输入关键词开始搜索...').show();
+      $('body').css('overflow', 'auto');
+    };
+
+    // 5. 事件绑定：点击遮罩关闭、ESC键关闭
+    $('#search-mask').on('click', closeSearchModal);
+    $(document).on('keydown', function(e) {
+      if (e.keyCode === 27 && isModalOpen) { // ESC键
+        closeSearchModal();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.keyCode === 70 && !isModalOpen) { // Ctrl+F / Cmd+F
+        e.preventDefault(); // 阻止浏览器默认查找
+        openSearchModal();
+      }
+    });
+  });
+</script>
+
+<!-- 本地搜索 CSS -->
+    <style>
+      /* 搜索弹窗遮罩 */
+      #search-mask {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9998;
+        display: none;
+      }
+      /* 搜索主容器 */
+      #search-modal {
+        position: fixed;
+        top: 10%; left: 50%;
+        transform: translateX(-50%);
+        width: 80%; max-width: 600px;
+        max-height: 80vh;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      }
+      /* 搜索框区域 */
+      .search-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      #search-input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      #search-input:focus {
+        border-color: #3498db;
+      }
+      /* 搜索结果区域 */
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 20px;
+      }
+      .search-result-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .search-result-item:last-child {
+        border-bottom: none;
+      }
+      .search-result-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #2c3e50;
+      }
+      .search-result-excerpt {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 限制最多显示3行 */
+        -webkit-box-orient: vertical;
+      }
+      .search-result-highlight {
+        background-color: #fff9c4; /* 关键词高亮背景色 */
+        font-weight: bold;
+        color: #e74c3c;
+      }
+      /* 无结果/加载状态 */
+      #search-status {
+        padding: 20px;
+        text-align: center;
+        color: #999;
+      }
+    </style>
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+	<script  type="text/javascript">
+<!-- Image to hack wechat -->
+<img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+</body>
+
+</html>

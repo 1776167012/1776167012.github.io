@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          贷款核心业务知识 - 牧之的博客 | Muzhi Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://1776167012.github.io/article/BankCoreSystem-贷款核心业务知识/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/beantech.min.css">
+
+
+    
+<link rel="stylesheet" href="/css/donate.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script>
+	</script>
+	<style>
+	* {
+            box-sizing: border-box;
+        }
+
+        form {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding-left: 13px;
+        }
+
+        button {
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        /*搜索框1*/
+        .bar1 {
+			background: #FFF;
+			max-width: 200px;
+		}
+        .bar1 input {
+			max-height: 30px;
+            border: 2px solid #BFBFBF;
+            border-radius: 5px;
+            background: #FFFFFF;
+            color: #BFBFBF;
+			-webkit-text-fill-color: #BFBFBF;
+        }
+        .bar1 button {
+			max-height: 30px;
+            top: 0;
+            right: 0;
+            background: #BFBFBF;
+            border-radius: 0 5px 5px 0;
+        }
+        .bar1 button:before {
+            content: "\f002";
+            font-family: FontAwesome;
+            font-size: 16px;
+            color: #F9F0DA;
+        }
+		</style>
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/feed.xml" title="牧之" type="application/atom+xml">
+</head>
+
+
+
+<!-- hack iOS CSS :active style -->
+<!-- <body ontouchstart=""  class="<?php echo($_COOKIE['night'] == '1' ? '' : ''); ?>"> -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('https://api.dujin.org/bing/1920.php')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#银行核心系统" title="银行核心系统">银行核心系统</a>
+                            
+                        </div>
+                        <h1>贷款核心业务知识</h1>
+                        <!-- <h2 class="subheading"></h2> -->
+                        <span class="meta">
+                            牧之 on
+                            2026-01-15
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1776167012</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                   <!-- 例如，放在导航菜单内部 -->
+                   <li>
+                    <a href="javascript:void(0);" onclick="openSearchModal()" title="搜索">搜索</a>
+                   </li>
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+					<li>
+                        <a href="/archive/">文章归档</a>
+                    </li>
+					<li>
+                        <a href="/tags/">博客标签</a>
+                    </li>
+					<li>
+                        <a href="/about/">关于作者</a>
+                    </li>
+
+					<!--
+					修改about在前面的问题
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">没有什么比快乐更重要</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    -->
+                </ul>
+            </div>
+
+        <!-- 本地搜索弹窗结构 -->
+        <div id="search-mask"></div>
+        <div id="search-modal">
+          <div class="search-header">
+            <input type="text" id="search-input" placeholder="请输入关键词搜索..." autocomplete="off" />
+          </div>
+          <div id="search-status">输入关键词开始搜索...</div>
+          <div class="search-results" id="search-results-container">
+            <!-- 搜索结果将通过JS动态插入到这里 -->
+          </div>
+        </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				
+					<!-- cloud music -->
+					<!-- 单曲嵌入， auto=1 可以控制自动播放与否，当值为 1 即打开网页就自动播放，值为 0 时需要访客手动点击播放 -->
+					<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=86
+							src="//music.163.com/outchain/player?type=2&id=167844&auto=1&height=66">
+					</iframe>
+				
+                <h1><span id="1贷款模块的特点">1.贷款模块的特点</span></h1>
+<p>贷款的基本要素：金额，利率，时间，用户</p>
+<ul>
+<li>
+<p>1）由于贷款业务的产品有很多，所以贷款系统必须可以进行灵活的产品设置，多样的利率变更方式，灵活的期限调整，多种还款方式，灵活的还款计划，灵活的利率设置，以及组合产品。</p>
+</li>
+<li>
+<p>2）贷款到期后是要回收的，但由于可能数据量巨大，所以也应提供自动批量贷款回收功能。</p>
+</li>
+<li>
+<p>3）由于贷款交易的特殊性，所以需要关键交易的复核或授权。</p>
+</li>
+</ul>
+<p>问题：贷款操作会计无关性 是什么意思？<br>
+答：在业务处理时不考虑会计核算要求，这就是业务走的会计无关性。</p>
+<h1><span id="2贷款的生命周期">2.贷款的生命周期</span></h1>
+<ul>
+<li>一、贷款申请</li>
+</ul>
+<p>借款人向当地银行提出借款申请。除申请农村小额贷款外，申请其他种类的贷款须提供有关资料。</p>
+<ul>
+<li>二、信用等级评估</li>
+</ul>
+<p>银行对借款人的信用等级进行评估。</p>
+<ul>
+<li>三、贷款调查。</li>
+</ul>
+<p>银行对借款人的合法性、安全性、盈利性等情况进行调查。</p>
+<ul>
+<li>四、贷款审批。</li>
+</ul>
+<p>银行按审贷分离、分级审批的贷款管理制度进行贷款审批。</p>
+<ul>
+<li>五、签订合同。</li>
+</ul>
+<p>银行与借款人签订借款合同。</p>
+<ul>
+<li>六、贷款发放。</li>
+</ul>
+<p>银行按借款合同规定按期发放贷款。</p>
+<ul>
+<li>七、贷后检查。</li>
+</ul>
+<p>银行对借款人执行借款合同情况及借款人经营情况进行追踪调查和检查。</p>
+<ul>
+<li>八、贷款归还。</li>
+</ul>
+<p>贷款到期后，借款人按时足额归还贷款本息，如要展期应在借款到期日之前，向银行提出贷款展期申请，是否展期由银行决定。</p>
+<p>所以贷款一次完整的生命周期可分为八步，分别是：</p>
+<p>贷款的申请–&gt;信用等级评估–&gt;贷款调查–&gt;贷款审批–&gt;签订合同–&gt;贷款发放–&gt;贷后检查–&gt;贷款归还</p>
+<h1><span id="3-时间上贷款维度">3 时间上贷款维度</span></h1>
+<p>从时间的维度上划分，一次贷款的完整交易可分为：贷前，贷中，贷后。</p>
+<h2><span id="1贷前">1）贷前</span></h2>
+<p>第一步：客户申请<br>
+第二步：线下审批流程及纸质合同签订（这一步是否可以确定贷款结果？） 答：可以</p>
+<h2><span id="2贷中">2）贷中</span></h2>
+<p>第一步：建立客户信息<br>
+第二步：贷款承诺处理（这里是否是处理客户贷前签订的合同？） 答：是的<br>
+第三步：贷款开立，同步合同<br>
+第四步：贷款放款<br>
+第五步：贷款提款，受托支付（受托支付的方式有？）答：受托支付是贷款资金的一种支付方式，指贷款人（依法设立的银行业金融机构）根据借款人的提款申请和支付委托，将贷款资金支付给符合合同约定用途的借款人交易对象，目的是为了减小贷款被挪用的风险。受托支付适用的情况是：贷款资金单笔金额超过项目总投资5%或超过500万元人民币。</p>
+<h2><span id="3贷后">3）贷后</span></h2>
+<p>第一步：利息处理<br>
+第二步：费用处理（这个费用是啥费用？）答：一般是手续费<br>
+第三步：贷款变更<br>
+第四步：还款处理<br>
+第五步：核销，终止，关闭（核销？）答：贷款核销是“呆账贷款核销” 的简称，银行按规定将呆账贷款或贷款损失予以核销的一种制度。</p>
+<h1><span id="4利率的基本维度">4.利率的基本维度</span></h1>
+<h2><span id="1利率形式">1）利率形式</span></h2>
+<ul>
+<li>
+<p>浮动利率：浮动利率是在借贷期内可定期调整的利率。常常采用基本利率加成计算。<br>
+通常将市场上信誉最好企业的借款利率或商业票据利率定为基本利率，并在此基础上加0.5至2个百分点作为浮动利率。到期按面值还本，平时按规定的付息期的浮动利率付息。</p>
+</li>
+<li>
+<p>固定利率：固定利率由国家规定，是在一定时期内不受社会平均利润率和资金供求变化所影响的一种利息率。</p>
+</li>
+<li>
+<p>最大利率：银行在设置利率时不能过高，必须在合法范围内，所以有限制</p>
+</li>
+<li>
+<p>最小利率：银行在设置利率时也不能过低，太低将无法正常盈利，所以也有限制</p>
+</li>
+</ul>
+<h2><span id="2利率形态">2）利率形态</span></h2>
+<ul>
+<li>
+<p>正常利率：按照合同签订的利率。新核心系统叫分户级执行利率，老核心叫执行利率</p>
+</li>
+<li>
+<p>罚息利率：罚息是借款人在规定的日期未还款造成的逾期而交纳的罚金(也有个利率进行计算)。</p>
+</li>
+<li>
+<p>复利利率：是指在计算利息时，某一计息周期的利息是由本金加上先前周期所积累利息总额来计算的计息方式，也即通常所说的 利滚利。</p>
+</li>
+<li>
+<p>罚息的复利：将罚息作为利息计算的本金进行利滚利。</p>
+</li>
+<li>
+<p>复利的复利：利滚利滚利</p>
+</li>
+</ul>
+<h2><span id="3利率启用方式">3）利率启用方式</span></h2>
+<ul>
+<li>固定不变：与客户约定好不随人行浮动而浮动，这样利率称为固定利率</li>
+<li>立即生效：根据人行浮动立即生效，它只对浮动利率有效</li>
+<li>按指定周期自动生效：人行浮动后不马上生效，按照指定的周期自动生效，只对浮动利率有效</li>
+<li>下一计息周期生效：人行浮动后的下一周期生效，只对浮动利率有效</li>
+</ul>
+<h2><span id="4计息天数">4）计息天数</span></h2>
+<p>基本月天数30天</p>
+<p>基本年天数可分：360，365，366</p>
+<h1><span id="4多样的还款方式设置">4.多样的还款方式设置</span></h1>
+<h2><span id="1等额本金">1）等额本金</span></h2>
+<p>在还款期内把贷款数总额等分，每月偿还同等数额的本金和剩余贷款在该月所产生的利息，这样由于每月的还款本金额固定，而利息越来越少，借款人起初还款压力较大，但是随时间的推移每月还款数也越来越少。一般针对于个人贷款<br>
+计算公式：<br>
+每月还本付息金额 =（本金/还款月数）+（本金-累计已还本金）×月利率<br>
+每月本金=总本金/还款月数<br>
+每月利息=（本金-累计已还本金）×月利率<br>
+还款总利息=（还款月数+1）×贷款额×月利率/2<br>
+还款总额=（还款月数+1）×贷款额×月利率/2+ 贷款额<br>
+注意：在等额本金法中，人们每月归还的本金额始终不变，利息随剩余本金的减少而减少，因而其每月还款额逐渐减少。</p>
+<h2><span id="2等额本息每月偿还相同数额">2）等额本息（每月偿还相同数额）</span></h2>
+<p>等额本息是指一种贷款的还款方式，指在还款期内，每月偿还同等数额的贷款(本金和利息)。<br>
+等额本息和等额本金是不一样的概念，虽然刚开始还款时每月还款额可能会低于等额本金还款方式的额度，但是最终所还利息会高于等额本金还款方式，该方式经常被银行使用。</p>
+<p>计算公式：<br>
+等额本息每月还款额=[贷款本金×月利率×（1+月利率）^还款月数]÷[（1+月利率）^还款月数－1]<br>
+等额本息单期利息计算方法：（贷款金额<em>月利率-每月还款额）</em>（1+月利率）^(第n个月-1)+每月还款额</p>
+<h2><span id="1等额本金和等额本息的差别">1）等额本金和等额本息的差别</span></h2>
+<p>练习题：计算贷款10万，年利率4.9，10年还清下的还款计划<br>
+经验：在进行贷款利息计算的时候一定要注意精度问题，因为这往往决定着我们最后的帐正确与否。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.text.ParseException;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Calendar;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WordText</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *等额本金还款计划算法，注意：计算公式中浮点数的精度一定要一致</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> money 贷款本金</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> l 贷款年利率</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> time 贷款时长</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> startTime 贷款开始时间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">averageCapital</span><span class="params">(<span class="type">double</span> money, <span class="type">float</span> l, <span class="type">int</span> time, String startTime)</span> <span class="keyword">throws</span> ParseException &#123;</span><br><span class="line"><span class="comment">//定义还款月数</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">backNum</span> <span class="operator">=</span> time * <span class="number">12</span>;</span><br><span class="line"><span class="comment">//定义每期还款金额</span></span><br><span class="line">        <span class="type">double</span> <span class="variable">backMoney</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="comment">//定义已还本金</span></span><br><span class="line">        <span class="type">double</span> <span class="variable">backedMoney</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="comment">//定义月利率</span></span><br><span class="line">        <span class="type">double</span> <span class="variable">monthL</span> <span class="operator">=</span> l / <span class="number">12</span>;</span><br><span class="line"><span class="comment">//利息总额</span></span><br><span class="line">        <span class="type">double</span> <span class="variable">LSumMoney</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;还款期数\t还款日期\t\t期初余额\t还款\t本金\t利息\t期末余额（剩余本金）\t&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; backNum; i++) &#123;</span><br><span class="line">            <span class="comment">//单期利息额</span></span><br><span class="line">            <span class="type">double</span> <span class="variable">lMoney</span> <span class="operator">=</span> (money - backedMoney) * monthL;</span><br><span class="line">            LSumMoney += lMoney;</span><br><span class="line">            backMoney = (money / backNum) + lMoney;</span><br><span class="line">            <span class="comment">//期初余额</span></span><br><span class="line">            <span class="type">double</span> <span class="variable">startMoney</span> <span class="operator">=</span> money - backedMoney;</span><br><span class="line">            backedMoney += money / backNum;</span><br><span class="line">            startTime = subMonth(startTime);</span><br><span class="line">            System.out.println(i + <span class="number">1</span> + <span class="string">&quot;\t&quot;</span> + startTime + <span class="string">&quot;\t\t&quot;</span> + String.format(<span class="string">&quot;%.2f&quot;</span>, startMoney) + <span class="string">&quot;\t&quot;</span> + String.format(<span class="string">&quot;%.2f&quot;</span>, backMoney) + <span class="string">&quot;\t&quot;</span> +</span><br><span class="line">                    String.format(<span class="string">&quot;%.2f&quot;</span>, money / backNum) + <span class="string">&quot;\t&quot;</span> + String.format(<span class="string">&quot;%.2f&quot;</span>, lMoney) + <span class="string">&quot;\t&quot;</span> + String.format(<span class="string">&quot;%.2f&quot;</span>, (money - backedMoney)));</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(String.format(<span class="string">&quot;%.2f&quot;</span>, LSumMoney));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *等额本息还款计划算法，注意：计算公式中浮点数的精度一定要一致</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> money 贷款本金</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> l 贷款年利率</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> time 贷款时长</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> startTime 贷款开始时间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">averageCapitalPlusInterest</span><span class="params">(<span class="type">double</span> money, <span class="type">float</span> l, <span class="type">int</span> time, String startTime)</span> <span class="keyword">throws</span> ParseException &#123;</span><br><span class="line"><span class="comment">//定义还款月数</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">backNum</span> <span class="operator">=</span> time * <span class="number">12</span>;</span><br><span class="line"><span class="comment">//定义每期还款金额</span></span><br><span class="line">        <span class="type">double</span> backMoney;</span><br><span class="line"><span class="comment">//定义已还本金</span></span><br><span class="line">        <span class="type">double</span> <span class="variable">backedMoney</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="comment">//定义月利率</span></span><br><span class="line">        <span class="type">double</span> <span class="variable">monthL</span> <span class="operator">=</span> l / <span class="number">12</span>;</span><br><span class="line"><span class="comment">//利息总额</span></span><br><span class="line">        <span class="type">double</span> <span class="variable">LSumMoney</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        backMoney = (money * monthL) * Math.pow(<span class="number">1</span> + monthL, backNum) / (Math.pow(<span class="number">1</span> + monthL, backNum) - <span class="number">1</span>);<span class="comment">//每期应还本里总额</span></span><br><span class="line"></span><br><span class="line">        System.out.println(backMoney);</span><br><span class="line">        System.out.println(<span class="string">&quot;还款期数\t还款日期\t\t期初余额\t还款\t本金\t利息\t期末余额（剩余本金）\t&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; backNum; i++) &#123;</span><br><span class="line">            <span class="comment">//期初余额</span></span><br><span class="line">            <span class="type">double</span> <span class="variable">startMoney</span> <span class="operator">=</span> money - backedMoney;</span><br><span class="line">            startTime = subMonth(startTime);</span><br><span class="line">            <span class="comment">//单期利息</span></span><br><span class="line">            <span class="type">double</span> <span class="variable">liXi</span> <span class="operator">=</span> (money * monthL - backMoney) * Math.pow(<span class="number">1</span> + monthL, i) + backMoney;</span><br><span class="line">            LSumMoney += liXi;</span><br><span class="line">            backedMoney += (backMoney - liXi);</span><br><span class="line">            System.out.println(i + <span class="number">1</span> + <span class="string">&quot;\t&quot;</span> + startTime + <span class="string">&quot;\t\t&quot;</span> + String.format(<span class="string">&quot;%.2f&quot;</span>, startMoney) + <span class="string">&quot;\t&quot;</span> + String.format(<span class="string">&quot;%.2f&quot;</span>, backMoney) + <span class="string">&quot;\t&quot;</span> +</span><br><span class="line">                    String.format(<span class="string">&quot;%.2f&quot;</span>, backMoney - liXi) + <span class="string">&quot;\t&quot;</span> + String.format(<span class="string">&quot;%.2f&quot;</span>, liXi) + <span class="string">&quot;\t&quot;</span> + String.format(<span class="string">&quot;%.2f&quot;</span>, (money - backedMoney)));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(String.format(<span class="string">&quot;%.2f&quot;</span>, LSumMoney));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/****</span></span><br><span class="line"><span class="comment">     * 传入具体日期 ，返回具体日期增加一个月。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> date 日期(2017-04-13)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 2017-05-13</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> ParseException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">subMonth</span><span class="params">(String date)</span> <span class="keyword">throws</span> ParseException &#123;</span><br><span class="line">        <span class="type">SimpleDateFormat</span> <span class="variable">sdf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd&quot;</span>);</span><br><span class="line">        <span class="type">Date</span> <span class="variable">dt</span> <span class="operator">=</span> sdf.parse(date);</span><br><span class="line">        <span class="type">Calendar</span> <span class="variable">rightNow</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">        rightNow.setTime(dt);</span><br><span class="line">        rightNow.add(Calendar.MONTH, <span class="number">1</span>);</span><br><span class="line">        <span class="type">Date</span> <span class="variable">dt1</span> <span class="operator">=</span> rightNow.getTime();</span><br><span class="line">        <span class="type">String</span> <span class="variable">reStr</span> <span class="operator">=</span> sdf.format(dt1);</span><br><span class="line">        <span class="keyword">return</span> reStr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     测试方法</span></span><br><span class="line"><span class="comment">     **/</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ParseException &#123;</span><br><span class="line">        averageCapital(<span class="number">1000000</span>, (<span class="type">float</span>) <span class="number">0.049</span>, <span class="number">30</span>, <span class="string">&quot;2021-7-19&quot;</span>);</span><br><span class="line">        averageCapitalPlusInterest(<span class="number">1000000</span>, (<span class="type">float</span>) <span class="number">0.049</span>, <span class="number">30</span>, <span class="string">&quot;2021-7-19&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="3按频率付息任意本金计划">3）按频率付息，任意本金计划</span></h2>
+<p>就是按照约定的还款时间每次只还利息就好了，如果经济宽裕的话可以还本金，支付宝蚂蚁借呗目前就有这种还款方式，说白了，意思就是先还利息，再还本金，你也可以提前归还本金，系统会自动计算出需要归还的利息和所有本金，因为是按时间计息，所以，提前还款只收取之前的利息，再不会收取任何费用，只要是利率不高的话，是很划算的一种还款方式！</p>
+<h2><span id="4一次还本付息">4）一次还本付息</span></h2>
+<p>一次还本付息法是指借款人在贷款期内不是按月偿还本息，而是贷款到期后一次性归还本金和利息，又称为到期一次还本付息法。一次还本付息这种方式适合短期借款。这个还款方式个人和对公都可。</p>
+<h2><span id="5按频率付息一次还本">5）按频率付息，一次还本</span></h2>
+<p>这个还款方式个人和对公都可。</p>
+<h2><span id="6组合还款">6）组合还款</span></h2>
+<p>这个对公办理。</p>
+<h1><span id="5灵活的还款顺序设置">5.灵活的还款顺序设置</span></h1>
+<p>小本小息，大本大息的还款方式不同。<br>
+先横后竖小本小息，先竖后横大本大息。</p>
+<h1><span id="6贷款状态">6.贷款状态</span></h1>
+<p>贷款账户状态：N新建 , A活动 , C关闭, P到期未结清<br>
+贷款核算状态：ZHC正常, YUQ逾期, FYJ/FY应计非应计, WRN核销 , TEN终止</p>
+<p>贷款核销是“呆账贷款核销”<br>
+的简称，银行按规定将呆账贷款或贷款损失予以核销的一种制度。根据财政部《关于国家专业银行建立贷款呆账准备金的暂行规定》有关规定：呆账贷款额每笔5万元以下的，由地方级银行会同同级中央财政机构进行审批，呆账贷款额每笔5万元以上，10万元以下的，由省级银行会同同级中央财政机构进行审批;<br>
+呆账贷款额每笔10万元以上的，由各专业银行总行根据下级行和省级中央财政机构的意见审批，报财政部备案。在具体执行中，审批金额有所调整。各银行和中央财政机构在贷款核销审批过程中要严格执行国家贷款核销有关规定，不得越权审批或违反有关规定进行审批，违者将追究其相应责任。</p>
+<h1><span id="7核心系统贷款处理流程">7.核心系统贷款处理流程</span></h1>
+<p>贷款开立到修改事项之后是什么操作？<br>
+视具体情况而定<br>
+还款计划是在贷款发放之后制订的吗？为什么？<br>
+在系统中是这样的，还款计划在贷款发放后才可以生效。</p>
+<h1><span id="8贷款模块业务功能概述">8.贷款模块业务功能概述</span></h1>
+<p>1）贷款发放交易</p>
+<p>要想发放贷款，必须先进行贷款账户开立，然后根据贷款开立时选择的贷款产品从产品参数中继承大多数贷款属性，根据贷款特性增加个别属性。<br>
+当产品属性支持单笔发放时，贷款账户开立的同时进行贷款的发放处理。此时贷款合同和借据的关系为一对一的关系，贷款账户与贷款借据的属性相同。<br>
+当贷款合同与借据为一对多的关系时，系统支持贷款账户开立后可针对每一次贷款借据的发放在贷款发放交易处理，贷款借据的属性通过贷款账户的继承和柜员在贷款发放时的输入确定，贷款的核算以贷款借据为准。</p>
+<p>2）贷款变更<br>
+3）贷款核销<br>
+4）贷款报表<br>
+5）银团贷款<br>
+6）贷款回收<br>
+7）贷款查询</p>
+<h1><span id="9贷款业务功能">9.贷款业务功能</span></h1>
+<p>1）线下贷款处理流程</p>
+<p>贷款开立后可以进行相应的变更。</p>
+<p>2）网贷处理流程</p>
+<h1><span id="10贷款功能涉及的表">10.贷款功能涉及的表</span></h1>
+<p>账户协议信息表</p>
+<p>贷款合同附加信息表</p>
+<p>账户信息表</p>
+<p>账户附加信息表</p>
+<p>账户余额表</p>
+<p>贷款结算信息表</p>
+<p>账户利息信息表</p>
+<p>账户还款计划表</p>
+<p>账户还款计划明细表</p>
+<p>账户组合还款计划表</p>
+<p>交易流水表</p>
+<p>贷款发放表</p>
+<p>贴现表</p>
+<p>单据表</p>
+<p>收据表</p>
+<p>收据信息明细表</p>
+<p>计提流水表</p>
+<p>结息流水表</p>
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/article/projectInfo/" data-toggle="tooltip" data-placement="top" title="我的个人项目">下一篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">目录</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1.贷款模块的特点</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2.贷款的生命周期</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">3 时间上贷款维度</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">1）贷前</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">2）贷中</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">3）贷后</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">4.利率的基本维度</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">1）利率形式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">2）利率形态</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">3）利率启用方式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">4.4.</span> <span class="toc-nav-text">4）计息天数</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">4.多样的还款方式设置</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">5.1.</span> <span class="toc-nav-text">1）等额本金</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">5.2.</span> <span class="toc-nav-text">2）等额本息（每月偿还相同数额）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">5.3.</span> <span class="toc-nav-text">1）等额本金和等额本息的差别</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">5.4.</span> <span class="toc-nav-text">3）按频率付息，任意本金计划</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">5.5.</span> <span class="toc-nav-text">4）一次还本付息</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">5.6.</span> <span class="toc-nav-text">5）按频率付息，一次还本</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">5.7.</span> <span class="toc-nav-text">6）组合还款</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">5.灵活的还款顺序设置</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">6.贷款状态</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">8.</span> <span class="toc-nav-text">7.核心系统贷款处理流程</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">9.</span> <span class="toc-nav-text">8.贷款模块业务功能概述</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">10.</span> <span class="toc-nav-text">9.贷款业务功能</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">11.</span> <span class="toc-nav-text">10.贷款功能涉及的表</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#银行核心系统" title="银行核心系统">银行核心系统</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+				<!--
+                
+                <hr>
+                <h5>朋友们</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+				-->
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+          //console.log(a.target.textContent.replace(/\./g, ""));
+          document.getElementById(a.target.textContent.replace(/\./g, "").replace(" ","-")).scrollIntoView({behavior: 'smooth' });
+        })
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    //document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhihu_xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse"><b>B</b></i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/1776167012">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; muzhi 2026 
+                    <br>
+					
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://1776167012.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Mermaid图表库 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  // 页面加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid !== 'undefined') {
+      // 在这里可以配置Mermaid的主题、流程图方向等
+      mermaid.initialize({
+      // 自动识别并渲染所有 class="mermaid" 的div
+        startOnLoad: true,
+        // 可选：'default', 'dark', 'forest', 'neutral'
+        theme: 'neutral'
+      });
+    }
+  });
+</script>
+<script>
+$(document).ready(function() {
+    var isModalOpen = false;
+    // 1. 加载 search.xml 索引文件
+  $.ajax({
+    url: '/search.json', // 路径改为json
+    dataType: 'json',                    // 数据类型改为json
+    success: function(searchData) {      // 直接得到JS对象
+      console.log('搜索索引加载完成，共 ' + searchData.length + ' 篇文章。');
+      // 注意：searchData 现在直接是数组，无需解析
+      // 需要将全局的 searchData 变量赋值
+      window.searchData = searchData; // 赋值给全局变量
+    },
+    error: function() {
+      $('#search-status').text('无法加载搜索索引文件。');
+    }
+});
+
+    // 2. 搜索功能核心函数
+    function performSearch(keyword) {
+      var resultsContainer = $('#search-results-container').empty();
+      $('#search-status').hide();
+
+      if (!keyword.trim()) {
+        $('#search-status').text('输入关键词开始搜索...').show();
+        return;
+      }
+
+      var resultsHtml = '';
+      var resultCount = 0;
+      var kwReg = new RegExp(keyword, 'gi'); // 创建全局、不区分大小写的正则表达式
+
+      // 遍历所有文章数据
+      window.searchData.forEach(function(item) {
+        // 在标题和内容中搜索关键词
+        var titleMatch = item.title.match(kwReg);
+        var contentMatch = item.content.match(kwReg);
+
+        if (titleMatch || contentMatch) {
+          resultCount++;
+          // 构建标题高亮
+          var highlightedTitle = item.title.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+          // 从内容中提取包含关键词的片段（约150字符）并高亮
+          var contentSnippet = item.content;
+          var firstIndex = contentSnippet.toLowerCase().indexOf(keyword.toLowerCase());
+          if (firstIndex !== -1) {
+            var start = Math.max(0, firstIndex - 60);
+            var end = Math.min(contentSnippet.length, firstIndex + 90);
+            contentSnippet = '...' + contentSnippet.substring(start, end) + '...';
+          } else {
+            contentSnippet = contentSnippet.substring(0, 150) + '...';
+          }
+          contentSnippet = contentSnippet.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+
+          // 生成单个结果的HTML
+          resultsHtml += `
+            <div class="search-result-item">
+              <a href="${item.url}" class="search-result-title">${highlightedTitle}</a>
+              <p class="search-result-excerpt">${contentSnippet}</p>
+            </div>
+          `;
+        }
+      });
+
+      // 显示结果或“无结果”状态
+      if (resultCount > 0) {
+        resultsContainer.html(resultsHtml);
+      } else {
+        resultsContainer.html('<div id="search-status">未找到包含 "' + keyword + '" 的文章。</div>');
+      }
+    }
+
+    // 3. 绑定输入事件（防抖，提升性能）
+    var searchTimer;
+    $('#search-input').on('input', function() {
+      clearTimeout(searchTimer);
+      var keyword = $(this).val();
+      searchTimer = setTimeout(function() {
+        performSearch(keyword);
+      }, 300); // 延迟300毫秒后执行搜索
+    });
+
+    // 4. 全局控制搜索弹窗显示/隐藏的函数
+    window.openSearchModal = function() {
+      isModalOpen = true;
+      $('#search-mask, #search-modal').fadeIn(200);
+      $('#search-input').focus().select(); // 自动聚焦到输入框
+      $('body').css('overflow', 'hidden'); // 防止背景滚动
+    };
+    window.closeSearchModal = function() {
+      isModalOpen = false;
+      $('#search-mask, #search-modal').fadeOut(200);
+      $('#search-input').val(''); // 清空输入框
+      $('#search-results-container').empty(); // 清空结果
+      $('#search-status').text('输入关键词开始搜索...').show();
+      $('body').css('overflow', 'auto');
+    };
+
+    // 5. 事件绑定：点击遮罩关闭、ESC键关闭
+    $('#search-mask').on('click', closeSearchModal);
+    $(document).on('keydown', function(e) {
+      if (e.keyCode === 27 && isModalOpen) { // ESC键
+        closeSearchModal();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.keyCode === 70 && !isModalOpen) { // Ctrl+F / Cmd+F
+        e.preventDefault(); // 阻止浏览器默认查找
+        openSearchModal();
+      }
+    });
+  });
+</script>
+
+<!-- 本地搜索 CSS -->
+    <style>
+      /* 搜索弹窗遮罩 */
+      #search-mask {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9998;
+        display: none;
+      }
+      /* 搜索主容器 */
+      #search-modal {
+        position: fixed;
+        top: 10%; left: 50%;
+        transform: translateX(-50%);
+        width: 80%; max-width: 600px;
+        max-height: 80vh;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      }
+      /* 搜索框区域 */
+      .search-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      #search-input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      #search-input:focus {
+        border-color: #3498db;
+      }
+      /* 搜索结果区域 */
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 20px;
+      }
+      .search-result-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .search-result-item:last-child {
+        border-bottom: none;
+      }
+      .search-result-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #2c3e50;
+      }
+      .search-result-excerpt {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 限制最多显示3行 */
+        -webkit-box-orient: vertical;
+      }
+      .search-result-highlight {
+        background-color: #fff9c4; /* 关键词高亮背景色 */
+        font-weight: bold;
+        color: #e74c3c;
+      }
+      /* 无结果/加载状态 */
+      #search-status {
+        padding: 20px;
+        text-align: center;
+        color: #999;
+      }
+    </style>
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+	<script  type="text/javascript">
+<!-- Image to hack wechat -->
+<img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+</body>
+
+</html>

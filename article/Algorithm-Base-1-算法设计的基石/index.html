@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          1.算法设计的基石 - 牧之的博客 | Muzhi Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://1776167012.github.io/article/Algorithm-Base-1-算法设计的基石/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/beantech.min.css">
+
+
+    
+<link rel="stylesheet" href="/css/donate.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script>
+	</script>
+	<style>
+	* {
+            box-sizing: border-box;
+        }
+
+        form {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding-left: 13px;
+        }
+
+        button {
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        /*搜索框1*/
+        .bar1 {
+			background: #FFF;
+			max-width: 200px;
+		}
+        .bar1 input {
+			max-height: 30px;
+            border: 2px solid #BFBFBF;
+            border-radius: 5px;
+            background: #FFFFFF;
+            color: #BFBFBF;
+			-webkit-text-fill-color: #BFBFBF;
+        }
+        .bar1 button {
+			max-height: 30px;
+            top: 0;
+            right: 0;
+            background: #BFBFBF;
+            border-radius: 0 5px 5px 0;
+        }
+        .bar1 button:before {
+            content: "\f002";
+            font-family: FontAwesome;
+            font-size: 16px;
+            color: #F9F0DA;
+        }
+		</style>
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/feed.xml" title="牧之" type="application/atom+xml">
+</head>
+
+
+
+<!-- hack iOS CSS :active style -->
+<!-- <body ontouchstart=""  class="<?php echo($_COOKIE['night'] == '1' ? '' : ''); ?>"> -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/header_img/codeBack.png')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#算法基础" title="算法基础">算法基础</a>
+                            
+                        </div>
+                        <h1>1.算法设计的基石</h1>
+                        <!-- <h2 class="subheading"></h2> -->
+                        <span class="meta">
+                            牧之 on
+                            2021-05-20
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1776167012</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                   <!-- 例如，放在导航菜单内部 -->
+                   <li>
+                    <a href="javascript:void(0);" onclick="openSearchModal()" title="搜索">搜索</a>
+                   </li>
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+					<li>
+                        <a href="/archive/">文章归档</a>
+                    </li>
+					<li>
+                        <a href="/tags/">博客标签</a>
+                    </li>
+					<li>
+                        <a href="/about/">关于作者</a>
+                    </li>
+
+					<!--
+					修改about在前面的问题
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">没有什么比快乐更重要</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    -->
+                </ul>
+            </div>
+
+        <!-- 本地搜索弹窗结构 -->
+        <div id="search-mask"></div>
+        <div id="search-modal">
+          <div class="search-header">
+            <input type="text" id="search-input" placeholder="请输入关键词搜索..." autocomplete="off" />
+          </div>
+          <div id="search-status">输入关键词开始搜索...</div>
+          <div class="search-results" id="search-results-container">
+            <!-- 搜索结果将通过JS动态插入到这里 -->
+          </div>
+        </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				
+                <h1><span id="1几种基本的算法思想">1.几种基本的算法思想</span></h1>
+<p>首先，我们先认识几个词：分治法，动态规划法，回溯法，分支限界法，贪心法。</p>
+<p>我们必须知道，上面五种思想将贯穿我们的算法学习的全过程，这五种思想并没有啥深度和技术含量，他们更像是一种基石。</p>
+<p>在我们以后写任何算法的时候，我们都要思考，我们写的这个算法是用的那种思想实现的。</p>
+<h2><span id="11-分治法">1.1 分治法</span></h2>
+<h3><span id="111-分治法描述">1.1.1 分治法描述</span></h3>
+<p>分治法是计算机领域中最为常用的算法类型，其核心思想是 “分而治之”，其原理是：<br>
+将一个复杂混合的问题拆解为两个或两个以上类型相同的子问题，然后将子问题依然进行分治法处理，直到子问题本身简单到可以求解，<br>
+最终按照问题的拆解顺序，从子问题逐步向大问题结果汇总，层层向上，最终得到原问题的解。<br>
+它的典型的应用就是递归。</p>
+<h3><span id="112-分治法问题实例学习">1.1.2 分治法问题实例学习</span></h3>
+<p>分治法解决的最简单的问题是：阶乘问题 ，求解N的阶乘（1<em>2</em>3<em>4</em>…*n）</p>
+<p>这个问题看起来很简单，但是当N特别大时，是不是就会感到很无助？</p>
+<p>下面我们应用分治法来解决这个问题：</p>
+<ul>
+<li>
+<p>第一步：首先我们尝试将这个问题拆分，开始我们可以想到，我们可以将其拆为两个公式的乘积，例如：（1<em>2</em>3*…<em>(n/2)）和((n/2+1)</em>(n/2+2)*…*n)的乘积。<br>
+拆到最后<strong>其实就是两个数相乘的结果。 所以子问题就是：两个数相乘</strong>。<br>
+好了，现在子问题找到了，下面我们要思考如何将子问题的结果汇总成大问题的结果？</p>
+</li>
+<li>
+<p>第二步：我们可以保留每个子问题的结果，然后将这个结果以下个子问题的入参进行求解，以此类推，可以得到最后的结果；<br>
+简单来说就是，先算出n*(n-1)的结果，然后将这个结果*(n-2),然后将这个结果*（n-3）依此类推。</p>
+</li>
+</ul>
+<p>写成代码就是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">jiecheng</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> jiecheng(n - <span class="number">1</span>)*n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="12-动态规划法">1.2 动态规划法</span></h2>
+<h3><span id="121-动态规划法概述">1.2.1 动态规划法概述</span></h3>
+<p>动态规划法又叫中间结果记录法，它的原理是：<br>
+将问题拆分为多个简单的子问题，对于相对重叠的子问题的结果记录在中间结果表中，当遇到相同的问题时直接查询中间结果表的结果即可。</p>
+<p><strong>它有效的避免了重复计算所带来的性能缺陷。</strong></p>
+<h3><span id="122-动态规划问题实例学习">1.2.2 动态规划问题实例学习</span></h3>
+<p>动态规划法解决的典型的问题有：求斐波那契数<br>
+问题描述：给出一个数，求出它的斐波那契数</p>
+<p>斐波那契数的定义如下：<br>
+1，1，2，3，5，8，13是一个斐波那契数列，当n=5时，它的斐波那契数为8，依次类推。</p>
+<p>很明显我们可以用递归的方式进行问题解决：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">Fib</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Fib(n - <span class="number">1</span>) + Fib(n - <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是递归存在重复计算的缺陷，我们先分析下用递归进行计算n=6时的计算过程：</p>
+<p><img src="/article/Algorithm-Base-1-%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%9F%BA%E7%9F%B3/media/image1.png" alt="截图"></p>
+<p>我们可以看到，为了算F6,递归法重复算了F1或F0 最小子问题13次。<br>
+造成这个问题的很明显的原因是大问题之间的重复计算。</p>
+<p>如果我们新建一个中间结果表，在计算的过程中将为计算的大问题结果存入，并在求解新大问题之前先查询这个结果集，看有没有能匹配上的，如果有直接返回，<br>
+这样我们可以节省大量时间！这就是动态规划的精髓所在！！</p>
+<p>代码表示如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">FibonacciBetter</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="comment">//存储前一个数</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">last</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//存储后一个数</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">nextToLast</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//存储结果</span></span><br><span class="line">    <span class="type">int</span> answer;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i&lt;n ;i++) &#123;</span><br><span class="line">        answer = last + nextToLast;</span><br><span class="line">        nextToLast = last;</span><br><span class="line">        last = answer;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的算法，在计算过程中存储需要用到的中间结果，然后使用，是动态规划的典型应用，<strong>在这个问题的解法中，中间结果表是：last,nextToLast,answer组成的集合。（请细细体会）</strong></p>
+<h2><span id="13-回溯法">1.3 回溯法</span></h2>
+<h3><span id="131-回溯法概述">1.3.1 回溯法概述</span></h3>
+<p>回溯法是一种通过不断尝试来获得最终解的方法，但并不是一个漫无目的的过程，它在选择求解目标的过程中会利用当前条件与目标的最优匹配选择进行尝试，</p>
+<p>即使当前失败，也能回溯到上一步继续进行最优匹配。（深度优先） 换句话说，回溯法相当于穷举搜索的巧妙实现。</p>
+<h3><span id="132-回溯法问题实例学习">1.3.2 回溯法问题实例学习</span></h3>
+<p>用回溯法解决的一个典型的问题就是：背包问题</p>
+<p>问题描述：背包问题简单来说就是给定背包最大承重量，在一堆物品中怎样拿才能尽可能使得拿的物品总价值最大。<br>
+例如，有一个背包承重量15kg<br>
+有如下物品</p>
+<table><tbody><tr class="odd"><td>物品名称</td><td>物品质量</td><td>物品价值</td></tr><tr class="even"><td>A</td><td>4</td><td>50</td></tr><tr class="odd"><td>B</td><td>6</td><td>60</td></tr><tr class="even"><td>C</td><td>7</td><td>100</td></tr><tr class="odd"><td>D</td><td>8</td><td>70</td></tr></tbody></table>
+<p>目标：在不超过背包称重量的情况下拿到最大价值物品集。</p>
+<p>回溯法相当于穷举的巧妙实现, 所以先用普通的穷举方法穷举一下可能的结果:</p>
+<p>1) A+B 110</p>
+<p>2) A+C 150</p>
+<p>3) A+D 120</p>
+<p>4) B+C 160</p>
+<p>5) B+D 130</p>
+<p>6) C+D 170</p>
+<p><strong>注意：这里的穷举法省略了不符合要求的组合，在实际的算法中，其实它也是会算出来的，然后再筛掉。</strong></p>
+<p>最后我们可以得到，拿物品C ,D是最佳的选择。 但是如果我们按照穷举的方法，计算量为6，直到最后一次我们才能得到正确的结果。</p>
+<p>下面我们用回溯法来进行：</p>
+<p>使用回溯法的第一步就是选择起点，通过上面的穷举我们可以知道，一个好的起点可以帮我们节省大量时间(假如开始就选择了C作为起点或D作为起点)</p>
+<p>如何选择起点我个人认为这要根据具体问题进行选择，例如这个问题我们可以选择单位价值最大的物品作为起点：</p>
+<table><tbody><tr class="odd"><td>物品名称</td><td>物品质量</td><td>物品价值</td><td>单位价值</td></tr><tr class="even"><td>A</td><td>4</td><td>50</td><td>12.5</td></tr><tr class="odd"><td>B</td><td>6</td><td>60</td><td>10</td></tr><tr class="even"><td>C</td><td>7</td><td>100</td><td>14.28</td></tr><tr class="odd"><td>D</td><td>8</td><td>70</td><td>8.75</td></tr></tbody></table>
+<p>现在我们以C作为起点，使用回溯法的过程为：</p>
+<p>1）C+A 150</p>
+<p>2) C+B 160</p>
+<p>3) C+D 170</p>
+<p><strong>注意：这里的穷举法省略了不符合要求的组合，在实际的算法中，其实它也是会算出来的，然后再筛掉。</strong></p>
+<p>得到结果！！！ 只需三次！！</p>
+<h2><span id="14分支限界法">1.4.分支限界法</span></h2>
+<h3><span id="141-分支界限法概述">1.4.1 分支界限法概述</span></h3>
+<p>分支界限法，是以最小代价进行尝试（广度优先），它与回溯法稍有不同。</p>
+<h3><span id="142分支界限法解决问题">1.4.2分支界限法解决问题</span></h3>
+<p>用分支界限法法解决的一个典型的问题就是：背包问题</p>
+<p>问题描述：背包问题简单来说就是给定总价值量，在一堆物品中怎样拿才能尽可能使得拿的物品单位价值最大。</p>
+<p>例如，有一个背包承重量15kg</p>
+<table><tbody><tr class="odd"><td>物品名称</td><td>物品质量</td><td>物品价值</td></tr><tr class="even"><td>A</td><td>4</td><td>50</td></tr><tr class="odd"><td>B</td><td>6</td><td>60</td></tr><tr class="even"><td>C</td><td>7</td><td>40</td></tr><tr class="odd"><td>D</td><td>8</td><td>20</td></tr></tbody></table>
+<p>这里的标准不再是最大单位价值，而是以质量为维度来进行选择。以最小的代价获取，也就是 100/总质量最大 的组合。</p>
+<p>他其实和回溯法的思想类似，就是维度变了，这里直接给出结果： A+C是最佳选择。</p>
+<h2><span id="15贪心法">1.5.贪心法</span></h2>
+<h3><span id="151-贪心法概述">1.5.1 贪心法概述</span></h3>
+<p>顾名思义，贪心法是指当前的条件下的最好选择，贪心法没有一个全局对比，也就是说走一步算一步，每步只选择当前最好的一步。</p>
+<p>每一步为局部最优解，所以它只适用于保证每一步选择的最优解能通向下一步最优解的问题，否则，这个方法会出现时灵，时不灵的效果。</p>
+<p><strong>2）贪心法解决问题实例</strong></p>
+<p>贪心法的精髓是每次都要最好的。</p>
+<p>典型的应用场景是，玩扑克时，我们抓牌，连续抓五张，只要保证每次抓的点数是最大的，就能保证最后的五张牌的点数最大。</p>
+<p><strong>OK，下面就是具体的算法基础学习阶段了，我们将学习从简单的递归到各种排序到各种数据结构的使用基础，在学习的过程我们在练习任何一道题时，我希望我们能想到这些算法思想，将其一一对应。</strong></p>
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/SpringFramework-3-AOP的好处/" data-toggle="tooltip" data-placement="top" title="1.AOP设计理念">&larr; 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/Algorithm-Base-2-分治策略递归学习/" data-toggle="tooltip" data-placement="top" title="2.分支策略递归学习">下一篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">目录</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1.几种基本的算法思想</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">1.1 分治法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link"><span class="toc-nav-number">1.1.1.</span> <span class="toc-nav-text">1.1.1 分治法描述</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link"><span class="toc-nav-number">1.1.2.</span> <span class="toc-nav-text">1.1.2 分治法问题实例学习</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">1.2 动态规划法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link"><span class="toc-nav-number">1.2.1.</span> <span class="toc-nav-text">1.2.1 动态规划法概述</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link"><span class="toc-nav-number">1.2.2.</span> <span class="toc-nav-text">1.2.2 动态规划问题实例学习</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">1.3 回溯法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link"><span class="toc-nav-number">1.3.1.</span> <span class="toc-nav-text">1.3.1 回溯法概述</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link"><span class="toc-nav-number">1.3.2.</span> <span class="toc-nav-text">1.3.2 回溯法问题实例学习</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">1.4.分支限界法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link"><span class="toc-nav-number">1.4.1.</span> <span class="toc-nav-text">1.4.1 分支界限法概述</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link"><span class="toc-nav-number">1.4.2.</span> <span class="toc-nav-text">1.4.2分支界限法解决问题</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">1.5.</span> <span class="toc-nav-text">1.5.贪心法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link"><span class="toc-nav-number">1.5.1.</span> <span class="toc-nav-text">1.5.1 贪心法概述</span></a></li></ol></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#算法基础" title="算法基础">算法基础</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+				<!--
+                
+                <hr>
+                <h5>朋友们</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+				-->
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+          //console.log(a.target.textContent.replace(/\./g, ""));
+          document.getElementById(a.target.textContent.replace(/\./g, "").replace(" ","-")).scrollIntoView({behavior: 'smooth' });
+        })
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    //document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhihu_xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse"><b>B</b></i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/1776167012">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; muzhi 2026 
+                    <br>
+					
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://1776167012.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Mermaid图表库 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  // 页面加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid !== 'undefined') {
+      // 在这里可以配置Mermaid的主题、流程图方向等
+      mermaid.initialize({
+      // 自动识别并渲染所有 class="mermaid" 的div
+        startOnLoad: true,
+        // 可选：'default', 'dark', 'forest', 'neutral'
+        theme: 'neutral'
+      });
+    }
+  });
+</script>
+<script>
+$(document).ready(function() {
+    var isModalOpen = false;
+    // 1. 加载 search.xml 索引文件
+  $.ajax({
+    url: '/search.json', // 路径改为json
+    dataType: 'json',                    // 数据类型改为json
+    success: function(searchData) {      // 直接得到JS对象
+      console.log('搜索索引加载完成，共 ' + searchData.length + ' 篇文章。');
+      // 注意：searchData 现在直接是数组，无需解析
+      // 需要将全局的 searchData 变量赋值
+      window.searchData = searchData; // 赋值给全局变量
+    },
+    error: function() {
+      $('#search-status').text('无法加载搜索索引文件。');
+    }
+});
+
+    // 2. 搜索功能核心函数
+    function performSearch(keyword) {
+      var resultsContainer = $('#search-results-container').empty();
+      $('#search-status').hide();
+
+      if (!keyword.trim()) {
+        $('#search-status').text('输入关键词开始搜索...').show();
+        return;
+      }
+
+      var resultsHtml = '';
+      var resultCount = 0;
+      var kwReg = new RegExp(keyword, 'gi'); // 创建全局、不区分大小写的正则表达式
+
+      // 遍历所有文章数据
+      window.searchData.forEach(function(item) {
+        // 在标题和内容中搜索关键词
+        var titleMatch = item.title.match(kwReg);
+        var contentMatch = item.content.match(kwReg);
+
+        if (titleMatch || contentMatch) {
+          resultCount++;
+          // 构建标题高亮
+          var highlightedTitle = item.title.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+          // 从内容中提取包含关键词的片段（约150字符）并高亮
+          var contentSnippet = item.content;
+          var firstIndex = contentSnippet.toLowerCase().indexOf(keyword.toLowerCase());
+          if (firstIndex !== -1) {
+            var start = Math.max(0, firstIndex - 60);
+            var end = Math.min(contentSnippet.length, firstIndex + 90);
+            contentSnippet = '...' + contentSnippet.substring(start, end) + '...';
+          } else {
+            contentSnippet = contentSnippet.substring(0, 150) + '...';
+          }
+          contentSnippet = contentSnippet.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+
+          // 生成单个结果的HTML
+          resultsHtml += `
+            <div class="search-result-item">
+              <a href="${item.url}" class="search-result-title">${highlightedTitle}</a>
+              <p class="search-result-excerpt">${contentSnippet}</p>
+            </div>
+          `;
+        }
+      });
+
+      // 显示结果或“无结果”状态
+      if (resultCount > 0) {
+        resultsContainer.html(resultsHtml);
+      } else {
+        resultsContainer.html('<div id="search-status">未找到包含 "' + keyword + '" 的文章。</div>');
+      }
+    }
+
+    // 3. 绑定输入事件（防抖，提升性能）
+    var searchTimer;
+    $('#search-input').on('input', function() {
+      clearTimeout(searchTimer);
+      var keyword = $(this).val();
+      searchTimer = setTimeout(function() {
+        performSearch(keyword);
+      }, 300); // 延迟300毫秒后执行搜索
+    });
+
+    // 4. 全局控制搜索弹窗显示/隐藏的函数
+    window.openSearchModal = function() {
+      isModalOpen = true;
+      $('#search-mask, #search-modal').fadeIn(200);
+      $('#search-input').focus().select(); // 自动聚焦到输入框
+      $('body').css('overflow', 'hidden'); // 防止背景滚动
+    };
+    window.closeSearchModal = function() {
+      isModalOpen = false;
+      $('#search-mask, #search-modal').fadeOut(200);
+      $('#search-input').val(''); // 清空输入框
+      $('#search-results-container').empty(); // 清空结果
+      $('#search-status').text('输入关键词开始搜索...').show();
+      $('body').css('overflow', 'auto');
+    };
+
+    // 5. 事件绑定：点击遮罩关闭、ESC键关闭
+    $('#search-mask').on('click', closeSearchModal);
+    $(document).on('keydown', function(e) {
+      if (e.keyCode === 27 && isModalOpen) { // ESC键
+        closeSearchModal();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.keyCode === 70 && !isModalOpen) { // Ctrl+F / Cmd+F
+        e.preventDefault(); // 阻止浏览器默认查找
+        openSearchModal();
+      }
+    });
+  });
+</script>
+
+<!-- 本地搜索 CSS -->
+    <style>
+      /* 搜索弹窗遮罩 */
+      #search-mask {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9998;
+        display: none;
+      }
+      /* 搜索主容器 */
+      #search-modal {
+        position: fixed;
+        top: 10%; left: 50%;
+        transform: translateX(-50%);
+        width: 80%; max-width: 600px;
+        max-height: 80vh;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      }
+      /* 搜索框区域 */
+      .search-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      #search-input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      #search-input:focus {
+        border-color: #3498db;
+      }
+      /* 搜索结果区域 */
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 20px;
+      }
+      .search-result-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .search-result-item:last-child {
+        border-bottom: none;
+      }
+      .search-result-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #2c3e50;
+      }
+      .search-result-excerpt {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 限制最多显示3行 */
+        -webkit-box-orient: vertical;
+      }
+      .search-result-highlight {
+        background-color: #fff9c4; /* 关键词高亮背景色 */
+        font-weight: bold;
+        color: #e74c3c;
+      }
+      /* 无结果/加载状态 */
+      #search-status {
+        padding: 20px;
+        text-align: center;
+        color: #999;
+      }
+    </style>
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+	<script  type="text/javascript">
+<!-- Image to hack wechat -->
+<img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+</body>
+
+</html>

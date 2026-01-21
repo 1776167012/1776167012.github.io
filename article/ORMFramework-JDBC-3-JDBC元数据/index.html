@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          3.JDBC元数据 - 牧之的博客 | Muzhi Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://1776167012.github.io/article/ORMFramework-JDBC-3-JDBC元数据/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/beantech.min.css">
+
+
+    
+<link rel="stylesheet" href="/css/donate.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script>
+	</script>
+	<style>
+	* {
+            box-sizing: border-box;
+        }
+
+        form {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding-left: 13px;
+        }
+
+        button {
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        /*搜索框1*/
+        .bar1 {
+			background: #FFF;
+			max-width: 200px;
+		}
+        .bar1 input {
+			max-height: 30px;
+            border: 2px solid #BFBFBF;
+            border-radius: 5px;
+            background: #FFFFFF;
+            color: #BFBFBF;
+			-webkit-text-fill-color: #BFBFBF;
+        }
+        .bar1 button {
+			max-height: 30px;
+            top: 0;
+            right: 0;
+            background: #BFBFBF;
+            border-radius: 0 5px 5px 0;
+        }
+        .bar1 button:before {
+            content: "\f002";
+            font-family: FontAwesome;
+            font-size: 16px;
+            color: #F9F0DA;
+        }
+		</style>
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/feed.xml" title="牧之" type="application/atom+xml">
+</head>
+
+
+
+<!-- hack iOS CSS :active style -->
+<!-- <body ontouchstart=""  class="<?php echo($_COOKIE['night'] == '1' ? '' : ''); ?>"> -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/header_img/codeBack.png')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#JDBC" title="JDBC">JDBC</a>
+                            
+                        </div>
+                        <h1>3.JDBC元数据</h1>
+                        <!-- <h2 class="subheading"></h2> -->
+                        <span class="meta">
+                            muzhi on
+                            2021-05-20
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1776167012</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                   <!-- 例如，放在导航菜单内部 -->
+                   <li>
+                    <a href="javascript:void(0);" onclick="openSearchModal()" title="搜索">搜索</a>
+                   </li>
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+					<li>
+                        <a href="/archive/">文章归档</a>
+                    </li>
+					<li>
+                        <a href="/tags/">博客标签</a>
+                    </li>
+					<li>
+                        <a href="/about/">关于作者</a>
+                    </li>
+
+					<!--
+					修改about在前面的问题
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">没有什么比快乐更重要</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    -->
+                </ul>
+            </div>
+
+        <!-- 本地搜索弹窗结构 -->
+        <div id="search-mask"></div>
+        <div id="search-modal">
+          <div class="search-header">
+            <input type="text" id="search-input" placeholder="请输入关键词搜索..." autocomplete="off" />
+          </div>
+          <div id="search-status">输入关键词开始搜索...</div>
+          <div class="search-results" id="search-results-container">
+            <!-- 搜索结果将通过JS动态插入到这里 -->
+          </div>
+        </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				
+                <p><strong>1.DatabaseMetaData 获取数据库定义信息</strong></p>
+<p><strong>1.1 什么是元数据？</strong></p>
+<p>在数据库领域，元数据是数据库、表、列的定义信息，关于数据库的整体综合信息。</p>
+<p><strong>1.2 如果获得元数据？</strong></p>
+<p>在Java中，首先我们可以通过下面的方式获得DatabaseMetaData对象：</p>
+<p>Connection connection = JDBCUtils.getConnection();</p>
+<p>DatabaseMetaData metaData = connection.getMetaData();</p>
+<p>然后通过DatabaseMetaData的方法就可以获得关于数据库的定义信息了。</p>
+<p>DataBaseMetaData类常用方法:</p>
+<p>getURL()：返回一个String类对象，代表数据库的URL。</p>
+<p>getUserName()：返回连接当前数据库管理系统的用户名。</p>
+<p>getDriverName()：返回驱动驱动程序的名称。</p>
+<p>getPrimaryKeys(String catalog, String schema, String table)：返回指定表主键的结果集，一般catalog、schema都传入null，得到一个结果集resultset。</p>
+<p><strong>1.3 编程实例</strong></p>
+<p>package Orm.jdbc.jdbcMetadata;</p>
+<p>import Orm.jdbc.connectorPool.JDBCUtils;</p>
+<p>import java.sql.Connection;</p>
+<p>import java.sql.DatabaseMetaData;</p>
+<p>import java.sql.ResultSet;</p>
+<p>import java.sql.SQLException;</p>
+<p>/**</p>
+<p>* 数据库元数据获取学习</p>
+<p>*/</p>
+<p>public class DatabaseMetaDataStudy {</p>
+<p>public static void main(String[] args) throws SQLException {</p>
+<p>Connection connection = JDBCUtils.getConnection();</p>
+<p>DatabaseMetaData metaData = connection.getMetaData();</p>
+<p>// 获得JDBC连接参数信息</p>
+<p>System.out.println(“数据库的URL为：”+metaData.getURL());</p>
+<p>System.out.println(“驱动程序的名称为：”+metaData.getDriverName());</p>
+<p>System.out.println(“当前数据库的连接者为：”+metaData.getUserName());</p>
+<p>/**</p>
+<p>* Catalog—目录名称;必须与存储在数据库中的目录名称匹配;&quot;检索那些没有目录的;Null表示不应使用编目名称来缩小搜索范围</p>
+<p>* Schema—模式名称;必须匹配存储在数据库中的模式名称;&quot;检索那些没有模式的;Null意味着不应该使用模式名来缩小搜索范围</p>
+<p>* Table—表名;必须匹配表名，因为它存储在数据库中</p>
+<p>*</p>
+<p>* 这个方法查询的结果集描述如下：</p>
+<p>* TABLE_CAT String =表类别（可为 null）</p>
+<p>* TABLE_SCHEM String =表模式（可为 null）</p>
+<p>* TABLE_NAME String =表名称</p>
+<p>* COLUMN_NAME String =列名称</p>
+<p>* KEY_SEQ short =主键中的序列号（值 1 表示主键中的第一列，值 2 表示主键中的第二列）。</p>
+<p>* PK_NAME String =主键的名称（可为 null）</p>
+<p>*</p>
+<p>*/</p>
+<p>ResultSet rs = metaData.getPrimaryKeys(“world”, null, “city”);</p>
+<p>System.out.println(“TABLE_CAT|TABLE_SCHEM|TABLE_NAME|COLUMN_NAME|KEY_SEQ|PK_NAME”);</p>
+<p>while (rs.next()) {</p>
+<p>StringBuffer buffer = new StringBuffer();</p>
+<p>buffer.append(rs.getString(“TABLE_CAT”)).append(“|”);</p>
+<p>buffer.append(rs.getString(“TABLE_SCHEM”)).append(“|”);</p>
+<p>buffer.append(rs.getString(“TABLE_NAME”)).append(“|”);</p>
+<p>buffer.append(rs.getString(“COLUMN_NAME”)).append(“|”);</p>
+<p>buffer.append(rs.getShort(“KEY_SEQ”)).append(“|”);</p>
+<p>buffer.append(rs.getString(“PK_NAME”));</p>
+<p>System.out.println(buffer.toString());</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<img src="3. JDBC元数据/media/image1.png" style="width:5.76042in;height:1.85548in" alt="截图.png">
+<p><strong>2. ParameterMetaData 获取列定义信息（存在缺陷）</strong></p>
+<p>ParameterMetaData可以用来获得代表PreparedStatement元数据的ParameterMetaData对象。</p>
+<p><strong>简单来说： 获得预编译SQL语句中 “?” 信息。</strong></p>
+<p>Select * from user where name=? And password=?</p>
+<p><strong>如何获取对象：PreparedStatement.getParameterMetaData()</strong></p>
+<p>ParameterMetaData类的常用方法：</p>
+<p>getParameterCount()</p>
+<p>获得指定参数的个数</p>
+<p>getParameterType(int param)</p>
+<p>获得指定参数的sql类型</p>
+<p>getParameterTypeName(int param) — 参数类型名称</p>
+<p><strong>2.1 编程实例</strong></p>
+<p>package Orm.jdbc.jdbcMetadata;</p>
+<p>import Orm.jdbc.connectorPool.JDBCUtils;</p>
+<p>import java.sql.Connection;</p>
+<p>import java.sql.ParameterMetaData;</p>
+<p>import java.sql.PreparedStatement;</p>
+<p>import java.sql.SQLException;</p>
+<p>/**</p>
+<p>* 获得预执行SQL语句中 “?” 信息。</p>
+<p>*/</p>
+<p>public class ParameterMetaDataStudy {</p>
+<p>public static void main(String[] args) throws SQLException {</p>
+<p>Connection conn = JDBCUtils.getConnection();</p>
+<p>String sql = “select * from city where ID=? And name=?”;</p>
+<p>/**</p>
+<p>* 预执行sql语句</p>
+<p>*/</p>
+<p>PreparedStatement stmt = conn.prepareStatement(sql);</p>
+<p>// 通过ParameterMetaData 获得 ？ 相关信息</p>
+<p>ParameterMetaData parameterMetaData = stmt.getParameterMetaData();</p>
+<p>// 获得个数</p>
+<p>int count = parameterMetaData.getParameterCount();</p>
+<p>System.out.println(&quot;参数个数为： &quot;+count);</p>
+<p>/**</p>
+<p>* 我们可以根据这个getParameterType根据返回的type进行参数填充，但是对于mysql</p>
+<p>* 返回的都是varchar，这个就不好办了,所以说，如果我们需要编写ORM自动填充逻辑，我们不应该根据这个来</p>
+<p>*/</p>
+<p>for (int i = 1; i &lt;= count; i++) {</p>
+<p>// 该方法并不是所有数据库都支持 — MySQL不支持（所有返回类型都是varchar）</p>
+<p>int type = parameterMetaData.getParameterType(i);</p>
+<p>System.out.println(&quot;参数类型编号为： &quot;+type);</p>
+<p>System.out.println(&quot;参数类型为： &quot;+parameterMetaData.getParameterTypeName(i));</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<img src="3. JDBC元数据/media/image2.png" style="width:5.04167in;height:1.80208in" alt="截图.png">
+<p>可能遇到的问题：<strong>Parameter metadata not available for the given statement</strong></p>
+<p>解决方法：url后面拼接参数</p>
+<p>&amp;generateSimpleParameterMetadata=true</p>
+<p><strong>3.ResultSetMetaData 获取列定义信息</strong></p>
+<p>通过这个对象，我们可以获取指定表的列定义信息，我们可以通过这个列定义信息来编写一些通用程序来帮助提升编程效率。</p>
+<p>如何获得<strong>ResultSetMetaData</strong>对象：ResultSet.getMetaData()</p>
+<p>ResultSetMetaData类常用方法：</p>
+<p><strong>getColumnCount()</strong></p>
+<p><strong>返回resultset对象的列数</strong></p>
+<p><strong>getColumnName(int column)</strong></p>
+<p><strong>获得指定列的名称</strong></p>
+<p><strong>getColumnTypeName(int column)</strong></p>
+<p><strong>获得指定列的类型</strong></p>
+<p><strong>3.1 编程实例</strong></p>
+<p>package Orm.jdbc.jdbcMetadata;</p>
+<p>import Orm.jdbc.connectorPool.JDBCUtils;</p>
+<p>import java.sql.*;</p>
+<p>import java.util.*;</p>
+<p>/**</p>
+<p>* 通过ResultSetMetaData对象，我们可以获取表的列的类型信息</p>
+<p>* 这对于构造ORM框架进行自填充起到了很大的作用</p>
+<p>*/</p>
+<p>public class ResultSetMetaDataStudy {</p>
+<p>public static void main(String[] args) throws SQLException {</p>
+<p>//获取连接</p>
+<p>Connection conn = JDBCUtils.getConnection();</p>
+<p>//定义sql</p>
+<p>String sql = “select * from city”;</p>
+<p>//预编译</p>
+<p>PreparedStatement stmt = conn.prepareStatement(sql);</p>
+<p>ResultSet rs = stmt.executeQuery();</p>
+<p>// 获得结果集元数据</p>
+<p>ResultSetMetaData resultSetMetaData = rs.getMetaData();</p>
+<p>int count = resultSetMetaData.getColumnCount();</p>
+<p>List<string> columnNameList = new ArrayList&lt;&gt;();</string></p>
+<p>Map&lt;String,String&gt; columnTypeMap = new HashMap&lt;&gt;();</p>
+<p>// 打印table 第一行</p>
+<p>for (int i = 1; i &lt;= count; i++) {</p>
+<p>String columnName = resultSetMetaData.getColumnName(i);</p>
+<p><a href="//System.out.print">//System.out.print</a>( columnName+ “\t”);</p>
+<p>columnNameList.add(columnName);</p>
+<p>}</p>
+<p>System.out.println();</p>
+<p>// 打印每列类型</p>
+<p>for (int i = 1; i &lt;= count; i++) {</p>
+<p>String type = resultSetMetaData.getColumnTypeName(i);</p>
+<p><a href="//System.out.print">//System.out.print</a>( type+ “\t”);</p>
+<p>columnTypeMap.put(columnNameList.get(i-1),type);</p>
+<p>}</p>
+<p>System.out.println();</p>
+<p>System.out.println(columnTypeMap);</p>
+<p>}</p>
+<p>}</p>
+<img src="3. JDBC元数据/media/image3.png" style="width:5.76042in;height:1.78067in" alt="截图.png">
+<p><strong>4.使用元数据简化JDBC代码</strong></p>
+<p>现在系统中所有实体对象都涉及到基本的CRUD（create、read、update、delete）操作：</p>
+<p>所有实体的CRUD操作代码基本相同，仅仅发送给数据库的SQL语句不同而已，因此可以把CRUD操作的所有相同代码抽取到工具类的一个update，query方法中，并定义参数接收变化的SQL语句。</p>
+<p>写框架思路：</p>
+<p>将不变的内容留在框架内部</p>
+<p>将变的内容作为参数或者配置文件</p>
+<p>具体步骤：</p>
+<p>1.通用CUD方法设计</p>
+<p>framework代码</p>
+<p>/**</p>
+<p>* 通用insert update delete方法</p>
+<p>* @param sql 预执行需要SQL</p>
+<p>* @param args 根据SQL中? 准备参数</p>
+<p>*/</p>
+<p>public static void update(String sql, Object… args) throws SQLException {</p>
+<p>Connection conn = null;</p>
+<p>PreparedStatement stmt = null;</p>
+<p>try {</p>
+<p>conn = JDBCUtils.getConnection();</p>
+<p>stmt = conn.prepareStatement(sql);</p>
+<p>// 设置参数 — 根据？设置参数</p>
+<p>ParameterMetaData parameterMetaData = stmt.getParameterMetaData();</p>
+<p>int count = parameterMetaData.getParameterCount();</p>
+<p>for (int i = 1; i &lt;= count; i++) {</p>
+<p>stmt.setObject(i, args [i - 1 ]);</p>
+<p>}</p>
+<p>stmt.executeUpdate();</p>
+<p>} catch (SQLException e) {</p>
+<p>e.printStackTrace();</p>
+<p>} finally {</p>
+<p>stmt.close();</p>
+<p>conn.close();</p>
+<p>}</p>
+<p>}</p>
+<p>DAO代码：</p>
+<p>public void updateCity(City city) throws SQLException {</p>
+<p>String sql = “update city set name=?,countryCode=? where id =?”;</p>
+<p>Object[] params = { city.getName(),city.getCountryCode(),city.getId() };</p>
+<p>WaterRepositoryImp.update(sql, params);</p>
+<p>}</p>
+<p><strong>4.1 使用实例</strong></p>
+<p>public static void main(String[] args) throws SQLException {</p>
+<p>City city = new City();</p>
+<p>city.setId(4080);</p>
+<p>city.setName(“yanjd”);</p>
+<p>city.setCountryCode(“PSE”);</p>
+<p>new Test().updateCity(city);</p>
+<p>}</p>
+<img src="3. JDBC元数据/media/image4.png" style="width:4.75in;height:1.375in" alt="截图.png">
+<p>通用R方法设计</p>
+<p>接口代码</p>
+<p>/**</p>
+<p>* 此接口用来定义结果集封装类能力</p>
+<p>* @param <r> 用来接收结果集的类</r></p>
+<p>*/</p>
+<p>public interface ResultHandler<r> {</r></p>
+<p>/**</p>
+<p>* 用户自定义结果集封装方式</p>
+<p>* @param rs</p>
+<p>* @return</p>
+<p>*/</p>
+<p>public R handle(ResultSet rs);</p>
+<p>/**</p>
+<p>* 根据传入的Class对象，根据结果集和Class对象生成Class对象描述的实体类返回</p>
+<p>* @param rs</p>
+<p>* @param domainClass</p>
+<p>* @return</p>
+<p>*/</p>
+<p>public R handle(ResultSet rs,Class&lt;?&gt; domainClass);</p>
+<p>}</p>
+<p>并提供一个默认实现：</p>
+<p>import java.beans.BeanInfo;</p>
+<p>import java.beans.Introspector;</p>
+<p>import java.beans.PropertyDescriptor;</p>
+<p>import java.lang.reflect.Method;</p>
+<p>import java.sql.ResultSet;</p>
+<p>import java.sql.ResultSetMetaData;</p>
+<p>import java.util.Locale;</p>
+<p>public class DefaultResultHandler<r> implements ResultHandler<r>{</r></r></p>
+<p>@Override</p>
+<p>public R handle(ResultSet rs) {</p>
+<p>return null;</p>
+<p>}</p>
+<p>@Override</p>
+<p>public R handle(ResultSet rs, Class&lt;?&gt; domainClass) {</p>
+<p>try {</p>
+<p>// 结果集元数据</p>
+<p>ResultSetMetaData resultSetMetaData = rs.getMetaData();</p>
+<p>int count = resultSetMetaData.getColumnCount();</p>
+<p>BeanInfo beanInfo = Introspector.getBeanInfo(domainClass);</p>
+<p>//获取属性描述器数组</p>
+<p>PropertyDescriptor[] descriptors = beanInfo.getPropertyDescriptors();</p>
+<p>if (rs.next()) {</p>
+<p>//因为不能通过泛型获得T的实例，所以通过反射技术来获得T的实例！！！</p>
+<p>R t = ® domainClass.newInstance();</p>
+<p>for (int i = 1; i &lt;= count; i++) {</p>
+<p>String columnName = resultSetMetaData.getColumnName(i);</p>
+<p>// 获得列名 — 需要去查找匹配属性</p>
+<p>for (PropertyDescriptor propertyDescriptor : descriptors) {</p>
+<p>String columnName1 = columnName.toLowerCase(Locale.ROOT);</p>
+<p>String beanName = propertyDescriptor.getName().toLowerCase(Locale.ROOT);</p>
+<p>// 列名 存在 同名属性 ---- 列值 存到属性里</p>
+<p>if (columnName1.equals(beanName)) {</p>
+<p>// 得到属性的写方法，如同setName、setMoney等方法</p>
+<p>Method writeMethod = propertyDescriptor.getWriteMethod();</p>
+<p>writeMethod.invoke(t, rs.getObject(columnName));</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>return t;</p>
+<p>}</p>
+<p>} catch (Exception e) {</p>
+<p>e.printStackTrace();</p>
+<p>}</p>
+<p>return null;</p>
+<p>}</p>
+<p>}</p>
+<p>framework代码：</p>
+<p>/**</p>
+<p>* 通用select方法</p>
+<p>*/</p>
+<p>public static <r> R query(String sql, Class&lt;?&gt; clazz ,Object… args) throws SQLException {</r></p>
+<p>ResultHandler<r> handler = new DefaultResultHandler&lt;&gt;();</r></p>
+<p>R obj = null;</p>
+<p>Connection conn = null;</p>
+<p>PreparedStatement stmt = null;</p>
+<p>ResultSet rs = null;</p>
+<p>try {</p>
+<p>conn = JDBCUtils.getConnection();</p>
+<p>assert conn != null;</p>
+<p>stmt = conn.prepareStatement(sql);</p>
+<p>// 设置参数</p>
+<p>ParameterMetaData parameterMetaData = stmt.getParameterMetaData();</p>
+<p>int count = parameterMetaData.getParameterCount();</p>
+<p>for (int i = 1; i &lt;= count; i++) {</p>
+<p>stmt.setObject(i, args [i - 1 ]);</p>
+<p>}</p>
+<p>rs = stmt.executeQuery();</p>
+<p>obj = handler.handle(rs,clazz);</p>
+<p>} catch (SQLException e) {</p>
+<p>e.printStackTrace();</p>
+<p>} finally {</p>
+<p>rs.close();</p>
+<p>stmt.close();</p>
+<p>conn.close();</p>
+<p>}</p>
+<p>return obj;</p>
+<p>}</p>
+<p><strong>4.2 使用实例</strong></p>
+<p>public void queryCity() throws SQLException {</p>
+<p>City city = WaterRepositoryImp.query(“select * from city where id = ?”,City.class,4080);</p>
+<p>System.out.println(city);</p>
+<p>}</p>
+<img src="3. JDBC元数据/media/image5.png" style="width:5.59722in;height:1.29247in" alt="截图.png">
+<p>代码地址：</p>
+<p><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%8A%A8%E6%89%8B%E5%81%9A%E4%B8%80%E5%81%9A/src/main/java/Orm/jdbc/ormdiy">Java动手做一做/src/main/java/Orm/jdbc/ormdiy · 严家豆/Study - 码云 - 开源中国 (gitee.com)</a></p>
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/ORMFramework-JDBC-2-JDBC连接池/" data-toggle="tooltip" data-placement="top" title="2.JDBC连接池">&larr; 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/ORMFramework-JDBC-4-DBUtils学习/" data-toggle="tooltip" data-placement="top" title="4.DBUtils学习">下一篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">目录</strong>
+        
+          <ol class="nav">none</ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#JDBC" title="JDBC">JDBC</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+				<!--
+                
+                <hr>
+                <h5>朋友们</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+				-->
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+          //console.log(a.target.textContent.replace(/\./g, ""));
+          document.getElementById(a.target.textContent.replace(/\./g, "").replace(" ","-")).scrollIntoView({behavior: 'smooth' });
+        })
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    //document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhihu_xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse"><b>B</b></i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/1776167012">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; muzhi 2026 
+                    <br>
+					
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://1776167012.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Mermaid图表库 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  // 页面加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid !== 'undefined') {
+      // 在这里可以配置Mermaid的主题、流程图方向等
+      mermaid.initialize({
+      // 自动识别并渲染所有 class="mermaid" 的div
+        startOnLoad: true,
+        // 可选：'default', 'dark', 'forest', 'neutral'
+        theme: 'neutral'
+      });
+    }
+  });
+</script>
+<script>
+$(document).ready(function() {
+    var isModalOpen = false;
+    // 1. 加载 search.xml 索引文件
+  $.ajax({
+    url: '/search.json', // 路径改为json
+    dataType: 'json',                    // 数据类型改为json
+    success: function(searchData) {      // 直接得到JS对象
+      console.log('搜索索引加载完成，共 ' + searchData.length + ' 篇文章。');
+      // 注意：searchData 现在直接是数组，无需解析
+      // 需要将全局的 searchData 变量赋值
+      window.searchData = searchData; // 赋值给全局变量
+    },
+    error: function() {
+      $('#search-status').text('无法加载搜索索引文件。');
+    }
+});
+
+    // 2. 搜索功能核心函数
+    function performSearch(keyword) {
+      var resultsContainer = $('#search-results-container').empty();
+      $('#search-status').hide();
+
+      if (!keyword.trim()) {
+        $('#search-status').text('输入关键词开始搜索...').show();
+        return;
+      }
+
+      var resultsHtml = '';
+      var resultCount = 0;
+      var kwReg = new RegExp(keyword, 'gi'); // 创建全局、不区分大小写的正则表达式
+
+      // 遍历所有文章数据
+      window.searchData.forEach(function(item) {
+        // 在标题和内容中搜索关键词
+        var titleMatch = item.title.match(kwReg);
+        var contentMatch = item.content.match(kwReg);
+
+        if (titleMatch || contentMatch) {
+          resultCount++;
+          // 构建标题高亮
+          var highlightedTitle = item.title.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+          // 从内容中提取包含关键词的片段（约150字符）并高亮
+          var contentSnippet = item.content;
+          var firstIndex = contentSnippet.toLowerCase().indexOf(keyword.toLowerCase());
+          if (firstIndex !== -1) {
+            var start = Math.max(0, firstIndex - 60);
+            var end = Math.min(contentSnippet.length, firstIndex + 90);
+            contentSnippet = '...' + contentSnippet.substring(start, end) + '...';
+          } else {
+            contentSnippet = contentSnippet.substring(0, 150) + '...';
+          }
+          contentSnippet = contentSnippet.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+
+          // 生成单个结果的HTML
+          resultsHtml += `
+            <div class="search-result-item">
+              <a href="${item.url}" class="search-result-title">${highlightedTitle}</a>
+              <p class="search-result-excerpt">${contentSnippet}</p>
+            </div>
+          `;
+        }
+      });
+
+      // 显示结果或“无结果”状态
+      if (resultCount > 0) {
+        resultsContainer.html(resultsHtml);
+      } else {
+        resultsContainer.html('<div id="search-status">未找到包含 "' + keyword + '" 的文章。</div>');
+      }
+    }
+
+    // 3. 绑定输入事件（防抖，提升性能）
+    var searchTimer;
+    $('#search-input').on('input', function() {
+      clearTimeout(searchTimer);
+      var keyword = $(this).val();
+      searchTimer = setTimeout(function() {
+        performSearch(keyword);
+      }, 300); // 延迟300毫秒后执行搜索
+    });
+
+    // 4. 全局控制搜索弹窗显示/隐藏的函数
+    window.openSearchModal = function() {
+      isModalOpen = true;
+      $('#search-mask, #search-modal').fadeIn(200);
+      $('#search-input').focus().select(); // 自动聚焦到输入框
+      $('body').css('overflow', 'hidden'); // 防止背景滚动
+    };
+    window.closeSearchModal = function() {
+      isModalOpen = false;
+      $('#search-mask, #search-modal').fadeOut(200);
+      $('#search-input').val(''); // 清空输入框
+      $('#search-results-container').empty(); // 清空结果
+      $('#search-status').text('输入关键词开始搜索...').show();
+      $('body').css('overflow', 'auto');
+    };
+
+    // 5. 事件绑定：点击遮罩关闭、ESC键关闭
+    $('#search-mask').on('click', closeSearchModal);
+    $(document).on('keydown', function(e) {
+      if (e.keyCode === 27 && isModalOpen) { // ESC键
+        closeSearchModal();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.keyCode === 70 && !isModalOpen) { // Ctrl+F / Cmd+F
+        e.preventDefault(); // 阻止浏览器默认查找
+        openSearchModal();
+      }
+    });
+  });
+</script>
+
+<!-- 本地搜索 CSS -->
+    <style>
+      /* 搜索弹窗遮罩 */
+      #search-mask {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9998;
+        display: none;
+      }
+      /* 搜索主容器 */
+      #search-modal {
+        position: fixed;
+        top: 10%; left: 50%;
+        transform: translateX(-50%);
+        width: 80%; max-width: 600px;
+        max-height: 80vh;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      }
+      /* 搜索框区域 */
+      .search-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      #search-input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      #search-input:focus {
+        border-color: #3498db;
+      }
+      /* 搜索结果区域 */
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 20px;
+      }
+      .search-result-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .search-result-item:last-child {
+        border-bottom: none;
+      }
+      .search-result-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #2c3e50;
+      }
+      .search-result-excerpt {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 限制最多显示3行 */
+        -webkit-box-orient: vertical;
+      }
+      .search-result-highlight {
+        background-color: #fff9c4; /* 关键词高亮背景色 */
+        font-weight: bold;
+        color: #e74c3c;
+      }
+      /* 无结果/加载状态 */
+      #search-status {
+        padding: 20px;
+        text-align: center;
+        color: #999;
+      }
+    </style>
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+	<script  type="text/javascript">
+<!-- Image to hack wechat -->
+<img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+</body>
+
+</html>

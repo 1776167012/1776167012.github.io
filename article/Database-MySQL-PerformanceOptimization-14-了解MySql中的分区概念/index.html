@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          13.MySQL分区存储 - 牧之的博客 | Muzhi Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://1776167012.github.io/article/Database-MySQL-PerformanceOptimization-14-了解MySql中的分区概念/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/beantech.min.css">
+
+
+    
+<link rel="stylesheet" href="/css/donate.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script>
+	</script>
+	<style>
+	* {
+            box-sizing: border-box;
+        }
+
+        form {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding-left: 13px;
+        }
+
+        button {
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        /*搜索框1*/
+        .bar1 {
+			background: #FFF;
+			max-width: 200px;
+		}
+        .bar1 input {
+			max-height: 30px;
+            border: 2px solid #BFBFBF;
+            border-radius: 5px;
+            background: #FFFFFF;
+            color: #BFBFBF;
+			-webkit-text-fill-color: #BFBFBF;
+        }
+        .bar1 button {
+			max-height: 30px;
+            top: 0;
+            right: 0;
+            background: #BFBFBF;
+            border-radius: 0 5px 5px 0;
+        }
+        .bar1 button:before {
+            content: "\f002";
+            font-family: FontAwesome;
+            font-size: 16px;
+            color: #F9F0DA;
+        }
+		</style>
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/feed.xml" title="牧之" type="application/atom+xml">
+</head>
+
+
+
+<!-- hack iOS CSS :active style -->
+<!-- <body ontouchstart=""  class="<?php echo($_COOKIE['night'] == '1' ? '' : ''); ?>"> -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/header_img/codeBack.png')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#MySQL性能优化" title="MySQL性能优化">MySQL性能优化</a>
+                            
+                        </div>
+                        <h1>13.MySQL分区存储</h1>
+                        <!-- <h2 class="subheading"></h2> -->
+                        <span class="meta">
+                            muzhi on
+                            2021-06-22
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1776167012</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                   <!-- 例如，放在导航菜单内部 -->
+                   <li>
+                    <a href="javascript:void(0);" onclick="openSearchModal()" title="搜索">搜索</a>
+                   </li>
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+					<li>
+                        <a href="/archive/">文章归档</a>
+                    </li>
+					<li>
+                        <a href="/tags/">博客标签</a>
+                    </li>
+					<li>
+                        <a href="/about/">关于作者</a>
+                    </li>
+
+					<!--
+					修改about在前面的问题
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">没有什么比快乐更重要</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    -->
+                </ul>
+            </div>
+
+        <!-- 本地搜索弹窗结构 -->
+        <div id="search-mask"></div>
+        <div id="search-modal">
+          <div class="search-header">
+            <input type="text" id="search-input" placeholder="请输入关键词搜索..." autocomplete="off" />
+          </div>
+          <div id="search-status">输入关键词开始搜索...</div>
+          <div class="search-results" id="search-results-container">
+            <!-- 搜索结果将通过JS动态插入到这里 -->
+          </div>
+        </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				
+                <h1><span id="1什么是分区">1.什么是分区？</span></h1>
+<p>分区其实是一个过程，它将一个表分解为多个更小，更容易管理的部分,好的分区设计对数据库性能会有极大的提升。</p>
+<p>MySQL支持的分区类型为水平分区：将同一张表中不同行的记录分配到不同的物理文件中。</p>
+<p>这样就可以根据分区对一些有规律的数据进行高效操作。MySQL数据库中的分区时局部分区，即一个分区中既存放数据也存放索引。</p>
+<h1><span id="2mysql中支持的分区类型">2.MySQL中支持的分区类型</span></h1>
+<ul>
+<li>
+<p>RANGE分区：范围分区，一个给定连续区间的列值放入指定范围的分区。分区条件必须为整型</p>
+</li>
+<li>
+<p>LIST分区：它和RANGE分区类型一样，只是LIST分区面向的是离散的值(例如：1,4,6)，而不是连续的列值。分区条件必须为整型</p>
+</li>
+<li>
+<p>HASH分区：Hash分区的目的在于将数据均匀分布在预定义的各个分区中。分区条件必须为整型</p>
+</li>
+<li>
+<p>KEY分区：他和Hash分区相似，不同点在于，Hash分区使用用户定义的函数进行分区，而Key分区使用的是MySQL内置的函数。分区条件必须为整型</p>
+</li>
+<li>
+<p>Columns分区：columns分区支持非整型条件分区。</p>
+</li>
+</ul>
+<p><strong>在创建分区时必须注意的一点：如果表中存在主键或唯一索引时，分区列必须是唯一索引的一个组成部分。当建表时没有指定主键和唯一索引时，可以指定任何一个列为分区列。</strong></p>
+<h1><span id="3range分区">3.RANGE分区？</span></h1>
+<p>顾名思义，范围分区，它是根据列值的范围进行分区的。</p>
+<h2><span id="31-实例学习">3.1 实例学习</span></h2>
+<p>首先，创建一张表,并为表新建范围分区：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> t(</span><br><span class="line">id <span class="type">int</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">RANGE</span>(id)(</span><br><span class="line"><span class="keyword">PARTITION</span> p0 <span class="keyword">VAlUES</span> LESS THAN(<span class="number">10</span>),</span><br><span class="line"><span class="keyword">PARTITION</span> p1 <span class="keyword">VALUES</span> LESS THAN(<span class="number">20</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>其中，建表语句后的：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">RANGE</span>(id)(</span><br><span class="line"><span class="keyword">PARTITION</span> p0 VAULES LESS THAN(<span class="number">10</span>),</span><br><span class="line"><span class="keyword">PARTITION</span> p1 <span class="keyword">VALUES</span> LESS <span class="keyword">THEN</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>它表示将t表设置成分区表，分区规则是范围分区，将表数据分为两部分，p0分区负责存储列id小于10的数据，<br>
+p1分区负责存储列id为10到20的数据。这就是范围分区。</p>
+<p>我们从前面学习到分区的原理其实就是：将一个表或索引分解成多个更小，更可管理的部分，从逻辑上说，只有一个表，但是从物理上说，这个表或索引可能由多个物理文件组成，每个分区都是独立的对象，可以独自处理。<br>
+所以我们在创建这张表后，查看其物理文件，会发现表不再由一个ibd文件组成，而是由建立各分区ibd组成，如图：</p>
+<p><img src="15.MySQL%E5%88%86%E5%8C%BA%E4%B9%8BRANGE%E5%88%86%E5%8C%BA/media/image1.png" alt></p>
+<p>然后向此表插入数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t <span class="keyword">values</span>(<span class="number">9</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t <span class="keyword">values</span>(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t <span class="keyword">values</span>(<span class="number">15</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>注意：对于表t，我们定义了分区，因此插入的值应该严格遵守分区的定义，当插入一个不在分区中定义的值时，MySQL数据库就会抛出一个异常</strong>，如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t <span class="keyword">values</span>(<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+<p>就会抛出一个异常：</p>
+<p><img src="15.MySQL%E5%88%86%E5%8C%BA%E4%B9%8BRANGE%E5%88%86%E5%8C%BA/media/image2.png" alt></p>
+<p>而对于上述问题，也就是超过分区上限的值该如何存储，答案就是新加一个MAXVALUE(无穷大)值的分区：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> t <span class="keyword">ADD</span> <span class="keyword">PARTITION</span>(</span><br><span class="line"><span class="keyword">PARTITION</span> p2 <span class="keyword">values</span> less than maxvalue</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p><img src="15.MySQL%E5%88%86%E5%8C%BA%E4%B9%8BRANGE%E5%88%86%E5%8C%BA/media/image3.png" alt></p>
+<p>成功插入！！</p>
+<p>接着可以查看每个分区的一些属性信息：</p>
+<h2><span id="32-查看表中每个分区的具体信息">3.2 查看表中每个分区的具体信息</span></h2>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> information_schema.PARTITIONS </span><br><span class="line"><span class="keyword">WHERE</span> table_schema<span class="operator">=</span>database() <span class="keyword">AND</span> table_name<span class="operator">=</span><span class="string">&#x27;t&#x27;</span> \G;</span><br></pre></td></tr></table></figure>
+<p><img src="15.MySQL%E5%88%86%E5%8C%BA%E4%B9%8BRANGE%E5%88%86%E5%8C%BA/media/image4.png" alt></p>
+<p>从这里可以查看到每个分区的情况。</p>
+<h2><span id="33-range分区的主要应用场景">3.3 RANGE分区的主要应用场景</span></h2>
+<p>RANGE分区主要用于日期列的分区，例如，对于销售类的表，可以根据年份来分区存放销售记录。如下：</p>
+<p>新建一张名为sales的表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> sales(</span><br><span class="line">money <span class="type">int</span> unsigned <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line"><span class="type">date</span> datetime</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">partition</span> <span class="keyword">by</span> <span class="keyword">range</span>(<span class="keyword">year</span>(<span class="type">date</span>))(</span><br><span class="line"><span class="keyword">partition</span> p2008 <span class="keyword">values</span> less than(<span class="number">2009</span>),</span><br><span class="line"><span class="keyword">partition</span> p2009 <span class="keyword">values</span> less than(<span class="number">2010</span>),</span><br><span class="line"><span class="keyword">partition</span> p2010 <span class="keyword">values</span> less than(<span class="number">2011</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p><strong>注意，这里的range(year(date))的原因是：RANGE，LIST,HASH,KEY四种分区种，分区的条件必须是整型！！，如果不是整型，那么需要通过函数将其转化为整型。 如YEAR(),TO_DAYS()…</strong></p>
+<p>接着向表种插入数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> sales(money,<span class="type">date</span>)<span class="keyword">values</span>(<span class="number">100</span>,<span class="string">&#x27;2008-01-01&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> sales(money,<span class="type">date</span>)<span class="keyword">values</span>(<span class="number">100</span>,<span class="string">&#x27;2008-02-01&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> sales(money,<span class="type">date</span>)<span class="keyword">values</span>(<span class="number">100</span>,<span class="string">&#x27;2008-01-02&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> sales(money,<span class="type">date</span>)<span class="keyword">values</span>(<span class="number">100</span>,<span class="string">&#x27;2009-03-01&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> sales(money,<span class="type">date</span>)<span class="keyword">values</span>(<span class="number">100</span>,<span class="string">&#x27;2010-03-01&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h3><span id="331-删除性能高">3.3.1 删除性能高</span></h3>
+<p>创建一个分区的好处就是，如果我们想删除一个分区的数据，无需重复执行delete语句，只需下面sql就可以清空分区数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">TRUNCATE</span> <span class="keyword">PARTITION</span> p_name;</span><br></pre></td></tr></table></figure>
+<p>如果我们以后不用该分区，也可以使用下面语句删除该分区达到删除效果：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_name <span class="keyword">drop</span> <span class="keyword">partition</span> p_name;</span><br></pre></td></tr></table></figure>
+<p>但这样做的坏处是分区不可复用。所以第一个删除语句是首选。</p>
+<h3><span id="332-查询性能高">3.3.2 查询性能高</span></h3>
+<p>使用分区，在范围查询中可以明显加快查询。</p>
+<p>例如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> sales <span class="keyword">where</span> <span class="type">date</span><span class="operator">&gt;=</span><span class="string">&#x27;2008-01-01&#x27;</span> <span class="keyword">and</span> <span class="type">date</span><span class="operator">&lt;=</span><span class="string">&#x27;2008-12-31&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><img src="15.MySQL%E5%88%86%E5%8C%BA%E4%B9%8BRANGE%E5%88%86%E5%8C%BA/media/image5.png" alt></p>
+<p>可以看到，使用到了分区查询而不是全表扫描！！！</p>
+<p><strong>注意：对于RANGE分区的查询，优化器只能对YEAR(),TO_DAYS(),TO_SECONDS()这类的函数进行优化选择，而不能对复合表达式进行优化选择！！</strong></p>
+<h1><span id="4何为list分区">4.何为LIST分区？</span></h1>
+<p>LIST和RANGE分区唯一的区别就是，RANGE分区存储的值是连续的区间，而LIST分区存储的值是离散的。</p>
+<h2><span id="42-例子学习">4.2 例子学习</span></h2>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> t(</span><br><span class="line">a <span class="type">int</span>,</span><br><span class="line">b <span class="type">int</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">partition</span> <span class="keyword">by</span> list(b)(</span><br><span class="line"><span class="keyword">partition</span> p0 <span class="keyword">values</span> <span class="keyword">in</span>(<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>),</span><br><span class="line"><span class="keyword">partition</span> p1 <span class="keyword">values</span> <span class="keyword">in</span>(<span class="number">0</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>这表示p0分区只能存储b列为1，3，5，7，9的行数据。</p>
+<p>注意，它的用法和range分区有所不同：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">partition</span> <span class="keyword">by</span> list(b)(</span><br><span class="line"><span class="keyword">partition</span> p0 <span class="keyword">values</span> <span class="keyword">in</span>(<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>),</span><br><span class="line"><span class="keyword">partition</span> p1 <span class="keyword">values</span> <span class="keyword">in</span>(<span class="number">0</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>现在，我们向这个分区表中插入数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t(a,b)<span class="keyword">values</span>(<span class="number">2</span>,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t(a,b)<span class="keyword">values</span>(<span class="number">2</span>,<span class="number">2</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t(a,b)<span class="keyword">values</span>(<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t(a,b)<span class="keyword">values</span>(<span class="number">2</span>,<span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+<p>下面插入一条不符合分区的数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t(a,b)<span class="keyword">values</span>(<span class="number">2</span>,<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="16.MySQL%E5%88%86%E5%8C%BA%E4%B9%8BLIST%E5%88%86%E5%8C%BA/media/image1.png" alt></p>
+<p>很明显，插入失败。</p>
+<p><strong>这里我们要注意：在INNODB中，在执行多个insert的过程中，如果有一条失败，那么整个插入过程会回滚！！</strong></p>
+<h2><span id="43list分区的应用场景">4.3.LIST分区的应用场景</span></h2>
+<p>LIST分区特别适合枚举值列的分区，例如，将根据性别分区。</p>
+<p>下面创建一张表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> class_people(</span><br><span class="line">id <span class="type">int</span> auto_increment,</span><br><span class="line">name <span class="type">varchar</span>(<span class="number">20</span>),</span><br><span class="line">sex <span class="type">int</span> ,</span><br><span class="line"><span class="keyword">primary</span> key(id,sex)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">partition</span> <span class="keyword">by</span> list(sex)(</span><br><span class="line"><span class="keyword">partition</span> p0 <span class="keyword">values</span> <span class="keyword">in</span>(<span class="number">1</span>),</span><br><span class="line"><span class="keyword">partition</span> p1 <span class="keyword">values</span> <span class="keyword">in</span>(<span class="number">0</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>其中1代表男生，0代表女生。</p>
+<p>然后向表中插入数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> class_people(name,sex)<span class="keyword">values</span>(<span class="string">&#x27;tom&#x27;</span>,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> class_people(name,sex)<span class="keyword">values</span>(<span class="string">&#x27;tony&#x27;</span>,<span class="number">0</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> class_people(name,sex)<span class="keyword">values</span>(<span class="string">&#x27;baby&#x27;</span>,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> class_people(name,sex)<span class="keyword">values</span>(<span class="string">&#x27;jayme&#x27;</span>,<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="16.MySQL%E5%88%86%E5%8C%BA%E4%B9%8BLIST%E5%88%86%E5%8C%BA/media/image2.png" alt></p>
+<p>下面看下下面语句的执行计划：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> class_people <span class="keyword">where</span> sex<span class="operator">=</span><span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>查找性别为男的数据：</p>
+<p><img src="16.MySQL%E5%88%86%E5%8C%BA%E4%B9%8BLIST%E5%88%86%E5%8C%BA/media/image3.png" alt></p>
+<p>可以明显的看到只查询了p0分区。</p>
+<h1><span id="5何为hash分区">5.何为HASH分区？</span></h1>
+<p>故名思意，就是将列值通过特定的HASH函数计算后的值划分分区，<br>
+HASH分区的目的是将数据均匀的分布到预先定义的各个分区中，保证数据均匀分布。<br>
+我们要做的是基于将要被散列的列值指定一个列值或表达式，以及指定被分区的表将要被分割的分区数量。<br>
+<strong>MySQL支持的HASH分区分为普通HASH分区和LINEAR HASH分区。</strong></p>
+<h2><span id="51-普通hash分区实例学习">5.1 普通HASH分区实例学习</span></h2>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> t_hash(</span><br><span class="line">a <span class="type">int</span>,</span><br><span class="line">b datetime</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">partition</span> <span class="keyword">by</span> hash(<span class="keyword">year</span>(b))</span><br><span class="line">partitions <span class="number">4</span>;</span><br></pre></td></tr></table></figure>
+<p>上面建表语句中创建分区的意思是：根据b列的year()的函数值进行分区，计算方式是year(b)的值对4取余，</p>
+<p>若结果为0，则该行数据会被放在p0分区<br>
+若结果为1，则该行数据会被放在p1分区<br>
+若结果为2，则该行数据会被放在p2分区<br>
+若结果为3，则该行数据会被放在p3分区<br>
+<strong>其中partitions 4代表着hash分区的数量为4，如果没有这个语句，分区数量默认为1.</strong></p>
+<p><strong>下面插入一个记录：</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_hash(a,b) <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">&#x27;2014-10-01&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="17.MySQL%E5%88%86%E5%8C%BA%E4%B9%8BHASH%E5%88%86%E5%8C%BA%EF%BC%8CKEY%E5%88%86%E5%8C%BA%EF%BC%8CCOLUMNS%E5%88%86%E5%8C%BA/media/image1.png" alt></p>
+<p>2014和4取余为2，所以该数据被放在p2分区中。</p>
+<p><strong>注意：HASH分区对于连续的列值做分区比较好，如自增长的主键，这样数据就能较好的分布。</strong></p>
+<h2><span id="52linear-hash分区">5.2.LINEAR HASH分区</span></h2>
+<p>LINEAR HASH分区使用一个更加复杂的算法来确定插入到已分区的表中的位置。</p>
+<p>用法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> t_linear_hash(</span><br><span class="line">a <span class="type">int</span>,</span><br><span class="line">b datetime</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">partition</span> <span class="keyword">by</span> linear hash(<span class="keyword">year</span>(b))</span><br><span class="line">partitions <span class="number">4</span>;</span><br></pre></td></tr></table></figure>
+<p>对于这个分区，插入2010-04-01这条记录，这次MySQL数据库根据以下方法来对分区进行判断：</p>
+<p>取大于分区数量4的下一个2的幂值V，V=POWER(2,CEILING(LOG(2,num)))=4.</p>
+<p>所在分区N=YEAR(‘2010-04-01’)&amp;(V-1)=2;</p>
+<p><strong>上面的算法不必深究，关键在于会用，知道其优缺点：</strong></p>
+<ul>
+<li>
+<p>LINEAR HASH分区的优点在于增加，删除，合并和拆分分区将变得更加快捷，这有利于处理含有大量数据的表。</p>
+</li>
+<li>
+<p>LINEAR HASH分区的缺点在于，与使用HASH分区得到的数据分布相比，各个分区间数据的分布可能不大均衡。</p>
+</li>
+</ul>
+<h1><span id="6何为key分区">6.何为KEY分区？</span></h1>
+<p>KEY分区和HASH分区相似，不同之处在于HASH分区通过用户定义的函数进行分区，而KEY分区使用MySQL数据库提供的函数进行分区。</p>
+<p>用法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> t_key(</span><br><span class="line">a <span class="type">int</span>,</span><br><span class="line">b datetime</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">partition</span> <span class="keyword">by</span> key(b)</span><br><span class="line">partitions <span class="number">4</span>;</span><br></pre></td></tr></table></figure>
+<p>不过这个分区的编号是通过2的幂值得到的，而不是通过模数算法计算出来的。</p>
+<h1><span id="7何为columns分区">7.何为COLUMNS分区？</span></h1>
+<p>COLUMNS分区允许分区条件为非整型，分区根据类型直接比较而得到，不需要转化为整型。</p>
+<p>此外，RANGE COLUMNS分区可以对多个列的值进行分区，COLUMNS分区支持以下数据类型：</p>
+<ul>
+<li>
+<p>所有整型</p>
+</li>
+<li>
+<p>日期类型</p>
+</li>
+<li>
+<p>字符串类型</p>
+</li>
+</ul>
+<p>用法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> t_columns_range(</span><br><span class="line">a <span class="type">int</span>,</span><br><span class="line">b datetime</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">partition</span> <span class="keyword">by</span> <span class="keyword">range</span> columns(b)(</span><br><span class="line"><span class="keyword">partition</span> p0 <span class="keyword">values</span> less than (<span class="string">&#x27;2009-01-01&#x27;</span>),</span><br><span class="line"><span class="keyword">partition</span> p1 <span class="keyword">values</span> less than (<span class="string">&#x27;2010-01-01&#x27;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>MySQL从5.5开始支持COLUMNS分区，对于前面的range分区和list分区，可以很好的利用RANGE COLUMNS分区和LIST COLUMNS分区代替。</p>
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/Database-MySQL-PerformanceOptimization-12-索引提示/" data-toggle="tooltip" data-placement="top" title="12.索引提示">&larr; 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/Database-MySQL-PerformanceOptimization-18-MySQL分区之子分区（复合分区）与分区中对NULL的处理/" data-toggle="tooltip" data-placement="top" title="14.MySQL子分区">下一篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">目录</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1.什么是分区？</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2.MySQL中支持的分区类型</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">3.RANGE分区？</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">3.1 实例学习</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">3.2 查看表中每个分区的具体信息</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">3.3 RANGE分区的主要应用场景</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link"><span class="toc-nav-number">3.3.1.</span> <span class="toc-nav-text">3.3.1 删除性能高</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link"><span class="toc-nav-number">3.3.2.</span> <span class="toc-nav-text">3.3.2 查询性能高</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">4.何为LIST分区？</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">4.2 例子学习</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">4.3.LIST分区的应用场景</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">5.何为HASH分区？</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">5.1.</span> <span class="toc-nav-text">5.1 普通HASH分区实例学习</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">5.2.</span> <span class="toc-nav-text">5.2.LINEAR HASH分区</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">6.何为KEY分区？</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">7.何为COLUMNS分区？</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#MySQL性能优化" title="MySQL性能优化">MySQL性能优化</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+				<!--
+                
+                <hr>
+                <h5>朋友们</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+				-->
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+          //console.log(a.target.textContent.replace(/\./g, ""));
+          document.getElementById(a.target.textContent.replace(/\./g, "").replace(" ","-")).scrollIntoView({behavior: 'smooth' });
+        })
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    //document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhihu_xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse"><b>B</b></i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/1776167012">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; muzhi 2026 
+                    <br>
+					
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://1776167012.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Mermaid图表库 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  // 页面加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid !== 'undefined') {
+      // 在这里可以配置Mermaid的主题、流程图方向等
+      mermaid.initialize({
+      // 自动识别并渲染所有 class="mermaid" 的div
+        startOnLoad: true,
+        // 可选：'default', 'dark', 'forest', 'neutral'
+        theme: 'neutral'
+      });
+    }
+  });
+</script>
+<script>
+$(document).ready(function() {
+    var isModalOpen = false;
+    // 1. 加载 search.xml 索引文件
+  $.ajax({
+    url: '/search.json', // 路径改为json
+    dataType: 'json',                    // 数据类型改为json
+    success: function(searchData) {      // 直接得到JS对象
+      console.log('搜索索引加载完成，共 ' + searchData.length + ' 篇文章。');
+      // 注意：searchData 现在直接是数组，无需解析
+      // 需要将全局的 searchData 变量赋值
+      window.searchData = searchData; // 赋值给全局变量
+    },
+    error: function() {
+      $('#search-status').text('无法加载搜索索引文件。');
+    }
+});
+
+    // 2. 搜索功能核心函数
+    function performSearch(keyword) {
+      var resultsContainer = $('#search-results-container').empty();
+      $('#search-status').hide();
+
+      if (!keyword.trim()) {
+        $('#search-status').text('输入关键词开始搜索...').show();
+        return;
+      }
+
+      var resultsHtml = '';
+      var resultCount = 0;
+      var kwReg = new RegExp(keyword, 'gi'); // 创建全局、不区分大小写的正则表达式
+
+      // 遍历所有文章数据
+      window.searchData.forEach(function(item) {
+        // 在标题和内容中搜索关键词
+        var titleMatch = item.title.match(kwReg);
+        var contentMatch = item.content.match(kwReg);
+
+        if (titleMatch || contentMatch) {
+          resultCount++;
+          // 构建标题高亮
+          var highlightedTitle = item.title.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+          // 从内容中提取包含关键词的片段（约150字符）并高亮
+          var contentSnippet = item.content;
+          var firstIndex = contentSnippet.toLowerCase().indexOf(keyword.toLowerCase());
+          if (firstIndex !== -1) {
+            var start = Math.max(0, firstIndex - 60);
+            var end = Math.min(contentSnippet.length, firstIndex + 90);
+            contentSnippet = '...' + contentSnippet.substring(start, end) + '...';
+          } else {
+            contentSnippet = contentSnippet.substring(0, 150) + '...';
+          }
+          contentSnippet = contentSnippet.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+
+          // 生成单个结果的HTML
+          resultsHtml += `
+            <div class="search-result-item">
+              <a href="${item.url}" class="search-result-title">${highlightedTitle}</a>
+              <p class="search-result-excerpt">${contentSnippet}</p>
+            </div>
+          `;
+        }
+      });
+
+      // 显示结果或“无结果”状态
+      if (resultCount > 0) {
+        resultsContainer.html(resultsHtml);
+      } else {
+        resultsContainer.html('<div id="search-status">未找到包含 "' + keyword + '" 的文章。</div>');
+      }
+    }
+
+    // 3. 绑定输入事件（防抖，提升性能）
+    var searchTimer;
+    $('#search-input').on('input', function() {
+      clearTimeout(searchTimer);
+      var keyword = $(this).val();
+      searchTimer = setTimeout(function() {
+        performSearch(keyword);
+      }, 300); // 延迟300毫秒后执行搜索
+    });
+
+    // 4. 全局控制搜索弹窗显示/隐藏的函数
+    window.openSearchModal = function() {
+      isModalOpen = true;
+      $('#search-mask, #search-modal').fadeIn(200);
+      $('#search-input').focus().select(); // 自动聚焦到输入框
+      $('body').css('overflow', 'hidden'); // 防止背景滚动
+    };
+    window.closeSearchModal = function() {
+      isModalOpen = false;
+      $('#search-mask, #search-modal').fadeOut(200);
+      $('#search-input').val(''); // 清空输入框
+      $('#search-results-container').empty(); // 清空结果
+      $('#search-status').text('输入关键词开始搜索...').show();
+      $('body').css('overflow', 'auto');
+    };
+
+    // 5. 事件绑定：点击遮罩关闭、ESC键关闭
+    $('#search-mask').on('click', closeSearchModal);
+    $(document).on('keydown', function(e) {
+      if (e.keyCode === 27 && isModalOpen) { // ESC键
+        closeSearchModal();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.keyCode === 70 && !isModalOpen) { // Ctrl+F / Cmd+F
+        e.preventDefault(); // 阻止浏览器默认查找
+        openSearchModal();
+      }
+    });
+  });
+</script>
+
+<!-- 本地搜索 CSS -->
+    <style>
+      /* 搜索弹窗遮罩 */
+      #search-mask {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9998;
+        display: none;
+      }
+      /* 搜索主容器 */
+      #search-modal {
+        position: fixed;
+        top: 10%; left: 50%;
+        transform: translateX(-50%);
+        width: 80%; max-width: 600px;
+        max-height: 80vh;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      }
+      /* 搜索框区域 */
+      .search-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      #search-input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      #search-input:focus {
+        border-color: #3498db;
+      }
+      /* 搜索结果区域 */
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 20px;
+      }
+      .search-result-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .search-result-item:last-child {
+        border-bottom: none;
+      }
+      .search-result-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #2c3e50;
+      }
+      .search-result-excerpt {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 限制最多显示3行 */
+        -webkit-box-orient: vertical;
+      }
+      .search-result-highlight {
+        background-color: #fff9c4; /* 关键词高亮背景色 */
+        font-weight: bold;
+        color: #e74c3c;
+      }
+      /* 无结果/加载状态 */
+      #search-status {
+        padding: 20px;
+        text-align: center;
+        color: #999;
+      }
+    </style>
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+	<script  type="text/javascript">
+<!-- Image to hack wechat -->
+<img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+</body>
+
+</html>

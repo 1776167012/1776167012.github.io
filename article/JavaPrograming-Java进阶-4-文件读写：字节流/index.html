@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          4.文件读写-字节流 - 牧之的博客 | Muzhi Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://1776167012.github.io/article/JavaPrograming-Java进阶-4-文件读写：字节流/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/beantech.min.css">
+
+
+    
+<link rel="stylesheet" href="/css/donate.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script>
+	</script>
+	<style>
+	* {
+            box-sizing: border-box;
+        }
+
+        form {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding-left: 13px;
+        }
+
+        button {
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        /*搜索框1*/
+        .bar1 {
+			background: #FFF;
+			max-width: 200px;
+		}
+        .bar1 input {
+			max-height: 30px;
+            border: 2px solid #BFBFBF;
+            border-radius: 5px;
+            background: #FFFFFF;
+            color: #BFBFBF;
+			-webkit-text-fill-color: #BFBFBF;
+        }
+        .bar1 button {
+			max-height: 30px;
+            top: 0;
+            right: 0;
+            background: #BFBFBF;
+            border-radius: 0 5px 5px 0;
+        }
+        .bar1 button:before {
+            content: "\f002";
+            font-family: FontAwesome;
+            font-size: 16px;
+            color: #F9F0DA;
+        }
+		</style>
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/feed.xml" title="牧之" type="application/atom+xml">
+</head>
+
+
+
+<!-- hack iOS CSS :active style -->
+<!-- <body ontouchstart=""  class="<?php echo($_COOKIE['night'] == '1' ? '' : ''); ?>"> -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('https://api.dujin.org/bing/1920.php')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+                            
+                        </div>
+                        <h1>4.文件读写-字节流</h1>
+                        <!-- <h2 class="subheading"></h2> -->
+                        <span class="meta">
+                            muzhi on
+                            2023-05-20
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1776167012</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                   <!-- 例如，放在导航菜单内部 -->
+                   <li>
+                    <a href="javascript:void(0);" onclick="openSearchModal()" title="搜索">搜索</a>
+                   </li>
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+					<li>
+                        <a href="/archive/">文章归档</a>
+                    </li>
+					<li>
+                        <a href="/tags/">博客标签</a>
+                    </li>
+					<li>
+                        <a href="/about/">关于作者</a>
+                    </li>
+
+					<!--
+					修改about在前面的问题
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">没有什么比快乐更重要</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    -->
+                </ul>
+            </div>
+
+        <!-- 本地搜索弹窗结构 -->
+        <div id="search-mask"></div>
+        <div id="search-modal">
+          <div class="search-header">
+            <input type="text" id="search-input" placeholder="请输入关键词搜索..." autocomplete="off" />
+          </div>
+          <div id="search-status">输入关键词开始搜索...</div>
+          <div class="search-results" id="search-results-container">
+            <!-- 搜索结果将通过JS动态插入到这里 -->
+          </div>
+        </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				
+                <h1><span id="1什么是字节流">1.什么是字节流</span></h1>
+<p>字节流最大的特点是，每次调用read或write读入或写出的数据是以字节为单位的，而有的字符需要两个字节去存储，<br>
+所以字节流读取数据会发生读到的数据不准确的情况。(就会看到乱码的效果)<br>
+在Java中的字节流的类命名一般是以Stream结尾的,比如FileInputStream.</p>
+<h2><span id="11-字节数组流">1.1 字节数组流</span></h2>
+<p>输入输出流的源 和 目的地除了可以是“文件”（硬盘）外，还可以是计算机内存，我们也可以使用数组流来将数据输入输出到内存。<br>
+字节数组流就是用来将内存中的数据输入到程序中,或者将程序的数据输出到内存中去的字节流。</p>
+<h3><span id="111-bytearrayinputstream-字节数组输入流">1.1.1 ByteArrayInputStream 字节数组输入流</span></h3>
+<p>ByteArrayInputStream是输入流InputStream的一种实现，它的源只能是字节数组byte[]，它支持mark。</p>
+<h4><span id="构造方法">构造方法</span></h4>
+<p><strong>ByteArrayInputStream(byte[]  buf);</strong><br>
+此构造方法的字节数组流的源是参数buf指定的数组的全部字节单元。<br>
+<strong>ByteArrayInputStream(byte[]  buf ,int offset,int length);</strong><br>
+此方法构造的字节数组流的源是buf指定的数组从offset处按顺序取length个字节单元。</p>
+<h4><span id="常用方法">常用方法</span></h4>
+<p><strong>public int read();</strong><br>
+该方法可以顺序地从源中读取一个字节，返回读出的字节值。<br>
+<strong>public int read(byte[] b,int off,int len);</strong><br>
+该方法可以顺序地从源中读出参数len指定的字节数，并将读出的字节存放在参数b指定的数组中，参数off指定数组b读出字节的起始位置，返回实际读出的字节个数，若未读出字节read方法返回-1.</p>
+<h4><span id="使用示例">使用示例：</span></h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">readStudy</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//定义字节数组输入流的源</span></span><br><span class="line">    <span class="type">byte</span>[] bytes = <span class="string">&quot;我是四郎&quot;</span>.getBytes(StandardCharsets.UTF_8);</span><br><span class="line">    <span class="comment">//根据源创建字节数组输入流</span></span><br><span class="line">    <span class="type">ByteArrayInputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayInputStream</span>(bytes);</span><br><span class="line">    <span class="comment">//读取源bytes中的数据</span></span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">while</span> ((n=inputStream.read())!=-<span class="number">1</span>)&#123;</span><br><span class="line">        System.out.print((<span class="type">char</span>)n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ææ¯åé</span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<h3><span id="112-bytearrayoutputstream-字节数组输出流">1.1.2 ByteArrayOutputStream 字节数组输出流</span></h3>
+<p>ByteArrayOutputStream是输出流的一种实现，它的目的地只能是字节数组byte[]，它支持mark。</p>
+<h4><span id="构造方法">构造方法</span></h4>
+<p><strong>ByteArrayOutputStream();</strong><br>
+该方法构造的字节数组输出空间指向一个默认大小为32字节的缓冲区，若输出流向缓冲区写入的字节个数大于缓冲区时，缓冲区的容量会自动增加。<br>
+<strong>ByteArrayOutputStream(int size);</strong><br>
+此方法构造的字节数组输出流指向的缓冲区的初始大小由参数size指定，若输出流向缓冲区写入的字节个数大于缓冲区时，缓冲区的容量会自动的增加。</p>
+<h4><span id="常用方法">常用方法</span></h4>
+<p><strong>public void write(int b);</strong><br>
+字节数组输出流可调用该方法顺序地向缓冲区写入一个字节。<br>
+<strong>public void write(byte[] b, int off, int len);</strong><br>
+该方法可以将参数b中指定的len个字节顺序地写入缓冲区，参数off指定从b中写出的字节的起始位置。<br>
+<strong>public byte[] toByteArray();</strong><br>
+该方法可以返回输出流写入到缓冲区的全部字节，通过它我们可以获取写出的数据。</p>
+<h4><span id="使用示例">使用示例</span></h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">toByteArrayStudy</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="type">byte</span>[] result;</span><br><span class="line">    <span class="type">byte</span>[] bytes = <span class="string">&quot;我是四郎&quot;</span>.getBytes(StandardCharsets.UTF_8);</span><br><span class="line">    <span class="type">ByteArrayOutputStream</span> <span class="variable">outputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayOutputStream</span>();</span><br><span class="line">    outputStream.write(bytes);</span><br><span class="line">    result = outputStream.toByteArray();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">byte</span> a:bytes)&#123;</span><br><span class="line">        System.out.print(a);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">byte</span> b:result)&#123;</span><br><span class="line">        System.out.print(b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-26-120-111-26-104-81-27-101-101-23-125-114</span><br><span class="line">-26-120-111-26-104-81-27-101-101-23-125-114</span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<h2><span id="12-字节数据流">1.2 字节数据流</span></h2>
+<p>数据流能让我们读取或写出指定类型的数据，它是普通字节流的一种增强。<br>
+它可以有其他类型的输入流作为构造函数的参数进行构造。</p>
+<h3><span id="121-datainputstream-数据输入流">1.2.1 DataInputStream 数据输入流</span></h3>
+<p>由DataInputStream类创建的对象称为数据输入流。</p>
+<p>它们允许程序按着机器无关的风格读取java原始数据，也就是说，当读取一个数值时，不必再关心这个数值应当是多少字节。<br>
+它算是对其他字节输入流的一种增强，但是也有一定的局限，比如用它读取readChar只能读取编码为UTF-16的文件，<br>
+读取其他文件将会乱码。</p>
+<h4><span id="构造方法">构造方法</span></h4>
+<p><strong>DataInputStream(InputStream in);</strong></p>
+<p>此构造方法创建的数据输入流指向一个由参数in指定的底层输入流。</p>
+<h4><span id="常用方法">常用方法</span></h4>
+<p><strong>close();关闭流。<br>
+readBoolean();读取一个布尔值。<br>
+readByte();读取一个字节。<br>
+readChar();读取一个字符。<br>
+readDouble();读取一个双精度浮点值。<br>
+readFloat();读取一个单精度浮点值。<br>
+readInt();读取一个整型值。<br>
+readLong();读取一个长整型值。<br>
+readShort();读取一个短整型值。<br>
+readUnsignedByte();读取一个无符号字节。<br>
+readUnsignedShort();读取一个无符号短整型值。<br>
+readUTF();读取一个UTF字符串。</strong></p>
+<h4><span id="使用实例">使用实例：</span></h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="comment">// 将文件输入流作为参数构造数据输入流</span></span><br><span class="line">    <span class="type">DataInputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DataInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;麻子.txt&quot;</span>));</span><br><span class="line">    <span class="type">StringBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">    <span class="comment">// 从文件读数据</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">           builder.append(<span class="keyword">new</span> <span class="title class_">Character</span>(inputStream.readChar()));</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            inputStream.close();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(builder.toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">鏥邍㨠ꃩ못逍૦肧꯯벚⃧钷ഊ듩뺄㨠㈸ഊꫦ袑蓤뮷騠뷥ꖽ諥ꖽ뷥ꖽ蠍૥꒧ꛦ袐ꧯ벚䄠䄠䄍૦꾕髩馢ꄺ⃩뮄铥蚛ꄍ૨躷韨꾁ꛯ벚駥뢈蓦ꂼ脬⃦閙飨꾁ഊ뫧钟볨ꢀ㨠곥릳賥薬돯벌飦颯瑭蓥薬댍૤뢓髯벚鏥誫鏤뢚</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<h3><span id="122-dataoutputstream-数据输出流">1.2.2 DataOutputStream 数据输出流</span></h3>
+<p>用法和输入流大同小异，它是字节输出流的一种增强。</p>
+<h4><span id="1221-关键方法">1.2.2.1 关键方法</span></h4>
+<p><strong>writeDouble(double v)<br>
+writeInt(int v)<br>
+writeUTF(String v)等。</strong></p>
+<p>实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="type">DataOutputStream</span> <span class="variable">outputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DataOutputStream</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;四郎.txt&quot;</span>));</span><br><span class="line">    <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;我是四郎，我爱死麻子了！！&quot;</span>;</span><br><span class="line">    outputStream.writeUTF(str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：<br>
+生成了 四郎.txt文件</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;我是四郎，我爱死麻子了！！</span><br></pre></td></tr></table></figure>
+<h2><span id="13-字节对象流比较重要">1.3 字节对象流(比较重要)</span></h2>
+<p>用ObjectInputStream和ObjectOutputStream类创建的对象称为对象输入（出）流。<br>
+对象输入（出）流可以将一个对象写入到一个文件中（或从文件读取一个对象到内存中）。<br>
+这个对象IO流比较常用，它可以将对象状态保存到磁盘中或通过网络发送出去，<br>
+接收方只需要用相同的机制在需要的时候重新加载， 相当于深拷贝了。</p>
+<h3><span id="131-objectinputstream-对象输入流">1.3.1 ObjectInputStream 对象输入流</span></h3>
+<p><strong>ObjectInputStream(InputStream in);</strong><br>
+此方法是对象输入流的构造方法。<br>
+<strong>readObject();</strong><br>
+此方法读取一个对象到程序中。</p>
+<h3><span id="132-objectoutputstream-对象输出流">1.3.2 ObjectOutputStream 对象输出流</span></h3>
+<p><strong>ObjectOutputStream(OutputStream out);</strong><br>
+此方法是对象输出流的构造方法。</p>
+<p><strong>writeObject(object obj);</strong><br>
+此方法可以将obj写入到目的地。</p>
+<p>实例：<br>
+首先使用对象输出流将对象写入磁盘中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="type">ObjectOutputStream</span> <span class="variable">outputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span></span><br><span class="line">    (<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;四郎&quot;</span>));</span><br><span class="line">    List&lt;String&gt; a = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    a.add(<span class="string">&quot;我是四郎，我爱死麻子了&quot;</span>);</span><br><span class="line">    outputStream.writeObject(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：<br>
+生成了 四郎  文件</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">�� sr java.util.ArrayListx����a� I sizexp   w   t !我是四郎，我爱死麻子了x</span><br></pre></td></tr></table></figure>
+<p>然后使用对象输入流重新加载：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException &#123;</span><br><span class="line">    <span class="type">ObjectInputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span></span><br><span class="line">    (<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;四郎&quot;</span>));</span><br><span class="line">    List&lt;String&gt; a  = (List&lt;String&gt;) inputStream.readObject();</span><br><span class="line">    System.out.println(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[我是四郎，我爱死麻子了]</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<h2><span id="13-randomaccessfile-随机io流">1.3 RandomAccessFile 随机IO流</span></h2>
+<p>在java中，我们也可以只建立一个流，通过该流既能读文件，也能写文件。<br>
+那就是RandomAccessFile类创建的随机流。<br>
+RandomAccessFile类创建的流的指向既可以作为流的源，也可以作为流的目的地。<br>
+随机IO流读取字符是以字节为单位的。</p>
+<h3><span id="131-使用方法">1.3.1 使用方法</span></h3>
+<h4><span id="构造方法">构造方法</span></h4>
+<p><strong>RandomAccessFile(String name,String mode);</strong><br>
+<strong>RandomAccessFile(File file ,String mode);</strong><br>
+参数name用来确定一个文件名，给出创建的流的源（也是目的地）。<br>
+参数mode取r（只读）或rw（可读写），决定创建流对文件的访问权利。</p>
+<p><strong>注意：随机流指向文件，不刷新文件。</strong></p>
+<h4><span id="1312-常用方法">1.3.1.2 常用方法</span></h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">close();关闭文件</span><br><span class="line">getFilePointer();获取当前读写的位置。</span><br><span class="line">length();获取文件的长度。</span><br><span class="line">read();从文件中读取一个字节的数据。</span><br><span class="line">readBoolean();从文件中读取一个布尔值，<span class="number">0</span>代表<span class="literal">false</span>，其他代表<span class="literal">true</span>。</span><br><span class="line">readByte();从文件中读取一个字节。</span><br><span class="line">readChar();从文件中读取一个字符。（两个字节）</span><br><span class="line">readDouble(); 从文件读取一个双精度浮点值（<span class="number">8</span>个字节）</span><br><span class="line">readFloat(); 从文件读取一个单精度浮点值（<span class="number">4</span>个字节）</span><br><span class="line">readFully(<span class="type">byte</span> b[]); 读b.length字节放入数组b，完全填满该数组</span><br><span class="line">readInt();从文件中读取一个<span class="type">int</span>值（<span class="number">4</span>个字节）</span><br><span class="line">readLine();从文件中读取一个文本行</span><br><span class="line">readLong();从文件中读取一个长整型值（<span class="number">8</span>个字节）</span><br><span class="line">readShort();从文件中读取一个短型值（<span class="number">2</span>个字节）</span><br><span class="line">readUnsignedByte();从文件读取一个无符号字节（<span class="number">1</span>个字节）</span><br><span class="line">readUnsignedShort();从文件读取一个无符号短型值（<span class="number">2</span>个字节）</span><br><span class="line">readUTF();从文件中读取一个UTF字符串</span><br><span class="line">seek(<span class="type">long</span> position);定位读写位置</span><br><span class="line">setLength(<span class="type">long</span> newlength);设置文件的长度。</span><br><span class="line">skipBytes(<span class="type">int</span> n);在文件中跳过给定数量的字节。</span><br><span class="line">write(<span class="type">byte</span> b[]);写b.length个字节到文件</span><br><span class="line">writeBoolean(<span class="type">boolean</span> v);把一个布尔值作为单字节值写入文件</span><br><span class="line">writeByte(<span class="type">int</span> v);向文件写入一个字节</span><br><span class="line">writeByte(String s);向文件写入一个字符串</span><br><span class="line">writeChar(<span class="type">char</span> c);向文件写入一个字符</span><br><span class="line">writeChars(String s);向文件写入一个作为字符数据的字符串</span><br><span class="line">writeDouble(<span class="type">double</span> v);向文件写入一个双精度浮点值</span><br><span class="line">writeFloat(<span class="type">float</span> v);向文件写入一个单精度浮点值</span><br><span class="line">writeInt(<span class="type">int</span> v);向文件写入一个<span class="type">int</span>值</span><br><span class="line">writeLong(<span class="type">long</span> v);向文件写入一个长整型值</span><br><span class="line">writeShort(<span class="type">int</span> v);向文件写入一个短整型值</span><br><span class="line">writeUTF(String s);向文件写入一个UTF字符串</span><br></pre></td></tr></table></figure>
+<h4><span id="1313-使用实例">1.3.1.3 使用实例</span></h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RandomAccessFileStudy</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">RandomAccessFile</span> <span class="variable">randomAccessFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RandomAccessFile</span>(<span class="string">&quot;麻子.txt&quot;</span>,<span class="string">&quot;rw&quot;</span>);</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">               <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> randomAccessFile.readLine();</span><br><span class="line">               <span class="keyword">if</span>(s==<span class="literal">null</span>) <span class="keyword">break</span>;</span><br><span class="line">               System.out.println(s);</span><br><span class="line">        &#125;</span><br><span class="line">        randomAccessFile.write(<span class="string">&quot;\n你好，我是四郎&quot;</span>.getBytes(StandardCharsets.UTF_8));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">å§å: å¼ éº»å­</span><br><span class="line">æ§å«ï¼ ç·</span><br><span class="line">å¹´é¾: 28</span><br><span class="line">èªæè¯ä»·ï¼ å¥½å¥½åå¥½å¥½å¥½å</span><br><span class="line">å¤§å­¦æç»©ï¼A A A</span><br><span class="line">æ¯ä¸é¢æ ¡: é»ååæ ¡</span><br><span class="line">è·å¾è¯ä¹¦ï¼æå¸èµæ ¼è¯, æå®è¯</span><br><span class="line">äººçæ ¼è¨: å¬å¹³ï¼å¬å¹³ï¼è¿æ¯tmçå¬å¹³</span><br><span class="line">ä¸ä¸ï¼æå«ä¸ä¸</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br><span class="line">并且成功向麻子.txt写入下面的内容： 你好，我是四郎</span><br></pre></td></tr></table></figure>
+<p>代码地址：<br>
+<a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Progress/exa22">Java基础学习/src/main/java/Progress/exa22 · 严家豆/Study - 码云 - 开源中国 (gitee.com)</a></p>
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/JavaPrograming-Java进阶-3-文件读写：使用IO流的步骤/" data-toggle="tooltip" data-placement="top" title="3.文件读写：使用IO流的步骤">&larr; 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/JavaPrograming-Java进阶-5-文件读写：字符流/" data-toggle="tooltip" data-placement="top" title="5.文件读写-字符流">下一篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+				<!--
+                
+                <hr>
+                <h5>朋友们</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+				-->
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+          //console.log(a.target.textContent.replace(/\./g, ""));
+          document.getElementById(a.target.textContent.replace(/\./g, "").replace(" ","-")).scrollIntoView({behavior: 'smooth' });
+        })
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    //document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhihu_xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse"><b>B</b></i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/1776167012">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; muzhi 2026 
+                    <br>
+					
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://1776167012.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Mermaid图表库 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  // 页面加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid !== 'undefined') {
+      // 在这里可以配置Mermaid的主题、流程图方向等
+      mermaid.initialize({
+      // 自动识别并渲染所有 class="mermaid" 的div
+        startOnLoad: true,
+        // 可选：'default', 'dark', 'forest', 'neutral'
+        theme: 'neutral'
+      });
+    }
+  });
+</script>
+<script>
+$(document).ready(function() {
+    var isModalOpen = false;
+    // 1. 加载 search.xml 索引文件
+  $.ajax({
+    url: '/search.json', // 路径改为json
+    dataType: 'json',                    // 数据类型改为json
+    success: function(searchData) {      // 直接得到JS对象
+      console.log('搜索索引加载完成，共 ' + searchData.length + ' 篇文章。');
+      // 注意：searchData 现在直接是数组，无需解析
+      // 需要将全局的 searchData 变量赋值
+      window.searchData = searchData; // 赋值给全局变量
+    },
+    error: function() {
+      $('#search-status').text('无法加载搜索索引文件。');
+    }
+});
+
+    // 2. 搜索功能核心函数
+    function performSearch(keyword) {
+      var resultsContainer = $('#search-results-container').empty();
+      $('#search-status').hide();
+
+      if (!keyword.trim()) {
+        $('#search-status').text('输入关键词开始搜索...').show();
+        return;
+      }
+
+      var resultsHtml = '';
+      var resultCount = 0;
+      var kwReg = new RegExp(keyword, 'gi'); // 创建全局、不区分大小写的正则表达式
+
+      // 遍历所有文章数据
+      window.searchData.forEach(function(item) {
+        // 在标题和内容中搜索关键词
+        var titleMatch = item.title.match(kwReg);
+        var contentMatch = item.content.match(kwReg);
+
+        if (titleMatch || contentMatch) {
+          resultCount++;
+          // 构建标题高亮
+          var highlightedTitle = item.title.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+          // 从内容中提取包含关键词的片段（约150字符）并高亮
+          var contentSnippet = item.content;
+          var firstIndex = contentSnippet.toLowerCase().indexOf(keyword.toLowerCase());
+          if (firstIndex !== -1) {
+            var start = Math.max(0, firstIndex - 60);
+            var end = Math.min(contentSnippet.length, firstIndex + 90);
+            contentSnippet = '...' + contentSnippet.substring(start, end) + '...';
+          } else {
+            contentSnippet = contentSnippet.substring(0, 150) + '...';
+          }
+          contentSnippet = contentSnippet.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+
+          // 生成单个结果的HTML
+          resultsHtml += `
+            <div class="search-result-item">
+              <a href="${item.url}" class="search-result-title">${highlightedTitle}</a>
+              <p class="search-result-excerpt">${contentSnippet}</p>
+            </div>
+          `;
+        }
+      });
+
+      // 显示结果或“无结果”状态
+      if (resultCount > 0) {
+        resultsContainer.html(resultsHtml);
+      } else {
+        resultsContainer.html('<div id="search-status">未找到包含 "' + keyword + '" 的文章。</div>');
+      }
+    }
+
+    // 3. 绑定输入事件（防抖，提升性能）
+    var searchTimer;
+    $('#search-input').on('input', function() {
+      clearTimeout(searchTimer);
+      var keyword = $(this).val();
+      searchTimer = setTimeout(function() {
+        performSearch(keyword);
+      }, 300); // 延迟300毫秒后执行搜索
+    });
+
+    // 4. 全局控制搜索弹窗显示/隐藏的函数
+    window.openSearchModal = function() {
+      isModalOpen = true;
+      $('#search-mask, #search-modal').fadeIn(200);
+      $('#search-input').focus().select(); // 自动聚焦到输入框
+      $('body').css('overflow', 'hidden'); // 防止背景滚动
+    };
+    window.closeSearchModal = function() {
+      isModalOpen = false;
+      $('#search-mask, #search-modal').fadeOut(200);
+      $('#search-input').val(''); // 清空输入框
+      $('#search-results-container').empty(); // 清空结果
+      $('#search-status').text('输入关键词开始搜索...').show();
+      $('body').css('overflow', 'auto');
+    };
+
+    // 5. 事件绑定：点击遮罩关闭、ESC键关闭
+    $('#search-mask').on('click', closeSearchModal);
+    $(document).on('keydown', function(e) {
+      if (e.keyCode === 27 && isModalOpen) { // ESC键
+        closeSearchModal();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.keyCode === 70 && !isModalOpen) { // Ctrl+F / Cmd+F
+        e.preventDefault(); // 阻止浏览器默认查找
+        openSearchModal();
+      }
+    });
+  });
+</script>
+
+<!-- 本地搜索 CSS -->
+    <style>
+      /* 搜索弹窗遮罩 */
+      #search-mask {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9998;
+        display: none;
+      }
+      /* 搜索主容器 */
+      #search-modal {
+        position: fixed;
+        top: 10%; left: 50%;
+        transform: translateX(-50%);
+        width: 80%; max-width: 600px;
+        max-height: 80vh;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      }
+      /* 搜索框区域 */
+      .search-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      #search-input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      #search-input:focus {
+        border-color: #3498db;
+      }
+      /* 搜索结果区域 */
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 20px;
+      }
+      .search-result-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .search-result-item:last-child {
+        border-bottom: none;
+      }
+      .search-result-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #2c3e50;
+      }
+      .search-result-excerpt {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 限制最多显示3行 */
+        -webkit-box-orient: vertical;
+      }
+      .search-result-highlight {
+        background-color: #fff9c4; /* 关键词高亮背景色 */
+        font-weight: bold;
+        color: #e74c3c;
+      }
+      /* 无结果/加载状态 */
+      #search-status {
+        padding: 20px;
+        text-align: center;
+        color: #999;
+      }
+    </style>
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+	<script  type="text/javascript">
+<!-- Image to hack wechat -->
+<img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+</body>
+
+</html>

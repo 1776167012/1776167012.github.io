@@ -199,6 +199,10 @@
         <div id="huxblog_navbar">
             <div class="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
+                   <!-- 例如，放在导航菜单内部 -->
+                   <li>
+                    <a href="javascript:void(0);" onclick="openSearchModal()" title="搜索">搜索</a>
+                   </li>
                     <li>
                         <a href="/">主页</a>
                     </li>
@@ -211,6 +215,7 @@
 					<li>
                         <a href="/about/">关于作者</a>
                     </li>
+
 					<!--
 					修改about在前面的问题
                     
@@ -237,6 +242,18 @@
                     -->
                 </ul>
             </div>
+
+        <!-- 本地搜索弹窗结构 -->
+        <div id="search-mask"></div>
+        <div id="search-modal">
+          <div class="search-header">
+            <input type="text" id="search-input" placeholder="请输入关键词搜索..." autocomplete="off" />
+          </div>
+          <div id="search-status">输入关键词开始搜索...</div>
+          <div class="search-results" id="search-results-container">
+            <!-- 搜索结果将通过JS动态插入到这里 -->
+          </div>
+        </div>
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -282,7 +299,27 @@
                 
                     <a href="#个人项目" title="个人项目" rel="1">个人项目</a>
                 
-                    <a href="#设计模式" title="设计模式" rel="1">设计模式</a>
+                    <a href="#银行核心系统" title="银行核心系统" rel="1">银行核心系统</a>
+                
+                    <a href="#汇编语言" title="汇编语言" rel="4">汇编语言</a>
+                
+                    <a href="#Git" title="Git" rel="4">Git</a>
+                
+                    <a href="#Maven" title="Maven" rel="1">Maven</a>
+                
+                    <a href="#Spring" title="Spring" rel="5">Spring</a>
+                
+                    <a href="#UML语言" title="UML语言" rel="1">UML语言</a>
+                
+                    <a href="#前端基础" title="前端基础" rel="3">前端基础</a>
+                
+                    <a href="#加密" title="加密" rel="1">加密</a>
+                
+                    <a href="#Redis学习" title="Redis学习" rel="6">Redis学习</a>
+                
+                    <a href="#算法基础" title="算法基础" rel="21">算法基础</a>
+                
+                    <a href="#设计模式-创建型模式" title="设计模式-创建型模式" rel="7">设计模式-创建型模式</a>
                 
                     <a href="#Docker" title="Docker" rel="2">Docker</a>
                 
@@ -290,11 +327,15 @@
                 
                     <a href="#Java基础" title="Java基础" rel="19">Java基础</a>
                 
-                    <a href="#MySQL" title="MySQL" rel="1">MySQL</a>
+                    <a href="#JDBC" title="JDBC" rel="4">JDBC</a>
                 
                     <a href="#Java进阶" title="Java进阶" rel="37">Java进阶</a>
                 
-                    <a href="#Java网络编程" title="Java网络编程" rel="1">Java网络编程</a>
+                    <a href="#Vue" title="Vue" rel="1">Vue</a>
+                
+                    <a href="#MySQL基础" title="MySQL基础" rel="15">MySQL基础</a>
+                
+                    <a href="#MySQL性能优化" title="MySQL性能优化" rel="18">MySQL性能优化</a>
                 
             </div>
 
@@ -326,8 +367,8 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="设计模式">
-                    <span class="tag-text">设计模式</span>
+                <span class="fa fa-tag listing-seperator" id="银行核心系统">
+                    <span class="tag-text">银行核心系统</span>
                 </span>
                 
                   <!-- <li class="listing-item">
@@ -335,9 +376,980 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/设计模式-1-策略模式/">
+                     <a href="/article/BankCoreSystem-贷款核心业务知识/">
                         <h2 class="post-title">
-                            策略模式
+                            贷款核心业务知识
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="汇编语言">
+                    <span class="tag-text">汇编语言</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/AssemblyLanguage-1-汇编理论基础/">
+                        <h2 class="post-title">
+                            1.汇编理论基础
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/AssemblyLanguage-2-汇编语言Debug使用基础/">
+                        <h2 class="post-title">
+                            2.汇编语言Debug使用基础
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/AssemblyLanguage-3-CPU基础知识/">
+                        <h2 class="post-title">
+                            3.CPU基础知识
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/AssemblyLanguage-4-寄存器学习/">
+                        <h2 class="post-title">
+                            4.寄存器学习
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Git">
+                    <span class="tag-text">Git</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Git-1-Git常用命令/">
+                        <h2 class="post-title">
+                            Git常用命令
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Git-2-添加SSH-key到github/">
+                        <h2 class="post-title">
+                            SSH秘钥添加到github
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Git-3-新建远程库连接本地库/">
+                        <h2 class="post-title">
+                            新建远程库连接本地库
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Git-4-新建本地仓库克隆远程库/">
+                        <h2 class="post-title">
+                            新建本地库克隆远程库
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Maven">
+                    <span class="tag-text">Maven</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Maven-1-了解Maven/">
+                        <h2 class="post-title">
+                            了解Maven
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Spring">
+                    <span class="tag-text">Spring</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/SpringFramework-1-Spring概述/">
+                        <h2 class="post-title">
+                            1.Spring概述
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/SpringFramework-2-IOC设计理念/">
+                        <h2 class="post-title">
+                            1.IOC设计理念
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/SpringFramework-4-了解SpringCloud/">
+                        <h2 class="post-title">
+                            5.了解SpringCloud
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/SpringFramework-5-SpringBoot入门/">
+                        <h2 class="post-title">
+                            5.SpringBoot学习
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/SpringFramework-3-AOP的好处/">
+                        <h2 class="post-title">
+                            1.AOP设计理念
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="UML语言">
+                    <span class="tag-text">UML语言</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/DesignPattern-UML基础/">
+                        <h2 class="post-title">
+                            UML基础
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="前端基础">
+                    <span class="tag-text">前端基础</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/ViewFramework-1-HTML基础/">
+                        <h2 class="post-title">
+                            HTML学习
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/ViewFramework-2-CSS基础/">
+                        <h2 class="post-title">
+                            CSS基础
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/ViewFramework-3-JavaScript基础/">
+                        <h2 class="post-title">
+                            JavaScript学习
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="加密">
+                    <span class="tag-text">加密</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/加密-1-安全传输加密算法/">
+                        <h2 class="post-title">
+                            安全加密算法
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Redis学习">
+                    <span class="tag-text">Redis学习</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-Redis-1-Redis入门基础：Redis概述及String和Hash数据类型的操作命令/">
+                        <h2 class="post-title">
+                            1.Redis基础
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-Redis-2-Redis入门：列表数据类型和集合数据类型操作命令学习/">
+                        <h2 class="post-title">
+                            2.Redis数据类型和操作指令
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-Redis-3-Redis学习：事务处理基础/">
+                        <h2 class="post-title">
+                            3.Redis事务处理
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-Redis-4-Redis学习：过期时间和排序/">
+                        <h2 class="post-title">
+                            4.Redis过期时间和排序
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-Redis-5-Redis学习：消息通知/">
+                        <h2 class="post-title">
+                            5.Redis消息通知
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-Redis-6-Redis节省空间/">
+                        <h2 class="post-title">
+                            6.Redis空间节约
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="算法基础">
+                    <span class="tag-text">算法基础</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-1-算法设计的基石/">
+                        <h2 class="post-title">
+                            1.算法设计的基石
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-2-分治策略递归学习/">
+                        <h2 class="post-title">
+                            2.分支策略递归学习
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-3-1-冒泡排序算法java实现与分析/">
+                        <h2 class="post-title">
+                            3.1 冒泡排序算法
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-3-2-插入排序思路和java实现/">
+                        <h2 class="post-title">
+                            3.2 插入排序算法
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-3-3-希尔排序思路和java实现/">
+                        <h2 class="post-title">
+                            3.3 希尔排序算法
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-3-4-快速排序算法的java实现/">
+                        <h2 class="post-title">
+                            3.4 快速排序算法
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-3-5-归并排序的java实现/">
+                        <h2 class="post-title">
+                            3.5 归并排序
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-3-6-计数排序的java实现/">
+                        <h2 class="post-title">
+                            3.6 计数排序算法
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-3-7-针对二维数组的某一项对二维的数组排序/">
+                        <h2 class="post-title">
+                            3.7 二维数组排序
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-4-1-Java实现单向链表/">
+                        <h2 class="post-title">
+                            4.1 单向链表实现
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-4-3-Java实现循环链表/">
+                        <h2 class="post-title">
+                            4.3 循环链表实现
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-4-2-Java实现双向链表/">
+                        <h2 class="post-title">
+                            4.2 双向链表
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-4-4-Java实现松散链表/">
+                        <h2 class="post-title">
+                            4.4 松散链表
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-4-5-双向链表的一种优化（存储优化）/">
+                        <h2 class="post-title">
+                            4.5 双向链表存储优化
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-5-栈的java实现/">
+                        <h2 class="post-title">
+                            5.栈的Java实现
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-6-队列的java实现/">
+                        <h2 class="post-title">
+                            6.队列的Java实现
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-7-0-简单树及其java实现/">
+                        <h2 class="post-title">
+                            7.0 简单二叉树实现
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-7-1-线索二叉树遍历方法-更优/">
+                        <h2 class="post-title">
+                            7.1 线索二叉树
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-7-2-二叉搜索树（BST）的java实现/">
+                        <h2 class="post-title">
+                            7.2 BST二叉搜索树实现
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-7-3-平衡二叉搜索树及其java实现/">
+                        <h2 class="post-title">
+                            7.3 平衡二叉树AVL
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Algorithm-Base-7-4-红黑树/">
+                        <h2 class="post-title">
+                            7.4 红黑树
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="设计模式-创建型模式">
+                    <span class="tag-text">设计模式-创建型模式</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/DesignPattern-创建型模式-5-原型模式/">
+                        <h2 class="post-title">
+                            6.原型模式
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/DesignPattern-创建型模式-4-建造者模式/">
+                        <h2 class="post-title">
+                            4.建造者模式
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/DesignPattern-创建型模式-3-单例模式/">
+                        <h2 class="post-title">
+                            3.单例模式
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/DesignPattern-创建型模式-4-工厂模式能解决什么问题？/">
+                        <h2 class="post-title">
+                            4.工厂模式能解决的问题
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/DesignPattern-创建型模式-5-单例模式进阶/">
+                        <h2 class="post-title">
+                            5.单例模式进阶
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/DesignPattern-创建型模式-2-抽象工厂模式/">
+                        <h2 class="post-title">
+                            2.抽象工厂模式
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/DesignPattern-创建型模式-1-工厂模式/">
+                        <h2 class="post-title">
+                            1.工厂模式
                         </h2>
 						<!--
                         
@@ -359,7 +1371,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Linux运维相关-docker-1-Docker安装以及验证/">
+                     <a href="/article/LinuxServer-docker-1-Docker安装以及验证/">
                         <h2 class="post-title">
                             Docker安装以及验证
                         </h2>
@@ -376,7 +1388,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Linux运维相关-docker-2-Docker安装mysql并使用/">
+                     <a href="/article/LinuxServer-docker-2-Docker安装mysql并使用/">
                         <h2 class="post-title">
                             Docker安装MySQL并使用
                         </h2>
@@ -400,7 +1412,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Linux运维相关-docker-3-docker日志清理/">
+                     <a href="/article/LinuxServer-docker-3-docker日志清理/">
                         <h2 class="post-title">
                             docker日志清理
                         </h2>
@@ -417,9 +1429,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Linux运维相关-linux-1-Linux入门命令-快捷键/">
+                     <a href="/article/LinuxServer-linux-1-Linux入门命令-快捷键/">
                         <h2 class="post-title">
-                            docker日志清理
+                            1.Linux入门命令和快捷键
                         </h2>
 						<!--
                         
@@ -434,9 +1446,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Linux运维相关-linux-2-Linux用户及文件权限/">
+                     <a href="/article/LinuxServer-linux-2-Linux用户及文件权限/">
                         <h2 class="post-title">
-                            docker日志清理
+                            2.Linux用户及文件权限
                         </h2>
 						<!--
                         
@@ -451,9 +1463,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Linux运维相关-linux-3-Linux目录结构以及文件操作/">
+                     <a href="/article/LinuxServer-linux-3-Linux目录结构以及文件操作/">
                         <h2 class="post-title">
-                            docker日志清理
+                            3.Linux目录结构和文件操作
                         </h2>
 						<!--
                         
@@ -475,7 +1487,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-5-构造方法，实例方法，类方法，static/">
+                     <a href="/article/JavaPrograming-JavaBase-5-构造方法，实例方法，类方法，static/">
                         <h2 class="post-title">
                             5.构造方法,示例方法,类方法
                         </h2>
@@ -492,7 +1504,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-6-参数传值原理以及对象的组合/">
+                     <a href="/article/JavaPrograming-JavaBase-6-参数传值原理以及对象的组合/">
                         <h2 class="post-title">
                             6.参数传值
                         </h2>
@@ -509,7 +1521,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-7-方法重载，方法重写，this关键字，super关键字/">
+                     <a href="/article/JavaPrograming-JavaBase-7-方法重载，方法重写，this关键字，super关键字/">
                         <h2 class="post-title">
                             7.方法重载
                         </h2>
@@ -526,7 +1538,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-8-包的概念，import关键字/">
+                     <a href="/article/JavaPrograming-JavaBase-8-包的概念，import关键字/">
                         <h2 class="post-title">
                             8.包的概念,import关键字
                         </h2>
@@ -543,7 +1555,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-9-四种访问权限/">
+                     <a href="/article/JavaPrograming-JavaBase-9-四种访问权限/">
                         <h2 class="post-title">
                             9.四种访问权限
                         </h2>
@@ -560,7 +1572,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-10-JRE扩展和jar文件以及文档生成器/">
+                     <a href="/article/JavaPrograming-JavaBase-10-JRE扩展和jar文件以及文档生成器/">
                         <h2 class="post-title">
                             10.JRE扩展和Jar文件以及文档生成器
                         </h2>
@@ -577,7 +1589,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-11-父类和子类-Object中的常用方法/">
+                     <a href="/article/JavaPrograming-JavaBase-11-父类和子类-Object中的常用方法/">
                         <h2 class="post-title">
                             11.父类和子类
                         </h2>
@@ -594,7 +1606,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-12-子类对象的特性，instanceof，super-this/">
+                     <a href="/article/JavaPrograming-JavaBase-12-子类对象的特性，instanceof，super-this/">
                         <h2 class="post-title">
                             12.子类对象的特性
                         </h2>
@@ -611,7 +1623,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-13-抽象类学习-上转型概念/">
+                     <a href="/article/JavaPrograming-JavaBase-13-抽象类学习-上转型概念/">
                         <h2 class="post-title">
                             13.抽象类学习
                         </h2>
@@ -628,7 +1640,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-15-内部类-匿名类/">
+                     <a href="/article/JavaPrograming-JavaBase-15-内部类-匿名类/">
                         <h2 class="post-title">
                             15.内部类,匿名类
                         </h2>
@@ -645,7 +1657,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-14-接口编程/">
+                     <a href="/article/JavaPrograming-JavaBase-14-接口编程/">
                         <h2 class="post-title">
                             14.接口编程
                         </h2>
@@ -662,7 +1674,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-16-程序设计的三大错误-异常类和断言/">
+                     <a href="/article/JavaPrograming-JavaBase-16-程序设计的三大错误-异常类和断言/">
                         <h2 class="post-title">
                             16.程序设计的三大错误,异常类和断言
                         </h2>
@@ -679,7 +1691,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-17-常用类学习，final关键字/">
+                     <a href="/article/JavaPrograming-JavaBase-17-常用类学习，final关键字/">
                         <h2 class="post-title">
                             17.常用类学习,final关键字
                         </h2>
@@ -696,7 +1708,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-18-1-实用类Scanner-StringBuffer-Date-Caledar/">
+                     <a href="/article/JavaPrograming-JavaBase-18-1-实用类Scanner-StringBuffer-Date-Caledar/">
                         <h2 class="post-title">
                             18-1.实用类Scanner,StringBuffer,Date,Calendar
                         </h2>
@@ -713,7 +1725,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-18-2-动手实验：简历分析器/">
+                     <a href="/article/JavaPrograming-JavaBase-18-2-动手实验：简历分析器/">
                         <h2 class="post-title">
                             18-2.动手实验：简历分析器
                         </h2>
@@ -730,7 +1742,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-1-Java小白入门/">
+                     <a href="/article/JavaPrograming-JavaBase-1-Java小白入门/">
                         <h2 class="post-title">
                             1.Java编程语言入门
                         </h2>
@@ -747,7 +1759,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-2-Java中的基本数据类型以及基本使用/">
+                     <a href="/article/JavaPrograming-JavaBase-2-Java中的基本数据类型以及基本使用/">
                         <h2 class="post-title">
                             2.Java的基本数据类型的声明与使用
                         </h2>
@@ -764,7 +1776,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-3-位运算，特有表达式，运算符/">
+                     <a href="/article/JavaPrograming-JavaBase-3-位运算，特有表达式，运算符/">
                         <h2 class="post-title">
                             3.位运算符,特有表达式,运算符
                         </h2>
@@ -781,7 +1793,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java基础-4-类的定义，变量类型，方法类型/">
+                     <a href="/article/JavaPrograming-JavaBase-4-类的定义，变量类型，方法类型/">
                         <h2 class="post-title">
                             4.类的定义,变量类型,方法类型
                         </h2>
@@ -796,8 +1808,8 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="MySQL">
-                    <span class="tag-text">MySQL</span>
+                <span class="fa fa-tag listing-seperator" id="JDBC">
+                    <span class="tag-text">JDBC</span>
                 </span>
                 
                   <!-- <li class="listing-item">
@@ -805,15 +1817,62 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/databases-mysql-24-事务隔离级别/">
+                     <a href="/article/ORMFramework-JDBC-1-JDBC编程基础/">
                         <h2 class="post-title">
-                            事务隔离级别
+                            1.JDBC基础
                         </h2>
 						<!--
                         
-                            <h3 class="post-subtitle">
-                                关于数据库事务隔离级别的技术博客
-                            </h3>
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/ORMFramework-JDBC-2-JDBC连接池/">
+                        <h2 class="post-title">
+                            2.JDBC连接池
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/ORMFramework-JDBC-3-JDBC元数据/">
+                        <h2 class="post-title">
+                            3.JDBC元数据
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/ORMFramework-JDBC-4-DBUtils学习/">
+                        <h2 class="post-title">
+                            4.DBUtils学习
+                        </h2>
+						<!--
                         
 						-->
                     </a>
@@ -833,7 +1892,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-1-Java进阶之文件操作入门/">
+                     <a href="/article/JavaPrograming-Java进阶-1-Java进阶之文件操作入门/">
                         <h2 class="post-title">
                             1.Java进阶之文件操作入门
                         </h2>
@@ -850,7 +1909,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-2-1-Java读文件之InputStream学习/">
+                     <a href="/article/JavaPrograming-Java进阶-2-1-Java读文件之InputStream学习/">
                         <h2 class="post-title">
                             2.1 Java读文件之InputStream学习
                         </h2>
@@ -867,7 +1926,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-2-2-Java写文件之OutputStream学习/">
+                     <a href="/article/JavaPrograming-Java进阶-2-2-Java写文件之OutputStream学习/">
                         <h2 class="post-title">
                             2.2 Java写文件之OutputStream学习
                         </h2>
@@ -884,7 +1943,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-3-文件读写：使用IO流的步骤/">
+                     <a href="/article/JavaPrograming-Java进阶-3-文件读写：使用IO流的步骤/">
                         <h2 class="post-title">
                             3.文件读写：使用IO流的步骤
                         </h2>
@@ -901,7 +1960,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-4-文件读写：字节流/">
+                     <a href="/article/JavaPrograming-Java进阶-4-文件读写：字节流/">
                         <h2 class="post-title">
                             4.文件读写-字节流
                         </h2>
@@ -918,7 +1977,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-5-文件读写：字符流/">
+                     <a href="/article/JavaPrograming-Java进阶-5-文件读写：字符流/">
                         <h2 class="post-title">
                             5.文件读写-字符流
                         </h2>
@@ -935,7 +1994,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-6-序列化对象克隆及文件锁学习/">
+                     <a href="/article/JavaPrograming-Java进阶-6-序列化对象克隆及文件锁学习/">
                         <h2 class="post-title">
                             6.序列化对象克隆以及文件锁
                         </h2>
@@ -952,7 +2011,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-7-Java操作mysql一般步骤（JDBC）/">
+                     <a href="/article/JavaPrograming-Java进阶-7-Java操作mysql一般步骤（JDBC）/">
                         <h2 class="post-title">
                             7.Java操作MySQL的步骤(JDBC)
                         </h2>
@@ -969,7 +2028,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-8-Java进阶之泛型，通配泛型，消除泛型和泛型的限制/">
+                     <a href="/article/JavaPrograming-Java进阶-8-Java进阶之泛型，通配泛型，消除泛型和泛型的限制/">
                         <h2 class="post-title">
                             8.Java泛型,通配泛型,消除泛型和泛型的限制
                         </h2>
@@ -986,7 +2045,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-9-1-Java集合接口学习/">
+                     <a href="/article/JavaPrograming-Java进阶-9-1-Java集合接口学习/">
                         <h2 class="post-title">
                             9.1 Java集合接口学习
                         </h2>
@@ -1003,7 +2062,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-9-2-java集合基础学习（集合基本概念和基础接口学习）/">
+                     <a href="/article/JavaPrograming-Java进阶-9-2-java集合基础学习（集合基本概念和基础接口学习）/">
                         <h2 class="post-title">
                             9.2 Java集合基础学习(集合基本概念,基础接口)
                         </h2>
@@ -1020,7 +2079,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-9-3-Java集合学习之List（基本概念，API，存储原理）/">
+                     <a href="/article/JavaPrograming-Java进阶-9-3-Java集合学习之List（基本概念，API，存储原理）/">
                         <h2 class="post-title">
                             9.3 Java集合之List(基本概念,API,存储原理)
                         </h2>
@@ -1037,7 +2096,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-9-4-Java集合之Map学习/">
+                     <a href="/article/JavaPrograming-Java进阶-9-4-Java集合之Map学习/">
                         <h2 class="post-title">
                             9.4 Java集合之Map学习
                         </h2>
@@ -1054,7 +2113,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-9-5-Java集合之Set学习-基本概念，存储原理，性能测试/">
+                     <a href="/article/JavaPrograming-Java进阶-9-5-Java集合之Set学习-基本概念，存储原理，性能测试/">
                         <h2 class="post-title">
                             9.5 Java集合之Set学习
                         </h2>
@@ -1071,7 +2130,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-9-6-Java集合之Queue学习-Queue接口，PriorityQueue/">
+                     <a href="/article/JavaPrograming-Java进阶-9-6-Java集合之Queue学习-Queue接口，PriorityQueue/">
                         <h2 class="post-title">
                             9.6 Java集合之Queue学习
                         </h2>
@@ -1088,7 +2147,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-9-7-Java集合Deque学习（双端队列）/">
+                     <a href="/article/JavaPrograming-Java进阶-9-7-Java集合Deque学习（双端队列）/">
                         <h2 class="post-title">
                             9.6 Java集合之Deque(双端队列)学习
                         </h2>
@@ -1105,7 +2164,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-10-1-Java进阶之线程的概念，创建线程和任务，Thread类，线程池，线程同步，锁同步/">
+                     <a href="/article/JavaPrograming-Java进阶-10-1-Java进阶之线程的概念，创建线程和任务，Thread类，线程池，线程同步，锁同步/">
                         <h2 class="post-title">
                             10.1 Java进阶之线程的概念
                         </h2>
@@ -1122,9 +2181,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-10-2-Java进阶之线程间协作，生产者消费者Demo，阻塞队列/">
+                     <a href="/article/JavaPrograming-Java进阶-10-2-Java进阶之线程间协作，生产者消费者Demo，阻塞队列/">
                         <h2 class="post-title">
-                            10.2 Java进阶之线程的概念
+                            10.2 Java进阶之线程间协作
                         </h2>
 						<!--
                         
@@ -1139,7 +2198,7 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-10-3-Java进阶之线程信号量，避免死锁/">
+                     <a href="/article/JavaPrograming-Java进阶-10-3-Java进阶之线程信号量，避免死锁/">
                         <h2 class="post-title">
                             10.3 Java进阶之线程信号量
                         </h2>
@@ -1156,7 +2215,245 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-11-2-Java进阶之网络InetAddress类，多线程网络编程/">
+                     <a href="/article/JavaPrograming-Java进阶-11-1-Java进阶之网络IP-DNS-TCP-UDP-客户端服务器通信过程，套接字/">
+                        <h2 class="post-title">
+                            11.1 网络IP,DNS,TCP,UDP，客户端服务器通信套接字
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/JavaPrograming-Java进阶-11-2-Java进阶之网络InetAddress类，多线程网络编程/">
+                        <h2 class="post-title">
+                            11.2 InetAddress类,多线程网络编程
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/JavaPrograming-Java进阶-11-3-Java进阶之通过网络传输对象/">
+                        <h2 class="post-title">
+                            11.3 通过网络传输对象
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/JavaPrograming-Java进阶-12-1-Java进阶之反射概念，反射作用，Class类，程序运行时分析类的能力/">
+                        <h2 class="post-title">
+                            12.1 反射概念，Class类学习
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/JavaPrograming-Java进阶-12-3-Java进阶之使用反射编写数组CopyOf方法，调用任意方法/">
+                        <h2 class="post-title">
+                            12.3 利用反射编写数组CopyOf方法，调用任意方法
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/JavaPrograming-Java进阶-12-2-Java进阶之反射查看属性的值，查看任意对象的内部信息/">
+                        <h2 class="post-title">
+                            12.2 利用反射查看属性信息，对象内部信息
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/JavaPrograming-Java进阶-13-1-Java进阶之lambda表达式基本概念，语法/">
+                        <h2 class="post-title">
+                            13.1 Lambda表达式基本语法
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/JavaPrograming-Java进阶-13-2-Java进阶之lambda函数式接口/">
+                        <h2 class="post-title">
+                            13.2 Lambda表达式函数式接口学习
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/JavaPrograming-Java进阶-13-3-Java进阶之lambda方法引用/">
+                        <h2 class="post-title">
+                            13.3 Lambda方法引用
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/JavaPrograming-Java进阶-14-1-Java进阶之注解概念，工作原理/">
+                        <h2 class="post-title">
+                            14.1 注解机制概念，工作原理解析
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/JavaPrograming-Java进阶-15-Java进阶之Scanner类学习（基本概念，常见用法）/">
+                        <h2 class="post-title">
+                            15 Scanner类学习
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/JavaPrograming-Java进阶-17-Java异常处理机制学习-基本概念及用法/">
+                        <h2 class="post-title">
+                            17 异常处理学习机制
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/JavaPrograming-Java进阶-16-Java字符串之码点和代码单元/">
+                        <h2 class="post-title">
+                            16 字符串的码点，代码单元
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/JavaPrograming-Java进阶-18-Object中equals和toStirng-源码分析/">
+                        <h2 class="post-title">
+                            18 Object类的equals,toString源码解析
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/JavaPrograming-Java进阶-19-Java进阶之动态编译/">
                         <h2 class="post-title">
                             19 Java进阶之动态编译
                         </h2>
@@ -1173,9 +2470,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-11-3-Java进阶之通过网络传输对象/">
+                     <a href="/article/JavaPrograming-Java进阶-20-i-i-问题解析/">
                         <h2 class="post-title">
-                            19 Java进阶之动态编译
+                            20 i=i++问题解析
                         </h2>
 						<!--
                         
@@ -1190,9 +2487,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-12-1-Java进阶之反射概念，反射作用，Class类，程序运行时分析类的能力/">
+                     <a href="/article/JavaPrograming-Java进阶-21-JDK源码之ArrayList/">
                         <h2 class="post-title">
-                            19 Java进阶之动态编译
+                            21 ArrayList源码解析
                         </h2>
 						<!--
                         
@@ -1207,247 +2504,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-12-3-Java进阶之使用反射编写数组CopyOf方法，调用任意方法/">
+                     <a href="/article/JavaPrograming-Java进阶-22-JDK源码之HashMap/">
                         <h2 class="post-title">
-                            19 Java进阶之动态编译
-                        </h2>
-						<!--
-                        
-						-->
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-12-2-Java进阶之反射查看属性的值，查看任意对象的内部信息/">
-                        <h2 class="post-title">
-                            19 Java进阶之动态编译
-                        </h2>
-						<!--
-                        
-						-->
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-11-1-Java进阶之网络IP-DNS-TCP-UDP-客户端服务器通信过程，套接字/">
-                        <h2 class="post-title">
-                            19 Java进阶之动态编译
-                        </h2>
-						<!--
-                        
-						-->
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-13-2-Java进阶之lambda函数式接口/">
-                        <h2 class="post-title">
-                            19 Java进阶之动态编译
-                        </h2>
-						<!--
-                        
-						-->
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-14-1-Java进阶之注解概念，工作原理/">
-                        <h2 class="post-title">
-                            19 Java进阶之动态编译
-                        </h2>
-						<!--
-                        
-						-->
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-13-3-Java进阶之lambda方法引用/">
-                        <h2 class="post-title">
-                            19 Java进阶之动态编译
-                        </h2>
-						<!--
-                        
-						-->
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-16-Java字符串之码点和代码单元/">
-                        <h2 class="post-title">
-                            19 Java进阶之动态编译
-                        </h2>
-						<!--
-                        
-						-->
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-15-Java进阶之Scanner类学习（基本概念，常见用法）/">
-                        <h2 class="post-title">
-                            19 Java进阶之动态编译
-                        </h2>
-						<!--
-                        
-						-->
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-17-Java异常处理机制学习-基本概念及用法/">
-                        <h2 class="post-title">
-                            19 Java进阶之动态编译
-                        </h2>
-						<!--
-                        
-						-->
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-19-Java进阶之动态编译/">
-                        <h2 class="post-title">
-                            19 Java进阶之动态编译
-                        </h2>
-						<!--
-                        
-						-->
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-18-Object中equals和toStirng-源码分析/">
-                        <h2 class="post-title">
-                            19 Java进阶之动态编译
-                        </h2>
-						<!--
-                        
-						-->
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-13-1-Java进阶之lambda表达式基本概念，语法/">
-                        <h2 class="post-title">
-                            19 Java进阶之动态编译
-                        </h2>
-						<!--
-                        
-						-->
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-21-JDK源码之ArrayList/">
-                        <h2 class="post-title">
-                            19 Java进阶之动态编译
-                        </h2>
-						<!--
-                        
-						-->
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-20-i-i-问题解析/">
-                        <h2 class="post-title">
-                            19 Java进阶之动态编译
-                        </h2>
-						<!--
-                        
-						-->
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Java技术体系-Java进阶-22-JDK源码之HashMap/">
-                        <h2 class="post-title">
-                            19 Java进阶之动态编译
+                            22 HashMap源码解析
                         </h2>
 						<!--
                         
@@ -1460,8 +2519,8 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Java网络编程">
-                    <span class="tag-text">Java网络编程</span>
+                <span class="fa fa-tag listing-seperator" id="Vue">
+                    <span class="tag-text">Vue</span>
                 </span>
                 
                   <!-- <li class="listing-item">
@@ -1469,9 +2528,584 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Java技术体系-Java动手实战学习-Java网络编程-1-获取本机IP地址-主机名-域名/">
+                     <a href="/article/ViewFramework-Vue-1-Vue入门/">
                         <h2 class="post-title">
-                            1.获取本机IP地址,主机名,域名
+                            Vue入门
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="MySQL基础">
+                    <span class="tag-text">MySQL基础</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-Base-1-Mysql常用语句之简单查询-SELECT和SHOW/">
+                        <h2 class="post-title">
+                            1.MySQL基础命令
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-Base-2-mysql排序检索数据和数据过滤-ORDER-BY和WHERE/">
+                        <h2 class="post-title">
+                            2.MySQL排序检索和过滤检索
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-Base-3-mysql通配符和正则表达式过滤（LIKE和REGEXP）/">
+                        <h2 class="post-title">
+                            3.MySQL通配符和正则表达式
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-Base-4-mysql语句之字符串和数据处理函数/">
+                        <h2 class="post-title">
+                            4.字符串处理函数和数据处理函数
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-Base-5-mysql聚集函数和分组数据-GROUP-BY-和-HAVING/">
+                        <h2 class="post-title">
+                            5.聚集函数和分组查询
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-Base-6-Mysql子查询和联表-INNER-JOIN-ON和OUTER-JOIN-ON/">
+                        <h2 class="post-title">
+                            6.子查询和联表查询
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-Base-7-MySql组合查询（UNION）和全文本搜索（Match-和Against-）/">
+                        <h2 class="post-title">
+                            7.组合查询
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-Base-8-MySQL之插入，更新和删除数据-INSERT-INTO-和UPDATE-SET和DELETE/">
+                        <h2 class="post-title">
+                            8.增删改数据
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-Base-9-MySql视图和存储过程（CREATE-VIEW-和CREATE-PROCEDURE）/">
+                        <h2 class="post-title">
+                            9.视图和存储过程
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-Base-10-MySQL学习之游标和事务处理（DECLARE-name-CURSOR-FOR-dosomething）/">
+                        <h2 class="post-title">
+                            10.游标和事务处理
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-Base-11-MySQL学习之索引入门/">
+                        <h2 class="post-title">
+                            11.索引入门学习
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-Base-12-MySQL学习之数据类型/">
+                        <h2 class="post-title">
+                            12.数据类型
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-Base-13-MySQL之用户管理入门/">
+                        <h2 class="post-title">
+                            13.MySQL用户管理
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-Base-14-MySQL学习之数据备份与恢复/">
+                        <h2 class="post-title">
+                            14.数据备份和恢复
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-Base-15-MySQL学习之优化入门/">
+                        <h2 class="post-title">
+                            15.MySQL数据库优化入门
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="MySQL性能优化">
+                    <span class="tag-text">MySQL性能优化</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-1-识别性能问题和优化查询/">
+                        <h2 class="post-title">
+                            1.识别性能问题和优化查询
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-2-SQL分析命令学习/">
+                        <h2 class="post-title">
+                            2.SQL分析命令学习
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-3-MySQL索引之深入理解mysql的索引/">
+                        <h2 class="post-title">
+                            3.深入理解MySQL索引原理
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-4-MySQL中与日期和时间相关函数/">
+                        <h2 class="post-title">
+                            4.MySQL时间相关函数
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-5-MySql进阶之查询处理（逻辑与物理）/">
+                        <h2 class="post-title">
+                            5.SQL执行顺序
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-6-MySql缓冲池学习/">
+                        <h2 class="post-title">
+                            6.MySQL缓冲池
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-7-从算法角度学习mysql索引/">
+                        <h2 class="post-title">
+                            7.从算法角度理解B+树索引
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-9-MySQL列Cardinality（基数）/">
+                        <h2 class="post-title">
+                            9.Cardinality学习
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-10-联合索引/">
+                        <h2 class="post-title">
+                            10.联合索引
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-11-覆盖索引/">
+                        <h2 class="post-title">
+                            11.覆盖索引
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-12-索引提示/">
+                        <h2 class="post-title">
+                            12.索引提示
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-14-了解MySql中的分区概念/">
+                        <h2 class="post-title">
+                            13.MySQL分区存储
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-18-MySQL分区之子分区（复合分区）与分区中对NULL的处理/">
+                        <h2 class="post-title">
+                            14.MySQL子分区
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-20-MySQL事务之事务概述/">
+                        <h2 class="post-title">
+                            15.MySQL事务概述
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-22-MySQL事务之事务的分类/">
+                        <h2 class="post-title">
+                            16.MySQL事务的分类
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-23-编写一个事务必须掌握的语法/">
+                        <h2 class="post-title">
+                            17.MySQL事务的编写语法
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-24-事务的隔离级别/">
+                        <h2 class="post-title">
+                            18.事务隔离级别
+                        </h2>
+						<!--
+                        
+						-->
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Database-MySQL-PerformanceOptimization-25-分布式事务编程/">
+                        <h2 class="post-title">
+                            19.分布式事务编程
                         </h2>
 						<!--
                         
@@ -1626,8 +3260,220 @@
 <!-- Baidu Tongji -->
 
 
+<!-- Mermaid图表库 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  // 页面加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid !== 'undefined') {
+      // 在这里可以配置Mermaid的主题、流程图方向等
+      mermaid.initialize({
+      // 自动识别并渲染所有 class="mermaid" 的div
+        startOnLoad: true,
+        // 可选：'default', 'dark', 'forest', 'neutral'
+        theme: 'neutral'
+      });
+    }
+  });
+</script>
+<script>
+$(document).ready(function() {
+    var isModalOpen = false;
+    // 1. 加载 search.xml 索引文件
+  $.ajax({
+    url: '/search.json', // 路径改为json
+    dataType: 'json',                    // 数据类型改为json
+    success: function(searchData) {      // 直接得到JS对象
+      console.log('搜索索引加载完成，共 ' + searchData.length + ' 篇文章。');
+      // 注意：searchData 现在直接是数组，无需解析
+      // 需要将全局的 searchData 变量赋值
+      window.searchData = searchData; // 赋值给全局变量
+    },
+    error: function() {
+      $('#search-status').text('无法加载搜索索引文件。');
+    }
+});
 
+    // 2. 搜索功能核心函数
+    function performSearch(keyword) {
+      var resultsContainer = $('#search-results-container').empty();
+      $('#search-status').hide();
 
+      if (!keyword.trim()) {
+        $('#search-status').text('输入关键词开始搜索...').show();
+        return;
+      }
+
+      var resultsHtml = '';
+      var resultCount = 0;
+      var kwReg = new RegExp(keyword, 'gi'); // 创建全局、不区分大小写的正则表达式
+
+      // 遍历所有文章数据
+      window.searchData.forEach(function(item) {
+        // 在标题和内容中搜索关键词
+        var titleMatch = item.title.match(kwReg);
+        var contentMatch = item.content.match(kwReg);
+
+        if (titleMatch || contentMatch) {
+          resultCount++;
+          // 构建标题高亮
+          var highlightedTitle = item.title.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+          // 从内容中提取包含关键词的片段（约150字符）并高亮
+          var contentSnippet = item.content;
+          var firstIndex = contentSnippet.toLowerCase().indexOf(keyword.toLowerCase());
+          if (firstIndex !== -1) {
+            var start = Math.max(0, firstIndex - 60);
+            var end = Math.min(contentSnippet.length, firstIndex + 90);
+            contentSnippet = '...' + contentSnippet.substring(start, end) + '...';
+          } else {
+            contentSnippet = contentSnippet.substring(0, 150) + '...';
+          }
+          contentSnippet = contentSnippet.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+
+          // 生成单个结果的HTML
+          resultsHtml += `
+            <div class="search-result-item">
+              <a href="${item.url}" class="search-result-title">${highlightedTitle}</a>
+              <p class="search-result-excerpt">${contentSnippet}</p>
+            </div>
+          `;
+        }
+      });
+
+      // 显示结果或“无结果”状态
+      if (resultCount > 0) {
+        resultsContainer.html(resultsHtml);
+      } else {
+        resultsContainer.html('<div id="search-status">未找到包含 "' + keyword + '" 的文章。</div>');
+      }
+    }
+
+    // 3. 绑定输入事件（防抖，提升性能）
+    var searchTimer;
+    $('#search-input').on('input', function() {
+      clearTimeout(searchTimer);
+      var keyword = $(this).val();
+      searchTimer = setTimeout(function() {
+        performSearch(keyword);
+      }, 300); // 延迟300毫秒后执行搜索
+    });
+
+    // 4. 全局控制搜索弹窗显示/隐藏的函数
+    window.openSearchModal = function() {
+      isModalOpen = true;
+      $('#search-mask, #search-modal').fadeIn(200);
+      $('#search-input').focus().select(); // 自动聚焦到输入框
+      $('body').css('overflow', 'hidden'); // 防止背景滚动
+    };
+    window.closeSearchModal = function() {
+      isModalOpen = false;
+      $('#search-mask, #search-modal').fadeOut(200);
+      $('#search-input').val(''); // 清空输入框
+      $('#search-results-container').empty(); // 清空结果
+      $('#search-status').text('输入关键词开始搜索...').show();
+      $('body').css('overflow', 'auto');
+    };
+
+    // 5. 事件绑定：点击遮罩关闭、ESC键关闭
+    $('#search-mask').on('click', closeSearchModal);
+    $(document).on('keydown', function(e) {
+      if (e.keyCode === 27 && isModalOpen) { // ESC键
+        closeSearchModal();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.keyCode === 70 && !isModalOpen) { // Ctrl+F / Cmd+F
+        e.preventDefault(); // 阻止浏览器默认查找
+        openSearchModal();
+      }
+    });
+  });
+</script>
+
+<!-- 本地搜索 CSS -->
+    <style>
+      /* 搜索弹窗遮罩 */
+      #search-mask {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9998;
+        display: none;
+      }
+      /* 搜索主容器 */
+      #search-modal {
+        position: fixed;
+        top: 10%; left: 50%;
+        transform: translateX(-50%);
+        width: 80%; max-width: 600px;
+        max-height: 80vh;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      }
+      /* 搜索框区域 */
+      .search-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      #search-input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      #search-input:focus {
+        border-color: #3498db;
+      }
+      /* 搜索结果区域 */
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 20px;
+      }
+      .search-result-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .search-result-item:last-child {
+        border-bottom: none;
+      }
+      .search-result-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #2c3e50;
+      }
+      .search-result-excerpt {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 限制最多显示3行 */
+        -webkit-box-orient: vertical;
+      }
+      .search-result-highlight {
+        background-color: #fff9c4; /* 关键词高亮背景色 */
+        font-weight: bold;
+        color: #e74c3c;
+      }
+      /* 无结果/加载状态 */
+      #search-status {
+        padding: 20px;
+        text-align: center;
+        color: #999;
+      }
+    </style>
 
 
 	<a id="rocket" href="#top" class=""></a>
@@ -1638,6 +3484,23 @@
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
 </body>
 
 </html>

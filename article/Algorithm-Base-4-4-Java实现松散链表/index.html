@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          4.4 松散链表 - 牧之的博客 | Muzhi Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://1776167012.github.io/article/Algorithm-Base-4-4-Java实现松散链表/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/beantech.min.css">
+
+
+    
+<link rel="stylesheet" href="/css/donate.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script>
+	</script>
+	<style>
+	* {
+            box-sizing: border-box;
+        }
+
+        form {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding-left: 13px;
+        }
+
+        button {
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        /*搜索框1*/
+        .bar1 {
+			background: #FFF;
+			max-width: 200px;
+		}
+        .bar1 input {
+			max-height: 30px;
+            border: 2px solid #BFBFBF;
+            border-radius: 5px;
+            background: #FFFFFF;
+            color: #BFBFBF;
+			-webkit-text-fill-color: #BFBFBF;
+        }
+        .bar1 button {
+			max-height: 30px;
+            top: 0;
+            right: 0;
+            background: #BFBFBF;
+            border-radius: 0 5px 5px 0;
+        }
+        .bar1 button:before {
+            content: "\f002";
+            font-family: FontAwesome;
+            font-size: 16px;
+            color: #F9F0DA;
+        }
+		</style>
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/feed.xml" title="牧之" type="application/atom+xml">
+</head>
+
+
+
+<!-- hack iOS CSS :active style -->
+<!-- <body ontouchstart=""  class="<?php echo($_COOKIE['night'] == '1' ? '' : ''); ?>"> -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/header_img/codeBack.png')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#算法基础" title="算法基础">算法基础</a>
+                            
+                        </div>
+                        <h1>4.4 松散链表</h1>
+                        <!-- <h2 class="subheading"></h2> -->
+                        <span class="meta">
+                            muzhi on
+                            2021-05-20
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1776167012</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                   <!-- 例如，放在导航菜单内部 -->
+                   <li>
+                    <a href="javascript:void(0);" onclick="openSearchModal()" title="搜索">搜索</a>
+                   </li>
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+					<li>
+                        <a href="/archive/">文章归档</a>
+                    </li>
+					<li>
+                        <a href="/tags/">博客标签</a>
+                    </li>
+					<li>
+                        <a href="/about/">关于作者</a>
+                    </li>
+
+					<!--
+					修改about在前面的问题
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">没有什么比快乐更重要</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    -->
+                </ul>
+            </div>
+
+        <!-- 本地搜索弹窗结构 -->
+        <div id="search-mask"></div>
+        <div id="search-modal">
+          <div class="search-header">
+            <input type="text" id="search-input" placeholder="请输入关键词搜索..." autocomplete="off" />
+          </div>
+          <div id="search-status">输入关键词开始搜索...</div>
+          <div class="search-results" id="search-results-container">
+            <!-- 搜索结果将通过JS动态插入到这里 -->
+          </div>
+        </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				
+                <html><head></head><body><h1><span id="1什么是松散链表">1.什么是松散链表？</span></h1>
+<h2><span id="11-松散链表定义">1.1 松散链表定义</span></h2>
+<p>松散链表是单向链表和(循环链表/数组/双向链表/单向链表)的一种有效结合，松散链表中的每个节点存储一个块，每个块中可以有多个元素，<br>
+这些元素由(循环链表/数组/双向链表/单向链表)存放链接在一起。</p>
+<p>如图所示：<br><br>
+这是松散链表的结构，它的节点也是链表结构</p>
+<div class="mermaid">flowchart LR
+   List1 --List1.next--&gt; List2 --List2.next--&gt; List3 --List3.next--&gt; null</div>
+<p>其中链表的结构如下</p>
+<div class="mermaid">flowchart LR
+   node1 --node1.next--&gt; node2 --node2.next--&gt; node3 --node3.next--&gt; null</div>
+<p>假设在任何时候松散链表中的块的个数不超过n。<br>
+为了进一步简化问题，我们假设除了最后一块外，其他块恰好含有n个元素。<br>
+在这样的情况下，在任何时候，松散链表中总元素的个数不会超过n^2。</p>
+<h2><span id="12-在松散链表中查找一个元素">1.2 在松散链表中查找一个元素</span></h2>
+<p>在松散链表中查找第k个块的时间开销最大为O(n),同理在一个块中找到第m个元素的时间开销最大为O(n)<br>
+所以，在松散链表中查找一个元素的最大时间开销为O(n^2)，这和其他链表查找元素的时间复杂度一致。</p>
+<h2><span id="13-在松散链表中查找指定位置的元素">1.3 在松散链表中查找指定位置的元素</span></h2>
+<p>这个操作相对于普通链表，松散链表的优势就体现出来了。在元素个数为n^2的链表中<br>
+普通链表查找指定位置的元素的时间复杂度为O(n^2)<br>
+松散链表查找指定位置的元素的时间复杂度为O(n), 由于块的原因，我们可以避免大量不必要的遍历。</p>
+<h2><span id="14-在松散链表中插入一个元素">1.4 在松散链表中插入一个元素</span></h2>
+<p>与其他类型的链表不同的是，当插入元素时，可能需要重新调整松散链表中的元素的位置来维护松散链表的属性。<br>
+假如每个块中包含n个元素，假设要在第i个元素的后面插入元素x，且将x放在第j块中。<br>
+如果链表中块的空间不足，则还需要在当前块后面添加一个新块。</p>
+<p>如图所示：<br>
+例如，现在有下面的松散链表结构：</p>
+<p><img src="image/img.png" alt="松散链表结构"></p>
+<p>进行插入操作我们很容易知道其时间复杂度为O(i)<br>
+这个维护的时间复杂度我们需要进行分析一下：<br>
+其实，从直观的角度看，插入一个元素后，可能存在结构调整的情况，但是这个调整的时间复杂度也是极低的。<br>
+所以进行一次插入操作的总体时间复杂度为：O(n),这相比于普通链表提升了一个量级！！</p>
+<h1><span id="2-java实现松散链表">2. Java实现松散链表</span></h1>
+<h2><span id="21-首先是节点定义">2.1 首先是节点定义</span></h2>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Node</span> {</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 下一个块</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Node next;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 前一个块</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Node previous;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 此块的实际元素数量</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">numElements</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 块存储元素的数组</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Object[] elements;</span><br><span class="line">    <span class="comment">//构造新块</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Node</span><span class="params">(<span class="type">int</span> nodeCapacity)</span> {</span><br><span class="line">        elements = <span class="keyword">new</span> <span class="title class_">Object</span>[nodeCapacity];</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h2><span id="22-然后就是具体的实现">2.2 然后就是具体的实现</span></h2>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br><span class="line">539</span><br><span class="line">540</span><br><span class="line">541</span><br><span class="line">542</span><br><span class="line">543</span><br><span class="line">544</span><br><span class="line">545</span><br><span class="line">546</span><br><span class="line">547</span><br><span class="line">548</span><br><span class="line">549</span><br><span class="line">550</span><br><span class="line">551</span><br><span class="line">552</span><br><span class="line">553</span><br><span class="line">554</span><br><span class="line">555</span><br><span class="line">556</span><br><span class="line">557</span><br><span class="line">558</span><br><span class="line">559</span><br><span class="line">560</span><br><span class="line">561</span><br><span class="line">562</span><br><span class="line">563</span><br><span class="line">564</span><br><span class="line">565</span><br><span class="line">566</span><br><span class="line">567</span><br><span class="line">568</span><br><span class="line">569</span><br><span class="line">570</span><br><span class="line">571</span><br><span class="line">572</span><br><span class="line">573</span><br><span class="line">574</span><br><span class="line">575</span><br><span class="line">576</span><br><span class="line">577</span><br><span class="line">578</span><br><span class="line">579</span><br><span class="line">580</span><br><span class="line">581</span><br><span class="line">582</span><br><span class="line">583</span><br><span class="line">584</span><br><span class="line">585</span><br><span class="line">586</span><br><span class="line">587</span><br><span class="line">588</span><br><span class="line">589</span><br><span class="line">590</span><br><span class="line">591</span><br><span class="line">592</span><br><span class="line">593</span><br><span class="line">594</span><br><span class="line">595</span><br><span class="line">596</span><br><span class="line">597</span><br><span class="line">598</span><br><span class="line">599</span><br><span class="line">600</span><br><span class="line">601</span><br><span class="line">602</span><br><span class="line">603</span><br><span class="line">604</span><br><span class="line">605</span><br><span class="line">606</span><br><span class="line">607</span><br><span class="line">608</span><br><span class="line">609</span><br><span class="line">610</span><br><span class="line">611</span><br><span class="line">612</span><br><span class="line">613</span><br><span class="line">614</span><br><span class="line">615</span><br><span class="line">616</span><br><span class="line">617</span><br><span class="line">618</span><br><span class="line">619</span><br><span class="line">620</span><br><span class="line">621</span><br><span class="line">622</span><br><span class="line">623</span><br><span class="line">624</span><br><span class="line">625</span><br><span class="line">626</span><br><span class="line">627</span><br><span class="line">628</span><br><span class="line">629</span><br><span class="line">630</span><br><span class="line">631</span><br><span class="line">632</span><br><span class="line">633</span><br><span class="line">634</span><br><span class="line">635</span><br><span class="line">636</span><br><span class="line">637</span><br><span class="line">638</span><br><span class="line">639</span><br><span class="line">640</span><br><span class="line">641</span><br><span class="line">642</span><br><span class="line">643</span><br><span class="line">644</span><br><span class="line">645</span><br><span class="line">646</span><br><span class="line">647</span><br><span class="line">648</span><br><span class="line">649</span><br><span class="line">650</span><br><span class="line">651</span><br><span class="line">652</span><br><span class="line">653</span><br><span class="line">654</span><br><span class="line">655</span><br><span class="line">656</span><br><span class="line">657</span><br><span class="line">658</span><br><span class="line">659</span><br><span class="line">660</span><br><span class="line">661</span><br><span class="line">662</span><br><span class="line">663</span><br><span class="line">664</span><br><span class="line">665</span><br><span class="line">666</span><br><span class="line">667</span><br><span class="line">668</span><br><span class="line">669</span><br><span class="line">670</span><br><span class="line">671</span><br><span class="line">672</span><br><span class="line">673</span><br><span class="line">674</span><br><span class="line">675</span><br><span class="line">676</span><br><span class="line">677</span><br><span class="line">678</span><br><span class="line">679</span><br><span class="line">680</span><br><span class="line">681</span><br><span class="line">682</span><br><span class="line">683</span><br><span class="line">684</span><br><span class="line">685</span><br><span class="line">686</span><br><span class="line">687</span><br><span class="line">688</span><br><span class="line">689</span><br><span class="line">690</span><br><span class="line">691</span><br><span class="line">692</span><br><span class="line">693</span><br><span class="line">694</span><br><span class="line">695</span><br><span class="line">696</span><br><span class="line">697</span><br><span class="line">698</span><br><span class="line">699</span><br><span class="line">700</span><br><span class="line">701</span><br><span class="line">702</span><br><span class="line">703</span><br><span class="line">704</span><br><span class="line">705</span><br><span class="line">706</span><br><span class="line">707</span><br><span class="line">708</span><br><span class="line">709</span><br><span class="line">710</span><br><span class="line">711</span><br><span class="line">712</span><br><span class="line">713</span><br><span class="line">714</span><br><span class="line">715</span><br><span class="line">716</span><br><span class="line">717</span><br><span class="line">718</span><br><span class="line">719</span><br><span class="line">720</span><br><span class="line">721</span><br><span class="line">722</span><br><span class="line">723</span><br><span class="line">724</span><br><span class="line">725</span><br><span class="line">726</span><br><span class="line">727</span><br><span class="line">728</span><br><span class="line">729</span><br><span class="line">730</span><br><span class="line">731</span><br><span class="line">732</span><br><span class="line">733</span><br><span class="line">734</span><br><span class="line">735</span><br><span class="line">736</span><br><span class="line">737</span><br><span class="line">738</span><br><span class="line">739</span><br><span class="line">740</span><br><span class="line">741</span><br><span class="line">742</span><br><span class="line">743</span><br><span class="line">744</span><br><span class="line">745</span><br><span class="line">746</span><br><span class="line">747</span><br><span class="line">748</span><br><span class="line">749</span><br><span class="line">750</span><br><span class="line">751</span><br><span class="line">752</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> course.p4_list.s5_RelaxList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Array;</span><br><span class="line"><span class="keyword">import</span> java.util.AbstractList;</span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.ListIterator;</span><br><span class="line"><span class="keyword">import</span> java.util.NoSuchElementException;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"><span class="keyword">import</span> java.util.ConcurrentModificationException;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 松散链表定义类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &lt;E&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RelaxList</span>&lt;E&gt; <span class="keyword">extends</span> <span class="title class_">AbstractList</span>&lt;E&gt; <span class="keyword">implements</span> <span class="title class_">List</span>&lt;E&gt;, Serializable {</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 链表中块的容量</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> RelaxNodeCapacity;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 链表元素总个数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *  链表第一个块</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Node firstRelaxNode;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *  链表最后一个块</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Node lastRelaxNode;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> -<span class="number">674052309103045211L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 松散链表带参构造方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> RelaxNodeCapacity 指定松散链表的块大小,这里必须不小于8</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IllegalArgumentException 如果定义的块大小小于8，抛出异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">RelaxList</span><span class="params">(<span class="type">int</span> RelaxNodeCapacity)</span> <span class="keyword">throws</span> IllegalArgumentException {</span><br><span class="line">        <span class="keyword">if</span> (RelaxNodeCapacity &lt; <span class="number">8</span>) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">"RelaxNodeCapacity &lt; 8"</span>);</span><br><span class="line">        }</span><br><span class="line">        <span class="built_in">this</span>.RelaxNodeCapacity = RelaxNodeCapacity;</span><br><span class="line">        firstRelaxNode = <span class="keyword">new</span> <span class="title class_">Node</span>(RelaxNodeCapacity);</span><br><span class="line">        lastRelaxNode = firstRelaxNode;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 松散链表无参构造方法，默认构造出块大小为16的松散链表</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">RelaxList</span><span class="params">()</span> {</span><br><span class="line">        <span class="built_in">this</span>(<span class="number">16</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将指定的元素添加到链表的末尾</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> e 指定元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回true</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span> {</span><br><span class="line">        insertIntoRelaxNode(lastRelaxNode, lastRelaxNode.numElements, e);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回链表大小</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">size</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> size;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 判断链表是否为空</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> boolean</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> (size == <span class="number">0</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查询链表是否包含指定元素，如果包含返回true</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o 指定元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> boolean</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">contains</span><span class="params">(Object o)</span> {</span><br><span class="line">        <span class="keyword">return</span> (indexOf(o) != -<span class="number">1</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查找链表中是否存在指定元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o 指定元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 元素所在的位置</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">indexOf</span><span class="params">(Object o)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">Node</span> <span class="variable">RelaxNode</span> <span class="operator">=</span> firstRelaxNode;</span><br><span class="line">        <span class="keyword">if</span> (o == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">while</span> (RelaxNode != <span class="literal">null</span>) {</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">ptr</span> <span class="operator">=</span> <span class="number">0</span>; ptr &lt; RelaxNode.numElements; ptr++) {</span><br><span class="line">                    <span class="keyword">if</span> (RelaxNode.elements[ptr] == <span class="literal">null</span>) {</span><br><span class="line">                        <span class="keyword">return</span> index + ptr;</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">                index += RelaxNode.numElements;</span><br><span class="line">                RelaxNode = RelaxNode.next;</span><br><span class="line">            }</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            <span class="keyword">while</span> (RelaxNode != <span class="literal">null</span>) {</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">ptr</span> <span class="operator">=</span> <span class="number">0</span>; ptr &lt; RelaxNode.numElements; ptr++) {</span><br><span class="line">                    <span class="keyword">if</span> (o.equals(RelaxNode.elements[ptr])) {</span><br><span class="line">                        <span class="keyword">return</span> index + ptr;</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">                index += RelaxNode.numElements;</span><br><span class="line">                RelaxNode = RelaxNode.next;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获得松散链表的迭代器</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 迭代器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Iterator&lt;E&gt; <span class="title function_">iterator</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RelaxIterator</span>(firstRelaxNode, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将链表元素集合转化为Object数组返回</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 数组</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Object[] toArray() {</span><br><span class="line">        Object[] array = <span class="keyword">new</span> <span class="title class_">Object</span>[size];</span><br><span class="line">        <span class="type">int</span> <span class="variable">p</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">Node</span> <span class="variable">RelaxNode</span> <span class="operator">=</span> firstRelaxNode; RelaxNode != <span class="literal">null</span>; RelaxNode = RelaxNode.next) {</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; RelaxNode.numElements; i++) {</span><br><span class="line">                array[p] = RelaxNode.elements[i];</span><br><span class="line">                p++;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回指定类型的数组</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> a 指定类型的空数组</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> &lt;T&gt; 泛型变量</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 类型数组对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@SuppressWarnings({ "unchecked" })</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; T[] toArray(T[] a) {</span><br><span class="line">        <span class="comment">//如果传入的数组大小小于链表大小，则重新新建一个数组</span></span><br><span class="line">        <span class="keyword">if</span> (a.length &lt; size) {</span><br><span class="line">            <span class="comment">//新建一个指定类型的数组</span></span><br><span class="line">            a = (T[])Array.newInstance(a.getClass().getComponentType(),size);</span><br><span class="line">        }</span><br><span class="line">        Object[] result = a;</span><br><span class="line">        <span class="type">int</span> <span class="variable">p</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">Node</span> <span class="variable">RelaxNode</span> <span class="operator">=</span> firstRelaxNode; RelaxNode != <span class="literal">null</span>; RelaxNode = RelaxNode.next) {</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; RelaxNode.numElements; i++) {</span><br><span class="line">                result[p] = RelaxNode.elements[i];</span><br><span class="line">                p++;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除链表中指定元素</span></span><br><span class="line"><span class="comment">     * 如果成功删除返回true 如果不存在此元素返回false</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o 指向元素对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 是否成功删除</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">remove</span><span class="params">(Object o)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">Node</span> <span class="variable">RelaxNode</span> <span class="operator">=</span> firstRelaxNode;</span><br><span class="line">        <span class="keyword">if</span> (o == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">while</span> (RelaxNode != <span class="literal">null</span>) {</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">ptr</span> <span class="operator">=</span> <span class="number">0</span>; ptr &lt; RelaxNode.numElements; ptr++) {</span><br><span class="line">                    <span class="keyword">if</span> (RelaxNode.elements[ptr] == <span class="literal">null</span>) {</span><br><span class="line">                        removeFromRelaxNode(RelaxNode, ptr);</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">                index += RelaxNode.numElements;</span><br><span class="line">                RelaxNode = RelaxNode.next;</span><br><span class="line">            }</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            <span class="keyword">while</span> (RelaxNode != <span class="literal">null</span>) {</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">ptr</span> <span class="operator">=</span> <span class="number">0</span>; ptr &lt; RelaxNode.numElements; ptr++) {</span><br><span class="line">                    <span class="keyword">if</span> (o.equals(RelaxNode.elements[ptr])) {</span><br><span class="line">                        removeFromRelaxNode(RelaxNode, ptr);</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">                index += RelaxNode.numElements;</span><br><span class="line">                RelaxNode = RelaxNode.next;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 判断链表是否包含入参集合的所有元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> c 集合</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 全包含返回true 不全包含返回false</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">containsAll</span><span class="params">(Collection&lt;?&gt; c)</span> {</span><br><span class="line">        <span class="keyword">if</span> (c == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>();</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">for</span> (Object o : c) {</span><br><span class="line">            <span class="keyword">if</span> (!contains(o)) {</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将指定集合中所有元素加入到链表中</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> c 指向集合</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 成功返回true 失败返回false</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">addAll</span><span class="params">(Collection&lt;? extends E&gt; c)</span> {</span><br><span class="line">        <span class="keyword">if</span> (c == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>();</span><br><span class="line">        }</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">changed</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (E e : c) {</span><br><span class="line">            add(e);</span><br><span class="line">            changed = <span class="literal">true</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> changed;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 从链表中删除集合c中所有元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> c 集合c</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 成功标志</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">removeAll</span><span class="params">(Collection&lt;?&gt; c)</span> {</span><br><span class="line">        <span class="keyword">if</span> (c == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>();</span><br><span class="line">        }</span><br><span class="line">        Iterator&lt;?&gt; it = c.iterator();</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">changed</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">while</span> (it.hasNext()) {</span><br><span class="line">            <span class="keyword">if</span> (remove(it.next())) {</span><br><span class="line">                changed = <span class="literal">true</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> changed;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *删除链表中除包含在集合c中的其他所有元素，仅保留c中有的</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> c 指定集合c</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 成功标志</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">retainAll</span><span class="params">(Collection&lt;?&gt; c)</span> {</span><br><span class="line">        <span class="keyword">if</span> (c == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>();</span><br><span class="line">        }</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">changed</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">Node</span> <span class="variable">RelaxNode</span> <span class="operator">=</span> firstRelaxNode; RelaxNode != <span class="literal">null</span>; RelaxNode = RelaxNode.next) {</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; RelaxNode.numElements; i++) {</span><br><span class="line">                <span class="keyword">if</span> (!c.contains(RelaxNode.elements[i])) {</span><br><span class="line">                    removeFromRelaxNode(RelaxNode, i);</span><br><span class="line">                    i--;</span><br><span class="line">                    changed = <span class="literal">true</span>;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> changed;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *清空链表，只剩一个头，且头中元素都清除了</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">clear</span><span class="params">()</span> {</span><br><span class="line"></span><br><span class="line">        <span class="type">Node</span> <span class="variable">RelaxNode</span> <span class="operator">=</span> firstRelaxNode.next;</span><br><span class="line">        <span class="keyword">while</span> (RelaxNode != <span class="literal">null</span>) {</span><br><span class="line">            <span class="type">Node</span> <span class="variable">next</span> <span class="operator">=</span> RelaxNode.next;</span><br><span class="line">            RelaxNode.next = <span class="literal">null</span>;</span><br><span class="line">            RelaxNode.previous = <span class="literal">null</span>;</span><br><span class="line">            RelaxNode.elements = <span class="literal">null</span>;</span><br><span class="line">            RelaxNode = next;</span><br><span class="line">        }</span><br><span class="line">        lastRelaxNode = firstRelaxNode;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">ptr</span> <span class="operator">=</span> <span class="number">0</span>; ptr &lt; firstRelaxNode.numElements; ptr++) {</span><br><span class="line">            firstRelaxNode.elements[ptr] = <span class="literal">null</span>;</span><br><span class="line">        }</span><br><span class="line">        firstRelaxNode.numElements = <span class="number">0</span>;</span><br><span class="line">        firstRelaxNode.next = <span class="literal">null</span>;</span><br><span class="line">        size = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *获得指定位置的元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> index 指定位置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回指定位置元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IndexOutOfBoundsException 如果传入的位置不合法，抛出异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@SuppressWarnings({ "unchecked" })</span></span><br><span class="line">    <span class="keyword">public</span> E <span class="title function_">get</span><span class="params">(<span class="type">int</span> index)</span> <span class="keyword">throws</span> IndexOutOfBoundsException {</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt;= size) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IndexOutOfBoundsException</span>();</span><br><span class="line">        }</span><br><span class="line">        Node RelaxNode;</span><br><span class="line">        <span class="type">int</span> <span class="variable">p</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (size - index &gt; index) {</span><br><span class="line">            RelaxNode = firstRelaxNode;</span><br><span class="line">            <span class="keyword">while</span> (p &lt;= index - RelaxNode.numElements) {</span><br><span class="line">                p += RelaxNode.numElements;</span><br><span class="line">                RelaxNode = RelaxNode.next;</span><br><span class="line">            }</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            RelaxNode = lastRelaxNode;</span><br><span class="line">            p = size;</span><br><span class="line">            <span class="keyword">while</span> ((p -= RelaxNode.numElements) &gt; index) {</span><br><span class="line">                RelaxNode = RelaxNode.previous;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> (E) RelaxNode.elements[index - p];</span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *更新指定位置的元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> index 指定位置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> element 指定元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回此位置的原来的元素</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@SuppressWarnings({ "unchecked" })</span></span><br><span class="line">    <span class="keyword">public</span> E <span class="title function_">set</span><span class="params">(<span class="type">int</span> index, E element)</span> {</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt;= size) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IndexOutOfBoundsException</span>();</span><br><span class="line">        }</span><br><span class="line">        <span class="type">E</span> <span class="variable">el</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        Node RelaxNode;</span><br><span class="line">        <span class="type">int</span> <span class="variable">p</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (size - index &gt; index) {</span><br><span class="line">            RelaxNode = firstRelaxNode;</span><br><span class="line">            <span class="keyword">while</span> (p &lt;= index - RelaxNode.numElements) {</span><br><span class="line">                p += RelaxNode.numElements;</span><br><span class="line">                RelaxNode = RelaxNode.next;</span><br><span class="line">            }</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            RelaxNode = lastRelaxNode;</span><br><span class="line">            p = size;</span><br><span class="line">            <span class="keyword">while</span> ((p -= RelaxNode.numElements) &gt; index) {</span><br><span class="line">                RelaxNode = RelaxNode.previous;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        el = (E) RelaxNode.elements[index - p];</span><br><span class="line">        RelaxNode.elements[index - p] = element;</span><br><span class="line">        <span class="keyword">return</span> el;</span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *在指定位置添加元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> index 指定位置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> element 指定元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IndexOutOfBoundsException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> index, E element)</span> <span class="keyword">throws</span> IndexOutOfBoundsException {</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt; size) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IndexOutOfBoundsException</span>();</span><br><span class="line">        }</span><br><span class="line">        Node RelaxNode;</span><br><span class="line">        <span class="type">int</span> <span class="variable">p</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (size - index &gt; index) {</span><br><span class="line">            RelaxNode = firstRelaxNode;</span><br><span class="line">            <span class="keyword">while</span> (p &lt;= index - RelaxNode.numElements) {</span><br><span class="line">                p += RelaxNode.numElements;</span><br><span class="line">                RelaxNode = RelaxNode.next;</span><br><span class="line">            }</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            RelaxNode = lastRelaxNode;</span><br><span class="line">            p = size;</span><br><span class="line">            <span class="keyword">while</span> ((p -= RelaxNode.numElements) &gt; index) {</span><br><span class="line">                RelaxNode = RelaxNode.previous;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        insertIntoRelaxNode(RelaxNode, index - p, element);</span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *删除指定位置的元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> index 指定位置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回删除之前这个位置的元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IndexOutOfBoundsException 如果位置不合法，抛出异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@SuppressWarnings({"unchecked"})</span></span><br><span class="line">    <span class="keyword">public</span> E <span class="title function_">remove</span><span class="params">(<span class="type">int</span> index)</span> <span class="keyword">throws</span> IndexOutOfBoundsException {</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt;= size) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IndexOutOfBoundsException</span>();</span><br><span class="line">        }</span><br><span class="line">        <span class="type">E</span> <span class="variable">element</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        Node RelaxNode;</span><br><span class="line">        <span class="type">int</span> <span class="variable">p</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (size - index &gt; index) {</span><br><span class="line">            RelaxNode = firstRelaxNode;</span><br><span class="line">            <span class="keyword">while</span> (p &lt;= index - RelaxNode.numElements) {</span><br><span class="line">                p += RelaxNode.numElements;</span><br><span class="line">                RelaxNode = RelaxNode.next;</span><br><span class="line">            }</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            RelaxNode = lastRelaxNode;</span><br><span class="line">            p = size;</span><br><span class="line">            <span class="keyword">while</span> ((p -= RelaxNode.numElements) &gt; index) {</span><br><span class="line">                RelaxNode = RelaxNode.previous;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        element = (E) RelaxNode.elements[index - p];</span><br><span class="line">        removeFromRelaxNode(RelaxNode, index - p);</span><br><span class="line">        <span class="keyword">return</span> element;</span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *找出指定元素在链表中最后出现的位置索引</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o 指定元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回位置索引</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">lastIndexOf</span><span class="params">(Object o)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> size;</span><br><span class="line">        <span class="type">Node</span> <span class="variable">RelaxNode</span> <span class="operator">=</span> lastRelaxNode;</span><br><span class="line">        <span class="keyword">if</span> (o == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">while</span> (RelaxNode != <span class="literal">null</span>) {</span><br><span class="line">                index -= RelaxNode.numElements;</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> RelaxNode.numElements - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) {</span><br><span class="line">                    <span class="keyword">if</span> (RelaxNode.elements[i] == <span class="literal">null</span>) {</span><br><span class="line">                        <span class="keyword">return</span> (index + i);</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">                RelaxNode = RelaxNode.previous;</span><br><span class="line">            }</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            <span class="keyword">while</span> (RelaxNode != <span class="literal">null</span>) {</span><br><span class="line">                index -= RelaxNode.numElements;</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> RelaxNode.numElements - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) {</span><br><span class="line">                    <span class="keyword">if</span> (o.equals(RelaxNode.elements[i])) {</span><br><span class="line">                        <span class="keyword">return</span> (index + i);</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">                RelaxNode = RelaxNode.previous;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *得到这个链表的迭代器</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 链表迭代器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> ListIterator&lt;E&gt; <span class="title function_">listIterator</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RelaxIterator</span>(firstRelaxNode, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *得到从指定位置后的松散链表迭代器</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> index 指定位置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 链表迭代器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> ListIterator&lt;E&gt; <span class="title function_">listIterator</span><span class="params">(<span class="type">int</span> index)</span> {</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt; size) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IndexOutOfBoundsException</span>();</span><br><span class="line">        }</span><br><span class="line">        Node RelaxNode;</span><br><span class="line">        <span class="type">int</span> <span class="variable">p</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (size - index &gt; index) {</span><br><span class="line">            RelaxNode = firstRelaxNode;</span><br><span class="line">            <span class="keyword">while</span> (p &lt;= index - RelaxNode.numElements) {</span><br><span class="line">                p += RelaxNode.numElements;</span><br><span class="line">                RelaxNode = RelaxNode.next;</span><br><span class="line">            }</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            RelaxNode = lastRelaxNode;</span><br><span class="line">            p = size;</span><br><span class="line">            <span class="keyword">while</span> ((p -= RelaxNode.numElements) &gt; index) {</span><br><span class="line">                RelaxNode = RelaxNode.previous;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RelaxIterator</span>(RelaxNode, index - p, index);</span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 向指定块的指定位置插入指定元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> RelaxNode 指定块</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> ptr 指定位置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> element 指定元素</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">insertIntoRelaxNode</span><span class="params">(Node RelaxNode, <span class="type">int</span> ptr, E element)</span> {</span><br><span class="line">        <span class="comment">//如果这个块满了</span></span><br><span class="line">        <span class="keyword">if</span> (RelaxNode.numElements == RelaxNodeCapacity) {</span><br><span class="line">            <span class="comment">// 创建一个新块</span></span><br><span class="line">            <span class="type">Node</span> <span class="variable">newRelaxNode</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Node</span>(RelaxNodeCapacity);</span><br><span class="line">            <span class="comment">// 将一半的元素移到新块中</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">elementsToMove</span> <span class="operator">=</span> RelaxNodeCapacity / <span class="number">2</span>;</span><br><span class="line">            <span class="type">int</span> <span class="variable">startIndex</span> <span class="operator">=</span> RelaxNodeCapacity - elementsToMove;</span><br><span class="line">            <span class="type">int</span> i;</span><br><span class="line">            <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; elementsToMove; i++) {</span><br><span class="line">                newRelaxNode.elements[i] = RelaxNode.elements[startIndex + i];</span><br><span class="line">                RelaxNode.elements[startIndex + i] = <span class="literal">null</span>;</span><br><span class="line">            }</span><br><span class="line">            RelaxNode.numElements -= elementsToMove;</span><br><span class="line">            newRelaxNode.numElements = elementsToMove;</span><br><span class="line">            <span class="comment">// 将新块插入到链表指定块后面</span></span><br><span class="line">            newRelaxNode.next = RelaxNode.next;</span><br><span class="line">            newRelaxNode.previous = RelaxNode;</span><br><span class="line">            <span class="keyword">if</span> (RelaxNode.next != <span class="literal">null</span>) {</span><br><span class="line">                RelaxNode.next.previous = newRelaxNode;</span><br><span class="line">            }</span><br><span class="line">            RelaxNode.next = newRelaxNode;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (RelaxNode == lastRelaxNode) {</span><br><span class="line">                lastRelaxNode = newRelaxNode;</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">// 如果插入位置大于原始块的实际元素数,此元素应该插入新块中</span></span><br><span class="line">            <span class="keyword">if</span> (ptr &gt; RelaxNode.numElements) {</span><br><span class="line">                RelaxNode = newRelaxNode;</span><br><span class="line">                ptr -= RelaxNode.numElements;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//由于块是数组是实现，所以插入位置后的元素都后移一位</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> RelaxNode.numElements; i &gt; ptr; i--) {</span><br><span class="line">            RelaxNode.elements[i] = RelaxNode.elements[i-<span class="number">1</span>];</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//执行插入操作</span></span><br><span class="line">        RelaxNode.elements[ptr] = element;</span><br><span class="line">        RelaxNode.numElements++;</span><br><span class="line">        <span class="comment">//维护链表大小</span></span><br><span class="line">        size++;</span><br><span class="line">        modCount++;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除块指定位置的元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> RelaxNode 指定块</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> ptr 指定位置</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">removeFromRelaxNode</span><span class="params">(Node RelaxNode, <span class="type">int</span> ptr)</span> {</span><br><span class="line">        RelaxNode.numElements--;</span><br><span class="line">        <span class="comment">//后面的元素向前移动一位</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> ptr; i &lt; RelaxNode.numElements; i++) {</span><br><span class="line">            RelaxNode.elements[i] = RelaxNode.elements[i + <span class="number">1</span>];</span><br><span class="line">        }</span><br><span class="line">        RelaxNode.elements[RelaxNode.numElements] = <span class="literal">null</span>;</span><br><span class="line">        <span class="comment">//如果此块不是最后一个块且此块和它的下一个块的元素总数小于块大小，则进行块合并操作</span></span><br><span class="line">        <span class="keyword">if</span> (RelaxNode.next != <span class="literal">null</span> &amp;&amp; (RelaxNode.next.numElements + RelaxNode.numElements) &lt;= RelaxNodeCapacity) {</span><br><span class="line">            mergeWithNextRelaxNode(RelaxNode);</span><br><span class="line">            <span class="comment">//如果此块不是最后一个块且它和上一个块的元素总数小于块大小，则进行合并操作</span></span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (RelaxNode.previous != <span class="literal">null</span> &amp;&amp; (RelaxNode.previous.numElements + RelaxNode.numElements) &lt;= RelaxNodeCapacity) {</span><br><span class="line">            mergeWithNextRelaxNode(RelaxNode.previous);</span><br><span class="line">        }</span><br><span class="line">        size--;</span><br><span class="line">        modCount++;</span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 块合并操作：将指定块和它的下一个块进行合并</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> RelaxNode 指定块</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">mergeWithNextRelaxNode</span><span class="params">(Node RelaxNode)</span> {</span><br><span class="line">        <span class="type">Node</span> <span class="variable">next</span> <span class="operator">=</span> RelaxNode.next;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; next.numElements; i++) {</span><br><span class="line">            RelaxNode.elements[RelaxNode.numElements + i] = next.elements[i];</span><br><span class="line">            next.elements[i] = <span class="literal">null</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//块的元素总数变量维护</span></span><br><span class="line">        RelaxNode.numElements += next.numElements;</span><br><span class="line">        <span class="keyword">if</span> (next.next != <span class="literal">null</span>) {</span><br><span class="line">            next.next.previous = RelaxNode;</span><br><span class="line">        }</span><br><span class="line">        RelaxNode.next = next.next;</span><br><span class="line">        <span class="keyword">if</span> (next == lastRelaxNode) {</span><br><span class="line">            lastRelaxNode = RelaxNode;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 松散链表迭代器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">class</span> <span class="title class_">RelaxIterator</span> <span class="keyword">implements</span> <span class="title class_">ListIterator</span>&lt;E&gt; {</span><br><span class="line"></span><br><span class="line">        Node currentRelaxNode;</span><br><span class="line">        <span class="type">int</span> ptr;</span><br><span class="line">        <span class="type">int</span> index;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">expectedModCount</span> <span class="operator">=</span> modCount;</span><br><span class="line"></span><br><span class="line">        RelaxIterator(Node RelaxNode, <span class="type">int</span> ptr, <span class="type">int</span> index) {</span><br><span class="line"></span><br><span class="line">            <span class="built_in">this</span>.currentRelaxNode = RelaxNode;</span><br><span class="line">            <span class="built_in">this</span>.ptr = ptr;</span><br><span class="line">            <span class="built_in">this</span>.index = index;</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="comment">//下一个位置</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">hasNext</span><span class="params">()</span> {</span><br><span class="line">            <span class="keyword">return</span> (index &lt; size - <span class="number">1</span>);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="meta">@SuppressWarnings({"unchecked"})</span></span><br><span class="line">        <span class="keyword">public</span> E <span class="title function_">next</span><span class="params">()</span> {</span><br><span class="line"></span><br><span class="line">            ptr++;</span><br><span class="line">            <span class="keyword">if</span> (ptr &gt;= currentRelaxNode.numElements) {</span><br><span class="line">                <span class="keyword">if</span> (currentRelaxNode.next != <span class="literal">null</span>) {</span><br><span class="line">                    currentRelaxNode = currentRelaxNode.next;</span><br><span class="line">                    ptr = <span class="number">0</span>;</span><br><span class="line">                } <span class="keyword">else</span> {</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoSuchElementException</span>();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            index++;</span><br><span class="line">            checkForModification();</span><br><span class="line">            <span class="keyword">return</span> (E) currentRelaxNode.elements[ptr];</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="comment">//判断</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">hasPrevious</span><span class="params">()</span> {</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> (index &gt; <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="meta">@SuppressWarnings({"unchecked"})</span></span><br><span class="line">        <span class="keyword">public</span> E <span class="title function_">previous</span><span class="params">()</span> {</span><br><span class="line"></span><br><span class="line">            ptr--;</span><br><span class="line">            <span class="keyword">if</span> (ptr &lt; <span class="number">0</span>) {</span><br><span class="line">                <span class="keyword">if</span> (currentRelaxNode.previous != <span class="literal">null</span>) {</span><br><span class="line">                    currentRelaxNode = currentRelaxNode.previous;</span><br><span class="line">                    ptr = currentRelaxNode.numElements - <span class="number">1</span>;</span><br><span class="line">                } <span class="keyword">else</span> {</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoSuchElementException</span>();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            index--;</span><br><span class="line">            checkForModification();</span><br><span class="line">            <span class="keyword">return</span> (E) currentRelaxNode.elements[ptr];</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">nextIndex</span><span class="params">()</span> {</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> (index + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">previousIndex</span><span class="params">()</span> {</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> (index - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">remove</span><span class="params">()</span> {</span><br><span class="line"></span><br><span class="line">            checkForModification();</span><br><span class="line">            removeFromRelaxNode(currentRelaxNode, ptr);</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">set</span><span class="params">(E e)</span> {</span><br><span class="line"></span><br><span class="line">            checkForModification();</span><br><span class="line">            currentRelaxNode.elements[ptr] = e;</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(E e)</span> {</span><br><span class="line"></span><br><span class="line">            checkForModification();</span><br><span class="line">            insertIntoRelaxNode(currentRelaxNode, ptr + <span class="number">1</span>, e);</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">checkForModification</span><span class="params">()</span> {</span><br><span class="line">            <span class="keyword">if</span> (modCount != expectedModCount) {</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ConcurrentModificationException</span>();</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h2><span id="23-最后就是测试工作">2.3 最后就是测试工作</span></h2>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestDemo</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line"></span><br><span class="line">        <span class="comment">//统计jdk自带链表add 500万个元素所需时间</span></span><br><span class="line">        LinkedList&lt;Integer&gt; ll = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;Integer&gt;();</span><br><span class="line">        <span class="type">long</span> endTime;</span><br><span class="line">        <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">5000000</span>; i++) {</span><br><span class="line">            ll.add(i);</span><br><span class="line">        }</span><br><span class="line">        endTime = System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">"Jdk实现的普通链表add500万个元素所需时间 -&gt; "</span> + (endTime - startTime)+<span class="string">"ms"</span>);</span><br><span class="line">        <span class="comment">//统计长度为500万的普通链表删除第250万个位置的元素所需时间</span></span><br><span class="line">        startTime = System.currentTimeMillis();</span><br><span class="line">        ll.remove(<span class="number">2500000</span>);</span><br><span class="line">        endTime = System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">"普通链表删除第250万个元素所需要的时间-&gt;"</span> + (endTime - startTime)+<span class="string">"ms"</span>);</span><br><span class="line">        ll = <span class="literal">null</span>;</span><br><span class="line">        System.gc();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//相同条件下松散链表的表现</span></span><br><span class="line">        RelaxList&lt;Integer&gt; ull = <span class="keyword">new</span> <span class="title class_">RelaxList</span>&lt;&gt;(<span class="number">16</span>);</span><br><span class="line">        startTime = System.currentTimeMillis();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">5000000</span>; i++) {</span><br><span class="line">            ull.add(i);</span><br><span class="line">        }</span><br><span class="line">        System.out.println(ull.size());</span><br><span class="line">        endTime = System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">"松散链表add 500万个元素所需时间 -&gt; "</span> + (endTime - startTime)+<span class="string">"ms"</span>);</span><br><span class="line">        startTime = System.currentTimeMillis();</span><br><span class="line">        System.out.println(ull.remove(<span class="number">2500000</span>));</span><br><span class="line">        endTime = System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">"松散链表删除第250万个元素所需时间-&gt;"</span> + (endTime - startTime)+<span class="string">"ms"</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">Test</span><span class="params">()</span>{</span><br><span class="line">        RelaxList&lt;String&gt; test1=<span class="keyword">new</span> <span class="title class_">RelaxList</span>&lt;&gt;(<span class="number">10</span>);</span><br><span class="line">        RelaxList&lt;String&gt; test2=<span class="keyword">new</span> <span class="title class_">RelaxList</span>&lt;&gt;(<span class="number">12</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<p>测试结果如下：<br><br>
+<img src="image/img_2.png" alt="img.png"></p>
+</body></html>
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/Algorithm-Base-4-2-Java实现双向链表/" data-toggle="tooltip" data-placement="top" title="4.2 双向链表">&larr; 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/Algorithm-Base-4-5-双向链表的一种优化（存储优化）/" data-toggle="tooltip" data-placement="top" title="4.5 双向链表存储优化">下一篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">目录</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1.什么是松散链表？</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">1.1 松散链表定义</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">1.2 在松散链表中查找一个元素</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">1.3 在松散链表中查找指定位置的元素</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">1.4 在松散链表中插入一个元素</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2. Java实现松散链表</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">2.1 首先是节点定义</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">2.2 然后就是具体的实现</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">2.3 最后就是测试工作</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#算法基础" title="算法基础">算法基础</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+				<!--
+                
+                <hr>
+                <h5>朋友们</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+				-->
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+          //console.log(a.target.textContent.replace(/\./g, ""));
+          document.getElementById(a.target.textContent.replace(/\./g, "").replace(" ","-")).scrollIntoView({behavior: 'smooth' });
+        })
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    //document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhihu_xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse"><b>B</b></i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/1776167012">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; muzhi 2026 
+                    <br>
+					
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://1776167012.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Mermaid图表库 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  // 页面加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid !== 'undefined') {
+      // 在这里可以配置Mermaid的主题、流程图方向等
+      mermaid.initialize({
+      // 自动识别并渲染所有 class="mermaid" 的div
+        startOnLoad: true,
+        // 可选：'default', 'dark', 'forest', 'neutral'
+        theme: 'neutral'
+      });
+    }
+  });
+</script>
+<script>
+$(document).ready(function() {
+    var isModalOpen = false;
+    // 1. 加载 search.xml 索引文件
+  $.ajax({
+    url: '/search.json', // 路径改为json
+    dataType: 'json',                    // 数据类型改为json
+    success: function(searchData) {      // 直接得到JS对象
+      console.log('搜索索引加载完成，共 ' + searchData.length + ' 篇文章。');
+      // 注意：searchData 现在直接是数组，无需解析
+      // 需要将全局的 searchData 变量赋值
+      window.searchData = searchData; // 赋值给全局变量
+    },
+    error: function() {
+      $('#search-status').text('无法加载搜索索引文件。');
+    }
+});
+
+    // 2. 搜索功能核心函数
+    function performSearch(keyword) {
+      var resultsContainer = $('#search-results-container').empty();
+      $('#search-status').hide();
+
+      if (!keyword.trim()) {
+        $('#search-status').text('输入关键词开始搜索...').show();
+        return;
+      }
+
+      var resultsHtml = '';
+      var resultCount = 0;
+      var kwReg = new RegExp(keyword, 'gi'); // 创建全局、不区分大小写的正则表达式
+
+      // 遍历所有文章数据
+      window.searchData.forEach(function(item) {
+        // 在标题和内容中搜索关键词
+        var titleMatch = item.title.match(kwReg);
+        var contentMatch = item.content.match(kwReg);
+
+        if (titleMatch || contentMatch) {
+          resultCount++;
+          // 构建标题高亮
+          var highlightedTitle = item.title.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+          // 从内容中提取包含关键词的片段（约150字符）并高亮
+          var contentSnippet = item.content;
+          var firstIndex = contentSnippet.toLowerCase().indexOf(keyword.toLowerCase());
+          if (firstIndex !== -1) {
+            var start = Math.max(0, firstIndex - 60);
+            var end = Math.min(contentSnippet.length, firstIndex + 90);
+            contentSnippet = '...' + contentSnippet.substring(start, end) + '...';
+          } else {
+            contentSnippet = contentSnippet.substring(0, 150) + '...';
+          }
+          contentSnippet = contentSnippet.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+
+          // 生成单个结果的HTML
+          resultsHtml += `
+            <div class="search-result-item">
+              <a href="${item.url}" class="search-result-title">${highlightedTitle}</a>
+              <p class="search-result-excerpt">${contentSnippet}</p>
+            </div>
+          `;
+        }
+      });
+
+      // 显示结果或“无结果”状态
+      if (resultCount > 0) {
+        resultsContainer.html(resultsHtml);
+      } else {
+        resultsContainer.html('<div id="search-status">未找到包含 "' + keyword + '" 的文章。</div>');
+      }
+    }
+
+    // 3. 绑定输入事件（防抖，提升性能）
+    var searchTimer;
+    $('#search-input').on('input', function() {
+      clearTimeout(searchTimer);
+      var keyword = $(this).val();
+      searchTimer = setTimeout(function() {
+        performSearch(keyword);
+      }, 300); // 延迟300毫秒后执行搜索
+    });
+
+    // 4. 全局控制搜索弹窗显示/隐藏的函数
+    window.openSearchModal = function() {
+      isModalOpen = true;
+      $('#search-mask, #search-modal').fadeIn(200);
+      $('#search-input').focus().select(); // 自动聚焦到输入框
+      $('body').css('overflow', 'hidden'); // 防止背景滚动
+    };
+    window.closeSearchModal = function() {
+      isModalOpen = false;
+      $('#search-mask, #search-modal').fadeOut(200);
+      $('#search-input').val(''); // 清空输入框
+      $('#search-results-container').empty(); // 清空结果
+      $('#search-status').text('输入关键词开始搜索...').show();
+      $('body').css('overflow', 'auto');
+    };
+
+    // 5. 事件绑定：点击遮罩关闭、ESC键关闭
+    $('#search-mask').on('click', closeSearchModal);
+    $(document).on('keydown', function(e) {
+      if (e.keyCode === 27 && isModalOpen) { // ESC键
+        closeSearchModal();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.keyCode === 70 && !isModalOpen) { // Ctrl+F / Cmd+F
+        e.preventDefault(); // 阻止浏览器默认查找
+        openSearchModal();
+      }
+    });
+  });
+</script>
+
+<!-- 本地搜索 CSS -->
+    <style>
+      /* 搜索弹窗遮罩 */
+      #search-mask {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9998;
+        display: none;
+      }
+      /* 搜索主容器 */
+      #search-modal {
+        position: fixed;
+        top: 10%; left: 50%;
+        transform: translateX(-50%);
+        width: 80%; max-width: 600px;
+        max-height: 80vh;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      }
+      /* 搜索框区域 */
+      .search-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      #search-input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      #search-input:focus {
+        border-color: #3498db;
+      }
+      /* 搜索结果区域 */
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 20px;
+      }
+      .search-result-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .search-result-item:last-child {
+        border-bottom: none;
+      }
+      .search-result-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #2c3e50;
+      }
+      .search-result-excerpt {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 限制最多显示3行 */
+        -webkit-box-orient: vertical;
+      }
+      .search-result-highlight {
+        background-color: #fff9c4; /* 关键词高亮背景色 */
+        font-weight: bold;
+        color: #e74c3c;
+      }
+      /* 无结果/加载状态 */
+      #search-status {
+        padding: 20px;
+        text-align: center;
+        color: #999;
+      }
+    </style>
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+	<script  type="text/javascript">
+<!-- Image to hack wechat -->
+<img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+</body>
+
+</html>

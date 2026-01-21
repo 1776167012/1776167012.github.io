@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          19.分布式事务编程 - 牧之的博客 | Muzhi Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://1776167012.github.io/article/Database-MySQL-PerformanceOptimization-25-分布式事务编程/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/beantech.min.css">
+
+
+    
+<link rel="stylesheet" href="/css/donate.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script>
+	</script>
+	<style>
+	* {
+            box-sizing: border-box;
+        }
+
+        form {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding-left: 13px;
+        }
+
+        button {
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        /*搜索框1*/
+        .bar1 {
+			background: #FFF;
+			max-width: 200px;
+		}
+        .bar1 input {
+			max-height: 30px;
+            border: 2px solid #BFBFBF;
+            border-radius: 5px;
+            background: #FFFFFF;
+            color: #BFBFBF;
+			-webkit-text-fill-color: #BFBFBF;
+        }
+        .bar1 button {
+			max-height: 30px;
+            top: 0;
+            right: 0;
+            background: #BFBFBF;
+            border-radius: 0 5px 5px 0;
+        }
+        .bar1 button:before {
+            content: "\f002";
+            font-family: FontAwesome;
+            font-size: 16px;
+            color: #F9F0DA;
+        }
+		</style>
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/feed.xml" title="牧之" type="application/atom+xml">
+</head>
+
+
+
+<!-- hack iOS CSS :active style -->
+<!-- <body ontouchstart=""  class="<?php echo($_COOKIE['night'] == '1' ? '' : ''); ?>"> -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/header_img/codeBack.png')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#MySQL性能优化" title="MySQL性能优化">MySQL性能优化</a>
+                            
+                        </div>
+                        <h1>19.分布式事务编程</h1>
+                        <!-- <h2 class="subheading"></h2> -->
+                        <span class="meta">
+                            muzhi on
+                            2021-06-18
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1776167012</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                   <!-- 例如，放在导航菜单内部 -->
+                   <li>
+                    <a href="javascript:void(0);" onclick="openSearchModal()" title="搜索">搜索</a>
+                   </li>
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+					<li>
+                        <a href="/archive/">文章归档</a>
+                    </li>
+					<li>
+                        <a href="/tags/">博客标签</a>
+                    </li>
+					<li>
+                        <a href="/about/">关于作者</a>
+                    </li>
+
+					<!--
+					修改about在前面的问题
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">没有什么比快乐更重要</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    -->
+                </ul>
+            </div>
+
+        <!-- 本地搜索弹窗结构 -->
+        <div id="search-mask"></div>
+        <div id="search-modal">
+          <div class="search-header">
+            <input type="text" id="search-input" placeholder="请输入关键词搜索..." autocomplete="off" />
+          </div>
+          <div id="search-status">输入关键词开始搜索...</div>
+          <div class="search-results" id="search-results-container">
+            <!-- 搜索结果将通过JS动态插入到这里 -->
+          </div>
+        </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				
+                <p>InnoDB存储引擎存储了对于XA事务的支持，并通过XA事务来支持分布式事务的实现。</p>
+<h1><span id="1什么是分布式事务">1.什么是分布式事务？</span></h1>
+<p>分布式事务是指允许多个独立的事务资源（transactional resources）参与到一个全局事务的事务中，其中独立的事务资源可以理解为不同的数据库。</p>
+<p>全局事务要求在其中所有参与的事务要么都提交，要么都回滚，这对于事务原有的ACID要求又有了提高。</p>
+<p><strong>注意：在使用分布式事务时，InnoDB存储引擎的事务隔离级别必须设置为SERIALIZABLE</strong></p>
+<h1><span id="2xa事务">2.XA事务</span></h1>
+<p>XA事务允许不同数据库之间的分布式事务，如一台服务器是MySQL数据库的，另一台是Oracle数据库的，<br>
+可能还有一台服务器是SQL Server数据库的，只要参与到全局事务中的每个节点都支持XA事务即可。</p>
+<p>分布式事务可能在银行系统的转账中比较常见，<br>
+比如用户麻子(账户id为1)需要从上海转10009元到北京的用户四郎（账户id为2）的存储卡中：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Bank<span class="variable">@shanghai</span>:</span><br><span class="line"></span><br><span class="line"><span class="keyword">UPDATE</span> account <span class="keyword">SET</span> money <span class="operator">=</span> money <span class="operator">-</span> <span class="number">10000</span> <span class="keyword">WHERE</span> acctId<span class="operator">=</span><span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">Bank<span class="variable">@Beijing</span>:</span><br><span class="line"></span><br><span class="line"><span class="keyword">UPDATE</span> account <span class="keyword">SET</span> money<span class="operator">=</span>money<span class="operator">+</span><span class="number">10000</span> <span class="keyword">WHERE</span> acctId<span class="operator">=</span><span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>在上面的情况下，一定需要使用分布式事务来保证数据安全。如果发生的操作不能都提交或回滚，<br>
+那么任何一个节点出现问题都会导致严重的后果，例如第一个事务提交了，但第二个事务回滚了，<br>
+那么就会出现麻子的钱扣了但四郎没收到钱的情况，反之就会出现麻子的钱没扣但四郎的账户多了钱的情况，<br>
+<strong>这两种情况都是违背法律的。</strong></p>
+<p><strong>在这里XA事务就可以解决上面的问题，那么XA事务是如何解决的呢？</strong></p>
+<p><strong>1）首先XA事务由一个或多个资源管理器（resource manager）,一个事务管理器（transaction manager）以及一个应用程序（application<br>
+program）组成。</strong></p>
+<ul>
+<li>
+<p>资源管理器：它提供访问事务资源的方法。通常一个数据库就是一个资源管理器。</p>
+</li>
+<li>
+<p>事务管理器：协调参与全局事务中的各个事务。需要和参与到全局事务中的所有资源管理器进行通信。</p>
+</li>
+</ul>
+<p>应用程序：定义事务的边界，指定全局事务中的操作。</p>
+<p>在MySQL数据库的分布式事务中，资源管理器就是MySQL数据库，事务管理器为连接到MySQL服务器的客户端。<br>
+其中三者的关系如下图：</p>
+<p><img src="/article/Database-MySQL-PerformanceOptimization-25-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%BC%96%E7%A8%8B/media/image1.png" alt></p>
+<p><strong>2）其次就是分布式事务的执行过程</strong></p>
+<p>分布式事务使用两阶段提交（two-phase commit）的方式进行的。</p>
+<ul>
+<li>
+<p>在第一阶段，所有参与全局事务的节点都开始准备（PREPARE），所有节点告诉事务管理器他们准备好了提交了。</p>
+</li>
+<li>
+<p>然后第二阶段事务管理器就会告诉资源管理器执行ROLLBACK还是COMMIT。如果其中任何一个节点显示不能提交，则所有的节点都会被告知需要回滚。</p>
+</li>
+<li>
+<p>MySQL数据库XA事务的SQL语法如下：</p>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">XA &#123;<span class="keyword">START</span><span class="operator">|</span><span class="keyword">BEGIN</span>&#125; xid  [<span class="keyword">JOIN</span><span class="operator">|</span>RESUME ]</span><br><span class="line"></span><br><span class="line">XA <span class="keyword">END</span> xid  [SUSPEND  [<span class="keyword">FOR</span> MIGRATE ] ]</span><br><span class="line"></span><br><span class="line">XA <span class="keyword">PREPARE</span> xid</span><br><span class="line"></span><br><span class="line">XA <span class="keyword">COMMIT</span> xid  [<span class="keyword">ONE</span> PHASE ]</span><br><span class="line"></span><br><span class="line">XA <span class="keyword">ROLLBACK</span> xid</span><br><span class="line"></span><br><span class="line">XA RECOVER</span><br></pre></td></tr></table></figure>
+<p><img src="/article/Database-MySQL-PerformanceOptimization-25-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%BC%96%E7%A8%8B/media/image2.png" alt></p>
+<p>在单个节点上运行分布式事务没有太大实际意义，但是要在MySQL数据库的命令下演示多个节点参与的分布式事务也是行不通的。</p>
+<p><strong>注意：通常来说，都是通过编程语言来完成分布式事务的操作的。</strong></p>
+<h2><span id="21-实例演示">2.1 实例演示</span></h2>
+<p><strong>下面展示如何使用JTA（jdk的JTA API，可以很好的支持MySQL的分布式事务）来调用MySQL的分布式事务：</strong></p>
+<p>首先在自己本地创建两个数据库（我是用的以及有的）：</p>
+<p><img src="/article/Database-MySQL-PerformanceOptimization-25-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%BC%96%E7%A8%8B/media/image3.png" alt></p>
+<p>然后在这两个数据库中创建相同的表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> accountBank(</span><br><span class="line">userid <span class="type">int</span>(<span class="number">11</span>),</span><br><span class="line">username <span class="type">varchar</span>(<span class="number">20</span>),</span><br><span class="line">money <span class="type">decimal</span>(<span class="number">17</span>,<span class="number">2</span>),</span><br><span class="line"><span class="keyword">primary</span> key(userid)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>接着在employees库插入数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> accountBank <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">&#x27;麻子&#x27;</span>,<span class="number">1000000</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>peixun数据库插入：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> accountBank <span class="keyword">values</span>(<span class="number">2</span>,<span class="string">&#x27;四郎&#x27;</span>,<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+<p>通过上面的操作，我们已经具备分布式事务编程的场景了（不同的数据库之间保证事务数据一致性）：</p>
+<p>下面进行代码编写：</p>
+<p>首先编写资源管理器唯一标识id生成器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> XaStudy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.transaction.xa.Xid;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyXid</span> <span class="keyword">implements</span> <span class="title class_">Xid</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> formatId;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">byte</span> gtRid[];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">byte</span> bqUal[];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyXid</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyXid</span><span class="params">(<span class="type">int</span> formatId, <span class="type">byte</span> gtRid[], <span class="type">byte</span> bqUal[])</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.formatId = formatId;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.gtRid = gtRid;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.bqUal = bqUal;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getFormatId</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> formatId;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">byte</span>[] getGlobalTransactionId() &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> gtRid;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">byte</span>[] getBranchQualifier() &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> gtRid;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>然后编写全局事务管理器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> XaStudy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.mysql.cj.jdbc.MysqlXADataSource;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.sql.XAConnection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.transaction.xa.XAResource;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.transaction.xa.Xid;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">XADemo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> MysqlXADataSource <span class="title function_">GetDataSource</span><span class="params">(String commString, String user, String passwd)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line"></span><br><span class="line">            <span class="type">MysqlXADataSource</span> <span class="variable">ds</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MysqlXADataSource</span>();</span><br><span class="line"></span><br><span class="line">            ds.setUrl(commString);</span><br><span class="line"></span><br><span class="line">            ds.setUser(user);</span><br><span class="line"></span><br><span class="line">            ds.setPassword(passwd);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> ds;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line"></span><br><span class="line">            e.printStackTrace();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//数据库1地址</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">connString1</span> <span class="operator">=</span> <span class="string">&quot;jdbc:mysql://localhost:3306/employees&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//数据库2地址</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">connString2</span> <span class="operator">=</span> <span class="string">&quot;jdbc:mysql://localhost:3306/peixun&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line"><span class="comment">//创建资源管理器1</span></span><br><span class="line">            <span class="type">MysqlXADataSource</span> <span class="variable">ds1</span> <span class="operator">=</span> GetDataSource(connString1, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;yanjiadou&quot;</span>);</span><br><span class="line"><span class="comment">//创建资源管理器2</span></span><br><span class="line">            <span class="type">MysqlXADataSource</span> <span class="variable">ds2</span> <span class="operator">=</span> GetDataSource(connString2, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;yanjiadou&quot;</span>);</span><br><span class="line"><span class="comment">//获得资源管理器1的连接</span></span><br><span class="line">            <span class="type">XAConnection</span> <span class="variable">xaConnection1</span> <span class="operator">=</span> ds1.getXAConnection();</span><br><span class="line">            <span class="type">XAResource</span> <span class="variable">xaResource1</span> <span class="operator">=</span> xaConnection1.getXAResource();</span><br><span class="line">            <span class="type">Connection</span> <span class="variable">connection1</span> <span class="operator">=</span> xaConnection1.getConnection();</span><br><span class="line">            <span class="type">Statement</span> <span class="variable">statement1</span> <span class="operator">=</span> connection1.createStatement();</span><br><span class="line"><span class="comment">//获得资源管理器2的连接</span></span><br><span class="line">            <span class="type">XAConnection</span> <span class="variable">xaConnection2</span> <span class="operator">=</span> ds2.getXAConnection();</span><br><span class="line">            <span class="type">XAResource</span> <span class="variable">xaResource2</span> <span class="operator">=</span> xaConnection2.getXAResource();</span><br><span class="line">            <span class="type">Connection</span> <span class="variable">connection2</span> <span class="operator">=</span> xaConnection2.getConnection();</span><br><span class="line">            <span class="type">Statement</span> <span class="variable">statement2</span> <span class="operator">=</span> connection2.createStatement();</span><br><span class="line"><span class="comment">//创建资源管理器1的唯一标识</span></span><br><span class="line">            <span class="type">Xid</span> <span class="variable">xid1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyXid</span>(<span class="number">100</span>, <span class="keyword">new</span> <span class="title class_">byte</span>[]&#123;<span class="number">0x01</span>&#125;, <span class="keyword">new</span> <span class="title class_">byte</span>[]&#123;<span class="number">0x02</span>&#125;);</span><br><span class="line"><span class="comment">//创建资源管理器2的唯一标识</span></span><br><span class="line">            <span class="type">Xid</span> <span class="variable">xid2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyXid</span>(<span class="number">100</span>, <span class="keyword">new</span> <span class="title class_">byte</span>[]&#123;<span class="number">0x11</span>&#125;, <span class="keyword">new</span> <span class="title class_">byte</span>[]&#123;<span class="number">0x12</span>&#125;);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                xaResource1.start(xid1, XAResource.TMNOFLAGS);</span><br><span class="line">                statement1.execute(<span class="string">&quot;update accountBank set money=money-10000 where userid=1&quot;</span>);</span><br><span class="line">                xaResource1.end(xid1, XAResource.TMSUCCESS);</span><br><span class="line">                xaResource2.start(xid2, XAResource.TMNOFLAGS);</span><br><span class="line">                statement2.execute(<span class="string">&quot;update accountBank set money=money+10000 where userid=2&quot;</span>);</span><br><span class="line">                xaResource2.end(xid2, XAResource.TMSUCCESS);</span><br><span class="line"><span class="comment">//资源管理器1第一阶段准备</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">ret1</span> <span class="operator">=</span> xaResource1.prepare(xid1);</span><br><span class="line"><span class="comment">//资源管理器2第一阶段准备</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">ret2</span> <span class="operator">=</span> xaResource2.prepare(xid2);</span><br><span class="line"><span class="comment">//事务管理器提交</span></span><br><span class="line">                <span class="keyword">if</span> (ret1 == XAResource.XA_OK &amp;&amp; ret2 == XAResource.XA_OK)&#123;</span><br><span class="line">                    xaResource1.commit(xid1, <span class="literal">false</span>);</span><br><span class="line">                    xaResource2.commit(xid2, <span class="literal">false</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行之：</p>
+<p><img src="/article/Database-MySQL-PerformanceOptimization-25-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%BC%96%E7%A8%8B/media/image4.png" alt></p>
+<p>看看数据库是否发生变化:</p>
+<p><img src="/article/Database-MySQL-PerformanceOptimization-25-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%BC%96%E7%A8%8B/media/image5.png" alt><br>
+<img src="/article/Database-MySQL-PerformanceOptimization-25-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%BC%96%E7%A8%8B/media/image6.png" alt></p>
+<p>我们可以看到麻子的账户确实少了10000元，四郎的账户确实多了10000元。</p>
+<p>上面的是正常的情况，下面如果测试下不正确的情况下，全局事务管理器是否会防止事故发生</p>
+<p>我们故意将：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">statement2.execute(<span class="string">&quot;update accountBank set money=money+10000 where userid=2&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>改成：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">statement2.execute(<span class="string">&quot;update accountBank set money=money+10000 where userid=1&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>然后执行，发现数据库中果然出现了事故：</p>
+<p><img src="/article/Database-MySQL-PerformanceOptimization-25-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%BC%96%E7%A8%8B/media/image7.png" alt><br>
+<img src="/article/Database-MySQL-PerformanceOptimization-25-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%BC%96%E7%A8%8B/media/image8.png" alt></p>
+<p>这里由于某种原因导致四郎的userid出错了（但sql没错），实际上，四郎并没有接受到钱，但麻子的账户却扣了钱。</p>
+<p><strong>那么这里我们该如何解决呢？</strong></p>
+<p>我们可以先获取受影响的行来进行判断是否进行是否进行提交：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            xaResource1.start(xid1, XAResource.TMNOFLAGS);</span><br><span class="line">            <span class="type">int</span> <span class="variable">num1</span> <span class="operator">=</span> statement1.executeUpdate(<span class="string">&quot;update accountBank set money=money-10000 where userid=1&quot;</span>);</span><br><span class="line">            xaResource1.end(xid1, XAResource.TMSUCCESS);</span><br><span class="line">            xaResource2.start(xid2, XAResource.TMNOFLAGS);</span><br><span class="line">            <span class="type">int</span> <span class="variable">num2</span> <span class="operator">=</span> statement2.executeUpdate(<span class="string">&quot;update accountBank set money=money+10000 where userid=1&quot;</span>);</span><br><span class="line">            xaResource2.end(xid2, XAResource.TMSUCCESS);</span><br><span class="line">            <span class="keyword">if</span> (num1 == <span class="number">1</span> &amp;&amp; num2 == <span class="number">1</span>) &#123;</span><br><span class="line"><span class="comment">//资源管理器1第一阶段准备</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">ret1</span> <span class="operator">=</span> xaResource1.prepare(xid1);</span><br><span class="line"><span class="comment">//资源管理器2第一阶段准备</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">ret2</span> <span class="operator">=</span> xaResource2.prepare(xid2);</span><br><span class="line"><span class="comment">//事务管理器提交</span></span><br><span class="line">                <span class="keyword">if</span> (ret1 == XAResource.XA_OK &amp;&amp; ret2 == XAResource.XA_OK) &#123;</span><br><span class="line">                    xaResource1.commit(xid1, <span class="literal">false</span>);</span><br><span class="line">                    xaResource2.commit(xid2, <span class="literal">false</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，不论是sql错误导致问题还是条件异常导致错误，都不会导致分布式事务问题。</p>
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/Database-MySQL-PerformanceOptimization-24-事务的隔离级别/" data-toggle="tooltip" data-placement="top" title="18.事务隔离级别">&larr; 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/SpringFramework-1-Spring概述/" data-toggle="tooltip" data-placement="top" title="1.Spring概述">下一篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">目录</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1.什么是分布式事务？</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2.XA事务</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">2.1 实例演示</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#MySQL性能优化" title="MySQL性能优化">MySQL性能优化</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+				<!--
+                
+                <hr>
+                <h5>朋友们</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+				-->
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+          //console.log(a.target.textContent.replace(/\./g, ""));
+          document.getElementById(a.target.textContent.replace(/\./g, "").replace(" ","-")).scrollIntoView({behavior: 'smooth' });
+        })
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    //document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhihu_xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse"><b>B</b></i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/1776167012">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; muzhi 2026 
+                    <br>
+					
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://1776167012.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Mermaid图表库 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  // 页面加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid !== 'undefined') {
+      // 在这里可以配置Mermaid的主题、流程图方向等
+      mermaid.initialize({
+      // 自动识别并渲染所有 class="mermaid" 的div
+        startOnLoad: true,
+        // 可选：'default', 'dark', 'forest', 'neutral'
+        theme: 'neutral'
+      });
+    }
+  });
+</script>
+<script>
+$(document).ready(function() {
+    var isModalOpen = false;
+    // 1. 加载 search.xml 索引文件
+  $.ajax({
+    url: '/search.json', // 路径改为json
+    dataType: 'json',                    // 数据类型改为json
+    success: function(searchData) {      // 直接得到JS对象
+      console.log('搜索索引加载完成，共 ' + searchData.length + ' 篇文章。');
+      // 注意：searchData 现在直接是数组，无需解析
+      // 需要将全局的 searchData 变量赋值
+      window.searchData = searchData; // 赋值给全局变量
+    },
+    error: function() {
+      $('#search-status').text('无法加载搜索索引文件。');
+    }
+});
+
+    // 2. 搜索功能核心函数
+    function performSearch(keyword) {
+      var resultsContainer = $('#search-results-container').empty();
+      $('#search-status').hide();
+
+      if (!keyword.trim()) {
+        $('#search-status').text('输入关键词开始搜索...').show();
+        return;
+      }
+
+      var resultsHtml = '';
+      var resultCount = 0;
+      var kwReg = new RegExp(keyword, 'gi'); // 创建全局、不区分大小写的正则表达式
+
+      // 遍历所有文章数据
+      window.searchData.forEach(function(item) {
+        // 在标题和内容中搜索关键词
+        var titleMatch = item.title.match(kwReg);
+        var contentMatch = item.content.match(kwReg);
+
+        if (titleMatch || contentMatch) {
+          resultCount++;
+          // 构建标题高亮
+          var highlightedTitle = item.title.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+          // 从内容中提取包含关键词的片段（约150字符）并高亮
+          var contentSnippet = item.content;
+          var firstIndex = contentSnippet.toLowerCase().indexOf(keyword.toLowerCase());
+          if (firstIndex !== -1) {
+            var start = Math.max(0, firstIndex - 60);
+            var end = Math.min(contentSnippet.length, firstIndex + 90);
+            contentSnippet = '...' + contentSnippet.substring(start, end) + '...';
+          } else {
+            contentSnippet = contentSnippet.substring(0, 150) + '...';
+          }
+          contentSnippet = contentSnippet.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+
+          // 生成单个结果的HTML
+          resultsHtml += `
+            <div class="search-result-item">
+              <a href="${item.url}" class="search-result-title">${highlightedTitle}</a>
+              <p class="search-result-excerpt">${contentSnippet}</p>
+            </div>
+          `;
+        }
+      });
+
+      // 显示结果或“无结果”状态
+      if (resultCount > 0) {
+        resultsContainer.html(resultsHtml);
+      } else {
+        resultsContainer.html('<div id="search-status">未找到包含 "' + keyword + '" 的文章。</div>');
+      }
+    }
+
+    // 3. 绑定输入事件（防抖，提升性能）
+    var searchTimer;
+    $('#search-input').on('input', function() {
+      clearTimeout(searchTimer);
+      var keyword = $(this).val();
+      searchTimer = setTimeout(function() {
+        performSearch(keyword);
+      }, 300); // 延迟300毫秒后执行搜索
+    });
+
+    // 4. 全局控制搜索弹窗显示/隐藏的函数
+    window.openSearchModal = function() {
+      isModalOpen = true;
+      $('#search-mask, #search-modal').fadeIn(200);
+      $('#search-input').focus().select(); // 自动聚焦到输入框
+      $('body').css('overflow', 'hidden'); // 防止背景滚动
+    };
+    window.closeSearchModal = function() {
+      isModalOpen = false;
+      $('#search-mask, #search-modal').fadeOut(200);
+      $('#search-input').val(''); // 清空输入框
+      $('#search-results-container').empty(); // 清空结果
+      $('#search-status').text('输入关键词开始搜索...').show();
+      $('body').css('overflow', 'auto');
+    };
+
+    // 5. 事件绑定：点击遮罩关闭、ESC键关闭
+    $('#search-mask').on('click', closeSearchModal);
+    $(document).on('keydown', function(e) {
+      if (e.keyCode === 27 && isModalOpen) { // ESC键
+        closeSearchModal();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.keyCode === 70 && !isModalOpen) { // Ctrl+F / Cmd+F
+        e.preventDefault(); // 阻止浏览器默认查找
+        openSearchModal();
+      }
+    });
+  });
+</script>
+
+<!-- 本地搜索 CSS -->
+    <style>
+      /* 搜索弹窗遮罩 */
+      #search-mask {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9998;
+        display: none;
+      }
+      /* 搜索主容器 */
+      #search-modal {
+        position: fixed;
+        top: 10%; left: 50%;
+        transform: translateX(-50%);
+        width: 80%; max-width: 600px;
+        max-height: 80vh;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      }
+      /* 搜索框区域 */
+      .search-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      #search-input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      #search-input:focus {
+        border-color: #3498db;
+      }
+      /* 搜索结果区域 */
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 20px;
+      }
+      .search-result-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .search-result-item:last-child {
+        border-bottom: none;
+      }
+      .search-result-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #2c3e50;
+      }
+      .search-result-excerpt {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 限制最多显示3行 */
+        -webkit-box-orient: vertical;
+      }
+      .search-result-highlight {
+        background-color: #fff9c4; /* 关键词高亮背景色 */
+        font-weight: bold;
+        color: #e74c3c;
+      }
+      /* 无结果/加载状态 */
+      #search-status {
+        padding: 20px;
+        text-align: center;
+        color: #999;
+      }
+    </style>
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+	<script  type="text/javascript">
+<!-- Image to hack wechat -->
+<img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+</body>
+
+</html>

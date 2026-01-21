@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          安全加密算法 - 牧之的博客 | Muzhi Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://1776167012.github.io/article/加密-1-安全传输加密算法/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/beantech.min.css">
+
+
+    
+<link rel="stylesheet" href="/css/donate.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script>
+	</script>
+	<style>
+	* {
+            box-sizing: border-box;
+        }
+
+        form {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding-left: 13px;
+        }
+
+        button {
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        /*搜索框1*/
+        .bar1 {
+			background: #FFF;
+			max-width: 200px;
+		}
+        .bar1 input {
+			max-height: 30px;
+            border: 2px solid #BFBFBF;
+            border-radius: 5px;
+            background: #FFFFFF;
+            color: #BFBFBF;
+			-webkit-text-fill-color: #BFBFBF;
+        }
+        .bar1 button {
+			max-height: 30px;
+            top: 0;
+            right: 0;
+            background: #BFBFBF;
+            border-radius: 0 5px 5px 0;
+        }
+        .bar1 button:before {
+            content: "\f002";
+            font-family: FontAwesome;
+            font-size: 16px;
+            color: #F9F0DA;
+        }
+		</style>
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/feed.xml" title="牧之" type="application/atom+xml">
+</head>
+
+
+
+<!-- hack iOS CSS :active style -->
+<!-- <body ontouchstart=""  class="<?php echo($_COOKIE['night'] == '1' ? '' : ''); ?>"> -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('https://api.dujin.org/bing/1920.php')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#加密" title="加密">加密</a>
+                            
+                        </div>
+                        <h1>安全加密算法</h1>
+                        <!-- <h2 class="subheading"></h2> -->
+                        <span class="meta">
+                            muzhi on
+                            2023-05-15
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1776167012</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                   <!-- 例如，放在导航菜单内部 -->
+                   <li>
+                    <a href="javascript:void(0);" onclick="openSearchModal()" title="搜索">搜索</a>
+                   </li>
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+					<li>
+                        <a href="/archive/">文章归档</a>
+                    </li>
+					<li>
+                        <a href="/tags/">博客标签</a>
+                    </li>
+					<li>
+                        <a href="/about/">关于作者</a>
+                    </li>
+
+					<!--
+					修改about在前面的问题
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">没有什么比快乐更重要</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    -->
+                </ul>
+            </div>
+
+        <!-- 本地搜索弹窗结构 -->
+        <div id="search-mask"></div>
+        <div id="search-modal">
+          <div class="search-header">
+            <input type="text" id="search-input" placeholder="请输入关键词搜索..." autocomplete="off" />
+          </div>
+          <div id="search-status">输入关键词开始搜索...</div>
+          <div class="search-results" id="search-results-container">
+            <!-- 搜索结果将通过JS动态插入到这里 -->
+          </div>
+        </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				
+                <p><strong>一.何为安全传输？</strong></p>
+<p>安全传输就是，即使人家从网络监听到我们发送的数据包，也无法破译我们的信息，或者破译的机会十分渺茫。</p>
+<p>那么这是如何实现的呢？ 毕竟，我们想要传输加密信息，接收者解密的话则需要密钥，而密钥也是需要通过网络传输的啊！！</p>
+<p><strong>1.非对称加密</strong></p>
+<p>密钥的安全传输需要用到一种特殊的加密技术： 非对称加密。</p>
+<p><strong>1.1 何为非对称加密？</strong></p>
+<p>一次非对称加密信息传输包含三个要素： 公钥，私钥，传输报文</p>
+<p>公钥： 源服务器生成，通过网络传输到目标服务器</p>
+<p>私钥： 源服务器生成，绝对保存在本地，不经过任何传输到任何地方，只存在源服务器本地。</p>
+<p>传输报文： 通过公钥或私钥进行加解密</p>
+<p><strong>非对称加密运行流程如下：</strong></p>
+<p>首先，源服务器生成一对密钥： 公钥，私钥。 公钥通过网络明文发送给目标服务器，然后源服务器将要发送的报文用私钥加密后发送给目标服务器，目标服务器拿到密文用公钥解密(<strong>这个过程不安全，因为如果其他人监听到公钥了，那么他就可以用公钥对源服务器发出的报文进行解密</strong>) ，接着目标服务器用公钥对要发送的报文进行加密，发送到源服务器，源服务器用私钥进行解密即可(<strong>这个过程是安全的，因为私钥只有源服务器拥有</strong>)</p>
+<p><strong>1.2 非对称加密算法RSA实例</strong></p>
+<p>典型的非对称加密算法RSA应用实例：</p>
+<p>package RSA;</p>
+<p>import javax.crypto.Cipher;</p>
+<p>import javax.crypto.spec.IvParameterSpec;</p>
+<p>import javax.crypto.spec.SecretKeySpec;</p>
+<p>import java.nio.charset.Charset;</p>
+<p>import java.security.*;</p>
+<p>import java.security.interfaces.RSAPrivateKey;</p>
+<p>import java.security.interfaces.RSAPublicKey;</p>
+<p>import java.security.spec.PKCS8EncodedKeySpec;</p>
+<p>import java.security.spec.X509EncodedKeySpec;</p>
+<p>import java.util.Arrays;</p>
+<p>import java.util.Base64;</p>
+<p>public class RSADemo {</p>
+<p>private static final String ENCODE = “UTF-8”;</p>
+<p>private static final String AES = “AES”;</p>
+<p>private static final String CIPHER_ALGORITHM = “AES/CBC/PKCS5Padding”;</p>
+<p>/**</p>
+<p>* AES加密</p>
+<p>* @param content 加密内容</p>
+<p>* @param AES_IV 加密偏移量</p>
+<p>* @param AES_KEY 加密密钥</p>
+<p>* @return 密文</p>
+<p>* @throws Exception 加密过程中出现的异常</p>
+<p>*/</p>
+<p>public static String AESEncryptEncode(String content,String AES_IV,String AES_KEY) throws Exception{</p>
+<p>Base64.Decoder decoder = Base64.getDecoder();</p>
+<p>byte[] keyByte = decoder.decode(AES_KEY);</p>
+<p>int base = 16;</p>
+<p>if (keyByte.length % base != 0) {</p>
+<p>int groups = keyByte.length / base + 1;</p>
+<p>byte[] temp = new byte [groups * base ];</p>
+<p>Arrays.fill(temp, (byte) 0);</p>
+<p>System.arraycopy(keyByte, 0, temp, 0, keyByte.length);</p>
+<p>keyByte = temp;</p>
+<p>}</p>
+<p>SecretKeySpec secretKeySpec = new SecretKeySpec(keyByte,AES);</p>
+<p>Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);</p>
+<p>cipher.init(Cipher.ENCRYPT_MODE,secretKeySpec,new IvParameterSpec(decoder.decode(AES_IV)));</p>
+<p>byte[] result = cipher.doFinal(content.getBytes(ENCODE));</p>
+<p>return Base64.getEncoder().encodeToString(result);</p>
+<p>}</p>
+<p>/**</p>
+<p>* AES解密</p>
+<p>* @param content 密文</p>
+<p>* @param AES_IV 解密偏移量</p>
+<p>* @param AES_KEY 解密密钥</p>
+<p>* @return 解密后明文</p>
+<p>* @throws Exception 异常</p>
+<p>*/</p>
+<p>public static String AESDecodeDecrypt(String content,String AES_IV,String AES_KEY) throws Exception{</p>
+<p>Base64.Decoder decoder = Base64.getDecoder();</p>
+<p>byte[] keyByte = decoder.decode(AES_KEY);</p>
+<p>int base = 16;</p>
+<p>if (keyByte.length % base != 0) {</p>
+<p>int groups = keyByte.length / base + 1;</p>
+<p>byte[] temp = new byte [groups * base ];</p>
+<p>Arrays.fill(temp, (byte) 0);</p>
+<p>System.arraycopy(keyByte, 0, temp, 0, keyByte.length);</p>
+<p>keyByte = temp;</p>
+<p>}</p>
+<p>SecretKeySpec secretKeySpec = new SecretKeySpec(keyByte,AES);</p>
+<p>Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);</p>
+<p>cipher.init(Cipher.DECRYPT_MODE,secretKeySpec,new IvParameterSpec(decoder.decode(AES_IV)));</p>
+<p>byte[] base64 = decoder.decode(content);</p>
+<p>byte[] result = cipher.doFinal(base64);</p>
+<p>return new String(result, Charset.forName(ENCODE));</p>
+<p>}</p>
+<p>/**</p>
+<p>* Rsa生成公钥，密钥</p>
+<p>* @return 返回公钥，密钥字符串数组 0–密钥 1–公钥</p>
+<p>* @throws NoSuchAlgorithmException 异常信息</p>
+<p>*/</p>
+<p>public static String[] RsaGenera() throws NoSuchAlgorithmException {</p>
+<p>// 1.初始化发送方密钥</p>
+<p>KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(“RSA”);</p>
+<p>keyPairGenerator.initialize(512);</p>
+<p>KeyPair keyPair = keyPairGenerator.generateKeyPair();</p>
+<p>RSAPublicKey rsaPublicKey = (RSAPublicKey) keyPair.getPublic();</p>
+<p>RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) keyPair.getPrivate();</p>
+<p>String[] results = new String [2 ];</p>
+<p>results [0 ] = Base64.getEncoder().encodeToString(rsaPrivateKey.getEncoded());</p>
+<p>results [1 ] = Base64.getEncoder().encodeToString(rsaPublicKey.getEncoded());</p>
+<p>return results;</p>
+<p>}</p>
+<p>/**</p>
+<p>* Rsa私钥加密</p>
+<p>* @param privateKey 私钥</p>
+<p>* @param content 明文</p>
+<p>* @return 返回密文</p>
+<p>* @throws Exception 异常</p>
+<p>*/</p>
+<p>public static String RsaPrivateEncrypt(String privateKey,String content) throws Exception {</p>
+<p>PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKey));</p>
+<p>KeyFactory keyFactory = KeyFactory.getInstance(“RSA”);</p>
+<p>PrivateKey privateKey1 = keyFactory.generatePrivate(pkcs8EncodedKeySpec);</p>
+<p>Cipher cipher = Cipher.getInstance(“RSA”);</p>
+<p>cipher.init(Cipher.ENCRYPT_MODE, privateKey1);</p>
+<p>byte[] result = cipher.doFinal(content.getBytes(ENCODE));</p>
+<p><a href="//System.out.println">//System.out.println</a>(“私钥加密、公钥解密 ---- 加密:” + Arrays.toString(result));</p>
+<p>return Base64.getEncoder().encodeToString(result);</p>
+<p>}</p>
+<p>/**</p>
+<p>* Rsa公钥解密</p>
+<p>* @param publicKey 公钥</p>
+<p>* @param content 密文</p>
+<p>* @return 明文</p>
+<p>* @throws Exception 异常</p>
+<p>*/</p>
+<p>public static String RsaPublicUnEncrypt(String publicKey,String content) throws Exception{</p>
+<p>X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(Base64.getDecoder().decode(publicKey));</p>
+<p>KeyFactory keyFactory = KeyFactory.getInstance(“RSA”);</p>
+<p>PublicKey publicKey1 = keyFactory.generatePublic(x509EncodedKeySpec);</p>
+<p>Cipher cipher = Cipher.getInstance(“RSA”);</p>
+<p>cipher.init(Cipher.DECRYPT_MODE, publicKey1);</p>
+<p>byte[] result = cipher.doFinal(Base64.getDecoder().decode(content));</p>
+<p><a href="//System.out.println">//System.out.println</a>(“私钥加密、公钥解密 ---- 解密:” + Base64.getEncoder().encodeToString(result));</p>
+<p>return Base64.getEncoder().encodeToString(result);</p>
+<p>}</p>
+<p>/**</p>
+<p>* Rsa公钥加密</p>
+<p>* @param publicKey 公钥</p>
+<p>* @param content 明文</p>
+<p>* @return 密文</p>
+<p>* @throws Exception 异常</p>
+<p>*/</p>
+<p>public static String RsaPublicEncrypt(String publicKey,String content) throws Exception{</p>
+<p>X509EncodedKeySpec x509EncodedKeySpec2 = new X509EncodedKeySpec(Base64.getDecoder().decode(publicKey));</p>
+<p>KeyFactory keyFactory = KeyFactory.getInstance(“RSA”);</p>
+<p>PublicKey publicKey1 = keyFactory.generatePublic(x509EncodedKeySpec2);</p>
+<p>Cipher cipher = Cipher.getInstance(“RSA”);</p>
+<p>cipher.init(Cipher.ENCRYPT_MODE, publicKey1);</p>
+<p>byte[] result = cipher.doFinal(content.getBytes(ENCODE));</p>
+<p><a href="//System.out.println">//System.out.println</a>(&quot;公钥加密、私钥解密 ---- 加密: &quot;+Base64.getEncoder().encodeToString(result2));</p>
+<p>return Base64.getEncoder().encodeToString(result);</p>
+<p>}</p>
+<p>/**</p>
+<p>* Rsa私钥解密</p>
+<p>* @param privateKey 私钥</p>
+<p>* @param content 密文</p>
+<p>* @return 解密后明文</p>
+<p>* @throws Exception 异常</p>
+<p>*/</p>
+<p>public static String RsaPrivateUnEncrypt(String privateKey,String content) throws Exception{</p>
+<p>PKCS8EncodedKeySpec pkcs8EncodedKeySpec5 = new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKey));</p>
+<p>KeyFactory keyFactory = KeyFactory.getInstance(“RSA”);</p>
+<p>PrivateKey privateKey1 = keyFactory.generatePrivate(pkcs8EncodedKeySpec5);</p>
+<p>Cipher cipher = Cipher.getInstance(“RSA”);</p>
+<p>cipher.init(Cipher.DECRYPT_MODE, privateKey1);</p>
+<p>byte[] result = cipher.doFinal(Base64.getDecoder().decode(content));</p>
+<p><a href="//System.out.println">//System.out.println</a>(“公钥加密、私钥解密 ---- 解密:” + new String(result));</p>
+<p>return new String(result);</p>
+<p>}</p>
+<p>public static void main(String[] args) throws Exception {</p>
+<p>String[] keys = RsaGenera();</p>
+<p>System.out.println(“RSA生成密钥对:”);</p>
+<p>System.out.println(“公钥：”+keys [1 ]);</p>
+<p>System.out.println(“私钥：”+keys [0 ]);</p>
+<p>String test = RsaPublicEncrypt(keys [1 ],“今天打老虎”);</p>
+<p>System.out.println(“公钥加密：今天打老虎–&gt;”+test);</p>
+<p>String test2 = RsaPrivateUnEncrypt(keys [0 ],test);</p>
+<p>System.out.println(“私钥解密：”+test+“–&gt;”+test2);</p>
+<p>}</p>
+<p>}</p>
+<p>运行结果：</p>
+<img src="1.安全传输加密算法/media/image1.png" style="width:5.76042in;height:0.88829in" alt="截图.png">
+<p><strong>2.对称加密</strong></p>
+<p>对称加密技术是一种很广泛的加密技术。</p>
+<p><strong>2.1 何为对称加密</strong></p>
+<p>对称加密的元素主要有两个： 密钥，报文</p>
+<p>密钥： 通信双方提前约定好的密钥</p>
+<p>报文： 用相同的密钥进行加密和解密的报文</p>
+<p>对称加密的运行流程如下：</p>
+<p>首先通信双方约定好密钥，然后源服务器发送到目标服务器的密文用密钥加密，目标服务器用密钥解密密文即可。（<strong>如果密钥还是通过网络传输，则这种通信还是不安全的，除非双方线下约定且保证没有第三个人知道</strong>）</p>
+<p><strong>2.2 对称加密AES/CBC加密实例</strong></p>
+<p>package RSA;</p>
+<p>import javax.crypto.Cipher;</p>
+<p>import javax.crypto.spec.IvParameterSpec;</p>
+<p>import javax.crypto.spec.SecretKeySpec;</p>
+<p>import java.nio.charset.Charset;</p>
+<p>import java.util.Arrays;</p>
+<p>import java.util.Base64;</p>
+<p>public class AESDemo {</p>
+<p>private static final String ENCODE = “UTF-8”;</p>
+<p>private static final String AES = “AES”;</p>
+<p>private static final String AES_IV = “49U2GlzcrBmS9UVz+mEE3Q==”;</p>
+<p>private static final String AES_KEY = “D8M1+eb6mzq0Oc23K+YQYQ==”;</p>
+<p>private static final String CIPHER_ALGORITHM = “AES/CBC/PKCS5Padding”;</p>
+<p>/**</p>
+<p>* AES加密</p>
+<p>* @param content 加密内容</p>
+<p>* @param AES_IV 加密偏移量</p>
+<p>* @param AES_KEY 加密密钥</p>
+<p>* @return 密文</p>
+<p>* @throws Exception 加密过程中出现的异常</p>
+<p>*/</p>
+<p>public static String AESEncryptEncode(String content,String AES_IV,String AES_KEY) throws Exception{</p>
+<p>Base64.Decoder decoder = Base64.getDecoder();</p>
+<p>byte[] keyByte = decoder.decode(AES_KEY);</p>
+<p>int base = 16;</p>
+<p>if (keyByte.length % base != 0) {</p>
+<p>int groups = keyByte.length / base + 1;</p>
+<p>byte[] temp = new byte [groups * base ];</p>
+<p>Arrays.fill(temp, (byte) 0);</p>
+<p>System.arraycopy(keyByte, 0, temp, 0, keyByte.length);</p>
+<p>keyByte = temp;</p>
+<p>}</p>
+<p>SecretKeySpec secretKeySpec = new SecretKeySpec(keyByte,AES);</p>
+<p>Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);</p>
+<p>cipher.init(Cipher.ENCRYPT_MODE,secretKeySpec,new IvParameterSpec(decoder.decode(AES_IV)));</p>
+<p>byte[] result = cipher.doFinal(content.getBytes(ENCODE));</p>
+<p>return Base64.getEncoder().encodeToString(result);</p>
+<p>}</p>
+<p>/**</p>
+<p>* AES解密</p>
+<p>* @param content 密文</p>
+<p>* @param AES_IV 解密偏移量</p>
+<p>* @param AES_KEY 解密密钥</p>
+<p>* @return 解密后明文</p>
+<p>* @throws Exception 异常</p>
+<p>*/</p>
+<p>public static String AESDecodeDecrypt(String content,String AES_IV,String AES_KEY) throws Exception{</p>
+<p>Base64.Decoder decoder = Base64.getDecoder();</p>
+<p>byte[] keyByte = decoder.decode(AES_KEY);</p>
+<p>int base = 16;</p>
+<p>if (keyByte.length % base != 0) {</p>
+<p>int groups = keyByte.length / base + 1;</p>
+<p>byte[] temp = new byte [groups * base ];</p>
+<p>Arrays.fill(temp, (byte) 0);</p>
+<p>System.arraycopy(keyByte, 0, temp, 0, keyByte.length);</p>
+<p>keyByte = temp;</p>
+<p>}</p>
+<p>SecretKeySpec secretKeySpec = new SecretKeySpec(keyByte,AES);</p>
+<p>Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);</p>
+<p>cipher.init(Cipher.DECRYPT_MODE,secretKeySpec,new IvParameterSpec(decoder.decode(AES_IV)));</p>
+<p>byte[] base64 = decoder.decode(content);</p>
+<p>byte[] result = cipher.doFinal(base64);</p>
+<p>return new String(result, Charset.forName(ENCODE));</p>
+<p>}</p>
+<p>public static void main(String[] args) throws Exception {</p>
+<p>String m = AESEncryptEncode(“今天打老虎”,AES_IV,AES_KEY);</p>
+<p>System.out.println(&quot;AES对称加密： &quot;+m);</p>
+<p>System.out.println(“AES对称解密：”+AESDecodeDecrypt(m,AES_IV,AES_KEY));</p>
+<p>}</p>
+<p>}</p>
+<img src="1.安全传输加密算法/media/image2.png" style="width:5.30556in;height:1.45929in" alt="截图.png">
+<p><strong>3. 通过非对称+对称加密实现网络安全传输</strong></p>
+<p>通过前面的学习我们知道，安全传输的关键在于密钥不能被泄露，我们可以试想一下，我们能不能先用非对称加密传输密钥，然后用对称加密进行报文传输，这样的话不久实现了，加密传输。</p>
+<p>流程如下：</p>
+<p>首先源服务器生成私钥，公钥，将公钥发送给目标服务器，然后目标服务器用公钥加密对称密钥发送给源服务器，接着源服务器将密文解密得到对称密钥，这样就只有双方知道对称密钥了，不存在第三方知道了。</p>
+<p>然后以后的信息传输就用对称密钥加解密即可。</p>
+<p><strong>3.1 结合RSA和AES/CBC实现安全传输Demo</strong></p>
+<p>非对称加密进行对称密钥传输，对称加密实现报文安全传输。</p>
+<p>import javax.crypto.Cipher;</p>
+<p>import javax.crypto.spec.IvParameterSpec;</p>
+<p>import javax.crypto.spec.SecretKeySpec;</p>
+<p>import java.nio.charset.Charset;</p>
+<p>import java.nio.charset.StandardCharsets;</p>
+<p>import java.security.*;</p>
+<p>import java.security.interfaces.RSAPrivateKey;</p>
+<p>import java.security.interfaces.RSAPublicKey;</p>
+<p>import java.security.spec.PKCS8EncodedKeySpec;</p>
+<p>import java.security.spec.X509EncodedKeySpec;</p>
+<p>import java.util.Arrays;</p>
+<p>import java.util.Base64;</p>
+<p>public class EncryptUtil {</p>
+<p>private static final String ENCODE = “UTF-8”;</p>
+<p>private static final String AES = “AES”;</p>
+<p>private static final String AES_IV = “49U2GlzcrBmS9UVz+mEE3Q==”;</p>
+<p>private static final String AES_KEY = “D8M1+eb6mzq0Oc23K+YQYQ==”;</p>
+<p>private static final String CIPHER_ALGORITHM = “AES/CBC/PKCS5Padding”;</p>
+<p>/**</p>
+<p>* AES加密</p>
+<p>* @param content 加密内容</p>
+<p>* @param AES_IV 加密偏移量</p>
+<p>* @param AES_KEY 加密密钥</p>
+<p>* @return 密文</p>
+<p>* @throws Exception 加密过程中出现的异常</p>
+<p>*/</p>
+<p>public static String AESEncryptEncode(String content,String AES_IV,String AES_KEY) throws Exception{</p>
+<p>Base64.Decoder decoder = Base64.getDecoder();</p>
+<p>byte[] keyByte = decoder.decode(AES_KEY);</p>
+<p>int base = 16;</p>
+<p>if (keyByte.length % base != 0) {</p>
+<p>int groups = keyByte.length / base + 1;</p>
+<p>byte[] temp = new byte [groups * base ];</p>
+<p>Arrays.fill(temp, (byte) 0);</p>
+<p>System.arraycopy(keyByte, 0, temp, 0, keyByte.length);</p>
+<p>keyByte = temp;</p>
+<p>}</p>
+<p>SecretKeySpec secretKeySpec = new SecretKeySpec(keyByte,AES);</p>
+<p>Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);</p>
+<p>cipher.init(Cipher.ENCRYPT_MODE,secretKeySpec,new IvParameterSpec(decoder.decode(AES_IV)));</p>
+<p>byte[] result = cipher.doFinal(content.getBytes(ENCODE));</p>
+<p>return Base64.getEncoder().encodeToString(result);</p>
+<p>}</p>
+<p>/**</p>
+<p>* AES解密</p>
+<p>* @param content 密文</p>
+<p>* @param AES_IV 解密偏移量</p>
+<p>* @param AES_KEY 解密密钥</p>
+<p>* @return 解密后明文</p>
+<p>* @throws Exception 异常</p>
+<p>*/</p>
+<p>public static String AESDecodeDecrypt(String content,String AES_IV,String AES_KEY) throws Exception{</p>
+<p>Base64.Decoder decoder = Base64.getDecoder();</p>
+<p>byte[] keyByte = decoder.decode(AES_KEY);</p>
+<p>int base = 16;</p>
+<p>if (keyByte.length % base != 0) {</p>
+<p>int groups = keyByte.length / base + 1;</p>
+<p>byte[] temp = new byte [groups * base ];</p>
+<p>Arrays.fill(temp, (byte) 0);</p>
+<p>System.arraycopy(keyByte, 0, temp, 0, keyByte.length);</p>
+<p>keyByte = temp;</p>
+<p>}</p>
+<p>SecretKeySpec secretKeySpec = new SecretKeySpec(keyByte,AES);</p>
+<p>Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);</p>
+<p>cipher.init(Cipher.DECRYPT_MODE,secretKeySpec,new IvParameterSpec(decoder.decode(AES_IV)));</p>
+<p>byte[] base64 = decoder.decode(content);</p>
+<p>byte[] result = cipher.doFinal(base64);</p>
+<p>return new String(result, Charset.forName(ENCODE));</p>
+<p>}</p>
+<p>/**</p>
+<p>* Rsa生成公钥，密钥</p>
+<p>* @return 返回公钥，密钥字符串数组 0–密钥 1–公钥</p>
+<p>* @throws NoSuchAlgorithmException 异常信息</p>
+<p>*/</p>
+<p>public static String[] RsaGenera() throws NoSuchAlgorithmException {</p>
+<p>// 1.初始化发送方密钥</p>
+<p>KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(“RSA”);</p>
+<p>keyPairGenerator.initialize(512);</p>
+<p>KeyPair keyPair = keyPairGenerator.generateKeyPair();</p>
+<p>RSAPublicKey rsaPublicKey = (RSAPublicKey) keyPair.getPublic();</p>
+<p>RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) keyPair.getPrivate();</p>
+<p>String[] results = new String [2 ];</p>
+<p>results [0 ] = Base64.getEncoder().encodeToString(rsaPrivateKey.getEncoded());</p>
+<p>results [1 ] = Base64.getEncoder().encodeToString(rsaPublicKey.getEncoded());</p>
+<p>return results;</p>
+<p>}</p>
+<p>/**</p>
+<p>* Rsa私钥加密</p>
+<p>* @param privateKey 私钥</p>
+<p>* @param content 明文</p>
+<p>* @return 返回密文</p>
+<p>* @throws Exception 异常</p>
+<p>*/</p>
+<p>public static String RsaPrivateEncrypt(String privateKey,String content) throws Exception {</p>
+<p>PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKey));</p>
+<p>KeyFactory keyFactory = KeyFactory.getInstance(“RSA”);</p>
+<p>PrivateKey privateKey1 = keyFactory.generatePrivate(pkcs8EncodedKeySpec);</p>
+<p>Cipher cipher = Cipher.getInstance(“RSA”);</p>
+<p>cipher.init(Cipher.ENCRYPT_MODE, privateKey1);</p>
+<p>byte[] result = cipher.doFinal(content.getBytes(ENCODE));</p>
+<p><a href="//System.out.println">//System.out.println</a>(“私钥加密、公钥解密 ---- 加密:” + Arrays.toString(result));</p>
+<p>return Base64.getEncoder().encodeToString(result);</p>
+<p>}</p>
+<p>/**</p>
+<p>* Rsa公钥解密</p>
+<p>* @param publicKey 公钥</p>
+<p>* @param content 密文</p>
+<p>* @return 明文</p>
+<p>* @throws Exception 异常</p>
+<p>*/</p>
+<p>public static String RsaPublicUnEncrypt(String publicKey,String content) throws Exception{</p>
+<p>X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(Base64.getDecoder().decode(publicKey));</p>
+<p>KeyFactory keyFactory = KeyFactory.getInstance(“RSA”);</p>
+<p>PublicKey publicKey1 = keyFactory.generatePublic(x509EncodedKeySpec);</p>
+<p>Cipher cipher = Cipher.getInstance(“RSA”);</p>
+<p>cipher.init(Cipher.DECRYPT_MODE, publicKey1);</p>
+<p>byte[] result = cipher.doFinal(Base64.getDecoder().decode(content));</p>
+<p><a href="//System.out.println">//System.out.println</a>(“私钥加密、公钥解密 ---- 解密:” + Base64.getEncoder().encodeToString(result));</p>
+<p>return Base64.getEncoder().encodeToString(result);</p>
+<p>}</p>
+<p>/**</p>
+<p>* Rsa公钥加密</p>
+<p>* @param publicKey 公钥</p>
+<p>* @param content 明文</p>
+<p>* @return 密文</p>
+<p>* @throws Exception 异常</p>
+<p>*/</p>
+<p>public static String RsaPublicEncrypt(String publicKey,String content) throws Exception{</p>
+<p>X509EncodedKeySpec x509EncodedKeySpec2 = new X509EncodedKeySpec(Base64.getDecoder().decode(publicKey));</p>
+<p>KeyFactory keyFactory = KeyFactory.getInstance(“RSA”);</p>
+<p>PublicKey publicKey1 = keyFactory.generatePublic(x509EncodedKeySpec2);</p>
+<p>Cipher cipher = Cipher.getInstance(“RSA”);</p>
+<p>cipher.init(Cipher.ENCRYPT_MODE, publicKey1);</p>
+<p>byte[] result = cipher.doFinal(content.getBytes(ENCODE));</p>
+<p><a href="//System.out.println">//System.out.println</a>(&quot;公钥加密、私钥解密 ---- 加密: &quot;+Base64.getEncoder().encodeToString(result2));</p>
+<p>return Base64.getEncoder().encodeToString(result);</p>
+<p>}</p>
+<p>/**</p>
+<p>* Rsa私钥解密</p>
+<p>* @param privateKey 私钥</p>
+<p>* @param content 密文</p>
+<p>* @return 解密后明文</p>
+<p>* @throws Exception 异常</p>
+<p>*/</p>
+<p>public static String RsaPrivateUnEncrypt(String privateKey,String content) throws Exception{</p>
+<p>PKCS8EncodedKeySpec pkcs8EncodedKeySpec5 = new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKey));</p>
+<p>KeyFactory keyFactory = KeyFactory.getInstance(“RSA”);</p>
+<p>PrivateKey privateKey1 = keyFactory.generatePrivate(pkcs8EncodedKeySpec5);</p>
+<p>Cipher cipher = Cipher.getInstance(“RSA”);</p>
+<p>cipher.init(Cipher.DECRYPT_MODE, privateKey1);</p>
+<p>byte[] result = cipher.doFinal(Base64.getDecoder().decode(content));</p>
+<p><a href="//System.out.println">//System.out.println</a>(“公钥加密、私钥解密 ---- 解密:” + new String(result));</p>
+<p>return new String(result);</p>
+<p>}</p>
+<p>public static void main(String[] args) throws Exception {</p>
+<p>String[] keys = RsaGenera();</p>
+<p>String aes_key = RsaPublicEncrypt(keys [1 ],AES_KEY);</p>
+<p>String aes_iv = RsaPublicEncrypt(keys [1 ],AES_IV);</p>
+<p>String AES_KEY = RsaPrivateUnEncrypt(keys [0 ],aes_key);</p>
+<p>String AES_IV = RsaPrivateUnEncrypt(keys [0 ],aes_iv);</p>
+<p>String m = AESEncryptEncode(“今天打老虎”,AES_IV,AES_KEY);</p>
+<p>System.out.println(&quot;AES对称加密： &quot;+m);</p>
+<p>System.out.println(“AES对称解密：”+AESDecodeDecrypt(m,AES_IV,AES_KEY));</p>
+<p>}</p>
+<p>}</p>
+<img src="1.安全传输加密算法/media/image3.png" style="width:5.76042in;height:1.10455in" alt="截图.png">
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/ViewFramework-3-JavaScript基础/" data-toggle="tooltip" data-placement="top" title="JavaScript学习">&larr; 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/LinuxServer-docker-2-Docker安装mysql并使用/" data-toggle="tooltip" data-placement="top" title="Docker安装MySQL并使用">下一篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#加密" title="加密">加密</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+				<!--
+                
+                <hr>
+                <h5>朋友们</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+				-->
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+          //console.log(a.target.textContent.replace(/\./g, ""));
+          document.getElementById(a.target.textContent.replace(/\./g, "").replace(" ","-")).scrollIntoView({behavior: 'smooth' });
+        })
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    //document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhihu_xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse"><b>B</b></i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/1776167012">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; muzhi 2026 
+                    <br>
+					
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://1776167012.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Mermaid图表库 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  // 页面加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid !== 'undefined') {
+      // 在这里可以配置Mermaid的主题、流程图方向等
+      mermaid.initialize({
+      // 自动识别并渲染所有 class="mermaid" 的div
+        startOnLoad: true,
+        // 可选：'default', 'dark', 'forest', 'neutral'
+        theme: 'neutral'
+      });
+    }
+  });
+</script>
+<script>
+$(document).ready(function() {
+    var isModalOpen = false;
+    // 1. 加载 search.xml 索引文件
+  $.ajax({
+    url: '/search.json', // 路径改为json
+    dataType: 'json',                    // 数据类型改为json
+    success: function(searchData) {      // 直接得到JS对象
+      console.log('搜索索引加载完成，共 ' + searchData.length + ' 篇文章。');
+      // 注意：searchData 现在直接是数组，无需解析
+      // 需要将全局的 searchData 变量赋值
+      window.searchData = searchData; // 赋值给全局变量
+    },
+    error: function() {
+      $('#search-status').text('无法加载搜索索引文件。');
+    }
+});
+
+    // 2. 搜索功能核心函数
+    function performSearch(keyword) {
+      var resultsContainer = $('#search-results-container').empty();
+      $('#search-status').hide();
+
+      if (!keyword.trim()) {
+        $('#search-status').text('输入关键词开始搜索...').show();
+        return;
+      }
+
+      var resultsHtml = '';
+      var resultCount = 0;
+      var kwReg = new RegExp(keyword, 'gi'); // 创建全局、不区分大小写的正则表达式
+
+      // 遍历所有文章数据
+      window.searchData.forEach(function(item) {
+        // 在标题和内容中搜索关键词
+        var titleMatch = item.title.match(kwReg);
+        var contentMatch = item.content.match(kwReg);
+
+        if (titleMatch || contentMatch) {
+          resultCount++;
+          // 构建标题高亮
+          var highlightedTitle = item.title.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+          // 从内容中提取包含关键词的片段（约150字符）并高亮
+          var contentSnippet = item.content;
+          var firstIndex = contentSnippet.toLowerCase().indexOf(keyword.toLowerCase());
+          if (firstIndex !== -1) {
+            var start = Math.max(0, firstIndex - 60);
+            var end = Math.min(contentSnippet.length, firstIndex + 90);
+            contentSnippet = '...' + contentSnippet.substring(start, end) + '...';
+          } else {
+            contentSnippet = contentSnippet.substring(0, 150) + '...';
+          }
+          contentSnippet = contentSnippet.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+
+          // 生成单个结果的HTML
+          resultsHtml += `
+            <div class="search-result-item">
+              <a href="${item.url}" class="search-result-title">${highlightedTitle}</a>
+              <p class="search-result-excerpt">${contentSnippet}</p>
+            </div>
+          `;
+        }
+      });
+
+      // 显示结果或“无结果”状态
+      if (resultCount > 0) {
+        resultsContainer.html(resultsHtml);
+      } else {
+        resultsContainer.html('<div id="search-status">未找到包含 "' + keyword + '" 的文章。</div>');
+      }
+    }
+
+    // 3. 绑定输入事件（防抖，提升性能）
+    var searchTimer;
+    $('#search-input').on('input', function() {
+      clearTimeout(searchTimer);
+      var keyword = $(this).val();
+      searchTimer = setTimeout(function() {
+        performSearch(keyword);
+      }, 300); // 延迟300毫秒后执行搜索
+    });
+
+    // 4. 全局控制搜索弹窗显示/隐藏的函数
+    window.openSearchModal = function() {
+      isModalOpen = true;
+      $('#search-mask, #search-modal').fadeIn(200);
+      $('#search-input').focus().select(); // 自动聚焦到输入框
+      $('body').css('overflow', 'hidden'); // 防止背景滚动
+    };
+    window.closeSearchModal = function() {
+      isModalOpen = false;
+      $('#search-mask, #search-modal').fadeOut(200);
+      $('#search-input').val(''); // 清空输入框
+      $('#search-results-container').empty(); // 清空结果
+      $('#search-status').text('输入关键词开始搜索...').show();
+      $('body').css('overflow', 'auto');
+    };
+
+    // 5. 事件绑定：点击遮罩关闭、ESC键关闭
+    $('#search-mask').on('click', closeSearchModal);
+    $(document).on('keydown', function(e) {
+      if (e.keyCode === 27 && isModalOpen) { // ESC键
+        closeSearchModal();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.keyCode === 70 && !isModalOpen) { // Ctrl+F / Cmd+F
+        e.preventDefault(); // 阻止浏览器默认查找
+        openSearchModal();
+      }
+    });
+  });
+</script>
+
+<!-- 本地搜索 CSS -->
+    <style>
+      /* 搜索弹窗遮罩 */
+      #search-mask {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9998;
+        display: none;
+      }
+      /* 搜索主容器 */
+      #search-modal {
+        position: fixed;
+        top: 10%; left: 50%;
+        transform: translateX(-50%);
+        width: 80%; max-width: 600px;
+        max-height: 80vh;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      }
+      /* 搜索框区域 */
+      .search-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      #search-input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      #search-input:focus {
+        border-color: #3498db;
+      }
+      /* 搜索结果区域 */
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 20px;
+      }
+      .search-result-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .search-result-item:last-child {
+        border-bottom: none;
+      }
+      .search-result-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #2c3e50;
+      }
+      .search-result-excerpt {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 限制最多显示3行 */
+        -webkit-box-orient: vertical;
+      }
+      .search-result-highlight {
+        background-color: #fff9c4; /* 关键词高亮背景色 */
+        font-weight: bold;
+        color: #e74c3c;
+      }
+      /* 无结果/加载状态 */
+      #search-status {
+        padding: 20px;
+        text-align: center;
+        color: #999;
+      }
+    </style>
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+	<script  type="text/javascript">
+<!-- Image to hack wechat -->
+<img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+</body>
+
+</html>

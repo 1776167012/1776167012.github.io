@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          1.AOP设计理念 - 牧之的博客 | Muzhi Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://1776167012.github.io/article/SpringFramework-3-AOP的好处/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/beantech.min.css">
+
+
+    
+<link rel="stylesheet" href="/css/donate.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script>
+	</script>
+	<style>
+	* {
+            box-sizing: border-box;
+        }
+
+        form {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding-left: 13px;
+        }
+
+        button {
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        /*搜索框1*/
+        .bar1 {
+			background: #FFF;
+			max-width: 200px;
+		}
+        .bar1 input {
+			max-height: 30px;
+            border: 2px solid #BFBFBF;
+            border-radius: 5px;
+            background: #FFFFFF;
+            color: #BFBFBF;
+			-webkit-text-fill-color: #BFBFBF;
+        }
+        .bar1 button {
+			max-height: 30px;
+            top: 0;
+            right: 0;
+            background: #BFBFBF;
+            border-radius: 0 5px 5px 0;
+        }
+        .bar1 button:before {
+            content: "\f002";
+            font-family: FontAwesome;
+            font-size: 16px;
+            color: #F9F0DA;
+        }
+		</style>
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/feed.xml" title="牧之" type="application/atom+xml">
+</head>
+
+
+
+<!-- hack iOS CSS :active style -->
+<!-- <body ontouchstart=""  class="<?php echo($_COOKIE['night'] == '1' ? '' : ''); ?>"> -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/header_img/codeBack.png')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Spring" title="Spring">Spring</a>
+                            
+                        </div>
+                        <h1>1.AOP设计理念</h1>
+                        <!-- <h2 class="subheading"></h2> -->
+                        <span class="meta">
+                            muzhi on
+                            2021-05-20
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1776167012</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                   <!-- 例如，放在导航菜单内部 -->
+                   <li>
+                    <a href="javascript:void(0);" onclick="openSearchModal()" title="搜索">搜索</a>
+                   </li>
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+					<li>
+                        <a href="/archive/">文章归档</a>
+                    </li>
+					<li>
+                        <a href="/tags/">博客标签</a>
+                    </li>
+					<li>
+                        <a href="/about/">关于作者</a>
+                    </li>
+
+					<!--
+					修改about在前面的问题
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">没有什么比快乐更重要</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    -->
+                </ul>
+            </div>
+
+        <!-- 本地搜索弹窗结构 -->
+        <div id="search-mask"></div>
+        <div id="search-modal">
+          <div class="search-header">
+            <input type="text" id="search-input" placeholder="请输入关键词搜索..." autocomplete="off" />
+          </div>
+          <div id="search-status">输入关键词开始搜索...</div>
+          <div class="search-results" id="search-results-container">
+            <!-- 搜索结果将通过JS动态插入到这里 -->
+          </div>
+        </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				
+                <p><strong>1.什么是AOP?</strong></p>
+<p>AOP 中文名称为面向切面编程，英文全称：Aspect Oriented Programming。</p>
+<p>是一种通过预编译或运行期间动态代理实现程序功能的一种编程，简单来说就是一种高级的代码复用技术，它既实现了代码高度复用，也一一种特殊的方式使复用部分的影响降到很低，甚至没有。<strong>既增加了功能，又没有增加耦合。</strong></p>
+<p><strong>2.实现一个自己的AOP支持</strong></p>
+<p>前面的解释也许还是有点抽象，下面我们以实际的例子来理解什么面向切面编程，我们将通过一次需求的程序实现和代码优化来引出切面编程技术的必要性。</p>
+<p><strong>2.1 有个需求</strong></p>
+<p>我们现在有两个类，一个是学生实体类，另一个是教师实体类：</p>
+<p>public class Student {</p>
+<p>private String name;</p>
+<p>private int age;</p>
+<p>private String sex;</p>
+<p>public Student(){}</p>
+<p>public Student(String name,int age,String sex){</p>
+<p><a href="http://this.name">this.name</a> = name;</p>
+<p>this.age = age;</p>
+<p>this.sex = sex;</p>
+<p>}</p>
+<p>public void disPlay() {</p>
+<p>System.out.println(“我的名字是：”+name);</p>
+<p>}</p>
+<p>public void speak(){</p>
+<p>System.out.println(“你好！！”)</p>
+<p>}</p>
+<p>}</p>
+<p>public class Teacher {</p>
+<p>private String name;</p>
+<p>private int age;</p>
+<p>private String sex;</p>
+<p>public Teacher(){}</p>
+<p>public Teacher(String name,int age,String sex){</p>
+<p><a href="http://this.name">this.name</a> = name;</p>
+<p>this.age = age;</p>
+<p>this.sex = sex;</p>
+<p>}</p>
+<p>public void disPlay() {</p>
+<p>System.out.println(“我的名字是：”+name);</p>
+<p>}</p>
+<p>public void speak(){</p>
+<p>System.out.println(“你好！！”)</p>
+<p>}</p>
+<p>}</p>
+<p>哎呀，这可是个糟糕的设计，很明显，教师类和学生类几乎一样，代码重复率高达90%，不行，我们得重新设计一下，于是，想到了继承，通过继承来提高代码的重用性，这个方式怎么样呢？ 我们先试试吧</p>
+<p>首先，我们先建立一个Person类：</p>
+<p>public class Person {</p>
+<p>public String name;</p>
+<p>public int age;</p>
+<p>public String sex;</p>
+<p>public Person(){}</p>
+<p>public Person(String name,int age,String sex){</p>
+<p><a href="http://this.name">this.name</a> = name;</p>
+<p>this.age = age;</p>
+<p>this.sex = sex;</p>
+<p>}</p>
+<p>public void disPlay() {</p>
+<p>System.out.println(“我的名字是：”+name);</p>
+<p>}</p>
+<p>public void speak(){</p>
+<p>System.out.println(“你好！！”);</p>
+<p>}</p>
+<p>}</p>
+<p>然后，学生类继承它，是这样的：</p>
+<p>public class Student extends Person{</p>
+<p>public Student(){}</p>
+<p>public Student(String name,int age,String sex){</p>
+<p>super(name,age,sex);</p>
+<p>}</p>
+<p>}</p>
+<p>类似的老师类是这样的：</p>
+<p>public class Teacher extends Person{</p>
+<p>public Teacher(){}</p>
+<p>public Teacher(String name,int age,String sex){</p>
+<p>super(name,age,sex);</p>
+<p>}</p>
+<p>}</p>
+<p>我们发现，这样做确实能将重复的代码给抹掉，但是，这样一来，学生，老师类和Person类的耦合度也上来了啊，我们又进入了侵入式编程噩梦。。。。</p>
+<p>我们该如何摆脱现状呢？ 这时，AOP出现了，面向切面编程，我们可以通过面向切面编程来避免上面的侵入式噩梦。</p>
+<p><strong>2.2 真正理解AOP</strong></p>
+<p>那么问题来了，我们自己该如何实现一个简单的AOP技术支持呢？ 通过前面的定义我们知道了：</p>
+<p>AOP是一种通过预编译或运行期间动态代理实现程序功能的一种编程技术。 其中一个关键字： <strong>运行时期动态代理。</strong></p>
+<p>也许这是我们的一个实现方向。</p>
+<p><strong>2.2.1 我们先了解一下什么是代理？</strong></p>
+<p>代理，简单来说就是将一个类的某些功能组合到其他的类中，让其他类代替主类调用来达到一些目的。</p>
+<p>代理分为<strong>静态代理</strong>和<strong>动态代理</strong>，下面先说静态代理，理解了静态代理，动态代理也就好理解了。（</p>
+<p>由于动态代理机制在jdk中已经提供，后面学习动态代理时，我们将直接使用jdk的相关api即可）</p>
+<p>举个例子:</p>
+<p>新建一个Hello.java</p>
+<p>public class Hello{</p>
+<p>public Integer sayHello() {</p>
+<p>System.out.println(“hello world!!”);</p>
+<p>return 8;</p>
+<p>}</p>
+<p>public void sayBye() {</p>
+<p>System.out.println(“BBye”);</p>
+<p>}</p>
+<p>}</p>
+<p>如果我们不想让这个Hello的sayHello直接被调用，而是想在调用这个sayHello之前希望先做个自我介绍，但是由不想动原有的代码，这时我们可以增加一个代理类：HelloProxy 代替我们调用Hello中的sayHello</p>
+<p>public class HelloProxy {</p>
+<p>private Hello hello;//组合</p>
+<p>public Integer sayHello() {</p>
+<p>System.out.println(“my name is wang”);</p>
+<p>hello.sayHello();//代理调用</p>
+<p>return 8;</p>
+<p>}</p>
+<p>public HelloProxy(HelloInterface hello){</p>
+<p>this.hello = hello;</p>
+<p>}</p>
+<p>}</p>
+<p>这便是代理了。</p>
+<p>public class Main {</p>
+<p>public static void main(String[] args) {</p>
+<p>new HelloProxy(new Hello()).sayHello();</p>
+<p>}</p>
+<p>}</p>
+<img src="3.AOP的好处/media/image1.png" style="width:5.5in;height:1.47496in" alt="截图.png">
+<p>但是上面的代理类还是依赖具体了，这在实际上并达不到我们的目的，还有更好的实现，你觉得该怎么做呢？</p>
+<p>（我们不应该依赖具体，而应该依赖抽象）</p>
+<p><strong>2.2.2 通过静态代理实现代码复用</strong></p>
+<p>好了，前面学习了静态代理，我们尝试使用静态代理来解决我们最初要解决的问题。</p>
+<p>首先，我们可以新建一个接口：personInterface</p>
+<p>public interface personInterface {</p>
+<p>public void disPlay();</p>
+<p>public void speak();</p>
+<p>}</p>
+<p>然后让Person实现它：</p>
+<p>public class Person implements personInterface{</p>
+<p>public String name;</p>
+<p>public int age;</p>
+<p>public String sex;</p>
+<p>public Person(){}</p>
+<p>public Person(String name,int age,String sex){</p>
+<p><a href="http://this.name">this.name</a> = name;</p>
+<p>this.age = age;</p>
+<p>this.sex = sex;</p>
+<p>}</p>
+<p>public void disPlay() {</p>
+<p>System.out.println(“我的名字是：”+name);</p>
+<p>}</p>
+<p>public void speak(){</p>
+<p>System.out.println(“你好！！”);</p>
+<p>}</p>
+<p>}</p>
+<p>好啦，下面我们该如何编写Student或Teacher呢？</p>
+<p>参考设计如下：</p>
+<p>public class Student{</p>
+<p>private personInterface person;</p>
+<p>public int studyId;</p>
+<p>public Student(){}</p>
+<p>public Student(personInterface person){</p>
+<p>this.person = person;</p>
+<p>}</p>
+<p>public void disPlay() {</p>
+<p>person.disPlay();</p>
+<p>}</p>
+<p>public void speak(){</p>
+<p>person.speak();</p>
+<p>}</p>
+<p>}</p>
+<p>终于，通过静态代理解决了侵入式的问题，但是好像也只是省略了一点代码，并没有达到极致复用，还是有一些地方冗余了，就是那些方法的定义上。这个问题能解决吗？ 当然可以，通过动态代理，我们可以解决</p>
+<p><strong>2.2.2 动态代理</strong></p>
+<p>我们先来实现一个动态代理的Demo:</p>
+<p>首先，新建一个Hello的接口：</p>
+<p>public interface HelloInterface {</p>
+<p>Integer sayHello();</p>
+<p>void sayBye();</p>
+<p>}</p>
+<p>然后提供一个实现:</p>
+<p>public class Hello implements HelloInterface{</p>
+<p>@Override</p>
+<p>public Integer sayHello() {</p>
+<p>System.out.println(“hello world!!”);</p>
+<p>return 8;</p>
+<p>}</p>
+<p>@Override</p>
+<p>public void sayBye() {</p>
+<p>System.out.println(“BBye”);</p>
+<p>}</p>
+<p>}</p>
+<p>下面是用动态代理来对Hello进行代理调用，建立一个代理类：</p>
+<p>ProxyHandler 实现jdk中的接口InvocationHandler</p>
+<p>/**</p>
+<p>* 动态代理类</p>
+<p>*/</p>
+<p>public class ProxyHandler implements InvocationHandler {</p>
+<p>//被代理对象</p>
+<p>private Object object;</p>
+<p>public ProxyHandler(Object object){</p>
+<p>this.object = object;</p>
+<p>}</p>
+<p>@Override</p>
+<p>public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {</p>
+<p>System.out.println(&quot;Before invoke &quot; + method.getName());</p>
+<p>method.invoke(object, args);</p>
+<p>System.out.println(&quot;After invoke &quot; + method.getName());</p>
+<p>return null;</p>
+<p>}</p>
+<p>}</p>
+<p>其中invoke方法是关键，我们先不细看，下面会根据使用实例来进行深入理解。</p>
+<p>最后，我们编写一个测试Test</p>
+<p>public class Test {</p>
+<p>public static void main(String[] args) {</p>
+<p>HelloInterface hello = new Hello();</p>
+<p>InvocationHandler handler = new ProxyHandler(hello);</p>
+<p>//Class[] classes = hello.getClass().getInterfaces();</p>
+<p>//执行被代理对象的相关逻辑</p>
+<p>HelloInterface proxyHello = (HelloInterface) Proxy.newProxyInstance(hello.getClass().getClassLoader(), hello.getClass().getInterfaces(), handler);</p>
+<p>proxyHello.sayHello();</p>
+<p>proxyHello.sayBye();</p>
+<p>}</p>
+<p>}</p>
+<img src="3.AOP的好处/media/image2.png" style="width:4.73611in;height:2.33162in" alt="截图.png">
+<p>我们可以看到，最后对代理目标方法的调用实际上就是执行代理类中的invoke方法调用，其中对目标方法的调用被包装在代理类中，我们可以在代理类执行目标方法之前或之后添加前置/后置处理，这便是AOP。 好处就是以一种很小的侵入式方式实现目标方法功能增强。</p>
+<p>当然，除了上面的JDK动态代理支持来实现，我们也可以用一种绝对无侵入的方式进行动态代理编程，那便是CGLIB：</p>
+<p><strong>注意：使用CGLIB进行动态代理编程，我们需要引入cglib.jar包。</strong></p>
+<p>例子如下：</p>
+<p>首先编写一个目标类：</p>
+<p>public class UserDao {</p>
+<p>public void select(){</p>
+<p>System.out.println(“UserDao 查询 selectById”);</p>
+<p>}</p>
+<p>public void update(){</p>
+<p>System.out.println(“UserDao 更新 update”);</p>
+<p>}</p>
+<p>}</p>
+<p>然后编写针对这个类的前置后置处理实现类：</p>
+<p>import net.sf.cglib.proxy.MethodInterceptor;</p>
+<p>import net.sf.cglib.proxy.MethodProxy;</p>
+<p>import java.lang.reflect.Method;</p>
+<p>public class LogInterceptor implements MethodInterceptor {</p>
+<p>@Override</p>
+<p>public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {</p>
+<p>before();</p>
+<p>Object result = methodProxy.invokeSuper(o,objects);</p>
+<p>after();</p>
+<p>return result;</p>
+<p>}</p>
+<p>public void before(){</p>
+<p>System.out.println(“前置处理”);</p>
+<p>}</p>
+<p>public void after(){</p>
+<p>System.out.println(“后置处理”);</p>
+<p>}</p>
+<p>}</p>
+<p>注意，上面两个类没有任何继承或组合的关系！！</p>
+<p>下面我们使用CGlib来进行生产代理类（相当于配置的方式）：</p>
+<p>import net.sf.cglib.proxy.Enhancer;</p>
+<p>public class CglibTest {</p>
+<p>public static void main(String[] args) {</p>
+<p>LogInterceptor logInterceptor = new LogInterceptor();</p>
+<p>Enhancer enhancer = new Enhancer();</p>
+<p>enhancer.setSuperclass(UserDao.class);</p>
+<p>enhancer.setCallback(logInterceptor);</p>
+<p>UserDao dao = (UserDao) enhancer.create();</p>
+<p>dao.select();</p>
+<p>dao.update();</p>
+<p>}</p>
+<p>}</p>
+<img src="3.AOP的好处/media/image3.png" style="width:5.76042in;height:2.42872in" alt="截图.png">
+<p>这种方式的优点就是无侵入，很灵活。</p>
+<p><strong>2.3 实现自己的AOP技术支持</strong></p>
+<p>在学习完前面的静态代理和动态代理后，我突然有了以下认知：</p>
+<p>静态代理就是我们人为的创建代理类然后进行使用。</p>
+<p><strong>动态代理就是在一些规则下根据配置在运行时动态的生成代理类供系统使用。</strong></p>
+<p>根据这个思路，我就想：</p>
+<p><strong>我自己能不能写一个代理类自动生成器可以根据配置自动生成java源文件，然后我们根据java提供的内置编译器对其进行编译加载，然后创建实例供系统使用呢？</strong></p>
+<p><strong>想法有了，于是我就开始构思和实现了，终于，事实证明我的想法时可行的，下面分享下我自己实现的动态代理实现：</strong></p>
+<p>涉及到的技术主要有： 反射，编译器，类加载器等知识，大家可以先复现，然后自己去仔细研究。</p>
+<p>代码如下：</p>
+<p>CharSequenceJavaFileObject.java</p>
+<p>package AOP.base.ClassMake;</p>
+<p>import javax.tools.SimpleJavaFileObject;</p>
+<p>import <a href="http://java.io">java.io</a>.*;</p>
+<p>import java.net.URI;</p>
+<p>import java.net.URISyntaxException;</p>
+<p>public class CharSequenceJavaFileObject extends SimpleJavaFileObject {</p>
+<p>public static final String CLASS_EXTENSION = “.class”;</p>
+<p>public static final String JAVA_EXTENSION = “.java”;</p>
+<p>private static URI fromClassName(String className) {</p>
+<p>try {</p>
+<p>return new URI(className);</p>
+<p>} catch (URISyntaxException e) {</p>
+<p>throw new IllegalArgumentException(className, e);</p>
+<p>}</p>
+<p>}</p>
+<p>private ByteArrayOutputStream byteCode;</p>
+<p>private final CharSequence sourceCode;</p>
+<p>public CharSequenceJavaFileObject(String className, CharSequence sourceCode) {</p>
+<p>super(fromClassName(className + JAVA_EXTENSION), Kind.SOURCE);</p>
+<p>this.sourceCode = sourceCode;</p>
+<p>}</p>
+<p>public CharSequenceJavaFileObject(String fullClassName, Kind kind) {</p>
+<p>super(fromClassName(fullClassName), kind);</p>
+<p>this.sourceCode = null;</p>
+<p>}</p>
+<p>public CharSequenceJavaFileObject(URI uri, Kind kind) {</p>
+<p>super(uri, kind);</p>
+<p>this.sourceCode = null;</p>
+<p>}</p>
+<p>@Override</p>
+<p>public CharSequence getCharContent(boolean ignoreEncodingErrors) throws IOException {</p>
+<p>return sourceCode;</p>
+<p>}</p>
+<p>@Override</p>
+<p>public InputStream openInputStream() {</p>
+<p>return new ByteArrayInputStream(getByteCode());</p>
+<p>}</p>
+<p>// 注意这个方法是编译结果回调的OutputStream，回调成功后就能通过下面的getByteCode()方法获取目标类编译后的字节码字节数组</p>
+<p>@Override</p>
+<p>public OutputStream openOutputStream() {</p>
+<p>return byteCode = new ByteArrayOutputStream();</p>
+<p>}</p>
+<p>public byte[] getByteCode() {</p>
+<p>return byteCode.toByteArray();</p>
+<p>}</p>
+<p>}</p>
+<p>JdkDynamicCompileClassLoader.java</p>
+<p>package AOP.base.ClassMake;</p>
+<p>import com.sun.istack.internal.Nullable;</p>
+<p>import javax.tools.JavaFileObject;</p>
+<p>import java.io.ByteArrayInputStream;</p>
+<p>import java.io.InputStream;</p>
+<p>import java.util.Collection;</p>
+<p>import java.util.Collections;</p>
+<p>import java.util.HashMap;</p>
+<p>import java.util.Map;</p>
+<p>public class JdkDynamicCompileClassLoader extends ClassLoader {</p>
+<p>public static final String CLASS_EXTENSION = “.class”;</p>
+<p>private final Map&lt;String, JavaFileObject&gt; javaFileObjectMap = new HashMap&lt;&gt;();</p>
+<p>public JdkDynamicCompileClassLoader(ClassLoader parentClassLoader) {</p>
+<p>super(parentClassLoader);</p>
+<p>}</p>
+<p>@Override</p>
+<p>protected Class&lt;?&gt; findClass(String name) throws ClassNotFoundException {</p>
+<p>JavaFileObject javaFileObject = javaFileObjectMap.get(name);</p>
+<p>if (null != javaFileObject) {</p>
+<p>CharSequenceJavaFileObject charSequenceJavaFileObject = (CharSequenceJavaFileObject) javaFileObject;</p>
+<p>byte[] byteCode = charSequenceJavaFileObject.getByteCode();</p>
+<p>return defineClass(name, byteCode, 0, byteCode.length);</p>
+<p>}</p>
+<p>return super.findClass(name);</p>
+<p>}</p>
+<p>@Nullable</p>
+<p>@Override</p>
+<p>public InputStream getResourceAsStream(String name) {</p>
+<p>if (name.endsWith(CLASS_EXTENSION)) {</p>
+<p>String qualifiedClassName = name.substring(0, name.length() - CLASS_EXTENSION.length()).replace(‘/’, ‘.’);</p>
+<p>CharSequenceJavaFileObject javaFileObject = (CharSequenceJavaFileObject) javaFileObjectMap.get(qualifiedClassName);</p>
+<p>if (null != javaFileObject &amp;&amp; null != javaFileObject.getByteCode()) {</p>
+<p>return new ByteArrayInputStream(javaFileObject.getByteCode());</p>
+<p>}</p>
+<p>}</p>
+<p>return super.getResourceAsStream(name);</p>
+<p>}</p>
+<p>/**</p>
+<p>* 暂时存放编译的源文件对象,key为全类名的别名（非URI模式）,如club.throwable.compile.HelloService</p>
+<p>*/</p>
+<p>void addJavaFileObject(String qualifiedClassName, JavaFileObject javaFileObject) {</p>
+<p>javaFileObjectMap.put(qualifiedClassName, javaFileObject);</p>
+<p>}</p>
+<p>Collection<javafileobject> listJavaFileObject() {</javafileobject></p>
+<p>return Collections.unmodifiableCollection(javaFileObjectMap.values());</p>
+<p>}</p>
+<p>}</p>
+<p>JdkDynamicCompileJavaFileManager.java</p>
+<p>package AOP.base.ClassMake;</p>
+<p>import javax.tools.*;</p>
+<p>import java.io.IOException;</p>
+<p>import java.net.URI;</p>
+<p>import java.net.URISyntaxException;</p>
+<p>import java.util.*;</p>
+<p>public class JdkDynamicCompileJavaFileManager extends ForwardingJavaFileManager<javafilemanager> {</javafilemanager></p>
+<p>private final JdkDynamicCompileClassLoader classLoader;</p>
+<p>private final Map&lt;URI, JavaFileObject&gt; javaFileObjectMap =new HashMap&lt;&gt;();</p>
+<p>public JdkDynamicCompileJavaFileManager(JavaFileManager fileManager, JdkDynamicCompileClassLoader classLoader) {</p>
+<p>super(fileManager);</p>
+<p>this.classLoader = classLoader;</p>
+<p>}</p>
+<p>private static URI fromLocation(Location location, String packageName, String relativeName) {</p>
+<p>try {</p>
+<p>return new URI(location.getName() + ‘/’ + packageName + ‘/’ + relativeName);</p>
+<p>} catch (URISyntaxException e) {</p>
+<p>throw new IllegalArgumentException(e);</p>
+<p>}</p>
+<p>}</p>
+<p>@Override</p>
+<p>public FileObject getFileForInput(Location location, String packageName, String relativeName) throws IOException {</p>
+<p>JavaFileObject javaFileObject = javaFileObjectMap.get(fromLocation(location, packageName, relativeName));</p>
+<p>if (null != javaFileObject) {</p>
+<p>return javaFileObject;</p>
+<p>}</p>
+<p>return super.getFileForInput(location, packageName, relativeName);</p>
+<p>}</p>
+<p>/**</p>
+<p>* 这里是编译器返回的同(源)Java文件对象,替换为CharSequenceJavaFileObject实现</p>
+<p>*/</p>
+<p>@Override</p>
+<p>public JavaFileObject getJavaFileForOutput(Location location, String className, JavaFileObject.Kind kind, FileObject sibling) throws IOException {</p>
+<p>JavaFileObject javaFileObject = new CharSequenceJavaFileObject(className, kind);</p>
+<p>classLoader.addJavaFileObject(className, javaFileObject);</p>
+<p>return javaFileObject;</p>
+<p>}</p>
+<p>/**</p>
+<p>* 这里覆盖原来的类加载器</p>
+<p>*/</p>
+<p>@Override</p>
+<p>public ClassLoader getClassLoader(Location location) {</p>
+<p>return classLoader;</p>
+<p>}</p>
+<p>@Override</p>
+<p>public String inferBinaryName(Location location, JavaFileObject file) {</p>
+<p>if (file instanceof CharSequenceJavaFileObject) {</p>
+<p>return file.getName();</p>
+<p>}</p>
+<p>return super.inferBinaryName(location, file);</p>
+<p>}</p>
+<p>@Override</p>
+<p>public Iterable<javafileobject> list(Location location, String packageName, Set&lt;JavaFileObject.Kind&gt; kinds, boolean recurse) throws IOException {</javafileobject></p>
+<p>Iterable<javafileobject> superResult = super.list(location, packageName, kinds, recurse);</javafileobject></p>
+<p>List<javafileobject> result = new ArrayList&lt;&gt;();</javafileobject></p>
+<p>// 这里要区分编译的Location以及编译的Kind</p>
+<p>if (location == StandardLocation.CLASS_PATH &amp;&amp; kinds.contains(JavaFileObject.Kind.CLASS)) {</p>
+<p>// .class文件以及classPath下</p>
+<p>for (JavaFileObject file : javaFileObjectMap.values()) {</p>
+<p>if (file.getKind() == JavaFileObject.Kind.CLASS &amp;&amp; file.getName().startsWith(packageName)) {</p>
+<p>result.add(file);</p>
+<p>}</p>
+<p>}</p>
+<p>// 这里需要额外添加类加载器加载的所有Java文件对象</p>
+<p>result.addAll(classLoader.listJavaFileObject());</p>
+<p>} else if (location == StandardLocation.SOURCE_PATH &amp;&amp; kinds.contains(JavaFileObject.Kind.SOURCE)) {</p>
+<p>// .java文件以及编译路径下</p>
+<p>for (JavaFileObject file : javaFileObjectMap.values()) {</p>
+<p>if (file.getKind() == JavaFileObject.Kind.SOURCE &amp;&amp; file.getName().startsWith(packageName)) {</p>
+<p>result.add(file);</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>for (JavaFileObject javaFileObject : superResult) {</p>
+<p>result.add(javaFileObject);</p>
+<p>}</p>
+<p>return result;</p>
+<p>}</p>
+<p>/**</p>
+<p>* 自定义方法,用于添加和缓存待编译的源文件对象</p>
+<p>*/</p>
+<p>public void addJavaFileObject(Location location, String packageName, String relativeName, JavaFileObject javaFileObject) {</p>
+<p>javaFileObjectMap.put(fromLocation(location, packageName, relativeName), javaFileObject);</p>
+<p>}</p>
+<p>}</p>
+<p>ProxySourceMaker.java</p>
+<p>package AOP.base.SelfProxy;</p>
+<p>import AOP.base.ClassMake.CharSequenceJavaFileObject;</p>
+<p>import AOP.base.ClassMake.JdkDynamicCompileClassLoader;</p>
+<p>import AOP.base.ClassMake.JdkDynamicCompileJavaFileManager;</p>
+<p>import javax.tools.*;</p>
+<p>import java.lang.reflect.InvocationTargetException;</p>
+<p>import java.lang.reflect.Method;</p>
+<p>import java.lang.reflect.Modifier;</p>
+<p>import java.util.ArrayList;</p>
+<p>import java.util.List;</p>
+<p>/**</p>
+<p>*自定义代理类生成器，实现切面AOP技术支持</p>
+<p>*/</p>
+<p>public class ProxySourceMaker {</p>
+<p>private Object proxy;</p>
+<p>static String SOURCE_CODE = “”;</p>
+<p>private String packageName;</p>
+<p>private String className;</p>
+<p>/**</p>
+<p>* 编译诊断收集器</p>
+<p>*/</p>
+<p>static DiagnosticCollector<javafileobject> DIAGNOSTIC_COLLECTOR = new DiagnosticCollector&lt;&gt;();</javafileobject></p>
+<p>ProxySourceMaker(Class<?> handlerClass,Class<?> targetClass){</p>
+<p>String packageName = targetClass.getPackage().getName();</p>
+<p>this.packageName = packageName;</p>
+<p>String className = handlerClass.getSimpleName()+targetClass.getSimpleName();</p>
+<p>this.className = className;</p>
+<p>StringBuilder stringBuilder = new StringBuilder();</p>
+<p>stringBuilder.append(“package”).append(&quot; “).append(packageName).append(”;“).append(”\n&quot;);</p>
+<p>stringBuilder.append(“import “).append(targetClass.getName()).append(”;”).append(“\n”);</p>
+<p>stringBuilder.append(“import “).append(handlerClass.getName()).append(”;”).append(“\n”);</p>
+<p>stringBuilder.append(“public class “).append(className).append(” extends “).append(targetClass.getName()).append(”{\n”);</p>
+<p>//组合处理器对象</p>
+<p>stringBuilder.append(handlerClass.getSimpleName()).append(&quot; &quot;).append(handlerClass.getSimpleName()).</p>
+<p>append(&quot; = &quot;).append(“new “).append(handlerClass.getSimpleName()).append(”();\n”);</p>
+<p>Method[] methods = targetClass.getDeclaredMethods();</p>
+<p>for(Method method:methods){</p>
+<p>stringBuilder.append(“@Override”).append(“\n”);</p>
+<p>int m = method.getModifiers();</p>
+<p>//方法修饰符</p>
+<p>stringBuilder.append(Modifier.toString(m)).append(&quot; &quot;);</p>
+<p>//方法返回类型</p>
+<p>stringBuilder.append(method.getReturnType().getName()).append(&quot; &quot;);</p>
+<p>//方法名称</p>
+<p>stringBuilder.append(method.getName()).append(&quot;( &quot;);</p>
+<p>//方法参数</p>
+<p>Class&lt;?&gt;[] params = method.getParameterTypes();</p>
+<p>int i=0;</p>
+<p>if(params.length&gt;0){</p>
+<p>for(Class&lt;?&gt; cl:params){</p>
+<p>stringBuilder.append(cl.getName()).append(&quot; param&quot;).append(i++).append(&quot; &quot;);</p>
+<p>}</p>
+<p>}</p>
+<p>stringBuilder.append(“)”).append(“{”).append(“\n”);</p>
+<p>//调用前置处理</p>
+<p>stringBuilder.append(handlerClass.getSimpleName()).append(“.before();\n”);</p>
+<p>String result = “”;</p>
+<p>if(!method.getReturnType().getName().equals(“void”)){</p>
+<p>stringBuilder.append(method.getReturnType().getName()).append(&quot; “).append(“result;”).append(”\n&quot;);</p>
+<p>stringBuilder.append(&quot;result = &quot;);</p>
+<p>result = “result”;</p>
+<p>}</p>
+<p>//调用目标方法</p>
+<p>stringBuilder.append(“super.”).append(method.getName()).append(&quot;( &quot;);</p>
+<p>for(int j=0;j&lt;i;j++){</p>
+<p>stringBuilder.append(“param”).append(j).append(&quot; &quot;);</p>
+<p>}</p>
+<p>stringBuilder.append(“);”).append(“\n”);</p>
+<p>//调用后置处理</p>
+<p>stringBuilder.append(handlerClass.getSimpleName()).append(“.after();\n”);</p>
+<p>stringBuilder.append(“return “).append(result).append(”;”).append(“\n”);</p>
+<p>stringBuilder.append(“}”).append(“\n”);</p>
+<p>}</p>
+<p>stringBuilder.append(“}\n”);</p>
+<p>SOURCE_CODE = stringBuilder.toString();</p>
+<p>}</p>
+<p>public Object getProxy() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {</p>
+<p>// 获取编译器实例</p>
+<p>JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();</p>
+<p>// 设置编译参数 - 指定编译版本为JDK1.6以提高兼容性</p>
+<p>List<string> options = new ArrayList&lt;&gt;();</string></p>
+<p>options.add(“-source”);</p>
+<p>options.add(“1.6”);</p>
+<p>options.add(“-target”);</p>
+<p>options.add(“1.6”);</p>
+<p>// 获取标准的Java文件管理器实例</p>
+<p>StandardJavaFileManager manager = compiler.getStandardFileManager(DIAGNOSTIC_COLLECTOR, null, null);</p>
+<p>// 初始化自定义类加载器</p>
+<p>JdkDynamicCompileClassLoader classLoader = new JdkDynamicCompileClassLoader(Thread.currentThread().getContextClassLoader());</p>
+<p>// 初始化自定义Java文件管理器实例</p>
+<p>JdkDynamicCompileJavaFileManager fileManager = new JdkDynamicCompileJavaFileManager(manager, classLoader);</p>
+<p>String packageName = this.packageName;</p>
+<p>String className = this.className;</p>
+<p>String qualifiedName = packageName + “.” + className;</p>
+<p>// 构建java文件对象字符序列</p>
+<p>CharSequenceJavaFileObject javaFileObject = new CharSequenceJavaFileObject(className, SOURCE_CODE);</p>
+<p>// 添加Java源文件实例到自定义Java文件管理器实例中</p>
+<p>fileManager.addJavaFileObject(</p>
+<p>StandardLocation.SOURCE_PATH,</p>
+<p>packageName,</p>
+<p>className + CharSequenceJavaFileObject.JAVA_EXTENSION,</p>
+<p>javaFileObject</p>
+<p>);</p>
+<p>// 初始化一个编译任务实例并执行编译任务</p>
+<p>List<javafileobject> list = new ArrayList&lt;&gt;();</javafileobject></p>
+<p>list.add(javaFileObject);</p>
+<p>JavaCompiler.CompilationTask compilationTask = compiler.getTask(</p>
+<p>null,</p>
+<p>fileManager,</p>
+<p>DIAGNOSTIC_COLLECTOR,</p>
+<p>options,</p>
+<p>null,</p>
+<p>list</p>
+<p>);</p>
+<p>Boolean result = compilationTask.call();</p>
+<p>//打印编译结果</p>
+<p>System.out.println(String.format(“编译 [%s ]结果:%s”, qualifiedName, result));</p>
+<p>//加载类获得Class实例</p>
+<p>Class&lt;?&gt; klass = classLoader.loadClass(qualifiedName);</p>
+<p>//根据class实例实例化对象</p>
+<p>proxy = klass.getDeclaredConstructor().newInstance();</p>
+<p>return proxy;</p>
+<p>}</p>
+<p>}</p>
+<p>ok，到此，已经实现了动态代理支持，下面进行使用。我们开始建立一个目标类：</p>
+<p>public class Hello implements HelloInterface{</p>
+<p>@Override</p>
+<p>public Integer sayHello() {</p>
+<p>System.out.println(“hello world!!”);</p>
+<p>return 8;</p>
+<p>}</p>
+<p>@Override</p>
+<p>public void sayBye() {</p>
+<p>System.out.println(“BBye”);</p>
+<p>}</p>
+<p>@Override</p>
+<p>public void sayHei() {</p>
+<p>}</p>
+<p>@Override</p>
+<p>public void jojo() {</p>
+<p>}</p>
+<p>}</p>
+<p>然后建立一个处理器类(前置，后置处理)：</p>
+<p>public class SelfHandler {</p>
+<p>public void before(){</p>
+<p>System.out.println(“前置处理”);</p>
+<p>}</p>
+<p>public void after(){</p>
+<p>System.out.println(“后置处理”);</p>
+<p>}</p>
+<p>public void around(){</p>
+<p>System.out.println(“环绕处理”);</p>
+<p>}</p>
+<p>}</p>
+<p>最后，进行测试，看通过上面两个类能不能生成一个代理类：</p>
+<p>import AOP.base.Hello;</p>
+<p>import java.lang.reflect.InvocationTargetException;</p>
+<p>public class SelfTest {</p>
+<p>public static void main(String[] args) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {</p>
+<p>Hello hello = (Hello)new ProxySourceMaker(SelfHandler.class,Hello.class).getProxy();</p>
+<p>hello.sayHello();</p>
+<p>}</p>
+<p>}</p>
+<img src="3.AOP的好处/media/image4.png" style="width:5.76042in;height:1.88132in" alt="截图.png">
+<p><strong>成功！！！！</strong></p>
+<p><strong>好了，如果你成功复现出来了，那么恭喜，你即将触及动态代理的精髓，下面就仔细去研读代码吧，如果有想法，就去优化，争取做一个更好的AOP框架出来。</strong></p>
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/SpringFramework-5-SpringBoot入门/" data-toggle="tooltip" data-placement="top" title="5.SpringBoot学习">&larr; 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/Algorithm-Base-1-算法设计的基石/" data-toggle="tooltip" data-placement="top" title="1.算法设计的基石">下一篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">目录</strong>
+        
+          <ol class="nav">none</ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Spring" title="Spring">Spring</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+				<!--
+                
+                <hr>
+                <h5>朋友们</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+				-->
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+          //console.log(a.target.textContent.replace(/\./g, ""));
+          document.getElementById(a.target.textContent.replace(/\./g, "").replace(" ","-")).scrollIntoView({behavior: 'smooth' });
+        })
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    //document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhihu_xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse"><b>B</b></i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/1776167012">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; muzhi 2026 
+                    <br>
+					
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://1776167012.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Mermaid图表库 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  // 页面加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid !== 'undefined') {
+      // 在这里可以配置Mermaid的主题、流程图方向等
+      mermaid.initialize({
+      // 自动识别并渲染所有 class="mermaid" 的div
+        startOnLoad: true,
+        // 可选：'default', 'dark', 'forest', 'neutral'
+        theme: 'neutral'
+      });
+    }
+  });
+</script>
+<script>
+$(document).ready(function() {
+    var isModalOpen = false;
+    // 1. 加载 search.xml 索引文件
+  $.ajax({
+    url: '/search.json', // 路径改为json
+    dataType: 'json',                    // 数据类型改为json
+    success: function(searchData) {      // 直接得到JS对象
+      console.log('搜索索引加载完成，共 ' + searchData.length + ' 篇文章。');
+      // 注意：searchData 现在直接是数组，无需解析
+      // 需要将全局的 searchData 变量赋值
+      window.searchData = searchData; // 赋值给全局变量
+    },
+    error: function() {
+      $('#search-status').text('无法加载搜索索引文件。');
+    }
+});
+
+    // 2. 搜索功能核心函数
+    function performSearch(keyword) {
+      var resultsContainer = $('#search-results-container').empty();
+      $('#search-status').hide();
+
+      if (!keyword.trim()) {
+        $('#search-status').text('输入关键词开始搜索...').show();
+        return;
+      }
+
+      var resultsHtml = '';
+      var resultCount = 0;
+      var kwReg = new RegExp(keyword, 'gi'); // 创建全局、不区分大小写的正则表达式
+
+      // 遍历所有文章数据
+      window.searchData.forEach(function(item) {
+        // 在标题和内容中搜索关键词
+        var titleMatch = item.title.match(kwReg);
+        var contentMatch = item.content.match(kwReg);
+
+        if (titleMatch || contentMatch) {
+          resultCount++;
+          // 构建标题高亮
+          var highlightedTitle = item.title.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+          // 从内容中提取包含关键词的片段（约150字符）并高亮
+          var contentSnippet = item.content;
+          var firstIndex = contentSnippet.toLowerCase().indexOf(keyword.toLowerCase());
+          if (firstIndex !== -1) {
+            var start = Math.max(0, firstIndex - 60);
+            var end = Math.min(contentSnippet.length, firstIndex + 90);
+            contentSnippet = '...' + contentSnippet.substring(start, end) + '...';
+          } else {
+            contentSnippet = contentSnippet.substring(0, 150) + '...';
+          }
+          contentSnippet = contentSnippet.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+
+          // 生成单个结果的HTML
+          resultsHtml += `
+            <div class="search-result-item">
+              <a href="${item.url}" class="search-result-title">${highlightedTitle}</a>
+              <p class="search-result-excerpt">${contentSnippet}</p>
+            </div>
+          `;
+        }
+      });
+
+      // 显示结果或“无结果”状态
+      if (resultCount > 0) {
+        resultsContainer.html(resultsHtml);
+      } else {
+        resultsContainer.html('<div id="search-status">未找到包含 "' + keyword + '" 的文章。</div>');
+      }
+    }
+
+    // 3. 绑定输入事件（防抖，提升性能）
+    var searchTimer;
+    $('#search-input').on('input', function() {
+      clearTimeout(searchTimer);
+      var keyword = $(this).val();
+      searchTimer = setTimeout(function() {
+        performSearch(keyword);
+      }, 300); // 延迟300毫秒后执行搜索
+    });
+
+    // 4. 全局控制搜索弹窗显示/隐藏的函数
+    window.openSearchModal = function() {
+      isModalOpen = true;
+      $('#search-mask, #search-modal').fadeIn(200);
+      $('#search-input').focus().select(); // 自动聚焦到输入框
+      $('body').css('overflow', 'hidden'); // 防止背景滚动
+    };
+    window.closeSearchModal = function() {
+      isModalOpen = false;
+      $('#search-mask, #search-modal').fadeOut(200);
+      $('#search-input').val(''); // 清空输入框
+      $('#search-results-container').empty(); // 清空结果
+      $('#search-status').text('输入关键词开始搜索...').show();
+      $('body').css('overflow', 'auto');
+    };
+
+    // 5. 事件绑定：点击遮罩关闭、ESC键关闭
+    $('#search-mask').on('click', closeSearchModal);
+    $(document).on('keydown', function(e) {
+      if (e.keyCode === 27 && isModalOpen) { // ESC键
+        closeSearchModal();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.keyCode === 70 && !isModalOpen) { // Ctrl+F / Cmd+F
+        e.preventDefault(); // 阻止浏览器默认查找
+        openSearchModal();
+      }
+    });
+  });
+</script>
+
+<!-- 本地搜索 CSS -->
+    <style>
+      /* 搜索弹窗遮罩 */
+      #search-mask {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9998;
+        display: none;
+      }
+      /* 搜索主容器 */
+      #search-modal {
+        position: fixed;
+        top: 10%; left: 50%;
+        transform: translateX(-50%);
+        width: 80%; max-width: 600px;
+        max-height: 80vh;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      }
+      /* 搜索框区域 */
+      .search-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      #search-input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      #search-input:focus {
+        border-color: #3498db;
+      }
+      /* 搜索结果区域 */
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 20px;
+      }
+      .search-result-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .search-result-item:last-child {
+        border-bottom: none;
+      }
+      .search-result-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #2c3e50;
+      }
+      .search-result-excerpt {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 限制最多显示3行 */
+        -webkit-box-orient: vertical;
+      }
+      .search-result-highlight {
+        background-color: #fff9c4; /* 关键词高亮背景色 */
+        font-weight: bold;
+        color: #e74c3c;
+      }
+      /* 无结果/加载状态 */
+      #search-status {
+        padding: 20px;
+        text-align: center;
+        color: #999;
+      }
+    </style>
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+	<script  type="text/javascript">
+<!-- Image to hack wechat -->
+<img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+</body>
+
+</html>

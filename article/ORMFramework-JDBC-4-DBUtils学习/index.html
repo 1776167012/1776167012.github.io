@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          4.DBUtils学习 - 牧之的博客 | Muzhi Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://1776167012.github.io/article/ORMFramework-JDBC-4-DBUtils学习/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/beantech.min.css">
+
+
+    
+<link rel="stylesheet" href="/css/donate.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script>
+	</script>
+	<style>
+	* {
+            box-sizing: border-box;
+        }
+
+        form {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding-left: 13px;
+        }
+
+        button {
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        /*搜索框1*/
+        .bar1 {
+			background: #FFF;
+			max-width: 200px;
+		}
+        .bar1 input {
+			max-height: 30px;
+            border: 2px solid #BFBFBF;
+            border-radius: 5px;
+            background: #FFFFFF;
+            color: #BFBFBF;
+			-webkit-text-fill-color: #BFBFBF;
+        }
+        .bar1 button {
+			max-height: 30px;
+            top: 0;
+            right: 0;
+            background: #BFBFBF;
+            border-radius: 0 5px 5px 0;
+        }
+        .bar1 button:before {
+            content: "\f002";
+            font-family: FontAwesome;
+            font-size: 16px;
+            color: #F9F0DA;
+        }
+		</style>
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/feed.xml" title="牧之" type="application/atom+xml">
+</head>
+
+
+
+<!-- hack iOS CSS :active style -->
+<!-- <body ontouchstart=""  class="<?php echo($_COOKIE['night'] == '1' ? '' : ''); ?>"> -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/header_img/codeBack.png')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#JDBC" title="JDBC">JDBC</a>
+                            
+                        </div>
+                        <h1>4.DBUtils学习</h1>
+                        <!-- <h2 class="subheading"></h2> -->
+                        <span class="meta">
+                            muzhi on
+                            2021-05-20
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1776167012</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                   <!-- 例如，放在导航菜单内部 -->
+                   <li>
+                    <a href="javascript:void(0);" onclick="openSearchModal()" title="搜索">搜索</a>
+                   </li>
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+					<li>
+                        <a href="/archive/">文章归档</a>
+                    </li>
+					<li>
+                        <a href="/tags/">博客标签</a>
+                    </li>
+					<li>
+                        <a href="/about/">关于作者</a>
+                    </li>
+
+					<!--
+					修改about在前面的问题
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">没有什么比快乐更重要</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    -->
+                </ul>
+            </div>
+
+        <!-- 本地搜索弹窗结构 -->
+        <div id="search-mask"></div>
+        <div id="search-modal">
+          <div class="search-header">
+            <input type="text" id="search-input" placeholder="请输入关键词搜索..." autocomplete="off" />
+          </div>
+          <div id="search-status">输入关键词开始搜索...</div>
+          <div class="search-results" id="search-results-container">
+            <!-- 搜索结果将通过JS动态插入到这里 -->
+          </div>
+        </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				
+                <p><strong>1.DbUtils简介</strong></p>
+<p>commons-dbutils 是 Apache 组织提供的一个开源 JDBC工具类库，它是对JDBC的简单封装，学习成本极低，并且使用dbutils能极大简化jdbc编码的工作量，创建连接、执行sql , 结果集封装、释放资源，同时也不会影响程序的性能。创建连接、结果集封装、释放资源因此dbutils成为很多不喜欢hibernate的公司的首选。</p>
+<p>API介绍：</p>
+<p>org.apache.commons.dbutils.QueryRunner — 核心</p>
+<p>org.apache.commons.dbutils.ResultSetHandler — 结果集封装器</p>
+<p>org.apache.commons.dbutils.DbUtils — 工具类</p>
+<p>官方地址：</p>
+<p><a href="https://link.jianshu.com?t=http://commons.apache.org/proper/commons-dbutils/">http://commons.apache.org/proper/commons-dbutils/</a></p>
+<p><strong>学习重点：多看看API，多看看官网的example！</strong></p>
+<p><strong>2.DbUtils类</strong></p>
+<p>DbUtils是提供如加载驱动、关闭连接、事务提交、回滚等常规工作的工具类，里面的所有方法都是静态的。</p>
+<p>主要方法如下：</p>
+<p>装载并注册JDBC驱动程序，如果成功就返回true。使用该方法，你不需要捕捉这个异常ClassNotFoundException。</p>
+<p>public static boolean loadDriver(java.lang.String driverClassName)</p>
+<p>示例：</p>
+<p>/**</p>
+<p>* 加载驱动学习</p>
+<p>*/</p>
+<p>public static void loadDriverStudy(){</p>
+<p>DbUtils.loadDriver(“com.mysql.cj.jdbc.Driver”);</p>
+<p>}</p>
+<p>DbUtils类提供了三个重载的关闭方法。这些方法检查所提供的参数是不是NULL，如果不是的话，它们就关闭Connection、Statement和ResultSet。</p>
+<p>public static void close(…) throws java.sql.SQLException</p>
+<p>这一类&quot;quietly&quot;方法不仅能在Connection、Statement和ResultSet为NULL情况下避免关闭，还能隐藏一些在程序中抛出的SQLException。</p>
+<p>public static void closeQuietly(Connection conn, Statement stmt, ResultSet rs)</p>
+<p>用来提交连接，然后关闭连接，并且在关闭连接时不抛出SQL异常。</p>
+<p>public static void commitAndCloseQuietly(Connection conn)</p>
+<p>示例：</p>
+<p>/**</p>
+<p>* 关闭连接</p>
+<p>* @throws SQLException</p>
+<p>*/</p>
+<p>public static void closeConnectionStudy() throws SQLException {</p>
+<p>DbUtils.loadDriver(“com.mysql.cj.jdbc.Driver”);</p>
+<p>Connection connection = JDBCUtils.getConnection();</p>
+<p>DbUtils.close(connection);</p>
+<p>//提交并关闭</p>
+<p>DbUtils.commitAndCloseQuietly(connection);</p>
+<p>DbUtils.commitAndClose(connection);</p>
+<p>}</p>
+<p><strong>3.QueryRunner类</strong></p>
+<p>该类简单化了SQL查询，它与ResultSetHandler组合在一起使用可以完成大部分的数据库操作，能够大大减少编码量。</p>
+<p>QueryRunner类提供了两个构造方法：</p>
+<p>默认的构造方法：QueryRunner()</p>
+<p>需要一个 javax.sql.DataSource 来作参数的构造方法：QueryRunner(DataSource ds)</p>
+<p><strong>常用方法（主要分为两种情况:使用连接池和不使用连接池的)</strong></p>
+<p>查询操作</p>
+<p>public Object query(Connection conn, String sql, ResultSetHandler<t> rsh, Object… params)</t></p>
+<p>public Object query(String sql, ResultSetHandler<t> rsh, Object… params)</t></p>
+<p>示例：</p>
+<p>/**</p>
+<p>*</p>
+<p>* @throws SQLException</p>
+<p>*/</p>
+<p>public static void queryStudy() throws SQLException {</p>
+<p>DbUtils.loadDriver(“com.mysql.cj.jdbc.Driver”);</p>
+<p>QueryRunner runner = new QueryRunner(JDBCUtils.dataSource);</p>
+<p>City city = (City) runner.query(“select * from city limit 1”, new BeanHandler<city>(City.class));</city></p>
+<p>System.out.println(city);</p>
+<p>City city1 = (City) runner.query(“select * from city where id=?”, new BeanHandler<city>(City.class),4079);</city></p>
+<p>System.out.println(city1);</p>
+<p>}</p>
+<p>批处理</p>
+<p>batch(Connection conn, String sql, Object[][] params) // 传递连接批处理</p>
+<p>batch(String sql, Object[][] params) // 不传递连接批处理</p>
+<p>示例：</p>
+<p>/**</p>
+<p>* 批量更新</p>
+<p>*/</p>
+<p>public static void batchStudy() throws SQLException {</p>
+<p>DbUtils.loadDriver(“com.mysql.cj.jdbc.Driver”);</p>
+<p>QueryRunner runner = new QueryRunner(JDBCUtils.dataSource);</p>
+<p>String sql = &quot;update city set name = ‘YanKing’ where id = ? &quot;;</p>
+<p>Integer[][] params= new Integer [2 ] [1 ];</p>
+<p>params [0 ] [0 ] = 4080;</p>
+<p>params [1 ] [0 ] = 4081;</p>
+<p>int[] res = runner.batch(sql,params);</p>
+<p>for(int n:res){</p>
+<p>System.out.println(n);</p>
+<p>}</p>
+<p>}</p>
+<p>更新操作</p>
+<p>public int update(Connection conn, String sql, Object… params)</p>
+<p>public int update(String sql, Object… params)</p>
+<p>示例：</p>
+<p>/**</p>
+<p>*更新操作</p>
+<p>*/</p>
+<p>public static void updateStudy() throws SQLException {</p>
+<p>DbUtils.loadDriver(“com.mysql.cj.jdbc.Driver”);</p>
+<p>QueryRunner runner = new QueryRunner(JDBCUtils.dataSource);</p>
+<p>String sql = &quot;update city set name = ‘YanQuque’ where id = ? &quot;;</p>
+<p>int resNum = runner.update(sql,4081);</p>
+<p>System.out.println(resNum);</p>
+<p>}</p>
+<p><strong>4、ResultSetHandler接口</strong></p>
+<p>该接口用于处理 java.sql.ResultSet，将数据按要求转换为另一种形式。</p>
+<p>ResultSetHandler 接口提供了一个单独的方法：</p>
+<p>Object handle(ResultSet rs){}</p>
+<p>ResultSetHandler 接口的实现类（构造方法不唯一，在这里只用最常见的构造方法）：</p>
+<p>ArrayHandler()：把结果集中的第一行数据转成对象数组（存入Object[]）。</p>
+<p>/**</p>
+<p>* ArrayHandler将结果集的第一行数据按照顺序存入数组中，数据中一个元素代表一列的一个值</p>
+<p>*/</p>
+<p>public static void ArrayHandlerStudy() throws SQLException {</p>
+<p>DbUtils.loadDriver(“com.mysql.cj.jdbc.Driver”);</p>
+<p>QueryRunner runner = new QueryRunner(JDBCUtils.dataSource);</p>
+<p>Object[] city = runner.query(“select * from city limit 1”, new ArrayHandler());</p>
+<p>for(Object o:city){</p>
+<p>System.out.print(o+&quot;| &quot;);</p>
+<p>}</p>
+<p>}</p>
+<p>ArrayListHandler()：把结果集中的每一行数据都转成一个对象数组，再存放到List中。</p>
+<p>/**</p>
+<p>* ArrayListHandler</p>
+<p>*/</p>
+<p>public static void ArrayListHandlerStudy() throws SQLException {</p>
+<p>DbUtils.loadDriver(“com.mysql.cj.jdbc.Driver”);</p>
+<p>QueryRunner runner = new QueryRunner(JDBCUtils.dataSource);</p>
+<p>List&lt;Object[]&gt; cityList = runner.query(“select * from city limit 5”, new ArrayListHandler());</p>
+<p>for(Object[] city:cityList){</p>
+<p>for(Object o:city){</p>
+<p>System.out.print(o+&quot;| &quot;);</p>
+<p>}</p>
+<p>System.out.println();</p>
+<p>}</p>
+<p>}</p>
+<p>BeanHandler(Class**<t> type)**：将结果集中的第一行数据封装到一个对应的JavaBean实例中。</t></p>
+<p>/**</p>
+<p>* BeanHandler支持直接将查询到的数据赋值给实体的属性中，使用频率高</p>
+<p>* @throws SQLException</p>
+<p>*/</p>
+<p>public static void BeanHandlerStudy() throws SQLException {</p>
+<p>DbUtils.loadDriver(“com.mysql.cj.jdbc.Driver”);</p>
+<p>QueryRunner runner = new QueryRunner(JDBCUtils.dataSource);</p>
+<p>City city = runner.query(“select * from city limit 1”, new BeanHandler&lt;&gt;(City.class));</p>
+<p>System.out.println(city);</p>
+<p>}</p>
+<p>BeanListHandler(Class**<t> type)**：将结果集中的每一行数据都封装到一个对应的JavaBean实例中，存放到List里。</t></p>
+<p>/**</p>
+<p>* BeanHandler支持直接将查询到的数据赋值给实体的属性中,并放入List中，使用频率高</p>
+<p>* @throws SQLException</p>
+<p>*/</p>
+<p>public static void BeanListHandlerStudy() throws SQLException {</p>
+<p>DbUtils.loadDriver(“com.mysql.cj.jdbc.Driver”);</p>
+<p>QueryRunner runner = new QueryRunner(JDBCUtils.dataSource);</p>
+<p>List<city> cityList = runner.query(“select * from city limit 5”, new BeanListHandler&lt;&gt;(City.class));</city></p>
+<p>for(City city:cityList){</p>
+<p>System.out.println(city);</p>
+<p>}</p>
+<p>}</p>
+<p>ColumnListHandler(String columnName/int columnIndex)：将结果集中某一列的数据存放到List中。</p>
+<p>/**</p>
+<p>*将结果集中某一列的数据存放到List中,比较常用</p>
+<p>*/</p>
+<p>public static void ColumnListHandlerStudy() throws SQLException {</p>
+<p>DbUtils.loadDriver(“com.mysql.cj.jdbc.Driver”);</p>
+<p>QueryRunner runner = new QueryRunner(JDBCUtils.dataSource);</p>
+<p>List<object> cityList = runner.query(“select * from city limit 5”, new ColumnListHandler&lt;&gt;(“Name”));</object></p>
+<p>for(Object city:cityList){</p>
+<p>System.out.println(city);</p>
+<p>}</p>
+<p>}</p>
+<p>MapHandler()：将结果集中的第一行数据封装到一个Map里，key是列名，value就是对应的值。</p>
+<p>/**</p>
+<p>* 将结果集中的第一行数据封装到一个Map里，key是列名，value就是对应的值。</p>
+<p>*/</p>
+<p>public static void MapHandlerStudy() throws SQLException {</p>
+<p>DbUtils.loadDriver(“com.mysql.cj.jdbc.Driver”);</p>
+<p>QueryRunner runner = new QueryRunner(JDBCUtils.dataSource);</p>
+<p>Map&lt;String,Object&gt; city = runner.query(“select * from city limit 1”, new MapHandler());</p>
+<p>for(Map.Entry&lt;String,Object&gt; entry:city.entrySet()){</p>
+<p>System.out.println(entry.getKey()+“=”+entry.getValue());</p>
+<p>}</p>
+<p>}</p>
+<p>MapListHandler()：将结果集中的每一行数据都封装到一个Map里，然后再将所有的Map存放到List中。</p>
+<p>/**</p>
+<p>*将结果集中的每一行数据都封装到一个Map里，然后再将所有的Map存放到List中。</p>
+<p>*/</p>
+<p>public static void MapListHandlerStudy() throws SQLException {</p>
+<p>DbUtils.loadDriver(“com.mysql.cj.jdbc.Driver”);</p>
+<p>QueryRunner runner = new QueryRunner(JDBCUtils.dataSource);</p>
+<p>List&lt;Map&lt;String,Object&gt;&gt; mapList = runner.query(“select * from city limit 2”, new MapListHandler());</p>
+<p>for(Map&lt;String,Object&gt; col:mapList){</p>
+<p>for(Map.Entry&lt;String,Object&gt; entry:col.entrySet()){</p>
+<p>System.out.print(entry.getKey()+“=”+entry.getValue());</p>
+<p>System.out.print(“,”);</p>
+<p>}</p>
+<p>System.out.println();</p>
+<p>}</p>
+<p>}</p>
+<p>KeyedHandler(String columnName)：将结果集每一行数据保存到一个“小”map中,key为列名，value该列的值，再将所有“小”map对象保存到一个“大”map中 ， “大”map中的key为指定行，value为“小”map对象。</p>
+<p>/**</p>
+<p>* 将结果集每一行数据保存到一个“小”map中,key为列名，value该列的值，再将所有“小”map对象保存到一个“大”map中 ， “大”map中的key为指定行，value为“小”map对象</p>
+<p>*/</p>
+<p>public static void KeyedHandlerStudy() throws SQLException {</p>
+<p>DbUtils.loadDriver(“com.mysql.cj.jdbc.Driver”);</p>
+<p>QueryRunner runner = new QueryRunner(JDBCUtils.dataSource);</p>
+<p>Map&lt;Integer,Map&lt;String,Object&gt;&gt; mapList = runner.query(“select * from city limit 2”, new KeyedHandler&lt;&gt;());</p>
+<p>for(Map.Entry&lt;Integer,Map&lt;String,Object&gt;&gt; mapEntry:mapList.entrySet()){</p>
+<p>System.out.println(mapEntry.getKey()+&quot;: &quot;);</p>
+<p>for(Map.Entry&lt;String,Object&gt; entry:mapEntry.getValue().entrySet()){</p>
+<p>System.out.print(entry.getKey()+“=”+entry.getValue());</p>
+<p>System.out.print(“,”);</p>
+<p>}</p>
+<p>System.out.println();</p>
+<p>}</p>
+<p>}</p>
+<p>ScalarHandler(int columnIndex)：通常用来保存只有一行一列的结果集。</p>
+<p>/**</p>
+<p>*通常用来保存只有一行一列的结果集。</p>
+<p>*/</p>
+<p>public static void ScalarHandlerStudy() throws SQLException {</p>
+<p>DbUtils.loadDriver(“com.mysql.cj.jdbc.Driver”);</p>
+<p>QueryRunner runner = new QueryRunner(JDBCUtils.dataSource);</p>
+<p>String sql = “select * from city limit 1”;</p>
+<p>Object o =runner.query(“select * from city limit 1”, new ScalarHandler&lt;&gt;(“countryCode”));</p>
+<p>System.out.println(o);</p>
+<p>}</p>
+<p>代码地址：</p>
+<p><a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%8A%A8%E6%89%8B%E5%81%9A%E4%B8%80%E5%81%9A/src/main/java/Orm/dbutils">Java动手做一做/src/main/java/Orm/dbutils · 严家豆/Study - 码云 - 开源中国 (gitee.com)</a></p>
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/ORMFramework-JDBC-3-JDBC元数据/" data-toggle="tooltip" data-placement="top" title="3.JDBC元数据">&larr; 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/Database-MySQL-Base-1-Mysql常用语句之简单查询-SELECT和SHOW/" data-toggle="tooltip" data-placement="top" title="1.MySQL基础命令">下一篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">目录</strong>
+        
+          <ol class="nav">none</ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#JDBC" title="JDBC">JDBC</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+				<!--
+                
+                <hr>
+                <h5>朋友们</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+				-->
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+          //console.log(a.target.textContent.replace(/\./g, ""));
+          document.getElementById(a.target.textContent.replace(/\./g, "").replace(" ","-")).scrollIntoView({behavior: 'smooth' });
+        })
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    //document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhihu_xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse"><b>B</b></i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/1776167012">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; muzhi 2026 
+                    <br>
+					
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://1776167012.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Mermaid图表库 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  // 页面加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid !== 'undefined') {
+      // 在这里可以配置Mermaid的主题、流程图方向等
+      mermaid.initialize({
+      // 自动识别并渲染所有 class="mermaid" 的div
+        startOnLoad: true,
+        // 可选：'default', 'dark', 'forest', 'neutral'
+        theme: 'neutral'
+      });
+    }
+  });
+</script>
+<script>
+$(document).ready(function() {
+    var isModalOpen = false;
+    // 1. 加载 search.xml 索引文件
+  $.ajax({
+    url: '/search.json', // 路径改为json
+    dataType: 'json',                    // 数据类型改为json
+    success: function(searchData) {      // 直接得到JS对象
+      console.log('搜索索引加载完成，共 ' + searchData.length + ' 篇文章。');
+      // 注意：searchData 现在直接是数组，无需解析
+      // 需要将全局的 searchData 变量赋值
+      window.searchData = searchData; // 赋值给全局变量
+    },
+    error: function() {
+      $('#search-status').text('无法加载搜索索引文件。');
+    }
+});
+
+    // 2. 搜索功能核心函数
+    function performSearch(keyword) {
+      var resultsContainer = $('#search-results-container').empty();
+      $('#search-status').hide();
+
+      if (!keyword.trim()) {
+        $('#search-status').text('输入关键词开始搜索...').show();
+        return;
+      }
+
+      var resultsHtml = '';
+      var resultCount = 0;
+      var kwReg = new RegExp(keyword, 'gi'); // 创建全局、不区分大小写的正则表达式
+
+      // 遍历所有文章数据
+      window.searchData.forEach(function(item) {
+        // 在标题和内容中搜索关键词
+        var titleMatch = item.title.match(kwReg);
+        var contentMatch = item.content.match(kwReg);
+
+        if (titleMatch || contentMatch) {
+          resultCount++;
+          // 构建标题高亮
+          var highlightedTitle = item.title.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+          // 从内容中提取包含关键词的片段（约150字符）并高亮
+          var contentSnippet = item.content;
+          var firstIndex = contentSnippet.toLowerCase().indexOf(keyword.toLowerCase());
+          if (firstIndex !== -1) {
+            var start = Math.max(0, firstIndex - 60);
+            var end = Math.min(contentSnippet.length, firstIndex + 90);
+            contentSnippet = '...' + contentSnippet.substring(start, end) + '...';
+          } else {
+            contentSnippet = contentSnippet.substring(0, 150) + '...';
+          }
+          contentSnippet = contentSnippet.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+
+          // 生成单个结果的HTML
+          resultsHtml += `
+            <div class="search-result-item">
+              <a href="${item.url}" class="search-result-title">${highlightedTitle}</a>
+              <p class="search-result-excerpt">${contentSnippet}</p>
+            </div>
+          `;
+        }
+      });
+
+      // 显示结果或“无结果”状态
+      if (resultCount > 0) {
+        resultsContainer.html(resultsHtml);
+      } else {
+        resultsContainer.html('<div id="search-status">未找到包含 "' + keyword + '" 的文章。</div>');
+      }
+    }
+
+    // 3. 绑定输入事件（防抖，提升性能）
+    var searchTimer;
+    $('#search-input').on('input', function() {
+      clearTimeout(searchTimer);
+      var keyword = $(this).val();
+      searchTimer = setTimeout(function() {
+        performSearch(keyword);
+      }, 300); // 延迟300毫秒后执行搜索
+    });
+
+    // 4. 全局控制搜索弹窗显示/隐藏的函数
+    window.openSearchModal = function() {
+      isModalOpen = true;
+      $('#search-mask, #search-modal').fadeIn(200);
+      $('#search-input').focus().select(); // 自动聚焦到输入框
+      $('body').css('overflow', 'hidden'); // 防止背景滚动
+    };
+    window.closeSearchModal = function() {
+      isModalOpen = false;
+      $('#search-mask, #search-modal').fadeOut(200);
+      $('#search-input').val(''); // 清空输入框
+      $('#search-results-container').empty(); // 清空结果
+      $('#search-status').text('输入关键词开始搜索...').show();
+      $('body').css('overflow', 'auto');
+    };
+
+    // 5. 事件绑定：点击遮罩关闭、ESC键关闭
+    $('#search-mask').on('click', closeSearchModal);
+    $(document).on('keydown', function(e) {
+      if (e.keyCode === 27 && isModalOpen) { // ESC键
+        closeSearchModal();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.keyCode === 70 && !isModalOpen) { // Ctrl+F / Cmd+F
+        e.preventDefault(); // 阻止浏览器默认查找
+        openSearchModal();
+      }
+    });
+  });
+</script>
+
+<!-- 本地搜索 CSS -->
+    <style>
+      /* 搜索弹窗遮罩 */
+      #search-mask {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9998;
+        display: none;
+      }
+      /* 搜索主容器 */
+      #search-modal {
+        position: fixed;
+        top: 10%; left: 50%;
+        transform: translateX(-50%);
+        width: 80%; max-width: 600px;
+        max-height: 80vh;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      }
+      /* 搜索框区域 */
+      .search-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      #search-input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      #search-input:focus {
+        border-color: #3498db;
+      }
+      /* 搜索结果区域 */
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 20px;
+      }
+      .search-result-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .search-result-item:last-child {
+        border-bottom: none;
+      }
+      .search-result-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #2c3e50;
+      }
+      .search-result-excerpt {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 限制最多显示3行 */
+        -webkit-box-orient: vertical;
+      }
+      .search-result-highlight {
+        background-color: #fff9c4; /* 关键词高亮背景色 */
+        font-weight: bold;
+        color: #e74c3c;
+      }
+      /* 无结果/加载状态 */
+      #search-status {
+        padding: 20px;
+        text-align: center;
+        color: #999;
+      }
+    </style>
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+	<script  type="text/javascript">
+<!-- Image to hack wechat -->
+<img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+</body>
+
+</html>

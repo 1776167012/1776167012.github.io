@@ -199,6 +199,10 @@
         <div id="huxblog_navbar">
             <div class="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
+                   <!-- 例如，放在导航菜单内部 -->
+                   <li>
+                    <a href="javascript:void(0);" onclick="openSearchModal()" title="搜索">搜索</a>
+                   </li>
                     <li>
                         <a href="/">主页</a>
                     </li>
@@ -211,6 +215,7 @@
 					<li>
                         <a href="/about/">关于作者</a>
                     </li>
+
 					<!--
 					修改about在前面的问题
                     
@@ -237,6 +242,18 @@
                     -->
                 </ul>
             </div>
+
+        <!-- 本地搜索弹窗结构 -->
+        <div id="search-mask"></div>
+        <div id="search-modal">
+          <div class="search-header">
+            <input type="text" id="search-input" placeholder="请输入关键词搜索..." autocomplete="off" />
+          </div>
+          <div id="search-status">输入关键词开始搜索...</div>
+          <div class="search-results" id="search-results-container">
+            <!-- 搜索结果将通过JS动态插入到这里 -->
+          </div>
+        </div>
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -293,10 +310,10 @@
 
 <div class="post-preview">
 
-    <a href="/article/Java技术体系-Java进阶-3-文件读写：使用IO流的步骤/">
+    <a href="/article/JavaPrograming-Java进阶-9-5-Java集合之Set学习-基本概念，存储原理，性能测试/">
         <h2 class="post-title">
                                  
-            3.文件读写：使用IO流的步骤
+            9.5 Java集合之Set学习
         </h2>
         <h3 class="post-subtitle">
             
@@ -309,8 +326,10 @@
 		<!--
         <div class="post-content-preview">
 			
-            1.使用输入流的步骤1.1.使用输入流的4个基本步骤
-步骤1：设定输入流的源。(创建File对......
+            1.Set接口
+graph LR
+
+Collection --extend--&gt; Ite......
 			
         </div>
 		-->
@@ -336,10 +355,10 @@
 
 <div class="post-preview">
 
-    <a href="/article/Java技术体系-Java进阶-4-文件读写：字节流/">
+    <a href="/article/JavaPrograming-Java进阶-9-6-Java集合之Queue学习-Queue接口，PriorityQueue/">
         <h2 class="post-title">
                                  
-            4.文件读写-字节流
+            9.6 Java集合之Queue学习
         </h2>
         <h3 class="post-subtitle">
             
@@ -352,7 +371,10 @@
 		<!--
         <div class="post-content-preview">
 			
-            1.什么是字节流字节流最大的特点是，每次调用read或write读入或写出的数据是以字节为单位......
+            1. Queue接口
+graph LR
+
+Collection --extend--&gt; ......
 			
         </div>
 		-->
@@ -378,10 +400,10 @@
 
 <div class="post-preview">
 
-    <a href="/article/Java技术体系-Java进阶-5-文件读写：字符流/">
+    <a href="/article/JavaPrograming-Java进阶-9-7-Java集合Deque学习（双端队列）/">
         <h2 class="post-title">
                                  
-            5.文件读写-字符流
+            9.6 Java集合之Deque(双端队列)学习
         </h2>
         <h3 class="post-subtitle">
             
@@ -394,8 +416,10 @@
 		<!--
         <div class="post-content-preview">
 			
-            
-因为字节流不能很好地操作本身容量单位较大的数据（一个字符有时等于多个字节）,所以需要字符流。......
+            1. Deque接口
+graph LR
+
+Collection --extend--&gt; ......
 			
         </div>
 		-->
@@ -421,10 +445,10 @@
 
 <div class="post-preview">
 
-    <a href="/article/Java技术体系-Java进阶-6-序列化对象克隆及文件锁学习/">
+    <a href="/article/JavaPrograming-Java进阶-10-1-Java进阶之线程的概念，创建线程和任务，Thread类，线程池，线程同步，锁同步/">
         <h2 class="post-title">
                                  
-            6.序列化对象克隆以及文件锁
+            10.1 Java进阶之线程的概念
         </h2>
         <h3 class="post-subtitle">
             
@@ -437,7 +461,8 @@
 		<!--
         <div class="post-content-preview">
 			
-            1.序列化对象克隆我们也许学习过如何clone一个对象，就是通过Object中的clone方法......
+            本博客代码完整，所有实例均可正常运行，代码仓库链接在文章底部，需要的自取。
+Java中重要机制......
 			
         </div>
 		-->
@@ -463,10 +488,10 @@
 
 <div class="post-preview">
 
-    <a href="/article/Java技术体系-Java进阶-7-Java操作mysql一般步骤（JDBC）/">
+    <a href="/article/JavaPrograming-Java进阶-10-2-Java进阶之线程间协作，生产者消费者Demo，阻塞队列/">
         <h2 class="post-title">
                                  
-            7.Java操作MySQL的步骤(JDBC)
+            10.2 Java进阶之线程间协作
         </h2>
         <h3 class="post-subtitle">
             
@@ -479,9 +504,8 @@
 		<!--
         <div class="post-content-preview">
 			
-            1.基本步骤
-首先在电脑上安装mysql，创建相应的数据库和表
-然后在开发项目中导入相应的ja......
+            1.线程间协作
+上一篇文章中说到可以让多个线程在临界区上的相互排斥(加锁实现)来让线程间同步，......
 			
         </div>
 		-->
@@ -507,10 +531,10 @@
 
 <div class="post-preview">
 
-    <a href="/article/Java技术体系-Java进阶-8-Java进阶之泛型，通配泛型，消除泛型和泛型的限制/">
+    <a href="/article/JavaPrograming-Java进阶-10-3-Java进阶之线程信号量，避免死锁/">
         <h2 class="post-title">
                                  
-            8.Java泛型,通配泛型,消除泛型和泛型的限制
+            10.3 Java进阶之线程信号量
         </h2>
         <h3 class="post-subtitle">
             
@@ -523,7 +547,10 @@
 		<!--
         <div class="post-content-preview">
 			
-            1.什么是泛型？在我看来，可以将泛型编程机制看作一个工具，通过这个工具我们可以在代码编译时检测......
+            1.信号量
+1.1 什么是信号量？
+信号量指的是对共享资源进行访问控制的对象。
+在访问资源之前......
 			
         </div>
 		-->
@@ -549,10 +576,10 @@
 
 <div class="post-preview">
 
-    <a href="/article/Java技术体系-Java进阶-9-1-Java集合接口学习/">
+    <a href="/article/JavaPrograming-Java进阶-11-1-Java进阶之网络IP-DNS-TCP-UDP-客户端服务器通信过程，套接字/">
         <h2 class="post-title">
                                  
-            9.1 Java集合接口学习
+            11.1 网络IP,DNS,TCP,UDP，客户端服务器通信套接字
         </h2>
         <h3 class="post-subtitle">
             
@@ -565,7 +592,9 @@
 		<!--
         <div class="post-content-preview">
 			
-            1.集合(即数据结构)概述首先我们要知道，Java合集框架中定义的所有接口和类都在java.u......
+            1.网络术语解释
+1.1 什么是IP？
+IP是一种互联网协议地址，用它我们可以唯一的标识互联网......
 			
         </div>
 		-->
@@ -591,10 +620,10 @@
 
 <div class="post-preview">
 
-    <a href="/article/Java技术体系-Java进阶-9-2-java集合基础学习（集合基本概念和基础接口学习）/">
+    <a href="/article/JavaPrograming-Java进阶-11-2-Java进阶之网络InetAddress类，多线程网络编程/">
         <h2 class="post-title">
                                  
-            9.2 Java集合基础学习(集合基本概念,基础接口)
+            11.2 InetAddress类,多线程网络编程
         </h2>
         <h3 class="post-subtitle">
             
@@ -607,8 +636,9 @@
 		<!--
         <div class="post-content-preview">
 			
-            学习总结自《java核心技术卷Ⅰ》
-1.Java集合框架Java最初的版本只为最常用的数据结构......
+            1.InetAddress类
+1.1 InetAddress类的作用
+服务器程序可以使用Ine......
 			
         </div>
 		-->
@@ -634,10 +664,10 @@
 
 <div class="post-preview">
 
-    <a href="/article/Java技术体系-Java进阶-9-3-Java集合学习之List（基本概念，API，存储原理）/">
+    <a href="/article/JavaPrograming-Java进阶-11-3-Java进阶之通过网络传输对象/">
         <h2 class="post-title">
                                  
-            9.3 Java集合之List(基本概念,API,存储原理)
+            11.3 通过网络传输对象
         </h2>
         <h3 class="post-subtitle">
             
@@ -650,8 +680,8 @@
 		<!--
         <div class="post-content-preview">
 			
-            1. List接口在学习List接口之前我们还是得复习下这张图
-123456789101112......
+            1.Java如何通过网络发送和接受对象
+前面的网络学习的例子演示的只是基本数据类型的传输，但在......
 			
         </div>
 		-->
@@ -677,10 +707,10 @@
 
 <div class="post-preview">
 
-    <a href="/article/Java技术体系-Java进阶-9-4-Java集合之Map学习/">
+    <a href="/article/JavaPrograming-Java进阶-12-1-Java进阶之反射概念，反射作用，Class类，程序运行时分析类的能力/">
         <h2 class="post-title">
                                  
-            9.4 Java集合之Map学习
+            12.1 反射概念，Class类学习
         </h2>
         <h3 class="post-subtitle">
             
@@ -693,7 +723,448 @@
 		<!--
         <div class="post-content-preview">
 			
-            1.Map接口1234graph LRSortedMap --extend--&gt; Map......
+            注意：本博客总结自《Java核心技术卷Ⅰ》
+1. 反射的概念
+1.1 什么是反射？
+在java......
+			
+        </div>
+		-->
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            2023-05-20
+			
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </p>
+		<!--
+        <div class="post-meta" style="margin: 10px 0;">
+            
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </div>
+		-->
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/JavaPrograming-Java进阶-12-3-Java进阶之使用反射编写数组CopyOf方法，调用任意方法/">
+        <h2 class="post-title">
+                                 
+            12.3 利用反射编写数组CopyOf方法，调用任意方法
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+		<!--
+		<h3 class="post-content-preview">
+            
+        </h3>
+		-->
+		<!--
+        <div class="post-content-preview">
+			
+            总结自《Java核心技术卷Ⅰ》
+1.使用反射编写泛型数组代码
+java.lang.reflec......
+			
+        </div>
+		-->
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            2023-05-20
+			
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </p>
+		<!--
+        <div class="post-meta" style="margin: 10px 0;">
+            
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </div>
+		-->
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/JavaPrograming-Java进阶-12-2-Java进阶之反射查看属性的值，查看任意对象的内部信息/">
+        <h2 class="post-title">
+                                 
+            12.2 利用反射查看属性信息，对象内部信息
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+		<!--
+		<h3 class="post-content-preview">
+            
+        </h3>
+		-->
+		<!--
+        <div class="post-content-preview">
+			
+            总结自《Java核心技术卷Ⅰ》
+1.通过反射机制查看对象属性的值
+利用反射机制可以查看在编译时......
+			
+        </div>
+		-->
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            2023-05-20
+			
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </p>
+		<!--
+        <div class="post-meta" style="margin: 10px 0;">
+            
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </div>
+		-->
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/JavaPrograming-Java进阶-13-1-Java进阶之lambda表达式基本概念，语法/">
+        <h2 class="post-title">
+                                 
+            13.1 Lambda表达式基本语法
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+		<!--
+		<h3 class="post-content-preview">
+            
+        </h3>
+		-->
+		<!--
+        <div class="post-content-preview">
+			
+            学习总结自《java核心技术卷一》
+1.什么是lambda表达式？
+lambda表达式是一个可......
+			
+        </div>
+		-->
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            2023-05-20
+			
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </p>
+		<!--
+        <div class="post-meta" style="margin: 10px 0;">
+            
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </div>
+		-->
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/JavaPrograming-Java进阶-13-2-Java进阶之lambda函数式接口/">
+        <h2 class="post-title">
+                                 
+            13.2 Lambda表达式函数式接口学习
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+		<!--
+		<h3 class="post-content-preview">
+            
+        </h3>
+		-->
+		<!--
+        <div class="post-content-preview">
+			
+            学习总结自《java核心技术卷一》
+1.函数式接口
+我们前面已经说到，lambda表达式其实就......
+			
+        </div>
+		-->
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            2023-05-20
+			
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </p>
+		<!--
+        <div class="post-meta" style="margin: 10px 0;">
+            
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </div>
+		-->
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/JavaPrograming-Java进阶-13-3-Java进阶之lambda方法引用/">
+        <h2 class="post-title">
+                                 
+            13.3 Lambda方法引用
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+		<!--
+		<h3 class="post-content-preview">
+            
+        </h3>
+		-->
+		<!--
+        <div class="post-content-preview">
+			
+            1.方法引用
+1.1 复用已有方法传递lambda
+有时我们可能已经有现成的方法可以完成你想要......
+			
+        </div>
+		-->
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            2023-05-20
+			
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </p>
+		<!--
+        <div class="post-meta" style="margin: 10px 0;">
+            
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </div>
+		-->
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/JavaPrograming-Java进阶-14-1-Java进阶之注解概念，工作原理/">
+        <h2 class="post-title">
+                                 
+            14.1 注解机制概念，工作原理解析
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+		<!--
+		<h3 class="post-content-preview">
+            
+        </h3>
+		-->
+		<!--
+        <div class="post-content-preview">
+			
+            本篇文章学习总结自《Java核心技术卷二》
+1.什么是注解？
+如果使用过Spring做开发，相......
+			
+        </div>
+		-->
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            2023-05-20
+			
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </p>
+		<!--
+        <div class="post-meta" style="margin: 10px 0;">
+            
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </div>
+		-->
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/JavaPrograming-Java进阶-15-Java进阶之Scanner类学习（基本概念，常见用法）/">
+        <h2 class="post-title">
+                                 
+            15 Scanner类学习
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+		<!--
+		<h3 class="post-content-preview">
+            
+        </h3>
+		-->
+		<!--
+        <div class="post-content-preview">
+			
+            1.Scanner基础学习
+1.1 Scanner类是个什么类？
+其实这个类并不是一个输入类，......
+			
+        </div>
+		-->
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            2023-05-20
+			
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </p>
+		<!--
+        <div class="post-meta" style="margin: 10px 0;">
+            
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </div>
+		-->
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/JavaPrograming-Java进阶-17-Java异常处理机制学习-基本概念及用法/">
+        <h2 class="post-title">
+                                 
+            17 异常处理学习机制
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+		<!--
+		<h3 class="post-content-preview">
+            
+        </h3>
+		-->
+		<!--
+        <div class="post-content-preview">
+			
+            1.异常概述
+程序员的理想世界中，用户输入的数据的格式永远都是正确的，选择文件都是存在的，代码......
+			
+        </div>
+		-->
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            2023-05-20
+			
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </p>
+		<!--
+        <div class="post-meta" style="margin: 10px 0;">
+            
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </div>
+		-->
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/JavaPrograming-Java进阶-16-Java字符串之码点和代码单元/">
+        <h2 class="post-title">
+                                 
+            16 字符串的码点，代码单元
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+		<!--
+		<h3 class="post-content-preview">
+            
+        </h3>
+		-->
+		<!--
+        <div class="post-content-preview">
+			
+            1.码点与代码单元
+1.1 我们是否真的理解char？
+在我们通常的认知中，char用来表示字......
+			
+        </div>
+		-->
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            2023-05-20
+			
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </p>
+		<!--
+        <div class="post-meta" style="margin: 10px 0;">
+            
+              <a href="/tags/#Java进阶" title="Java进阶">Java进阶</a>
+            
+        </div>
+		-->
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/JavaPrograming-Java进阶-18-Object中equals和toStirng-源码分析/">
+        <h2 class="post-title">
+                                 
+            18 Object类的equals,toString源码解析
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+		<!--
+		<h3 class="post-content-preview">
+            
+        </h3>
+		-->
+		<!--
+        <div class="post-content-preview">
+			
+            我们都知道Object是所有类的父类，那么它里面的一些方法你是否真的理解了呢？
+下面我们就以源......
 			
         </div>
 		-->
@@ -751,18 +1222,18 @@
     sidebar-container
 ">
     
-        <div class="search bar1">
-		<script type="text/javascript">
-			function test(){
-				var f = document.getElementsByTagName("form")[0];
-				f.action=f.action+" "+document.getElementById("word").value;
-			}
-		</script>
-		<form name = "dsadsa" action = "https://www.dogedoge.com/results?q=site%3Ahttps://1776167012.github.io" method = "post">
-			<input type="text" placeholder="查找..." id = "word">
-			<button type="submit" onClick="test()"></button>
-		</form>
-	</div>
+        <!-- <div class="search bar1"> -->
+<!-- 		<script type="text/javascript"> -->
+<!-- 			function test(){ -->
+<!-- 				var f = document.getElementsByTagName("form")[0]; -->
+<!-- 				f.action=f.action+" "+document.getElementById("word").value; -->
+<!-- 			} -->
+<!-- 		</script> -->
+<!-- 		<form name = "dsadsa" action = "https://www.dogedoge.com/results?q=site%3Ahttps://1776167012.github.io" method = "post"> -->
+<!-- 			<input type="text" placeholder="查找..." id = "word"> -->
+<!-- 			<button type="submit" onClick="test()"></button> -->
+<!-- 		</form> -->
+<!-- 	</div> -->
 <!-- https://www.dogedoge.com/results?q=site%3Atyzhang.top+ -->
         <hr>
     
@@ -778,7 +1249,47 @@
             
         
             
-            <a href="/tags/#设计模式" title="设计模式" rel="1">设计模式</a>
+            <a href="/tags/#银行核心系统" title="银行核心系统" rel="1">银行核心系统</a>
+            
+        
+            
+            <a href="/tags/#汇编语言" title="汇编语言" rel="4">汇编语言</a>
+            
+        
+            
+            <a href="/tags/#Git" title="Git" rel="4">Git</a>
+            
+        
+            
+            <a href="/tags/#Maven" title="Maven" rel="1">Maven</a>
+            
+        
+            
+            <a href="/tags/#Spring" title="Spring" rel="5">Spring</a>
+            
+        
+            
+            <a href="/tags/#UML语言" title="UML语言" rel="1">UML语言</a>
+            
+        
+            
+            <a href="/tags/#前端基础" title="前端基础" rel="3">前端基础</a>
+            
+        
+            
+            <a href="/tags/#加密" title="加密" rel="1">加密</a>
+            
+        
+            
+            <a href="/tags/#Redis学习" title="Redis学习" rel="6">Redis学习</a>
+            
+        
+            
+            <a href="/tags/#算法基础" title="算法基础" rel="21">算法基础</a>
+            
+        
+            
+            <a href="/tags/#设计模式-创建型模式" title="设计模式-创建型模式" rel="7">设计模式-创建型模式</a>
             
         
             
@@ -794,7 +1305,7 @@
             
         
             
-            <a href="/tags/#MySQL" title="MySQL" rel="1">MySQL</a>
+            <a href="/tags/#JDBC" title="JDBC" rel="4">JDBC</a>
             
         
             
@@ -802,7 +1313,15 @@
             
         
             
-            <a href="/tags/#Java网络编程" title="Java网络编程" rel="1">Java网络编程</a>
+            <a href="/tags/#Vue" title="Vue" rel="1">Vue</a>
+            
+        
+            
+            <a href="/tags/#MySQL基础" title="MySQL基础" rel="15">MySQL基础</a>
+            
+        
+            
+            <a href="/tags/#MySQL性能优化" title="MySQL性能优化" rel="18">MySQL性能优化</a>
             
         
     </div>
@@ -880,10 +1399,6 @@
 <ul class="list-inline">
 
     
-        <li><a href="https://zytgalaxy.github.io/" target="_blank">ztygalaxy</a></li>
-    
-        <li><a href="" target="_blank">xiaoming</a></li>
-    
 </ul>
 
         <hr>
@@ -894,23 +1409,23 @@
     <ul>
       
         <li>
+          <a href="/article/BankCoreSystem-%E8%B4%B7%E6%AC%BE%E6%A0%B8%E5%BF%83%E4%B8%9A%E5%8A%A1%E7%9F%A5%E8%AF%86/">贷款核心业务知识</a>
+        </li>
+      
+        <li>
           <a href="/article/projectInfo/">我的个人项目</a>
         </li>
       
         <li>
-          <a href="/article/databases-mysql-24-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/">事务隔离级别</a>
+          <a href="/article/LinuxServer-docker-1-Docker%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E9%AA%8C%E8%AF%81/">Docker安装以及验证</a>
         </li>
       
         <li>
-          <a href="/article/Linux%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3-docker-1-Docker%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E9%AA%8C%E8%AF%81/">Docker安装以及验证</a>
+          <a href="/article/LinuxServer-docker-3-docker%E6%97%A5%E5%BF%97%E6%B8%85%E7%90%86/">docker日志清理</a>
         </li>
       
         <li>
-          <a href="/article/Linux%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3-docker-3-docker%E6%97%A5%E5%BF%97%E6%B8%85%E7%90%86/">docker日志清理</a>
-        </li>
-      
-        <li>
-          <a href="/article/Linux%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3-linux-1-Linux%E5%85%A5%E9%97%A8%E5%91%BD%E4%BB%A4-%E5%BF%AB%E6%8D%B7%E9%94%AE/">docker日志清理</a>
+          <a href="/article/LinuxServer-linux-1-Linux%E5%85%A5%E9%97%A8%E5%91%BD%E4%BB%A4-%E5%BF%AB%E6%8D%B7%E9%94%AE/">1.Linux入门命令和快捷键</a>
         </li>
       
     </ul>
@@ -921,7 +1436,7 @@
         
     <h5>归档</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a><span class="archive-list-count">55</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a><span class="archive-list-count">68</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a><span class="archive-list-count">49</span></li></ul>
     </div>
 
         <hr>
@@ -1109,8 +1624,220 @@
 <!-- Baidu Tongji -->
 
 
+<!-- Mermaid图表库 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  // 页面加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid !== 'undefined') {
+      // 在这里可以配置Mermaid的主题、流程图方向等
+      mermaid.initialize({
+      // 自动识别并渲染所有 class="mermaid" 的div
+        startOnLoad: true,
+        // 可选：'default', 'dark', 'forest', 'neutral'
+        theme: 'neutral'
+      });
+    }
+  });
+</script>
+<script>
+$(document).ready(function() {
+    var isModalOpen = false;
+    // 1. 加载 search.xml 索引文件
+  $.ajax({
+    url: '/search.json', // 路径改为json
+    dataType: 'json',                    // 数据类型改为json
+    success: function(searchData) {      // 直接得到JS对象
+      console.log('搜索索引加载完成，共 ' + searchData.length + ' 篇文章。');
+      // 注意：searchData 现在直接是数组，无需解析
+      // 需要将全局的 searchData 变量赋值
+      window.searchData = searchData; // 赋值给全局变量
+    },
+    error: function() {
+      $('#search-status').text('无法加载搜索索引文件。');
+    }
+});
 
+    // 2. 搜索功能核心函数
+    function performSearch(keyword) {
+      var resultsContainer = $('#search-results-container').empty();
+      $('#search-status').hide();
 
+      if (!keyword.trim()) {
+        $('#search-status').text('输入关键词开始搜索...').show();
+        return;
+      }
+
+      var resultsHtml = '';
+      var resultCount = 0;
+      var kwReg = new RegExp(keyword, 'gi'); // 创建全局、不区分大小写的正则表达式
+
+      // 遍历所有文章数据
+      window.searchData.forEach(function(item) {
+        // 在标题和内容中搜索关键词
+        var titleMatch = item.title.match(kwReg);
+        var contentMatch = item.content.match(kwReg);
+
+        if (titleMatch || contentMatch) {
+          resultCount++;
+          // 构建标题高亮
+          var highlightedTitle = item.title.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+          // 从内容中提取包含关键词的片段（约150字符）并高亮
+          var contentSnippet = item.content;
+          var firstIndex = contentSnippet.toLowerCase().indexOf(keyword.toLowerCase());
+          if (firstIndex !== -1) {
+            var start = Math.max(0, firstIndex - 60);
+            var end = Math.min(contentSnippet.length, firstIndex + 90);
+            contentSnippet = '...' + contentSnippet.substring(start, end) + '...';
+          } else {
+            contentSnippet = contentSnippet.substring(0, 150) + '...';
+          }
+          contentSnippet = contentSnippet.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+
+          // 生成单个结果的HTML
+          resultsHtml += `
+            <div class="search-result-item">
+              <a href="${item.url}" class="search-result-title">${highlightedTitle}</a>
+              <p class="search-result-excerpt">${contentSnippet}</p>
+            </div>
+          `;
+        }
+      });
+
+      // 显示结果或“无结果”状态
+      if (resultCount > 0) {
+        resultsContainer.html(resultsHtml);
+      } else {
+        resultsContainer.html('<div id="search-status">未找到包含 "' + keyword + '" 的文章。</div>');
+      }
+    }
+
+    // 3. 绑定输入事件（防抖，提升性能）
+    var searchTimer;
+    $('#search-input').on('input', function() {
+      clearTimeout(searchTimer);
+      var keyword = $(this).val();
+      searchTimer = setTimeout(function() {
+        performSearch(keyword);
+      }, 300); // 延迟300毫秒后执行搜索
+    });
+
+    // 4. 全局控制搜索弹窗显示/隐藏的函数
+    window.openSearchModal = function() {
+      isModalOpen = true;
+      $('#search-mask, #search-modal').fadeIn(200);
+      $('#search-input').focus().select(); // 自动聚焦到输入框
+      $('body').css('overflow', 'hidden'); // 防止背景滚动
+    };
+    window.closeSearchModal = function() {
+      isModalOpen = false;
+      $('#search-mask, #search-modal').fadeOut(200);
+      $('#search-input').val(''); // 清空输入框
+      $('#search-results-container').empty(); // 清空结果
+      $('#search-status').text('输入关键词开始搜索...').show();
+      $('body').css('overflow', 'auto');
+    };
+
+    // 5. 事件绑定：点击遮罩关闭、ESC键关闭
+    $('#search-mask').on('click', closeSearchModal);
+    $(document).on('keydown', function(e) {
+      if (e.keyCode === 27 && isModalOpen) { // ESC键
+        closeSearchModal();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.keyCode === 70 && !isModalOpen) { // Ctrl+F / Cmd+F
+        e.preventDefault(); // 阻止浏览器默认查找
+        openSearchModal();
+      }
+    });
+  });
+</script>
+
+<!-- 本地搜索 CSS -->
+    <style>
+      /* 搜索弹窗遮罩 */
+      #search-mask {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9998;
+        display: none;
+      }
+      /* 搜索主容器 */
+      #search-modal {
+        position: fixed;
+        top: 10%; left: 50%;
+        transform: translateX(-50%);
+        width: 80%; max-width: 600px;
+        max-height: 80vh;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      }
+      /* 搜索框区域 */
+      .search-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      #search-input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      #search-input:focus {
+        border-color: #3498db;
+      }
+      /* 搜索结果区域 */
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 20px;
+      }
+      .search-result-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .search-result-item:last-child {
+        border-bottom: none;
+      }
+      .search-result-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #2c3e50;
+      }
+      .search-result-excerpt {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 限制最多显示3行 */
+        -webkit-box-orient: vertical;
+      }
+      .search-result-highlight {
+        background-color: #fff9c4; /* 关键词高亮背景色 */
+        font-weight: bold;
+        color: #e74c3c;
+      }
+      /* 无结果/加载状态 */
+      #search-status {
+        padding: 20px;
+        text-align: center;
+        color: #999;
+      }
+    </style>
 
 
 	<a id="rocket" href="#top" class=""></a>
@@ -1121,6 +1848,23 @@
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
 </body>
 
 </html>

@@ -199,6 +199,10 @@
         <div id="huxblog_navbar">
             <div class="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
+                   <!-- 例如，放在导航菜单内部 -->
+                   <li>
+                    <a href="javascript:void(0);" onclick="openSearchModal()" title="搜索">搜索</a>
+                   </li>
                     <li>
                         <a href="/">主页</a>
                     </li>
@@ -211,6 +215,7 @@
 					<li>
                         <a href="/about/">关于作者</a>
                     </li>
+
 					<!--
 					修改about在前面的问题
                     
@@ -237,6 +242,18 @@
                     -->
                 </ul>
             </div>
+
+        <!-- 本地搜索弹窗结构 -->
+        <div id="search-mask"></div>
+        <div id="search-modal">
+          <div class="search-header">
+            <input type="text" id="search-input" placeholder="请输入关键词搜索..." autocomplete="off" />
+          </div>
+          <div id="search-status">输入关键词开始搜索...</div>
+          <div class="search-results" id="search-results-container">
+            <!-- 搜索结果将通过JS动态插入到这里 -->
+          </div>
+        </div>
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -295,6 +312,7 @@
 				
                 <h1><span id="热爱生活开心就好我就是我">热爱生活，开心就好，我就是我。</span></h1>
 
+
                 <br>
 
                 <!-- require APlayer -->
@@ -310,18 +328,18 @@
     sidebar-container
 ">
     
-        <div class="search bar1">
-		<script type="text/javascript">
-			function test(){
-				var f = document.getElementsByTagName("form")[0];
-				f.action=f.action+" "+document.getElementById("word").value;
-			}
-		</script>
-		<form name = "dsadsa" action = "https://www.dogedoge.com/results?q=site%3Ahttps://1776167012.github.io" method = "post">
-			<input type="text" placeholder="查找..." id = "word">
-			<button type="submit" onClick="test()"></button>
-		</form>
-	</div>
+        <!-- <div class="search bar1"> -->
+<!-- 		<script type="text/javascript"> -->
+<!-- 			function test(){ -->
+<!-- 				var f = document.getElementsByTagName("form")[0]; -->
+<!-- 				f.action=f.action+" "+document.getElementById("word").value; -->
+<!-- 			} -->
+<!-- 		</script> -->
+<!-- 		<form name = "dsadsa" action = "https://www.dogedoge.com/results?q=site%3Ahttps://1776167012.github.io" method = "post"> -->
+<!-- 			<input type="text" placeholder="查找..." id = "word"> -->
+<!-- 			<button type="submit" onClick="test()"></button> -->
+<!-- 		</form> -->
+<!-- 	</div> -->
 <!-- https://www.dogedoge.com/results?q=site%3Atyzhang.top+ -->
         <hr>
     
@@ -337,7 +355,47 @@
             
         
             
-            <a href="/tags/#设计模式" title="设计模式" rel="1">设计模式</a>
+            <a href="/tags/#银行核心系统" title="银行核心系统" rel="1">银行核心系统</a>
+            
+        
+            
+            <a href="/tags/#汇编语言" title="汇编语言" rel="4">汇编语言</a>
+            
+        
+            
+            <a href="/tags/#Git" title="Git" rel="4">Git</a>
+            
+        
+            
+            <a href="/tags/#Maven" title="Maven" rel="1">Maven</a>
+            
+        
+            
+            <a href="/tags/#Spring" title="Spring" rel="5">Spring</a>
+            
+        
+            
+            <a href="/tags/#UML语言" title="UML语言" rel="1">UML语言</a>
+            
+        
+            
+            <a href="/tags/#前端基础" title="前端基础" rel="3">前端基础</a>
+            
+        
+            
+            <a href="/tags/#加密" title="加密" rel="1">加密</a>
+            
+        
+            
+            <a href="/tags/#Redis学习" title="Redis学习" rel="6">Redis学习</a>
+            
+        
+            
+            <a href="/tags/#算法基础" title="算法基础" rel="21">算法基础</a>
+            
+        
+            
+            <a href="/tags/#设计模式-创建型模式" title="设计模式-创建型模式" rel="7">设计模式-创建型模式</a>
             
         
             
@@ -353,7 +411,7 @@
             
         
             
-            <a href="/tags/#MySQL" title="MySQL" rel="1">MySQL</a>
+            <a href="/tags/#JDBC" title="JDBC" rel="4">JDBC</a>
             
         
             
@@ -361,7 +419,15 @@
             
         
             
-            <a href="/tags/#Java网络编程" title="Java网络编程" rel="1">Java网络编程</a>
+            <a href="/tags/#Vue" title="Vue" rel="1">Vue</a>
+            
+        
+            
+            <a href="/tags/#MySQL基础" title="MySQL基础" rel="15">MySQL基础</a>
+            
+        
+            
+            <a href="/tags/#MySQL性能优化" title="MySQL性能优化" rel="18">MySQL性能优化</a>
             
         
     </div>
@@ -439,10 +505,6 @@
 <ul class="list-inline">
 
     
-        <li><a href="https://zytgalaxy.github.io/" target="_blank">ztygalaxy</a></li>
-    
-        <li><a href="" target="_blank">xiaoming</a></li>
-    
 </ul>
 
         <hr>
@@ -453,23 +515,23 @@
     <ul>
       
         <li>
+          <a href="/article/BankCoreSystem-%E8%B4%B7%E6%AC%BE%E6%A0%B8%E5%BF%83%E4%B8%9A%E5%8A%A1%E7%9F%A5%E8%AF%86/">贷款核心业务知识</a>
+        </li>
+      
+        <li>
           <a href="/article/projectInfo/">我的个人项目</a>
         </li>
       
         <li>
-          <a href="/article/databases-mysql-24-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/">事务隔离级别</a>
+          <a href="/article/LinuxServer-docker-1-Docker%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E9%AA%8C%E8%AF%81/">Docker安装以及验证</a>
         </li>
       
         <li>
-          <a href="/article/Linux%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3-docker-1-Docker%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E9%AA%8C%E8%AF%81/">Docker安装以及验证</a>
+          <a href="/article/LinuxServer-docker-3-docker%E6%97%A5%E5%BF%97%E6%B8%85%E7%90%86/">docker日志清理</a>
         </li>
       
         <li>
-          <a href="/article/Linux%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3-docker-3-docker%E6%97%A5%E5%BF%97%E6%B8%85%E7%90%86/">docker日志清理</a>
-        </li>
-      
-        <li>
-          <a href="/article/Linux%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3-linux-1-Linux%E5%85%A5%E9%97%A8%E5%91%BD%E4%BB%A4-%E5%BF%AB%E6%8D%B7%E9%94%AE/">docker日志清理</a>
+          <a href="/article/LinuxServer-linux-1-Linux%E5%85%A5%E9%97%A8%E5%91%BD%E4%BB%A4-%E5%BF%AB%E6%8D%B7%E9%94%AE/">1.Linux入门命令和快捷键</a>
         </li>
       
     </ul>
@@ -480,7 +542,7 @@
         
     <h5>归档</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a><span class="archive-list-count">55</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a><span class="archive-list-count">68</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a><span class="archive-list-count">49</span></li></ul>
     </div>
 
         <hr>
@@ -668,8 +730,220 @@
 <!-- Baidu Tongji -->
 
 
+<!-- Mermaid图表库 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  // 页面加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid !== 'undefined') {
+      // 在这里可以配置Mermaid的主题、流程图方向等
+      mermaid.initialize({
+      // 自动识别并渲染所有 class="mermaid" 的div
+        startOnLoad: true,
+        // 可选：'default', 'dark', 'forest', 'neutral'
+        theme: 'neutral'
+      });
+    }
+  });
+</script>
+<script>
+$(document).ready(function() {
+    var isModalOpen = false;
+    // 1. 加载 search.xml 索引文件
+  $.ajax({
+    url: '/search.json', // 路径改为json
+    dataType: 'json',                    // 数据类型改为json
+    success: function(searchData) {      // 直接得到JS对象
+      console.log('搜索索引加载完成，共 ' + searchData.length + ' 篇文章。');
+      // 注意：searchData 现在直接是数组，无需解析
+      // 需要将全局的 searchData 变量赋值
+      window.searchData = searchData; // 赋值给全局变量
+    },
+    error: function() {
+      $('#search-status').text('无法加载搜索索引文件。');
+    }
+});
 
+    // 2. 搜索功能核心函数
+    function performSearch(keyword) {
+      var resultsContainer = $('#search-results-container').empty();
+      $('#search-status').hide();
 
+      if (!keyword.trim()) {
+        $('#search-status').text('输入关键词开始搜索...').show();
+        return;
+      }
+
+      var resultsHtml = '';
+      var resultCount = 0;
+      var kwReg = new RegExp(keyword, 'gi'); // 创建全局、不区分大小写的正则表达式
+
+      // 遍历所有文章数据
+      window.searchData.forEach(function(item) {
+        // 在标题和内容中搜索关键词
+        var titleMatch = item.title.match(kwReg);
+        var contentMatch = item.content.match(kwReg);
+
+        if (titleMatch || contentMatch) {
+          resultCount++;
+          // 构建标题高亮
+          var highlightedTitle = item.title.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+          // 从内容中提取包含关键词的片段（约150字符）并高亮
+          var contentSnippet = item.content;
+          var firstIndex = contentSnippet.toLowerCase().indexOf(keyword.toLowerCase());
+          if (firstIndex !== -1) {
+            var start = Math.max(0, firstIndex - 60);
+            var end = Math.min(contentSnippet.length, firstIndex + 90);
+            contentSnippet = '...' + contentSnippet.substring(start, end) + '...';
+          } else {
+            contentSnippet = contentSnippet.substring(0, 150) + '...';
+          }
+          contentSnippet = contentSnippet.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+
+          // 生成单个结果的HTML
+          resultsHtml += `
+            <div class="search-result-item">
+              <a href="${item.url}" class="search-result-title">${highlightedTitle}</a>
+              <p class="search-result-excerpt">${contentSnippet}</p>
+            </div>
+          `;
+        }
+      });
+
+      // 显示结果或“无结果”状态
+      if (resultCount > 0) {
+        resultsContainer.html(resultsHtml);
+      } else {
+        resultsContainer.html('<div id="search-status">未找到包含 "' + keyword + '" 的文章。</div>');
+      }
+    }
+
+    // 3. 绑定输入事件（防抖，提升性能）
+    var searchTimer;
+    $('#search-input').on('input', function() {
+      clearTimeout(searchTimer);
+      var keyword = $(this).val();
+      searchTimer = setTimeout(function() {
+        performSearch(keyword);
+      }, 300); // 延迟300毫秒后执行搜索
+    });
+
+    // 4. 全局控制搜索弹窗显示/隐藏的函数
+    window.openSearchModal = function() {
+      isModalOpen = true;
+      $('#search-mask, #search-modal').fadeIn(200);
+      $('#search-input').focus().select(); // 自动聚焦到输入框
+      $('body').css('overflow', 'hidden'); // 防止背景滚动
+    };
+    window.closeSearchModal = function() {
+      isModalOpen = false;
+      $('#search-mask, #search-modal').fadeOut(200);
+      $('#search-input').val(''); // 清空输入框
+      $('#search-results-container').empty(); // 清空结果
+      $('#search-status').text('输入关键词开始搜索...').show();
+      $('body').css('overflow', 'auto');
+    };
+
+    // 5. 事件绑定：点击遮罩关闭、ESC键关闭
+    $('#search-mask').on('click', closeSearchModal);
+    $(document).on('keydown', function(e) {
+      if (e.keyCode === 27 && isModalOpen) { // ESC键
+        closeSearchModal();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.keyCode === 70 && !isModalOpen) { // Ctrl+F / Cmd+F
+        e.preventDefault(); // 阻止浏览器默认查找
+        openSearchModal();
+      }
+    });
+  });
+</script>
+
+<!-- 本地搜索 CSS -->
+    <style>
+      /* 搜索弹窗遮罩 */
+      #search-mask {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9998;
+        display: none;
+      }
+      /* 搜索主容器 */
+      #search-modal {
+        position: fixed;
+        top: 10%; left: 50%;
+        transform: translateX(-50%);
+        width: 80%; max-width: 600px;
+        max-height: 80vh;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      }
+      /* 搜索框区域 */
+      .search-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      #search-input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      #search-input:focus {
+        border-color: #3498db;
+      }
+      /* 搜索结果区域 */
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 20px;
+      }
+      .search-result-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .search-result-item:last-child {
+        border-bottom: none;
+      }
+      .search-result-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #2c3e50;
+      }
+      .search-result-excerpt {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 限制最多显示3行 */
+        -webkit-box-orient: vertical;
+      }
+      .search-result-highlight {
+        background-color: #fff9c4; /* 关键词高亮背景色 */
+        font-weight: bold;
+        color: #e74c3c;
+      }
+      /* 无结果/加载状态 */
+      #search-status {
+        padding: 20px;
+        text-align: center;
+        color: #999;
+      }
+    </style>
 
 
 	<a id="rocket" href="#top" class=""></a>
@@ -680,6 +954,23 @@
 <img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
 </body>
 
 </html>

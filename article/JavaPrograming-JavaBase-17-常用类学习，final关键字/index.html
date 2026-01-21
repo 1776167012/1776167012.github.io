@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          17.常用类学习,final关键字 - 牧之的博客 | Muzhi Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://1776167012.github.io/article/JavaPrograming-JavaBase-17-常用类学习，final关键字/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/beantech.min.css">
+
+
+    
+<link rel="stylesheet" href="/css/donate.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script>
+	</script>
+	<style>
+	* {
+            box-sizing: border-box;
+        }
+
+        form {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding-left: 13px;
+        }
+
+        button {
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        /*搜索框1*/
+        .bar1 {
+			background: #FFF;
+			max-width: 200px;
+		}
+        .bar1 input {
+			max-height: 30px;
+            border: 2px solid #BFBFBF;
+            border-radius: 5px;
+            background: #FFFFFF;
+            color: #BFBFBF;
+			-webkit-text-fill-color: #BFBFBF;
+        }
+        .bar1 button {
+			max-height: 30px;
+            top: 0;
+            right: 0;
+            background: #BFBFBF;
+            border-radius: 0 5px 5px 0;
+        }
+        .bar1 button:before {
+            content: "\f002";
+            font-family: FontAwesome;
+            font-size: 16px;
+            color: #F9F0DA;
+        }
+		</style>
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/feed.xml" title="牧之" type="application/atom+xml">
+</head>
+
+
+
+<!-- hack iOS CSS :active style -->
+<!-- <body ontouchstart=""  class="<?php echo($_COOKIE['night'] == '1' ? '' : ''); ?>"> -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/header_img/codeBack.png')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Java基础" title="Java基础">Java基础</a>
+                            
+                        </div>
+                        <h1>17.常用类学习,final关键字</h1>
+                        <!-- <h2 class="subheading"></h2> -->
+                        <span class="meta">
+                            muzhi on
+                            2023-05-15
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1776167012</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                   <!-- 例如，放在导航菜单内部 -->
+                   <li>
+                    <a href="javascript:void(0);" onclick="openSearchModal()" title="搜索">搜索</a>
+                   </li>
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+					<li>
+                        <a href="/archive/">文章归档</a>
+                    </li>
+					<li>
+                        <a href="/tags/">博客标签</a>
+                    </li>
+					<li>
+                        <a href="/about/">关于作者</a>
+                    </li>
+
+					<!--
+					修改about在前面的问题
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">没有什么比快乐更重要</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                    -->
+                </ul>
+            </div>
+
+        <!-- 本地搜索弹窗结构 -->
+        <div id="search-mask"></div>
+        <div id="search-modal">
+          <div class="search-header">
+            <input type="text" id="search-input" placeholder="请输入关键词搜索..." autocomplete="off" />
+          </div>
+          <div id="search-status">输入关键词开始搜索...</div>
+          <div class="search-results" id="search-results-container">
+            <!-- 搜索结果将通过JS动态插入到这里 -->
+          </div>
+        </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				
+                <h1><span id="1string类学习">1.String类学习</span></h1>
+<h2><span id="11什么是string类">1.1.什么是String类</span></h2>
+<p>由于程序设计中经常涉及处理和字符序列有关的算法，所以Java专门提供了用来处理字符序列的String类<br>
+来让我们的编程变得的更简单。<br>
+此类在java.lang包中，而此包在Java程序中被默认引用(无需import)，因此程序可以直接使用String类。<br>
+但Java将String类定义为final类，标记为不可变类,即此类不能被继承改写。</p>
+<h2><span id="12string类中常用的方法">1.2.String类中常用的方法</span></h2>
+<h3><span id="121-构造方法">1.2.1. 构造方法</span></h3>
+<p><strong>String(char value[])</strong></p>
+<p>这是String里的一个构造方法，它的作用是将一个char数组转为一个String对象进行使用</p>
+<p>其用法为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> a[]=&#123;<span class="string">&#x27;j&#x27;</span>,<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;v&#x27;</span>,<span class="string">&#x27;a&#x27;</span>&#125;;</span><br><span class="line">String s=<span class="keyword">new</span> <span class="title class_">String</span>(a);</span><br></pre></td></tr></table></figure>
+<p>相当于：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s=<span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;java&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>String(char value[],int offset,int count)</strong></p>
+<p>也是String类的一个构造方法，它的作用是将一个char数组中的指定范围的char序列转为一个String对象并进行使用。<br>
+其用法为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> a[]=&#123;<span class="string">&#x27;0&#x27;</span>,<span class="string">&#x27;1&#x27;</span>,<span class="string">&#x27;2&#x27;</span>,<span class="string">&#x27;3&#x27;</span>,<span class="string">&#x27;4&#x27;</span>,<span class="string">&#x27;5&#x27;</span>,<span class="string">&#x27;6&#x27;</span>,<span class="string">&#x27;7&#x27;</span>,<span class="string">&#x27;8&#x27;</span>,<span class="string">&#x27;9&#x27;</span>&#125;;</span><br><span class="line">String s=<span class="keyword">new</span> <span class="title class_">String</span>(a,<span class="number">2</span>,<span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+<p>相当于</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s=<span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;2345&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>虽然String提供了一些构造方法给我们进行构造，但是，String的最常用的构造方式是：</p>
+<p>String str = “你好”;  //直接赋值</p>
+<p><strong>除此之外，String还提供了其他的构造方法，这个自行查阅API或者阅读源码。</strong></p>
+<h3><span id="122public-int-length">1.2.2.public int length()</span></h3>
+<p>此方法是获取一个String对象的字符序列长度的一个方法，其用法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;中华人民共和国&quot;</span>;</span><br><span class="line">    System.out.println(<span class="string">&quot;中华人民共和国 长度： &quot;</span>+str.length());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">中华人民共和国 长度： 7</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<h3><span id="123public-boolean-equalsstring-s">1.2.3.public boolean equals(String s)</span></h3>
+<p>此方法是一个比较两个字符串是否相同(比较的是内容)的方法，其用法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">boolean</span> a ,b;</span><br><span class="line">    <span class="type">String</span> <span class="variable">tom</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;天道酬勤&quot;</span>);</span><br><span class="line">    <span class="type">String</span> <span class="variable">boy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;天道酬勤&quot;</span>);</span><br><span class="line">    <span class="type">String</span> <span class="variable">jerry</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;投机取巧&quot;</span>);</span><br><span class="line">    a=tom.equals(boy);<span class="comment">//a的值为true</span></span><br><span class="line">    b=tom.equals(jerry);<span class="comment">//b的值为false</span></span><br><span class="line">    System.out.println(<span class="string">&quot;a: &quot;</span>+a);</span><br><span class="line">    System.out.println(<span class="string">&quot;b: &quot;</span>+b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a: true</span><br><span class="line">b: false</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<h3><span id="124-public-boolean-startswithstring-s">1.2.4 .public boolean startsWith(String s)</span></h3>
+<h3><span id="public-boolean-endswithstring-s">public boolean endsWith(String s)</span></h3>
+<p>它们分别是判断当前String对象的字符序列前缀或后缀是否是参数指定的String</p>
+<p>对象s的字符序列，其用法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">boolean</span> a,b,c,d;</span><br><span class="line">    String tom=<span class="string">&quot;天气预报&quot;</span>;</span><br><span class="line">    <span class="type">String</span> <span class="variable">jerry</span> <span class="operator">=</span> <span class="string">&quot;比赛终止&quot;</span>;</span><br><span class="line">    a=tom.startsWith(<span class="string">&quot;天气&quot;</span>);<span class="comment">//a的值为true</span></span><br><span class="line">    b=jerry.startsWith(<span class="string">&quot;天气&quot;</span>);<span class="comment">//b的值为flase</span></span><br><span class="line">    c=tom.endsWith(<span class="string">&quot;终止&quot;</span>);<span class="comment">//c的值是false</span></span><br><span class="line">    d=jerry.endsWith(<span class="string">&quot;终止&quot;</span>);<span class="comment">//d的值是true</span></span><br><span class="line">    System.out.println(<span class="string">&quot;a: &quot;</span>+a);</span><br><span class="line">    System.out.println(<span class="string">&quot;b: &quot;</span>+b);</span><br><span class="line">    System.out.println(<span class="string">&quot;c: &quot;</span>+c);</span><br><span class="line">    System.out.println(<span class="string">&quot;d: &quot;</span>+d);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a: true</span><br><span class="line">b: false</span><br><span class="line">c: false</span><br><span class="line">d: true</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<h2><span id="125-public-int-comparetostring-s">1.2.5 public int compareTo(String s)</span></h2>
+<p>此方法为一个按字典排序与参数指定的String对象s的字符序列比较大小。</p>
+<p>用法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    String str=<span class="string">&quot;adcde&quot;</span>;</span><br><span class="line">    <span class="type">int</span> a,b,c;</span><br><span class="line">    a = str.compareTo(<span class="string">&quot;boy&quot;</span>);<span class="comment">//小于0</span></span><br><span class="line">    b = str.compareTo(<span class="string">&quot;aba&quot;</span>);<span class="comment">//大于0</span></span><br><span class="line">    c = str.compareTo(<span class="string">&quot;adcde&quot;</span>);<span class="comment">//等于0</span></span><br><span class="line">    System.out.println(<span class="string">&quot;a: &quot;</span>+a);</span><br><span class="line">    System.out.println(<span class="string">&quot;b: &quot;</span>+b);</span><br><span class="line">    System.out.println(<span class="string">&quot;c: &quot;</span>+c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a: -1</span><br><span class="line">b: 2</span><br><span class="line">c: 0</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<p><strong>补充（字符串大小比较规则）：以字符是ASCII值确定，比较规则是，从第一个字符开始，<br>
+顺次向后比较直到出现不同的字符为止，然后以第一个不同的字符的ASCII值比较大小确定，<br>
+例如：&quot;abc&quot;和&quot;abadfg&quot;相比较，由于前两个字符相同，且第三个字符不同，一个为’c’，一个为’a’,<br>
+由于c的ASCII码比a的大，所以这两个字符串的比较结果是：“abc”&gt;“abadfg”。</strong></p>
+<h3><span id="126public-boolean-containsstring-s">1.2.6.public boolean contains(String s)</span></h3>
+<p>此方法是判断当前String对象的字符序列是否包含参数s的字符序列。</p>
+<p>用法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    String tom=<span class="string">&quot;student&quot;</span>;</span><br><span class="line">    <span class="type">boolean</span> a,b;</span><br><span class="line">    a = tom.contains(<span class="string">&quot;stu&quot;</span>);<span class="comment">//的值是true</span></span><br><span class="line">    b = tom.contains(<span class="string">&quot;ol&quot;</span>);<span class="comment">//的值是false</span></span><br><span class="line">    System.out.println(<span class="string">&quot;a: &quot;</span>+a);</span><br><span class="line">    System.out.println(<span class="string">&quot;b: &quot;</span>+b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a: true</span><br><span class="line">b: false</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<p>###1.2.7.int indexOf(String s) | int lastIndexOf(String s)</p>
+<p>indexOf用于检索首次出现s的字符序列的位置。<br>
+lastIndexOf检索最后出现s的字符序列的位置，若没有检索到则返回-1。<br>
+若想指定开始检索的位置，则有indexOf(String s,int startpoint）<br>
+和lastIndexOf(String s,int startpoint),取值后面的int startpoint为开始检索的位置。</p>
+<p>用法如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    String tom=<span class="string">&quot;I am a good cat&quot;</span>;</span><br><span class="line">    <span class="type">int</span> a,b,c,d;</span><br><span class="line">    a=tom.indexOf(<span class="string">&quot;I&quot;</span>);</span><br><span class="line">    b=tom.indexOf(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">    c=tom.indexOf(<span class="string">&quot;good&quot;</span>,<span class="number">2</span>);</span><br><span class="line">    d=tom.indexOf(<span class="string">&quot;good&quot;</span>,<span class="number">8</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;a: &quot;</span>+a);</span><br><span class="line">    System.out.println(<span class="string">&quot;b: &quot;</span>+b);</span><br><span class="line">    System.out.println(<span class="string">&quot;c: &quot;</span>+c);</span><br><span class="line">    System.out.println(<span class="string">&quot;d: &quot;</span>+d);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a: 0</span><br><span class="line">b: 2</span><br><span class="line">c: 7</span><br><span class="line">d: -1</span><br><span class="line">a lastIndexOf:13</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<p><strong>注意：String对象的字符序列中的转义字符是一个字符，例如\n代表回行,路径表示的\也是一个字符’'。</strong></p>
+<h3><span id="128public-string-substringint-startpoint">1.2.8.public String substring(int startpoint)</span></h3>
+<p>此方法用于获取一个新的String对象，新对象的字符序列是复制当前String对象字符序列的startpoint<br>
+开始到最后位置上的字符所得的字符序列。</p>
+<p>用法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    String tom=<span class="string">&quot;I like football&quot;</span>;</span><br><span class="line">    <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> tom.substring(<span class="number">1</span>);<span class="comment">//str的字符序列为&quot; like football&quot;</span></span><br><span class="line">    System.out.println(<span class="string">&quot;str: &quot;</span>+str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">str:  like football</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<p>还有substring(int start,int end)方法同上，但它是复制从start到end-1区间的字符。</p>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String tom=<span class="string">&quot;I like football&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> tom.substring(<span class="number">2</span>，<span class="number">6</span>);<span class="comment">//str的字符序列为&quot;like&quot;</span></span><br></pre></td></tr></table></figure>
+<h2><span id="13string的使用场景">1.3.String的使用场景</span></h2>
+<h3><span id="131字符串常量的使用">1.3.1.字符串常量的使用</span></h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Exa01</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        String s1,s2;</span><br><span class="line">        s1=<span class="string">&quot;你好&quot;</span>;</span><br><span class="line">        s2=<span class="string">&quot;你好&quot;</span>;</span><br><span class="line">        <span class="comment">// s1==s2的值为true</span></span><br><span class="line">        System.out.println(s1==s2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>也就是说，我们使用上面的方式给字符串进行赋值的时候，当赋的值相同的时候，分配的内存地址也一样。</strong></p>
+<h3><span id="132字符串的并置">1.3.2.字符串的并置</span></h3>
+<p>String对象可以用&quot;+&quot;进行并置运算，即首尾相接得到一个新的String对象。</p>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Exa02</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        String you=<span class="string">&quot;你&quot;</span>;</span><br><span class="line">        String me=<span class="string">&quot;我&quot;</span>;</span><br><span class="line">        String testOne;</span><br><span class="line">        <span class="comment">// testOne为一个新的字符串对象</span></span><br><span class="line">        testOne=you+me;<span class="comment">//testOne为&quot;你我&quot;</span></span><br><span class="line">        System.out.println(testOne);</span><br><span class="line">        System.out.println(you.hashCode());</span><br><span class="line">        System.out.println(me.hashCode());</span><br><span class="line">        System.out.println(testOne.hashCode());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">你我</span><br><span class="line">20320</span><br><span class="line">25105</span><br><span class="line">655025</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<h3><span id="133字符串与基本数据的转换">1.3.3.字符串与基本数据的转换</span></h3>
+<ul>
+<li>基本类型数据到字符串的转换</li>
+</ul>
+<p>可以使用以下方法：<br>
+public static String valueOf(byte n)<br>
+public static String valueOf(int n)<br>
+…依此类推，只需改变后面的数据类型就可以了。</p>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Exa03</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//浮点型到String</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> String.valueOf(<span class="number">1235434.345</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;str: &quot;</span>+str);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>字符串到数据的转换<br>
+例如：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Exa03</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//浮点型到String</span></span><br><span class="line">        String str=String.valueOf(<span class="number">1235434.345</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;str: &quot;</span>+str);</span><br><span class="line">        <span class="comment">//String 到 基本类型</span></span><br><span class="line">        <span class="type">int</span> x;</span><br><span class="line">        String s=<span class="string">&quot;234&quot;</span>;</span><br><span class="line">        x=Integer.parseInt(s);<span class="comment">//可以根据需要将parseInt中的Int改为其他数据类型</span></span><br><span class="line">        System.out.println(x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">str: 1235434.345</span><br><span class="line">234</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<h3><span id="134对象的字符串表示">1.3.4.对象的字符串表示</span></h3>
+<p>Object类有一个public String toString()方法，此方法可以使一个对象通过调用该方法获得该对象的字符串表示。<br>
+此方法的一般返回形式为：创建对象的类的名字@用字符串表示的对象的引用，<br>
+但是我们可以重写该方法让对象的toString方法输出我们想要它输出的信息。</p>
+<p>例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Exa04</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span>&#123;</span><br><span class="line">        Date date=<span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">        System.out.println(date.toString());</span><br><span class="line">        TV tv=<span class="keyword">new</span> <span class="title class_">TV</span>();</span><br><span class="line">        tv.setPrice(<span class="number">5345</span>);</span><br><span class="line">        System.out.println(tv.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TV</span>&#123;</span><br><span class="line">    <span class="type">double</span> price;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPrice</span><span class="params">(<span class="type">double</span> m)</span>&#123;</span><br><span class="line">        price=m;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span>&#123;</span><br><span class="line">        String oldStr=<span class="built_in">super</span>.toString();</span><br><span class="line">        <span class="keyword">return</span> oldStr+<span class="string">&quot;\n这是电视机，价格是:&quot;</span>+price;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Thu May 18 15:10:11 CST 2023</span><br><span class="line">Base.exa17.TV@135fbaa4</span><br><span class="line">这是电视机，价格是:5345.0</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<h3><span id="135字符串与字符数组字节数组">1.3.5.字符串与字符数组，字节数组</span></h3>
+<p><strong>字符串与字符数组</strong></p>
+<p>String类提供了将String对象的字符序列存放到数组中的方法：</p>
+<p>public void getChar(int start,int end,char c[],int offset)</p>
+<p>此方法可将当前String对象的字符序列的一部分字符复制到参数c指定的数组中，</p>
+<p>将字符序列中从位置start到end-1位置上的字符复制到数组c中，并从数组c的offset处开始存放这些字符。</p>
+<p>另外，还有一个简练地将String对象的字符序列的全部字符存放在一个字符数组的方法：</p>
+<p><strong>public char[] toCharArray();</strong></p>
+<p>该方法返回一个字符数组，该数组的长度与String对象的字符序列长度相等（第i个单元中的字符刚好为第i个字符）</p>
+<p>使用实例如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Exa05</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span>&#123;</span><br><span class="line">        <span class="type">char</span>[] a,c;</span><br><span class="line">        String s=<span class="string">&quot;1945年8月15日是抗战胜利日&quot;</span>;</span><br><span class="line">        a = <span class="keyword">new</span> <span class="title class_">char</span>[<span class="number">4</span>];</span><br><span class="line">        s.getChars(<span class="number">11</span>,<span class="number">15</span>,a,<span class="number">0</span>);</span><br><span class="line">        System.out.println(a);</span><br><span class="line">        c=<span class="string">&quot;十一长假期间，学校都放假了&quot;</span>.toCharArray();</span><br><span class="line">        System.out.println(c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>字符串与字节数组</strong></p>
+<p>String类的一个构造方法String(byte[])用指定的字节数组构造一个String对象。<br>
+String(byte[],int offset,int length)构造方法用指定的字节数组的一部分，<br>
+即从数组的起始位置offset开始去length个字节，构造一个String对象。<br>
+<strong>public byte[] getBytes()方法使用平台默认的字符编码，将当前的String对象的字符序列存放到字节数组中，<br>
+并返回数组的引用。</strong></p>
+<p>例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Exa05</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span>&#123;</span><br><span class="line">        <span class="type">char</span>[] a,c;</span><br><span class="line">        String s=<span class="string">&quot;1945年8月15日是抗战胜利日&quot;</span>;</span><br><span class="line">        a = <span class="keyword">new</span> <span class="title class_">char</span>[<span class="number">4</span>];</span><br><span class="line">        s.getChars(<span class="number">11</span>,<span class="number">15</span>,a,<span class="number">0</span>);</span><br><span class="line">        System.out.println(a);</span><br><span class="line">        c=<span class="string">&quot;十一长假期间，学校都放假了&quot;</span>.toCharArray();</span><br><span class="line">        System.out.println(c);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//String 与 byte</span></span><br><span class="line">        <span class="type">byte</span> d[]=<span class="string">&quot;javaHello&quot;</span>.getBytes();<span class="comment">//字符串转为字节数组</span></span><br><span class="line">        System.out.println(<span class="string">&quot;数组d的长度：&quot;</span>+ d.length);</span><br><span class="line">        System.out.println(d);</span><br><span class="line">        String s1=<span class="keyword">new</span> <span class="title class_">String</span>(d,<span class="number">6</span>,<span class="number">2</span>);<span class="comment">//字节数组转字符串</span></span><br><span class="line">        System.out.println(s1);<span class="comment">//输出&quot;好&quot;</span></span><br><span class="line">        s1=<span class="keyword">new</span> <span class="title class_">String</span>(d,<span class="number">0</span>,<span class="number">6</span>);</span><br><span class="line">        System.out.println(s1);<span class="comment">//输出&quot;java你&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="136正则表达式及字符串的替换和分解">1.3.6.正则表达式及字符串的替换和分解</span></h3>
+<p><strong>正则表达式</strong></p>
+<p>正则表达式是一个String对象的字符序列，该字符序列中含有具有特殊意义的字符，<br>
+这些特殊字符称为元字符，如&quot;\dcat&quot;中的\d代表0~9中任意一个数。<br>
+String对象调用 <strong>public boolean matches(String regex)</strong><br>
+方法可判断当前String对象的字符序列是否和regex指定的正则表达式匹配。（正则表达式可用来进行高效过滤）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Exa06_1</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;0cat&quot;</span>;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">is</span> <span class="operator">=</span> str.matches(<span class="string">&quot;\\dcat&quot;</span>);</span><br><span class="line">        System.out.println(str+<span class="string">&quot;是否符合正则表达式：\\\\dcat ：&quot;</span>+is);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>字符串的替换</strong></p>
+<p>String对象可调用 <strong>public String replaceAll(String regex,String replacement)</strong><br>
+方法返回一个新的String对象。<br>
+这个新对象的字符序列是把当前String对象的字符序列中所有和参数regex匹配的子字符序列，<br>
+用参数replacement的字符序列替换后得到字符序列。<br>
+例如：<br>
+String str=“12hello567bird”.replaceAll(“[a-zA-a]+”,“你好”);<br>
+此操作是将字符序列（即12hello567bird）中所有英文字符替换为&quot;你好&quot;，即str为&quot;12你好567你好&quot;。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Exa06_2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        String str=<span class="string">&quot;12hello567bird&quot;</span>.replaceAll(<span class="string">&quot;[a-zA-a]+&quot;</span>,<span class="string">&quot;你好&quot;</span>);</span><br><span class="line">        System.out.println(str);</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;12hello567bird&quot;</span>.replace(<span class="string">&quot;hello&quot;</span>,<span class="string">&quot;你好&quot;</span>);</span><br><span class="line">        System.out.println(str1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>字符序列的分隔</strong></p>
+<p>String类提供了一个方法public String[] split(String regex).</p>
+<p>此方法可使用参数指定的正则表达式regex作为分隔标记分解出当前String对象序列中的单词，<br>
+并将分解出的单词存放在String数组中。</p>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Exa06_3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        String str=<span class="string">&quot;1949年10月1日,是中华人民共和国成立的日子&quot;</span>;</span><br><span class="line">        String regex=<span class="string">&quot;,&quot;</span>;</span><br><span class="line">        String degitWord[] = str.split(regex);</span><br><span class="line">        <span class="keyword">for</span>(String str1:degitWord)&#123;</span><br><span class="line">            System.out.println(str1);</span><br><span class="line">        &#125;</span><br><span class="line">        String[] strings = str.split(<span class="string">&quot;\\D+&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span>(String str1:strings)&#123;</span><br><span class="line">            System.out.println(str1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于字符串的使用还有很多使用场景，还要学习。</p>
+<p>细心的我们仔细看就会发现String类被final修饰了，String是个不可变类。</p>
+<h3><span id="137final关键字">1.3.7.final关键字</span></h3>
+<p>注意：final可以用来修饰类，方法和属性，但不能修饰构造方法。<br>
+使用final修饰的类不可被继承，使用final修饰的方法不可被重写，使用final修饰的变量不可被修改。<br>
+<strong>final修饰的基本类型变量的值不可被改变，但是由final修饰的引用类型变量虽然不可以改变，<br>
+但它所指向的内存空间中的变量可以改变。</strong></p>
+<p>代码地址：<br>
+<a href="https://gitee.com/yan-jiadou/study/tree/master/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/src/main/java/Base/exa17">Java基础学习/src/main/java/exa17 · 严家豆/Study - 码云 - 开源中国 (gitee.com)</a></p>
+
+                
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/JavaPrograming-JavaBase-16-程序设计的三大错误-异常类和断言/" data-toggle="tooltip" data-placement="top" title="16.程序设计的三大错误,异常类和断言">&larr; 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/JavaPrograming-JavaBase-18-1-实用类Scanner-StringBuffer-Date-Caledar/" data-toggle="tooltip" data-placement="top" title="18-1.实用类Scanner,StringBuffer,Date,Calendar">下一篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Java基础" title="Java基础">Java基础</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+				<!--
+                
+                <hr>
+                <h5>朋友们</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+				-->
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+          //console.log(a.target.textContent.replace(/\./g, ""));
+          document.getElementById(a.target.textContent.replace(/\./g, "").replace(" ","-")).scrollIntoView({behavior: 'smooth' });
+        })
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    //document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhihu_xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/xx">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse"><b>B</b></i>
+                            </span>
+                        </a>
+                    </li>
+                
+				
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/1776167012">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; muzhi 2026 
+                    <br>
+					
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://1776167012.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Mermaid图表库 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  // 页面加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid !== 'undefined') {
+      // 在这里可以配置Mermaid的主题、流程图方向等
+      mermaid.initialize({
+      // 自动识别并渲染所有 class="mermaid" 的div
+        startOnLoad: true,
+        // 可选：'default', 'dark', 'forest', 'neutral'
+        theme: 'neutral'
+      });
+    }
+  });
+</script>
+<script>
+$(document).ready(function() {
+    var isModalOpen = false;
+    // 1. 加载 search.xml 索引文件
+  $.ajax({
+    url: '/search.json', // 路径改为json
+    dataType: 'json',                    // 数据类型改为json
+    success: function(searchData) {      // 直接得到JS对象
+      console.log('搜索索引加载完成，共 ' + searchData.length + ' 篇文章。');
+      // 注意：searchData 现在直接是数组，无需解析
+      // 需要将全局的 searchData 变量赋值
+      window.searchData = searchData; // 赋值给全局变量
+    },
+    error: function() {
+      $('#search-status').text('无法加载搜索索引文件。');
+    }
+});
+
+    // 2. 搜索功能核心函数
+    function performSearch(keyword) {
+      var resultsContainer = $('#search-results-container').empty();
+      $('#search-status').hide();
+
+      if (!keyword.trim()) {
+        $('#search-status').text('输入关键词开始搜索...').show();
+        return;
+      }
+
+      var resultsHtml = '';
+      var resultCount = 0;
+      var kwReg = new RegExp(keyword, 'gi'); // 创建全局、不区分大小写的正则表达式
+
+      // 遍历所有文章数据
+      window.searchData.forEach(function(item) {
+        // 在标题和内容中搜索关键词
+        var titleMatch = item.title.match(kwReg);
+        var contentMatch = item.content.match(kwReg);
+
+        if (titleMatch || contentMatch) {
+          resultCount++;
+          // 构建标题高亮
+          var highlightedTitle = item.title.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+          // 从内容中提取包含关键词的片段（约150字符）并高亮
+          var contentSnippet = item.content;
+          var firstIndex = contentSnippet.toLowerCase().indexOf(keyword.toLowerCase());
+          if (firstIndex !== -1) {
+            var start = Math.max(0, firstIndex - 60);
+            var end = Math.min(contentSnippet.length, firstIndex + 90);
+            contentSnippet = '...' + contentSnippet.substring(start, end) + '...';
+          } else {
+            contentSnippet = contentSnippet.substring(0, 150) + '...';
+          }
+          contentSnippet = contentSnippet.replace(kwReg, function(match) {
+            return '<span class="search-result-highlight">' + match + '</span>';
+          });
+
+          // 生成单个结果的HTML
+          resultsHtml += `
+            <div class="search-result-item">
+              <a href="${item.url}" class="search-result-title">${highlightedTitle}</a>
+              <p class="search-result-excerpt">${contentSnippet}</p>
+            </div>
+          `;
+        }
+      });
+
+      // 显示结果或“无结果”状态
+      if (resultCount > 0) {
+        resultsContainer.html(resultsHtml);
+      } else {
+        resultsContainer.html('<div id="search-status">未找到包含 "' + keyword + '" 的文章。</div>');
+      }
+    }
+
+    // 3. 绑定输入事件（防抖，提升性能）
+    var searchTimer;
+    $('#search-input').on('input', function() {
+      clearTimeout(searchTimer);
+      var keyword = $(this).val();
+      searchTimer = setTimeout(function() {
+        performSearch(keyword);
+      }, 300); // 延迟300毫秒后执行搜索
+    });
+
+    // 4. 全局控制搜索弹窗显示/隐藏的函数
+    window.openSearchModal = function() {
+      isModalOpen = true;
+      $('#search-mask, #search-modal').fadeIn(200);
+      $('#search-input').focus().select(); // 自动聚焦到输入框
+      $('body').css('overflow', 'hidden'); // 防止背景滚动
+    };
+    window.closeSearchModal = function() {
+      isModalOpen = false;
+      $('#search-mask, #search-modal').fadeOut(200);
+      $('#search-input').val(''); // 清空输入框
+      $('#search-results-container').empty(); // 清空结果
+      $('#search-status').text('输入关键词开始搜索...').show();
+      $('body').css('overflow', 'auto');
+    };
+
+    // 5. 事件绑定：点击遮罩关闭、ESC键关闭
+    $('#search-mask').on('click', closeSearchModal);
+    $(document).on('keydown', function(e) {
+      if (e.keyCode === 27 && isModalOpen) { // ESC键
+        closeSearchModal();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.keyCode === 70 && !isModalOpen) { // Ctrl+F / Cmd+F
+        e.preventDefault(); // 阻止浏览器默认查找
+        openSearchModal();
+      }
+    });
+  });
+</script>
+
+<!-- 本地搜索 CSS -->
+    <style>
+      /* 搜索弹窗遮罩 */
+      #search-mask {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9998;
+        display: none;
+      }
+      /* 搜索主容器 */
+      #search-modal {
+        position: fixed;
+        top: 10%; left: 50%;
+        transform: translateX(-50%);
+        width: 80%; max-width: 600px;
+        max-height: 80vh;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      }
+      /* 搜索框区域 */
+      .search-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      #search-input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      #search-input:focus {
+        border-color: #3498db;
+      }
+      /* 搜索结果区域 */
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 20px;
+      }
+      .search-result-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .search-result-item:last-child {
+        border-bottom: none;
+      }
+      .search-result-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #2c3e50;
+      }
+      .search-result-excerpt {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 限制最多显示3行 */
+        -webkit-box-orient: vertical;
+      }
+      .search-result-highlight {
+        background-color: #fff9c4; /* 关键词高亮背景色 */
+        font-weight: bold;
+        color: #e74c3c;
+      }
+      /* 无结果/加载状态 */
+      #search-status {
+        padding: 20px;
+        text-align: center;
+        color: #999;
+      }
+    </style>
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+	<script  type="text/javascript">
+<!-- Image to hack wechat -->
+<img src="https://1776167012.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+</body>
+
+</html>
