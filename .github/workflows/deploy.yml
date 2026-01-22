@@ -1,0 +1,85 @@
+name: Deploy Hexo to Server
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  
+  # 允许手动触发部署
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x]
+    
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive  # 如果使用了主题子模块
+    
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Cache node modules
+      uses: actions/cache@v3
+      id: cache
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    
+    - name: Install dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: |
+        npm ci
+    
+    - name: Generate static files
+      run: |
+        npm run build
+    
+    - name: Test generated files
+      run: |
+        # 检查是否有生成的HTML文件
+        ls -la public/*.html || echo "No HTML files found"
+        # 检查文件数量
+        find public -type f | wc -l
+    
+    - name: Deploy to Server via SSH
+      uses: easingthemes/ssh-deploy@v4.0.7
+      with:
+        SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        TARGET_DIR: ${{ secrets.REMOTE_TARGET }}
+        SOURCE: "public/"
+        ARGS: "-avz --delete"
+        EXCLUDE: "/.git, /node_modules"
+        SCRIPT_BEFORE: |
+          echo "Starting deployment at $(date)"
+          whoami
+          pwd
+          ls -la ${{ secrets.REMOTE_TARGET }} || echo "Target directory not found or empty"
+        SCRIPT_AFTER: |
+          echo "Deployment completed at $(date)"
+          echo "Files deployed:"
+          find ${{ secrets.REMOTE_TARGET }} -type f | wc -l
+          echo "Setting correct permissions..."
+          chmod -R 755 ${{ secrets.REMOTE_TARGET }} || true
+          echo "Deployment verification:"
+          ls -la ${{ secrets.REMOTE_TARGET }} | head -10
+    
+    - name: Verify Deployment
+      run: |
+        echo "Waiting 5 seconds for deployment to complete..."
+        sleep 5
+        curl -f http://${{ secrets.REMOTE_HOST }}/ || echo "Website might still be deploying"
